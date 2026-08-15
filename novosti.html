@@ -41,8 +41,14 @@ img{max-width:100%}
 /* строка намазов — единственный светло-зелёный элемент */
 .strip{background:var(--strip);border-bottom:1px solid var(--brd)}
 .strip-in{display:flex;align-items:center;gap:32px;flex-wrap:wrap;padding:14px 28px;max-width:1240px;margin:0 auto}
-.strip-left{margin-right:auto;display:flex;flex-direction:column;gap:8px}
+.strip-left{margin-right:auto;display:flex;flex-direction:column;gap:10px}
+.strip-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx)}
+.jumua{display:inline-flex;align-items:baseline;gap:8px}
+.jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.jumua-v{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--gold)}
+.strip-link{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none;border-bottom:1px solid var(--tx);padding-bottom:3px}
+.strip-link:hover{color:var(--gold);border-bottom-color:var(--gold)}
 .clock{display:inline-flex;align-items:center;gap:10px;background:var(--pnl);border:1px solid var(--brd);border-radius:999px;padding:6px 16px;align-self:flex-start}
 #night:checked ~ .page .clock{background:rgba(255,255,255,.08)}
 .clock-label{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
@@ -51,7 +57,6 @@ img{max-width:100%}
 .prayer{display:flex;flex-direction:column;align-items:center;gap:3px}
 .prayer-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .prayer-v{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
-.strip-note{width:100%;font-size:11.5px;color:var(--mut)}
 
 /* шапка */
 .hdr{position:sticky;top:18px;z-index:50;padding:0 28px;transition:top .25s ease,padding .25s ease}
@@ -270,18 +275,21 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   <div class="strip">
     <div class="strip-in">
       <div class="strip-left">
-        <span class="date" id="today">Дата</span>
-        <span class="clock"><span class="clock-label">Хабаровск сейчас</span><span class="clock-time" id="clock">--:--:--</span></span>
+        <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
+        <div class="strip-row">
+          <span class="clock"><span class="clock-label">Хабаровск сейчас</span><span class="clock-time" id="clock">--:--:--</span></span>
+          <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
+          <a class="strip-link" href="namaz.html">Полное расписание</a>
+        </div>
       </div>
       <div class="prayers">
-        <div class="prayer"><span class="prayer-k">Фаджр</span><span class="prayer-v">03:32</span></div>
-        <div class="prayer"><span class="prayer-k">Восход</span><span class="prayer-v">05:20</span></div>
-        <div class="prayer"><span class="prayer-k">Зухр</span><span class="prayer-v">12:38</span></div>
-        <div class="prayer"><span class="prayer-k">Аср</span><span class="prayer-v">16:30</span></div>
-        <div class="prayer"><span class="prayer-k">Магриб</span><span class="prayer-v">19:52</span></div>
-        <div class="prayer"><span class="prayer-k">Иша</span><span class="prayer-v">21:40</span></div>
+        <div class="prayer"><span class="prayer-k">Фаджр</span><span class="prayer-v">02:48</span></div>
+        <div class="prayer"><span class="prayer-k">Восход</span><span class="prayer-v">04:52</span></div>
+        <div class="prayer"><span class="prayer-k">Зухр</span><span class="prayer-v">12:32</span></div>
+        <div class="prayer"><span class="prayer-k">Аср</span><span class="prayer-v">16:41</span></div>
+        <div class="prayer"><span class="prayer-k">Магриб</span><span class="prayer-v">20:04</span></div>
+        <div class="prayer"><span class="prayer-k">Иша</span><span class="prayer-v">22:02</span></div>
       </div>
-      <div class="strip-note">Времена намазов — демонстрационные, подставляются из расписания, утверждённого ДУМ ДВ.</div>
     </div>
   </div>
 
@@ -503,10 +511,20 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 (function () {
   var clock = document.getElementById('clock');
   var today = document.getElementById('today');
+  var hijriEl = document.getElementById('hijri');
+  var HIJRI_MONTHS = ['мухаррам', 'сафар', 'раби-уль-авваль', 'раби-уль-ахир', 'джумада-уль-уля', 'джумада-уль-ахира', 'раджаб', 'шаабан', 'рамадан', 'шавваль', 'зуль-каада', 'зуль-хиджа'];
+  function hijri(now) {
+    try {
+      var parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(now);
+      var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parseInt(parts[i].value, 10); return 0; };
+      return get('day') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
+    } catch (e) { return ''; }
+  }
   function tick() {
     var now = new Date();
     clock.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now);
     today.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
+    if (hijriEl) hijriEl.textContent = hijri(now);
   }
   tick();
   setInterval(tick, 1000);
