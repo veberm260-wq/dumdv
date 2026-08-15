@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новости — Духовное управление мусульман Дальнего Востока</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;font-size:16px;background:#fbf6ec}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0}
+a{color:#8a6f2e}
+a:hover{color:#6f5822}
+img{max-width:100%}
+#night,#fsmenu{position:absolute;opacity:0;pointer-events:none}
+
+.page{
+  --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
+  --brd:rgba(32,30,29,.14);--gold:#8a6f2e;--goldsoft:#c8a94f;--track:#e9dcc0;
+  --strip:#ffffff;--heroimg:.5;
+  --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
+  background:var(--pg);color:var(--tx)
+}
+#night:checked ~ .page{
+  --pg:#12141c;--srf:#191d28;--pnl:#161a23;--tx:#f3ecdd;--mut:rgba(243,236,221,.72);
+  --brd:rgba(243,236,221,.18);--gold:#d9b45c;--goldsoft:#e9d08a;--track:rgba(243,236,221,.16);
+  --strip:#191d28;--heroimg:.3;
+  --veil:linear-gradient(100deg,rgba(18,20,28,.95) 0%,rgba(18,20,28,.82) 34%,rgba(18,20,28,.42) 64%,rgba(18,20,28,.2) 100%)
+}
+#night:checked ~ .page .sky{display:block}
+#night:checked ~ .page .theme-day{display:none}
+.theme-night{display:none}
+#night:checked ~ .page .theme-night{display:inline}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
+
+/* строка намазов — единственный светло-зелёный элемент */
+.strip{background:var(--strip);border-bottom:1px solid var(--brd)}
+.strip-in{display:flex;align-items:center;gap:32px;flex-wrap:wrap;padding:14px 28px;max-width:1240px;margin:0 auto}
+.strip-left{margin-right:auto;display:flex;flex-direction:column;gap:8px}
+.date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx)}
+.clock{display:inline-flex;align-items:center;gap:10px;background:var(--pnl);border:1px solid var(--brd);border-radius:999px;padding:6px 16px;align-self:flex-start}
+#night:checked ~ .page .clock{background:rgba(255,255,255,.08)}
+.clock-label{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
+.clock-time{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
+.prayers{display:flex;gap:26px;flex-wrap:wrap}
+.prayer{display:flex;flex-direction:column;align-items:center;gap:3px}
+.prayer-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.prayer-v{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
+.strip-note{width:100%;font-size:11.5px;color:var(--mut)}
+
+/* шапка */
+.hdr{position:sticky;top:18px;z-index:50;padding:0 28px;transition:top .25s ease,padding .25s ease}
+.hdr-in{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:30px;flex-wrap:wrap;padding:16px 26px;background:rgba(255,253,247,.86);backdrop-filter:blur(10px);border:1px solid rgba(185,143,34,.18);transition:background .25s ease,box-shadow .25s ease,padding .25s ease,max-width .25s ease}
+#night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
+.hdr.stuck{top:0;padding:0}
+.hdr.stuck .hdr-in{max-width:none;background:#fff;box-shadow:0 12px 30px rgba(32,30,29,.12);border-left:0;border-right:0;border-top:0;padding:12px 40px}
+#night:checked ~ .page .hdr.stuck .hdr-in{background:#191d28}
+.brand{display:flex;align-items:center;gap:15px;text-decoration:none;color:inherit;margin-right:auto}
+.brand-badge{width:56px;height:56px;flex:none;border-radius:50%;background:var(--pnl);border:1.5px solid #B98F22;display:grid;place-items:center}
+.mark{width:34px;height:34px;fill:#B98F22}
+.mark .cut{fill:var(--pnl)}
+.brand-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;letter-spacing:.17em;text-transform:uppercase;color:#87680F;line-height:1}
+.brand-sub{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-top:4px;display:block}
+.hdr-nav{display:flex;align-items:center;gap:26px;flex-wrap:wrap;align-self:stretch}
+.hdr-nav a{position:relative;display:flex;align-items:center;font-size:12.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none}
+.hdr-nav a:hover{color:#43340D}
+#night:checked ~ .page .hdr-nav a{color:rgba(243,236,221,.62)}
+#night:checked ~ .page .hdr-nav a:hover,#night:checked ~ .page .hdr-nav a.active{color:#f3ecdd}
+.hdr-nav a.active{color:#201e1d}
+.hdr-nav a.active::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
+.hdr.stuck .hdr-nav a.active::after{bottom:-16px}
+#night:checked ~ .page .hdr-nav a.active::after{background:#E2C169}
+.hdr-right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hdr-link{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#43340D;text-decoration:none;cursor:pointer}
+.hdr-link:hover{color:#87680F}
+.hdr-link.active-link{color:#201e1d;position:relative}
+.hdr-link.active-link::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
+.hdr.stuck .hdr-link.active-link::after{bottom:-16px}
+#night:checked ~ .page .hdr-link.active-link::after{background:#E2C169}
+#night:checked ~ .page .hdr-link{color:#f3ecdd}
+.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-size:11px;font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.dots{display:inline-flex;align-items:center;gap:4px}
+.dots i{width:5px;height:5px;border-radius:50%;background:#43340D;display:block}
+#night:checked ~ .page .dots i{background:#f3ecdd}
+.dots.close i:first-child{transform:rotate(45deg)}
+.hdr-cta{padding:13px 18px 13px 22px;font-size:11.5px;background:#B98F22}
+.hdr-cta:hover{background:#87680F;color:#fff}
+
+/* полноэкранное меню */
+.fs{display:none;position:fixed;inset:0;z-index:60;background:#FFFDF7;overflow:auto}
+#night:checked ~ .page .fs{background:#12141c}
+#fsmenu:checked ~ .page .fs{display:block}
+.fs-in{max-width:1240px;margin:0 auto;padding:34px 28px 80px}
+.fs-top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:34px;border-bottom:1px solid var(--brd)}
+.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:56px}
+.fs-col h4{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B98F22;margin:0 0 22px}
+.fs-col a{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;line-height:1.35;color:var(--tx);text-decoration:none}
+.fs-col a:hover{color:#87680F}
+
+/* герой */
+.hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%;opacity:var(--heroimg);filter:saturate(.62) contrast(.92)}
+.hero-veil{position:absolute;inset:0;background:var(--veil)}
+.sky{display:none;position:absolute;inset:0;pointer-events:none}
+.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 70px 18px rgba(243,230,192,.16)}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:twinkle 3.4s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+.hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
+.hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
+.hero p{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.5;max-width:34ch;color:var(--mut);margin:32px 0 38px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:17px 22px 17px 30px;font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none}
+.btn-primary{background:var(--gold);color:#fff}
+.btn-primary:hover{opacity:.88;color:#fff}
+.btn-ghost{border:1px solid var(--brd);color:var(--gold);padding:17px 28px}
+.btn-ghost:hover{background:var(--pnl)}
+.arrow{width:26px;height:26px;border:1.5px solid rgba(255,255,255,.6);border-radius:50%;display:grid;place-items:center;font-size:13px}
+
+/* о нас */
+.about{background:var(--srf);padding:100px 0}
+.about h2{font-size:clamp(32px,4vw,48px);line-height:1.12;color:var(--tx);margin:16px 0 22px;max-width:22ch}
+.about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start}
+.about .lead{margin-bottom:16px}
+.about-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd)}
+.fact{background:var(--srf);padding:24px 22px}
+.fact-k{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.fact-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;line-height:1.3;color:var(--tx);margin-top:8px}
+
+/* стройка */
+.build{background:var(--pnl);padding:100px 0 92px}
+.build-grid{display:grid;grid-template-columns:1.15fr 420px;gap:64px;align-items:start;margin-top:20px}
+.build h2{font-size:clamp(34px,4vw,54px);line-height:1.12;color:var(--tx);margin-bottom:22px}
+.lead{font-size:17px;line-height:1.75;color:var(--mut);max-width:52ch;margin:0}
+.big-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(40px,5vw,64px);line-height:1;color:var(--gold);margin-top:40px}
+.sub{font-size:14px;color:var(--mut);margin-top:10px}
+.rule{height:1px;background:var(--brd);margin:28px 0 20px;max-width:56ch}
+.panel{background:var(--srf);border:1px solid var(--brd);border-radius:6px;padding:28px}
+.panel-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-end}
+.panel-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.panel-num{font-family:"Cormorant Garamond",Georgia,serif;font-size:30px;line-height:1.1;margin-top:4px;color:var(--tx)}
+.track{height:10px;border-radius:999px;background:var(--track);overflow:hidden}
+.bar{height:100%;background:var(--gold)}
+.panel .track{height:12px;margin-top:16px}
+.meta-row{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-top:8px}
+.goal{background:var(--pnl);border-radius:6px;padding:20px;margin-top:20px}
+.goal .track{margin-top:10px;height:10px}
+.goal .bar{background:var(--goldsoft)}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.amount{border:1px solid var(--brd);border-radius:999px;padding:11px 4px;text-align:center;font-size:12.5px;font-weight:600;color:var(--tx)}
+.amount.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.panel .btn{width:100%;justify-content:center;margin-top:20px;padding:18px}
+.fine{font-size:12px;line-height:1.6;color:var(--mut);margin-top:14px}
+
+.stages{margin-top:72px;display:flex;flex-direction:column;gap:12px}
+.stage{display:grid;grid-template-columns:96px 1fr 300px;gap:28px;align-items:center;background:var(--srf);border:1px solid var(--brd);border-left:5px solid var(--brd);border-radius:4px;padding:24px 28px}
+.stage.active{border-color:var(--gold);border-left-color:var(--gold);background:rgba(200,169,79,.12)}
+.stage-num{display:flex;flex-direction:column;gap:6px}
+.stage-num .num{font-family:"Cormorant Garamond",Georgia,serif;font-size:38px;line-height:1;color:var(--mut)}
+.stage.done .num{color:var(--tx)}
+.stage.active .num{color:var(--gold)}
+.stage-num .status{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.stage.active .status{color:var(--gold)}
+.stage-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx)}
+.stage-money-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.stage-money .sum{font-size:14.5px;font-weight:600;color:var(--tx)}
+.stage-money .pct{font-size:13px;font-weight:700;color:var(--mut)}
+.stage.active .pct{color:var(--gold)}
+.stage.done .bar{background:var(--goldsoft)}
+.stage.next .bar{background:transparent}
+
+/* новости */
+.news{background:var(--srf);padding:100px 0}
+.head-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin:16px 0 40px}
+.head-row h2{font-size:clamp(32px,4vw,52px);line-height:1.1;color:var(--tx)}
+.more{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--gold);border-bottom:1px solid var(--goldsoft);padding-bottom:3px}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.news-photo{aspect-ratio:4/3;border:1px solid var(--brd);border-radius:3px;background:var(--pnl);display:grid;place-items:center;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mut)}
+.news-date{font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:16px}
+.news-title{font-size:24px;line-height:1.3;margin-top:8px;color:var(--tx)}
+
+/* приходы */
+.regions{background:var(--pg);padding:100px 0}
+.regions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--brd)}
+.region{background:var(--pg);padding:30px 26px}
+.region-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.2;color:var(--tx)}
+.region-note{font-size:14px;line-height:1.6;color:var(--mut);margin-top:10px}
+
+/* вопрос имаму */
+.ask{background:var(--pg);padding:0 0 96px}
+.ask-in{border-top:1px solid var(--brd);padding-top:56px;display:flex;align-items:center;justify-content:space-between;gap:56px;flex-wrap:wrap}
+.ask h2{font-size:clamp(32px,4vw,52px);line-height:1.12;margin:16px 0 14px;color:var(--tx)}
+.ask p{font-size:17px;line-height:1.7;color:var(--mut);margin:0;max-width:56ch}
+
+/* подвал */
+footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:56px;padding:72px 28px 30px;max-width:1240px;margin:0 auto}
+.foot-brand{display:flex;align-items:center;gap:14px}
+.foot-badge{width:52px;height:52px;border-radius:50%;background:var(--pnl);border:1.5px solid var(--gold);display:grid;place-items:center}
+.foot-badge .mark{width:32px;height:32px}
+.foot-col h4{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+.foot-col a,.foot-col span{display:block;font-size:15px;line-height:1.6;color:var(--tx);text-decoration:none;margin-bottom:10px}
+.foot-note{font-size:12.5px;color:var(--mut);line-height:1.6}
+.socials{display:flex;gap:12px;margin-top:16px}
+.social{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;overflow:hidden}
+.legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
+.legal-in{border-top:1px solid var(--brd);padding-top:20px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--mut)}
+
+@media (max-width:1080px){
+  .build-grid,.about-grid{grid-template-columns:1fr}
+  .stage{grid-template-columns:80px 1fr}
+  .stage-money{grid-column:1 / -1}
+  .news-grid{grid-template-columns:1fr}
+  .regions-grid{grid-template-columns:1fr 1fr}
+  .foot{grid-template-columns:1fr}
+  .moon{right:40px;top:40px;width:70px;height:70px}
+}
+
+/* страница новостей */
+.page-head{padding:120px 0 64px}
+.page-head h1{font-size:clamp(52px,8vw,104px);line-height:1.02;letter-spacing:.01em;color:var(--tx)}
+.filters{display:flex;gap:28px;flex-wrap:wrap;margin-top:56px;padding-bottom:2px}
+.filters a{position:relative;font-size:12.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:10px}
+.filters a:hover{color:#43340D}
+.filters a.active{color:var(--tx)}
+.filters a.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
+.notice{margin:0 0 40px;padding:12px 16px;border:1px dashed var(--brd);border-radius:2px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
+.feed{background:var(--srf);padding:72px 0 96px}
+.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px}
+.card{display:block;text-decoration:none;color:inherit}
+.card-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:2px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;transition:filter .25s ease,background .25s ease}
+.card:hover .card-photo{filter:brightness(1.05)}
+.slot-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B98F22}
+.slot-hint{font-size:13px;line-height:1.5;color:var(--mut);max-width:26ch}
+.card-date{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#B98F22;margin-top:20px}
+.card-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;line-height:1.3;color:var(--tx);margin-top:8px;transition:color .2s ease;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card:hover .card-title{color:#87680F}
+.pager{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:76px}
+.pager a{position:relative;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:6px}
+.pager a:hover{color:#43340D}
+.pager a.now{color:var(--tx)}
+.pager a.now::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
+@media (max-width:1080px){
+  .feed-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  .feed-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<input type="checkbox" id="night">
+<input type="checkbox" id="fsmenu">
+<div class="page">
+
+  <div class="strip">
+    <div class="strip-in">
+      <div class="strip-left">
+        <span class="date" id="today">Дата</span>
+        <span class="clock"><span class="clock-label">Хабаровск сейчас</span><span class="clock-time" id="clock">--:--:--</span></span>
+      </div>
+      <div class="prayers">
+        <div class="prayer"><span class="prayer-k">Фаджр</span><span class="prayer-v">03:32</span></div>
+        <div class="prayer"><span class="prayer-k">Восход</span><span class="prayer-v">05:20</span></div>
+        <div class="prayer"><span class="prayer-k">Зухр</span><span class="prayer-v">12:38</span></div>
+        <div class="prayer"><span class="prayer-k">Аср</span><span class="prayer-v">16:30</span></div>
+        <div class="prayer"><span class="prayer-k">Магриб</span><span class="prayer-v">19:52</span></div>
+        <div class="prayer"><span class="prayer-k">Иша</span><span class="prayer-v">21:40</span></div>
+      </div>
+      <div class="strip-note">Времена намазов — демонстрационные, подставляются из расписания, утверждённого ДУМ ДВ.</div>
+    </div>
+  </div>
+
+  <header class="hdr" id="hdr">
+    <div class="hdr-in">
+      <a class="brand" href="index.html">
+        <span class="brand-badge"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+  <path d="M32 6c3.4 2.6 5.2 5.6 5.2 8.6 0 2.6-2.3 4.6-5.2 4.6s-5.2-2-5.2-4.6c0-3 1.8-6 5.2-8.6z"/>
+  <path d="M32 21c7.6 0 13.6 6 13.6 13.4V52H18.4V34.4C18.4 27 24.4 21 32 21z"/>
+  <path class="cut" d="M28.4 52V41.6a3.6 3.6 0 0 1 7.2 0V52z"/>
+  <path d="M11 30h4v22h-4z"/><path d="M49 30h4v22h-4z"/>
+  <path d="M13 24c1.6 1.4 2.4 2.8 2.4 4.2H10.6c0-1.4.8-2.8 2.4-4.2z"/>
+  <path d="M51 24c1.6 1.4 2.4 2.8 2.4 4.2h-4.8c0-1.4.8-2.8 2.4-4.2z"/>
+  <path d="M8 54h48v4H8z"/>
+</svg></span>
+        <span>
+          <span class="brand-name">Духовное управление</span>
+          <span class="brand-sub">мусульман Дальнего Востока · Хабаровск</span>
+        </span>
+      </a>
+      <nav class="hdr-nav">
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#regions">Мечети</a>
+        <a href="index.html#contacts">Образование</a>
+        <a href="index.html#ask">Услуги</a>
+        <a href="index.html#build">Строительство</a>
+      </nav>
+      <div class="hdr-right">
+        <a class="hdr-link active-link" href="novosti.html">Новости<span class="badge">12</span></a>
+        <label class="hdr-link" for="fsmenu">Меню<span class="dots"><i></i><i></i></span></label>
+        <a class="btn btn-primary hdr-cta" href="index.html#donate">Пожертвовать<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="fs">
+    <div class="fs-in">
+      <div class="fs-top">
+        <span class="brand-name">Духовное управление</span>
+        <label class="hdr-link" for="fsmenu">Закрыть<span class="dots close"><i></i><i></i></span></label>
+      </div>
+      <div class="fs-grid">
+        <div class="fs-col">
+          <h4>Разделы</h4>
+          <a href="index.html#about">О нас</a>
+          <a href="index.html#regions">Мечети</a>
+          <a href="index.html#contacts">Образование</a>
+          <a href="index.html#ask">Услуги</a>
+          <a href="index.html#build">Строительство</a>
+          <a href="novosti.html">Новости</a>
+        </div>
+        <div class="fs-col">
+          <h4>Служебное</h4>
+          <a href="index.html#contacts">Контакты</a>
+          <a href="index.html#contacts">Реквизиты организации</a>
+          <a href="index.html#contacts">Политика обработки персональных данных</a>
+          <label class="theme-btn" for="night" style="margin-top:8px"><span class="theme-day">Ночная тема</span><span class="theme-night">Светлая тема</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="page-head" id="top">
+    <div class="wrap">
+      <h1>Новости</h1>
+      <div class="filters">
+        <a class="active" href="novosti.html">Все</a>
+        <a href="novosti.html">ДУМ ДВ</a>
+        <a href="novosti.html">ЦДУМ</a>
+        <a href="novosti.html">Строительство</a>
+        <a href="novosti.html">Образование</a>
+        <a href="novosti.html">Община</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="feed" id="news">
+    <div class="wrap">
+      <p class="notice">Демонстрационные заголовки. Реальные новости подставляются из архива ДУМ ДВ.</p>
+      <div class="feed-grid">
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото хода строительства — монолит третьего этажа</span></div>
+          <div class="card-date">12 августа 2026 · ДУМ ДВ</div>
+          <h3 class="card-title">Завершены работы по монолиту третьего этажа</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото с субботника на площадке</span></div>
+          <div class="card-date">5 августа 2026 · Община</div>
+          <h3 class="card-title">Прихожане провели субботник на территории будущей мечети</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото занятия в медресе</span></div>
+          <div class="card-date">29 июля 2026 · Образование</div>
+          <h3 class="card-title">Открыт набор в летние группы медресе</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото пятничной проповеди в молитвенном зале</span></div>
+          <div class="card-date">22 июля 2026 · ДУМ ДВ</div>
+          <h3 class="card-title">Пятничная проповедь была посвящена честности в делах</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото передачи продуктовых наборов</span></div>
+          <div class="card-date">14 июля 2026 · Община</div>
+          <h3 class="card-title">Продуктовые наборы переданы нуждающимся семьям</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото встречи в администрации</span></div>
+          <div class="card-date">3 июля 2026 · ДУМ ДВ</div>
+          <h3 class="card-title">Состоялась встреча с представителями городской администрации</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото кладки наружных стен</span></div>
+          <div class="card-date">24 июня 2026 · Строительство</div>
+          <h3 class="card-title">На площадке приступили к кладке наружных стен</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото делегации на совещании</span></div>
+          <div class="card-date">12 июня 2026 · ЦДУМ</div>
+          <h3 class="card-title">Делегация управления приняла участие в совещании ЦДУМ России</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото праздничного намаза на Курбан-байрам</span></div>
+          <div class="card-date">27 мая 2026 · Община</div>
+          <h3 class="card-title">Курбан-байрам отметили праздничным намазом</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото выпускного занятия воскресной школы</span></div>
+          <div class="card-date">8 мая 2026 · Образование</div>
+          <h3 class="card-title">Завершился учебный год в воскресной школе</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото праздничного намаза на Ураза-байрам</span></div>
+          <div class="card-date">20 марта 2026 · Община</div>
+          <h3 class="card-title">Ураза-байрам завершил месяц Рамадан</h3>
+        </a>
+        <a class="card" href="#">
+          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото ифтара в мечети</span></div>
+          <div class="card-date">2 марта 2026 · Община</div>
+          <h3 class="card-title">В Рамадан при мечети ежедневно проходят ифтары и таравих-намаз</h3>
+        </a>
+      </div>
+      <nav class="pager">
+        <a href="novosti.html">Первая</a>
+        <a class="now" href="novosti.html">1</a>
+        <a href="novosti.html">2</a>
+        <a href="novosti.html">3</a>
+        <a href="novosti.html">Последняя</a>
+      </nav>
+    </div>
+  </section>
+
+  <footer id="contacts">
+    <div class="foot">
+      <div>
+        <div class="foot-brand">
+          <span class="foot-badge"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+  <path d="M32 6c3.4 2.6 5.2 5.6 5.2 8.6 0 2.6-2.3 4.6-5.2 4.6s-5.2-2-5.2-4.6c0-3 1.8-6 5.2-8.6z"/>
+  <path d="M32 21c7.6 0 13.6 6 13.6 13.4V52H18.4V34.4C18.4 27 24.4 21 32 21z"/>
+  <path class="cut" d="M28.4 52V41.6a3.6 3.6 0 0 1 7.2 0V52z"/>
+  <path d="M11 30h4v22h-4z"/><path d="M49 30h4v22h-4z"/>
+  <path d="M13 24c1.6 1.4 2.4 2.8 2.4 4.2H10.6c0-1.4.8-2.8 2.4-4.2z"/>
+  <path d="M51 24c1.6 1.4 2.4 2.8 2.4 4.2h-4.8c0-1.4.8-2.8 2.4-4.2z"/>
+  <path d="M8 54h48v4H8z"/>
+</svg></span>
+          <span class="brand-name" style="font-size:19px;line-height:1.15">Духовное<br>управление</span>
+        </div>
+        <div class="foot-note" style="margin-top:18px">Централизованная религиозная организация в составе Центрального духовного управления мусульман России. Хабаровск.</div>
+        <div class="socials">
+          <a class="social" href="novosti.html#contacts" aria-label="Telegram" style="background:#229ED9">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 4.2 3.7 10.6c-.9.3-.9 1.6.1 1.9l3.9 1.2 1.5 4.6c.3.8 1.3 1 1.8.3l2-2.4 3.9 2.9c.7.5 1.7.1 1.9-.7l2.7-12.6c.2-1-.8-1.8-1.8-1.6z" fill="#fff"/><path d="M8.1 14.2l8.4-6.1-6.4 7.1-.1 2.6z" fill="#cfeafc"/></svg>
+          </a>
+          <a class="social" href="novosti.html#contacts" aria-label="MAX">
+            <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
+              <defs><linearGradient id="mx" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#29b6f6"/><stop offset=".5" stop-color="#3b5bdb"/><stop offset="1" stop-color="#9c27d1"/></linearGradient></defs>
+              <rect width="48" height="48" rx="14" fill="url(#mx)"/>
+              <path d="M24 8.5c8.6 0 15.5 7 15.5 15.5S32.6 39.5 24 39.5c-2.5 0-4.9-.6-7-1.7l-4.6 1.5c-1 .3-1.9-.6-1.6-1.6l1.5-4.4A15.4 15.4 0 0 1 8.5 24C8.5 15.5 15.4 8.5 24 8.5z" fill="#fff"/>
+              <circle cx="24" cy="23.6" r="8" fill="url(#mx)"/>
+            </svg>
+          </a>
+          <a class="social" href="novosti.html#contacts" aria-label="YouTube" style="background:#fff;border:1px solid rgba(32,30,29,.14)">
+            <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M28.4 10.2c-.3-1.4-1.3-2.4-2.6-2.6C23.4 7.2 19.8 7 16 7s-7.4.2-9.8.6c-1.3.2-2.3 1.2-2.6 2.6C3.2 12 3 13.8 3 16s.2 4 .6 5.8c.3 1.4 1.3 2.4 2.6 2.6 2.4.4 6 .6 9.8.6s7.4-.2 9.8-.6c1.3-.2 2.3-1.2 2.6-2.6.4-1.8.6-3.6.6-5.8s-.2-4-.6-5.8z" fill="#ED1D24"/><path d="M13.2 20.6V11.4L21.4 16z" fill="#fff"/></svg>
+          </a>
+          <a class="social" href="novosti.html#contacts" aria-label="Rutube">
+            <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
+              <defs><clipPath id="rc"><rect width="48" height="48" rx="13"/></clipPath></defs>
+              <g clip-path="url(#rc)">
+                <rect width="48" height="48" fill="#160C45"/>
+                <path d="M28 0h20v19a19 19 0 0 1-20-19z" fill="#EF1B4C"/>
+                <path d="M13 11h15.6c3.6 0 5.4 1.8 5.4 5.3v3.4c0 3.5-1.8 5.3-5.4 5.3h-1.9l6.6 12h-6.6l-6.1-12h-2.4v12H13z" fill="#fff"/>
+                <path d="M18.2 15.6h9.1c1 0 1.5.4 1.5 1.4v1.6c0 1-.5 1.4-1.5 1.4h-9.1z" fill="#160C45"/>
+              </g>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Канцелярия</h4>
+        <span>Адрес — подставить</span>
+        <span>Телефон — подставить</span>
+        <span>Электронная почта — подставить</span>
+        <span>Часы приёма — подставить</span>
+      </div>
+      <div class="foot-col">
+        <h4>Разделы</h4>
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#build">Ход строительства</a>
+        <a href="novosti.html">Новости</a>
+        <a href="index.html#regions">Мечети и приходы</a>
+        <a href="index.html#ask">Вопрос имаму</a>
+      </div>
+    </div>
+    <div class="legal">
+      <div class="legal-in">
+        <span>Духовное управление мусульман Дальнего Востока в составе ЦДУМ России · Хабаровск</span>
+        <span>Реквизиты организации — подставить перед публикацией</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var clock = document.getElementById('clock');
+  var today = document.getElementById('today');
+  function tick() {
+    var now = new Date();
+    clock.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now);
+    today.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  var hdr = document.getElementById('hdr');
+  function onScroll() {
+    if (window.scrollY > 40) hdr.classList.add('stuck');
+    else hdr.classList.remove('stuck');
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+</body>
+</html>
