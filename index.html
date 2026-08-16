@@ -221,9 +221,19 @@ img{max-width:100%}
 
 /* вопрос имаму */
 .ask{background:var(--pg);padding:0 0 96px}
-.ask-in{border-top:1px solid var(--brd);padding-top:56px;display:flex;align-items:center;justify-content:space-between;gap:56px;flex-wrap:wrap}
+.ask-in{border-top:1px solid var(--brd);padding-top:56px;display:grid;grid-template-columns:1fr 440px;gap:56px;align-items:start}
 .ask h2{font-size:clamp(32px,4vw,52px);line-height:1.12;margin:16px 0 14px;color:var(--tx)}
-.ask p{font-size:17px;line-height:1.7;color:var(--mut);margin:0;max-width:56ch}
+.ask p{font-size:17px;line-height:1.7;color:var(--mut);margin:0;max-width:46ch}
+.ask-form{display:flex;flex-direction:column;gap:16px}
+.ask-field{display:block}
+.ask-field span{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.ask-field textarea,.ask-field input{width:100%;padding:15px 17px;border:1px solid var(--brd);border-radius:13px;background:var(--srf);color:var(--tx);font-family:inherit;font-size:15px;line-height:1.55}
+.ask-field textarea{min-height:132px;resize:vertical}
+.ask-field textarea:focus,.ask-field input:focus{outline:none;border-color:#B98F22}
+.ask-form .btn{justify-content:center;border-radius:14px;padding:17px 26px}
+@media (max-width:1080px){
+  .ask-in{grid-template-columns:1fr}
+}
 
 /* подвал */
 footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
@@ -344,6 +354,54 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
+    </div>
+  </div>
+
+  <header class="hdr" id="hdr">
+    <div class="hdr-in">
+      <a class="brand" href="#top">
+        <span class="brand-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+  <defs>
+    <clipPath id="mkIn1"><circle cx="50" cy="50" r="43.5"/></clipPath>
+    <g id="mkStar1">
+      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5"/>
+      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5" transform="rotate(45 50 4)"/>
+    </g>
+  </defs>
+
+  <circle cx="50" cy="50" r="48.4" fill="none" stroke="#B98F22" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="43.5" fill="none" stroke="#B98F22" stroke-width="1.5"/>
+
+  <g fill="#B98F22">
+    <use href="#mkStar1"/>
+    <use href="#mkStar1" transform="rotate(45 50 50)"/>
+    <use href="#mkStar1" transform="rotate(90 50 50)"/>
+    <use href="#mkStar1" transform="rotate(135 50 50)"/>
+    <use href="#mkStar1" transform="rotate(180 50 50)"/>
+    <use href="#mkStar1" transform="rotate(225 50 50)"/>
+    <use href="#mkStar1" transform="rotate(270 50 50)"/>
+    <use href="#mkStar1" transform="rotate(315 50 50)"/>
+  </g>
+
+  <g clip-path="url(#mkIn1)" transform="translate(50 52) scale(1.06) translate(-50 -52)">
+    <g fill="#B98F22">
+      <path d="M72.6 39.5h5.6v34h-5.6z"/>
+      <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
+      <rect x="71.8" y="43.6" width="7.2" height="1.6"/>
+      <path d="M50 27.4c9.1 5.2 13.9 11.3 13.9 17.9 0 5.7-6.2 9.5-13.9 9.5s-13.9-3.8-13.9-9.5c0-6.6 4.8-12.7 13.9-17.9z"/>
+      <path d="M49.3 20.4a3.6 3.6 0 0 1 0 6.6 2.6 2.6 0 0 0 0-6.6z"/>
+      <path d="M30.4 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
+      <path d="M69.6 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
+      <path d="M24.5 54.2h51v19.3h-51z"/>
+      <path d="M19 73.5h62v4.4H19z"/>
+    </g>
+    <g class="cut">
+      <path d="M44.4 73.5V63.8a5.6 5.6 0 0 1 11.2 0v9.7z"/>
+      <path d="M31.6 62.6a2.7 2.7 0 0 1 5.4 0v7.4h-5.4z"/>
+      <path d="M63 62.6a2.7 2.7 0 0 1 5.4 0v7.4H63z"/>
+    </g>
+  </g>
+</svg></span>
         <span>
           <span class="brand-name">Духовное управление</span>
           <span class="brand-sub">мусульман Дальнего Востока · Хабаровск</span>
@@ -521,9 +579,19 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div>
           <span class="kicker">Обращения</span>
           <h2>Вопрос имаму</h2>
-          <p>Вопросы по вероучению, обрядам, никаху и семейным делам рассматривает имам-мухтасиб муфтията. Заполните форму — ответ придёт на указанную почту.</p>
+          <p>Вопросы по вероучению, обрядам, никаху и семейным делам рассматривает имам-мухтасиб муфтията. Ответ придёт на указанную почту.</p>
         </div>
-        <a class="btn btn-primary" href="vopros.html">Задать вопрос<span class="arrow">→</span></a>
+        <form class="ask-form" action="#" method="post">
+          <label class="ask-field">
+            <span>Ваш вопрос</span>
+            <textarea name="message" required placeholder="Опишите вопрос своими словами"></textarea>
+          </label>
+          <label class="ask-field">
+            <span>Ваша почта</span>
+            <input name="email" type="email" required placeholder="name@mail.ru">
+          </label>
+          <button class="btn btn-primary" type="submit">Отправить<span class="arrow">→</span></button>
+        </form>
       </div>
     </div>
   </section>
@@ -594,13 +662,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           </a>
           <a class="social" href="#contacts" aria-label="Rutube">
             <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
-              <defs><clipPath id="rc"><rect width="48" height="48" rx="13"/></clipPath></defs>
-              <g clip-path="url(#rc)">
-                <rect width="48" height="48" fill="#160C45"/>
-                <path d="M28 0h20v19a19 19 0 0 1-20-19z" fill="#EF1B4C"/>
-                <path d="M13 11h15.6c3.6 0 5.4 1.8 5.4 5.3v3.4c0 3.5-1.8 5.3-5.4 5.3h-1.9l6.6 12h-6.6l-6.1-12h-2.4v12H13z" fill="#fff"/>
-                <path d="M18.2 15.6h9.1c1 0 1.5.4 1.5 1.4v1.6c0 1-.5 1.4-1.5 1.4h-9.1z" fill="#160C45"/>
-              </g>
+              <rect width="48" height="48" rx="13" fill="#160C45"/>
+              <path d="M30 0h12a6 6 0 0 1 6 6v12A18 18 0 0 1 30 0z" fill="#EF1B4C"/>
+              <path fill="#fff" fill-rule="evenodd" d="M13.6 13h15c3.9 0 6.1 2.1 6.1 5.8v3.4c0 3.3-1.8 5.3-5.1 5.8L35.2 35h-6.9l-5.2-6.8H19.1V35h-5.5V13zm5.5 5.2v5h8.6c1.1 0 1.6-.4 1.6-1.4v-2.2c0-1-.5-1.4-1.6-1.4h-8.6z"/>
             </svg>
           </a>
         </div>
@@ -619,7 +683,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a href="stroitelstvo.html">Ход строительства</a>
         <a href="#news">Новости</a>
         <a href="mecheti.html">Мечети и приходы</a>
-        <a href="vopros.html">Вопрос имаму</a>
+        <a href="#ask">Вопрос имаму</a>
       </div>
     </div>
     <div class="legal">
