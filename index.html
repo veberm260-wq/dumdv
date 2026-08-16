@@ -184,14 +184,21 @@ img{max-width:100%}
 .stage.next .bar{background:transparent}
 
 /* новости */
-.news{background:var(--srf);padding:100px 0}
-.head-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin:16px 0 40px}
+.news{background:var(--srf);padding:110px 0 120px}
+.head-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin:0 0 64px}
 .head-row h2{font-size:clamp(32px,4vw,52px);line-height:1.1;color:var(--tx)}
 .more{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--gold);border-bottom:1px solid var(--goldsoft);padding-bottom:3px}
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
-.news-photo{aspect-ratio:4/3;border:1px solid var(--brd);border-radius:3px;background:var(--pnl);display:grid;place-items:center;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mut)}
-.news-date{font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:16px}
-.news-title{font-size:24px;line-height:1.3;margin-top:8px;color:var(--tx)}
+/* новости — воздушная сетка в духе Montfort: тонкий заголовок, сноска-дата, ссылка без засечек */
+.news .head-row h2{font-size:clamp(38px,4.6vw,60px);font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:72px 44px}
+.news-card{display:block;text-decoration:none;color:inherit}
+.news-photo{aspect-ratio:3/2;border-radius:4px;background:var(--pnl);border:1px solid var(--brd);display:grid;place-items:center;overflow:hidden;transition:filter .3s ease}
+.news-card:hover .news-photo{filter:brightness(1.04)}
+.news-photo .slot-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);opacity:.75}
+.news-date{font-size:12.5px;font-weight:400;letter-spacing:.01em;color:var(--mut);margin-top:26px}
+.news-title{font-family:"Golos Text",system-ui,sans-serif;font-size:19px;font-weight:400;line-height:1.55;letter-spacing:.005em;color:#87680F;margin-top:12px;transition:color .2s ease}
+.news-card:hover .news-title{color:var(--tx)}
+#night:checked ~ .page .news-title{color:#E2C169}
 
 /* приходы */
 .regions{background:var(--pg);padding:100px 0}
@@ -335,9 +342,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         </span>
       </a>
       <nav class="hdr-nav">
+        <a href="dumdv.html">ДУМ ДВ</a>
         <a href="#regions">Мечети</a>
         <a href="namaz.html">Намаз</a>
-        <a class="active" href="#build">Строительство</a>
+        <a href="stroitelstvo.html">Строительство</a>
       </nav>
     </div>
   </header>
@@ -361,7 +369,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <h1>Первая соборная мечеть Дальнего Востока</h1>
           <p>Участок выделен, разрешение получено, монолит выходит на фасадные работы. Единственный проект такого масштаба на Дальнем Востоке с полным пакетом документов.</p>
           <div class="btns">
-            <a class="btn btn-ghost" href="#build">Ход строительства</a>
+            <a class="btn btn-ghost" href="stroitelstvo.html">Ход строительства</a>
           </div>
         </div>
 
@@ -400,97 +408,43 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
   </section>
 
-  <section class="build" id="build">
-    <div class="wrap">
-      <span class="kicker">Строительство · Хабаровск</span>
-      <div class="build-grid">
-        <div>
-          <h2>Шесть этапов.<br>Три из них уже закрыты.</h2>
-          <p class="lead">Проект разбит на этапы, и каждый закрывается полностью, прежде чем начинается следующий. Сейчас идёт четвёртый: монолит и фасадные работы.</p>
-          <div class="big-sum">208 910 589 ₽</div>
-          <div class="sub">собрано из 426 350 000 ₽ на этапы 1–3 · осталось 217 439 411 ₽</div>
-          <div class="rule"></div>
-          <div class="lead">Цель на месяц — 15 000 000 ₽. Собрано 3 671 746 ₽, это 24% от месячного плана.</div>
-        </div>
-      </div>
-
-      <div class="stages">
-      <div class="stage done">
-        <div class="stage-num"><span class="num">01</span><span class="status">Закрыт</span></div>
-        <div class="stage-title">Проектная документация</div>
-        <div class="stage-money">
-          <div class="stage-money-row"><span class="sum">10 000 000 ₽</span><span class="pct">100%</span></div>
-          <div class="track"><div class="bar" style="width:100%"></div></div>
-        </div>
-      </div>
-      <div class="stage done">
-        <div class="stage-num"><span class="num">02</span><span class="status">Закрыт</span></div>
-        <div class="stage-title">Свайное поле и фундамент</div>
-        <div class="stage-money">
-          <div class="stage-money-row"><span class="sum">75 350 000 ₽</span><span class="pct">100%</span></div>
-          <div class="track"><div class="bar" style="width:100%"></div></div>
-        </div>
-      </div>
-      <div class="stage done">
-        <div class="stage-num"><span class="num">03</span><span class="status">Закрыт</span></div>
-        <div class="stage-title">Несущие конструкции</div>
-        <div class="stage-money">
-          <div class="stage-money-row"><span class="sum">99 000 000 ₽</span><span class="pct">100%</span></div>
-          <div class="track"><div class="bar" style="width:100%"></div></div>
-        </div>
-      </div>
-      <div class="stage active">
-        <div class="stage-num"><span class="num">04</span><span class="status">Идёт сейчас</span></div>
-        <div class="stage-title">Монолит и фасад</div>
-        <div class="stage-money">
-          <div class="stage-money-row"><span class="sum">24 560 589 из 252 000 000 ₽</span><span class="pct">9,7%</span></div>
-          <div class="track"><div class="bar" style="width:9.7%"></div></div>
-        </div>
-      </div>
-      <div class="stage next">
-        <div class="stage-num"><span class="num">05</span><span class="status">Впереди</span></div>
-        <div class="stage-title">Купол, минарет, кровля</div>
-        <div class="stage-money">
-          <div class="stage-money-row"><span class="sum">сумма — по смете</span><span class="pct">—</span></div>
-          <div class="track"><div class="bar" style="width:0%"></div></div>
-        </div>
-      </div>
-      <div class="stage next">
-        <div class="stage-num"><span class="num">06</span><span class="status">Впереди</span></div>
-        <div class="stage-title">Инженерные системы и благоустройство</div>
-        <div class="stage-money">
-          <div class="stage-money-row"><span class="sum">сумма — по смете</span><span class="pct">—</span></div>
-          <div class="track"><div class="bar" style="width:0%"></div></div>
-        </div>
-      </div>
-      </div>
-      <div class="fine">Суммы предварительные, уточняются по смете. Отчёты по каждому закрытому этапу публикуются в новостях.</div>
-    </div>
-  </section>
-
   <section class="news" id="news">
     <div class="wrap">
-      <span class="kicker">Хроника</span>
       <div class="head-row">
-        <h2>Что происходит в общине</h2>
+        <h2>Новости</h2>
         <a class="more" href="novosti.html">Все новости</a>
       </div>
       <div class="news-grid">
-        <article class="news-card">
-          <div class="news-photo">Фото — подставить</div>
-          <div class="news-date">Дата — из архива</div>
-          <h3 class="news-title">Заголовок новости — подставить из архива ДУМ ДВ</h3>
-        </article>
-        <article class="news-card">
-          <div class="news-photo">Фото — подставить</div>
-          <div class="news-date">Дата — из архива</div>
-          <h3 class="news-title">Заголовок новости — подставить из архива ДУМ ДВ</h3>
-        </article>
-        <article class="news-card">
-          <div class="news-photo">Фото — подставить</div>
-          <div class="news-date">Дата — из архива</div>
-          <h3 class="news-title">Заголовок новости — подставить из архива ДУМ ДВ</h3>
-        </article>
+        <a class="news-card" href="novosti.html">
+          <div class="news-photo"><span class="slot-label">Слот для фото</span></div>
+          <div class="news-date">12 августа 2026</div>
+          <h3 class="news-title">Завершены работы по монолиту третьего этажа</h3>
+        </a>
+        <a class="news-card" href="novosti.html">
+          <div class="news-photo"><span class="slot-label">Слот для фото</span></div>
+          <div class="news-date">5 августа 2026</div>
+          <h3 class="news-title">Прихожане провели субботник на территории будущей мечети</h3>
+        </a>
+        <a class="news-card" href="novosti.html">
+          <div class="news-photo"><span class="slot-label">Слот для фото</span></div>
+          <div class="news-date">29 июля 2026</div>
+          <h3 class="news-title">Открыт набор в летние группы медресе</h3>
+        </a>
+        <a class="news-card" href="novosti.html">
+          <div class="news-photo"><span class="slot-label">Слот для фото</span></div>
+          <div class="news-date">22 июля 2026</div>
+          <h3 class="news-title">Пятничная проповедь была посвящена честности в делах</h3>
+        </a>
+        <a class="news-card" href="novosti.html">
+          <div class="news-photo"><span class="slot-label">Слот для фото</span></div>
+          <div class="news-date">14 июля 2026</div>
+          <h3 class="news-title">Продуктовые наборы переданы нуждающимся семьям</h3>
+        </a>
+        <a class="news-card" href="novosti.html">
+          <div class="news-photo"><span class="slot-label">Слот для фото</span></div>
+          <div class="news-date">3 июля 2026</div>
+          <h3 class="news-title">Состоялась встреча с представителями городской администрации</h3>
+        </a>
       </div>
     </div>
   </section>
@@ -622,8 +576,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       </div>
       <div class="foot-col">
         <h4>Разделы</h4>
+        <a href="dumdv.html">О ДУМ ДВ</a>
         <a href="namaz.html">Расписание намазов</a>
-        <a href="#build">Ход строительства</a>
+        <a href="stroitelstvo.html">Ход строительства</a>
         <a href="#news">Новости</a>
         <a href="#regions">Мечети и приходы</a>
         <a href="#ask">Вопрос имаму</a>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Новости — Духовное управление мусульман Дальнего Востока</title>
+<title>ДУМ ДВ — Духовное управление мусульман Дальнего Востока</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -252,35 +252,35 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .regions-grid{grid-template-columns:1fr}
 }
 
-/* страница новостей */
-.page-head{padding:120px 0 64px}
-.page-head h1{font-size:clamp(52px,8vw,104px);line-height:1.02;letter-spacing:.01em;color:var(--tx)}
-.filters{display:flex;gap:28px;flex-wrap:wrap;margin-top:56px;padding-bottom:2px}
-.filters a{position:relative;font-size:12.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:10px}
-.filters a:hover{color:#43340D}
-.filters a.active{color:var(--tx)}
-.filters a.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
-.notice{margin:0 0 40px;padding:12px 16px;border:1px dashed var(--brd);border-radius:2px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
-.feed{background:var(--srf);padding:72px 0 96px}
-.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px}
-.card{display:block;text-decoration:none;color:inherit}
-.card-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:2px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;transition:filter .25s ease,background .25s ease}
-.card:hover .card-photo{filter:brightness(1.05)}
-.slot-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B98F22}
-.slot-hint{font-size:13px;line-height:1.5;color:var(--mut);max-width:26ch}
-.card-date{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#B98F22;margin-top:20px}
-.card-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;line-height:1.3;color:var(--tx);margin-top:8px;transition:color .2s ease;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card:hover .card-title{color:#87680F}
-.pager{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:76px}
-.pager a{position:relative;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:6px}
-.pager a:hover{color:#43340D}
-.pager a.now{color:var(--tx)}
-.pager a.now::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
+/* страница ДУМ ДВ */
+.page-head{padding:120px 0 56px}
+.page-head h1{font-size:clamp(48px,7vw,92px);line-height:1.03;letter-spacing:.01em;color:var(--tx)}
+.page-head .lead{margin-top:26px}
+
+.mufti{background:var(--srf);padding:76px 0}
+.mufti-grid{display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:start}
+.portrait{aspect-ratio:3/4;border:1px solid var(--brd);border-radius:3px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center}
+.portrait-k{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.portrait-hint{font-size:13px;line-height:1.5;color:var(--mut);max-width:24ch}
+.mufti h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 8px}
+.mufti-role{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.mufti p{font-size:16px;line-height:1.8;color:var(--mut);margin:0 0 16px;max-width:62ch}
+
+.board{background:var(--pnl);padding:76px 0 96px}
+.board h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 10px}
+.board-sub{font-size:15px;line-height:1.7;color:var(--mut);margin:0 0 40px;max-width:60ch}
+.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd)}
+.person{background:var(--srf);padding:28px 26px}
+.person-role{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.person-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx);margin-top:10px}
+.person-note{font-size:14px;line-height:1.65;color:var(--mut);margin-top:10px}
 @media (max-width:1080px){
-  .feed-grid{grid-template-columns:1fr 1fr}
+  .mufti-grid{grid-template-columns:1fr}
+  .portrait{max-width:360px}
+  .board-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:680px){
-  .feed-grid{grid-template-columns:1fr}
+  .board-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -360,7 +360,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         </span>
       </a>
       <nav class="hdr-nav">
-        <a href="dumdv.html">ДУМ ДВ</a>
+        <a class="active" href="dumdv.html">ДУМ ДВ</a>
         <a href="index.html#regions">Мечети</a>
         <a href="namaz.html">Намаз</a>
         <a href="stroitelstvo.html">Строительство</a>
@@ -368,92 +368,72 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
   </header>
 
+
   <section class="page-head" id="top">
     <div class="wrap">
-      <h1>Новости</h1>
-      <div class="filters">
-        <a class="active" href="novosti.html">Все</a>
-        <a href="novosti.html">ДУМ ДВ</a>
-        <a href="novosti.html">ЦДУМ</a>
-        <a href="novosti.html">Строительство</a>
-        <a href="novosti.html">Образование</a>
-        <a href="novosti.html">Община</a>
+      <span class="kicker">Об организации</span>
+      <h1>Духовное управление мусульман Дальнего Востока</h1>
+      <p class="lead">Централизованная религиозная организация в составе Центрального духовного управления мусульман России. Канцелярия и муфтият находятся в Хабаровске.</p>
+      <p class="lead">Управление объединяет местные мусульманские общины Дальневосточного федерального округа: назначает имамов, ведёт обрядовую и образовательную работу, представляет общину в диалоге с органами власти.</p>
+    </div>
+  </section>
+
+  <section class="mufti" id="muftiy">
+    <div class="wrap">
+      <div class="mufti-grid">
+        <div class="portrait">
+          <span class="portrait-k">Слот для фото</span>
+          <span class="portrait-hint">Портрет муфтия ДУМ ДВ — подставить</span>
+        </div>
+        <div>
+          <span class="kicker">Муфтий ДУМ ДВ</span>
+          <h2>Имя муфтия — подставить</h2>
+          <div class="mufti-role">Председатель Духовного управления мусульман Дальнего Востока</div>
+          <p>Биография муфтия — подставить: год и место рождения, религиозное образование, служение в приходах Дальнего Востока, дата назначения на должность председателя управления.</p>
+          <p>Муфтий возглавляет управление, назначает имамов местных общин, отвечает за обрядовую и образовательную работу, представляет мусульман округа в отношениях с органами власти и другими конфессиями.</p>
+          <p>Приём по личным вопросам — по предварительной записи в канцелярии. Контакты указаны в разделе <a href="index.html#contacts">Контакты</a>, вопрос можно задать и через форму <a href="index.html#ask">Вопрос имаму</a>.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="feed" id="news">
+  <section class="board" id="rukovodstvo">
     <div class="wrap">
-      <p class="notice">Демонстрационные заголовки. Реальные новости подставляются из архива ДУМ ДВ.</p>
-      <div class="feed-grid">
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото хода строительства — монолит третьего этажа</span></div>
-          <div class="card-date">12 августа 2026 · ДУМ ДВ</div>
-          <h3 class="card-title">Завершены работы по монолиту третьего этажа</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото с субботника на площадке</span></div>
-          <div class="card-date">5 августа 2026 · Община</div>
-          <h3 class="card-title">Прихожане провели субботник на территории будущей мечети</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото занятия в медресе</span></div>
-          <div class="card-date">29 июля 2026 · Образование</div>
-          <h3 class="card-title">Открыт набор в летние группы медресе</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото пятничной проповеди в молитвенном зале</span></div>
-          <div class="card-date">22 июля 2026 · ДУМ ДВ</div>
-          <h3 class="card-title">Пятничная проповедь была посвящена честности в делах</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото передачи продуктовых наборов</span></div>
-          <div class="card-date">14 июля 2026 · Община</div>
-          <h3 class="card-title">Продуктовые наборы переданы нуждающимся семьям</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото встречи в администрации</span></div>
-          <div class="card-date">3 июля 2026 · ДУМ ДВ</div>
-          <h3 class="card-title">Состоялась встреча с представителями городской администрации</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото кладки наружных стен</span></div>
-          <div class="card-date">24 июня 2026 · Строительство</div>
-          <h3 class="card-title">На площадке приступили к кладке наружных стен</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото делегации на совещании</span></div>
-          <div class="card-date">12 июня 2026 · ЦДУМ</div>
-          <h3 class="card-title">Делегация управления приняла участие в совещании ЦДУМ России</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото праздничного намаза на Курбан-байрам</span></div>
-          <div class="card-date">27 мая 2026 · Община</div>
-          <h3 class="card-title">Курбан-байрам отметили праздничным намазом</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото выпускного занятия воскресной школы</span></div>
-          <div class="card-date">8 мая 2026 · Образование</div>
-          <h3 class="card-title">Завершился учебный год в воскресной школе</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото праздничного намаза на Ураза-байрам</span></div>
-          <div class="card-date">20 марта 2026 · Община</div>
-          <h3 class="card-title">Ураза-байрам завершил месяц Рамадан</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><span class="slot-label">Слот для фото</span><span class="slot-hint">Фото ифтара в мечети</span></div>
-          <div class="card-date">2 марта 2026 · Община</div>
-          <h3 class="card-title">В Рамадан при мечети ежедневно проходят ифтары и таравих-намаз</h3>
-        </a>
+      <span class="kicker">Руководство</span>
+      <h2>Руководство ДУМ ДВ</h2>
+      <p class="board-sub">Состав руководства управления. Имена и биографии подставляются из документов ДУМ ДВ перед публикацией.</p>
+      <div class="board-grid">
+        <div class="person">
+          <div class="person-role">Председатель</div>
+          <div class="person-name">Муфтий — имя подставить</div>
+          <div class="person-note">Возглавляет управление, назначает имамов, представляет общину округа.</div>
+        </div>
+        <div class="person">
+          <div class="person-role">Первый заместитель</div>
+          <div class="person-name">Имя — подставить</div>
+          <div class="person-note">Замещает председателя, курирует работу местных религиозных организаций.</div>
+        </div>
+        <div class="person">
+          <div class="person-role">Заместитель по образованию</div>
+          <div class="person-name">Имя — подставить</div>
+          <div class="person-note">Медресе, воскресная школа, курсы для взрослых, подготовка имамов.</div>
+        </div>
+        <div class="person">
+          <div class="person-role">Ответственный секретарь</div>
+          <div class="person-name">Имя — подставить</div>
+          <div class="person-note">Канцелярия, документооборот, приём обращений от прихожан.</div>
+        </div>
+        <div class="person">
+          <div class="person-role">Имам-хатыб</div>
+          <div class="person-name">Имя — подставить</div>
+          <div class="person-note">Пятничная проповедь, обрядовая работа, никах и джаназа.</div>
+        </div>
+        <div class="person">
+          <div class="person-role">Ревизионная комиссия</div>
+          <div class="person-name">Состав — подставить</div>
+          <div class="person-note">Контроль расходования средств, в том числе собранных на строительство.</div>
+        </div>
       </div>
-      <nav class="pager">
-        <a href="novosti.html">Первая</a>
-        <a class="now" href="novosti.html">1</a>
-        <a href="novosti.html">2</a>
-        <a href="novosti.html">3</a>
-        <a href="novosti.html">Последняя</a>
-      </nav>
     </div>
   </section>
 
@@ -616,6 +596,22 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }
   tick();
   setInterval(tick, 1000);
+
+  // карточки «сегодня» и подсветка текущей строки в таблице
+  var now = new Date();
+  var full = document.getElementById('today-full');
+  var hijriFull = document.getElementById('hijri-full');
+  if (full) full.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
+  if (hijriFull) hijriFull.textContent = hijri(now);
+
+  var khb = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long' }).format(now);
+  var rows = document.querySelectorAll('#sched-body tr');
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i].querySelector('.d').textContent.trim() === khb) {
+      rows[i].classList.add('now');
+      break;
+    }
+  }
 
   var hdr = document.getElementById('hdr');
   function onScroll() {
