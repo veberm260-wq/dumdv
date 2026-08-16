@@ -40,34 +40,44 @@ img{max-width:100%}
 
 /* строка намазов — единственный светло-зелёный элемент */
 .strip{background:var(--strip);border-bottom:1px solid var(--brd)}
-.strip-in{display:flex;align-items:center;gap:32px;flex-wrap:wrap;padding:14px 28px;max-width:1240px;margin:0 auto}
-.strip-left{margin-right:auto;display:flex;flex-direction:column;gap:10px}
-.strip-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.strip-in{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:16px 28px;max-width:1240px;margin:0 auto}
+.strip-left{margin-right:auto;display:flex;flex-direction:column;gap:11px}
+.strip-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx)}
-.jumua{display:inline-flex;align-items:baseline;gap:8px}
+/* джума и ссылка на расписание — единым блоком слева */
+.jumua{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;border-radius:999px;background:var(--pnl);border:1px solid rgba(185,143,34,.28)}
+#night:checked ~ .page .jumua{background:rgba(255,255,255,.07)}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.jumua-v{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--gold)}
-.strip-link{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none;border-bottom:1px solid var(--tx);padding-bottom:3px}
-.strip-link:hover{color:var(--gold);border-bottom-color:var(--gold)}
-.clock{display:inline-flex;align-items:center;gap:10px;background:var(--pnl);border:1px solid var(--brd);border-radius:999px;padding:6px 16px;align-self:flex-start}
-#night:checked ~ .page .clock{background:rgba(255,255,255,.08)}
-.clock-label{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
-.clock-time{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
-.prayers{display:flex;gap:14px;flex-wrap:wrap}
-.prayer{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 11px;border-radius:9px;transition:background .2s ease}
+.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
+.strip-link{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none}
+.strip-link .arr{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;border:1px solid var(--brd);font-size:10px;line-height:1;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.strip-link:hover{color:var(--gold)}
+.strip-link:hover .arr{background:var(--gold);border-color:var(--gold);color:#fff}
+/* времена намазов */
+.prayers{display:flex;gap:12px;flex-wrap:wrap}
+.prayer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 11px;border-radius:9px;transition:background .2s ease}
 .prayer.is-next{background:rgba(185,143,34,.16)}
 .prayer.is-next .prayer-k,.prayer.is-next .prayer-v{color:#87680F}
 #night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.2)}
 #night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
 .prayer-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.prayer-v{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
+.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:23px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
+/* отсчёт до намаза — справа от времён */
+.countdown{display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding:8px 16px;border-radius:12px;background:var(--pnl);border:1px solid rgba(185,143,34,.32)}
+#night:checked ~ .page .countdown{background:rgba(255,255,255,.07)}
+.cd-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
+.cd-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
+@media (max-width:900px){
+  .strip-in{gap:18px}
+  .countdown{order:-1}
+}
 
 /* шапка */
 .hdr{position:sticky;top:18px;z-index:50;padding:0 28px;transition:top .25s ease,padding .25s ease}
 .hdr-in{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:nowrap;white-space:nowrap;padding:16px 20px;background:rgba(255,253,247,.86);backdrop-filter:blur(10px);border:1px solid rgba(185,143,34,.18);transition:background .25s ease,box-shadow .25s ease,padding .25s ease,max-width .25s ease}
 #night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
-.hdr.stuck{top:0;padding:0}
-.hdr.stuck .hdr-in{max-width:none;background:#fff;box-shadow:0 12px 30px rgba(32,30,29,.12);border-left:0;border-right:0;border-top:0;padding:12px 40px}
+.hdr.stuck{top:12px}
+.hdr.stuck .hdr-in{background:#fff;box-shadow:0 14px 34px rgba(32,30,29,.14)}
 #night:checked ~ .page .hdr.stuck .hdr-in{background:#191d28}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;margin-right:auto;flex:none}
 .brand-badge{width:48px;height:48px;flex:none;border-radius:50%;background:var(--pnl);border:1.5px solid #B98F22;display:grid;place-items:center}
@@ -92,7 +102,7 @@ img{max-width:100%}
 .hdr.stuck .hdr-link.active-link::after{bottom:-16px}
 #night:checked ~ .page .hdr-link.active-link::after{background:#E2C169}
 #night:checked ~ .page .hdr-link{color:#f3ecdd}
-.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-size:11px;font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:tabular-nums}
 .dots{display:inline-flex;align-items:center;gap:4px}
 .dots i{width:5px;height:5px;border-radius:50%;background:#43340D;display:block}
 #night:checked ~ .page .dots i{background:#f3ecdd}
@@ -161,7 +171,7 @@ img{max-width:100%}
 .goal .track{margin-top:10px;height:10px}
 .goal .bar{background:var(--goldsoft)}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.amount{border:1px solid var(--brd);border-radius:999px;padding:11px 4px;text-align:center;font-size:12.5px;font-weight:600;color:var(--tx)}
+.amount{border:1px solid var(--brd);border-radius:999px;padding:9px 4px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
 .amount.on{background:var(--gold);border-color:var(--gold);color:#fff}
 .panel .btn{width:100%;justify-content:center;margin-top:20px;padding:18px}
 .fine{font-size:12px;line-height:1.6;color:var(--mut);margin-top:14px}
@@ -177,8 +187,8 @@ img{max-width:100%}
 .stage.active .status{color:var(--gold)}
 .stage-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx)}
 .stage-money-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
-.stage-money .sum{font-size:14.5px;font-weight:600;color:var(--tx)}
-.stage-money .pct{font-size:13px;font-weight:700;color:var(--mut)}
+.stage-money .sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
+.stage-money .pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--mut);font-variant-numeric:tabular-nums}
 .stage.active .pct{color:var(--gold)}
 .stage.done .bar{background:var(--goldsoft)}
 .stage.next .bar{background:transparent}
@@ -295,9 +305,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <div class="strip-left">
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
-          <span class="clock"><span class="clock-label" id="next-label">До намаза</span><span class="clock-time" id="countdown">--:--:--</span></span>
           <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
-          <a class="strip-link" href="namaz.html">Полное расписание</a>
+          <a class="strip-link" href="namaz.html">Полное расписание<span class="arr">→</span></a>
         </div>
       </div>
       <div class="prayers">
@@ -308,7 +317,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
-    </div>
+      <span class="countdown"><span class="cd-k" id="next-label">До намаза</span><span class="cd-v" id="countdown">--:--:--</span></span>    </div>
   </div>
 
   <header class="hdr" id="hdr">
@@ -618,6 +627,16 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }
   tick();
   setInterval(tick, 1000);
+
+  // герой подныривает ровно под карточку шапки, какой бы высоты она ни была
+  var heroEl = document.querySelector('.hero');
+  var hdrIn = document.querySelector('.hdr-in');
+  function syncHero() {
+    if (heroEl && hdrIn) heroEl.style.marginTop = (-hdrIn.offsetHeight) + 'px';
+  }
+  syncHero();
+  window.addEventListener('resize', syncHero);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHero);
 
   var hdr = document.getElementById('hdr');
   function onScroll() {
