@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ДУМ ДВ — Духовное управление мусульман Дальнего Востока</title>
+<title>Мечети и приходы — Духовное управление мусульман Дальнего Востока</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -262,43 +262,39 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .regions-grid{grid-template-columns:1fr}
 }
 
-/* страница ДУМ ДВ */
-.page-head{padding:120px 0 56px}
+/* страница мечетей */
+.page-head{padding:120px 0 46px}
 .page-head h1{font-size:clamp(48px,7vw,92px);line-height:1.03;letter-spacing:.01em;color:var(--tx)}
 .page-head .lead{margin-top:26px}
+.notice{margin:0 0 44px;padding:12px 16px;border:1px dashed var(--brd);border-radius:6px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
 
-.mufti{background:var(--srf);padding:76px 0}
-.mufti-grid{display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:start}
-.portrait{margin:0;border:1px solid var(--brd);border-radius:6px;background:var(--pnl);overflow:hidden;position:relative}
-.portrait img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 22%}
-.portrait-cap{display:block;padding:14px 18px;font-size:12.5px;letter-spacing:.03em;color:var(--mut);background:var(--srf);border-top:1px solid var(--brd)}
-.portrait-k{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-.portrait-hint{font-size:13px;line-height:1.5;color:var(--mut);max-width:24ch}
-.deputy{display:grid;grid-template-columns:220px 1fr;gap:44px;align-items:start;margin-top:64px;padding-top:52px;border-top:1px solid var(--brd)}
-.portrait-sm img{aspect-ratio:1/1;object-position:50% 18%}
-.deputy-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;line-height:1.15;color:var(--tx);margin:14px 0 8px}
-.deputy p{font-size:16px;line-height:1.8;color:var(--mut);margin:0 0 14px;max-width:62ch}
-.mufti h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 8px}
-.mufti-role{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
-.mufti p{font-size:16px;line-height:1.8;color:var(--mut);margin:0 0 16px;max-width:62ch}
+.reg-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:40px}
+.reg-nav a{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);text-decoration:none;padding:9px 16px;border:1px solid var(--brd);border-radius:999px;background:var(--srf);transition:background .2s ease,color .2s ease,border-color .2s ease}
+.reg-nav a:hover{background:#B98F22;border-color:#B98F22;color:#fff}
 
-.board{background:var(--pnl);padding:76px 0 96px}
-.board h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 10px}
-.board-sub{font-size:15px;line-height:1.7;color:var(--mut);margin:0 0 40px;max-width:60ch}
-.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd)}
-.person{background:var(--srf);padding:28px 26px}
-.person-role{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.person-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx);margin-top:10px}
-.person-note{font-size:14px;line-height:1.65;color:var(--mut);margin-top:10px}
+.mosques{background:var(--srf);padding:70px 0 100px}
+.reg{padding-top:56px}
+.reg:first-child{padding-top:0}
+.reg-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--brd);margin-bottom:36px}
+.reg-head h2{font-size:clamp(26px,3vw,38px);line-height:1.15;color:var(--tx)}
+.reg-count{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px}
+.mq{display:block;text-decoration:none;color:inherit}
+.mq-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:5px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;overflow:hidden;transition:filter .3s ease}
+.mq-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.mq:hover .mq-photo{filter:brightness(1.04)}
+.mq-slot{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);opacity:.75}
+.mq-hint{font-size:12.5px;line-height:1.5;color:var(--mut);max-width:26ch;opacity:.75}
+.mq-city{font-size:12.5px;color:var(--mut);margin-top:22px}
+.mq-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;line-height:1.25;color:var(--tx);margin-top:8px}
+.mq-note{font-size:13.5px;line-height:1.65;color:var(--mut);margin-top:10px}
+.mq.soon .mq-name{color:var(--mut)}
+.mq-tag{display:inline-block;margin-top:12px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(185,143,34,.4);border-radius:999px;padding:5px 11px}
 @media (max-width:1080px){
-  .mufti-grid{grid-template-columns:1fr}
-  .portrait{max-width:360px}
-  .deputy{grid-template-columns:1fr}
-  .portrait-sm{max-width:220px}
-  .board-grid{grid-template-columns:1fr 1fr}
+  .mq-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:680px){
-  .board-grid{grid-template-columns:1fr}
+  .mq-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -377,8 +373,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         </span>
       </a>
       <nav class="hdr-nav">
-        <a class="active" href="dumdv.html">ДУМ ДВ</a>
-        <a href="mecheti.html">Мечети</a>
+        <a href="dumdv.html">ДУМ ДВ</a>
+        <a class="active" href="mecheti.html">Мечети</a>
         <a href="namaz.html">Время намаза</a>
         <a href="stroitelstvo.html">Строительство</a>
       </nav>
@@ -386,88 +382,187 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   </header>
 
 
+
   <section class="page-head" id="top">
     <div class="wrap">
-      <span class="kicker">Об организации</span>
-      <h1>Духовное управление мусульман Дальнего Востока</h1>
-      <p class="lead">Централизованная религиозная организация в составе Центрального духовного управления мусульман России. Канцелярия и муфтият находятся в Хабаровске.</p>
-      <p class="lead">Управление объединяет местные мусульманские общины Дальневосточного федерального округа: назначает имамов, ведёт обрядовую и образовательную работу, представляет общину в диалоге с органами власти.</p>
+      <span class="kicker">Округ</span>
+      <h1>Мечети и приходы Дальнего Востока</h1>
+      <p class="lead">Мусульманские общины Дальневосточного федерального округа, входящие в состав Духовного управления мусульман Дальнего Востока. Список сгруппирован по регионам.</p>
+      <nav class="reg-nav">
+        <a href="#habarovsk">Хабаровский край</a>
+        <a href="#primorye">Приморский край</a>
+        <a href="#amur">Амурская область</a>
+        <a href="#sahalin">Сахалинская область</a>
+        <a href="#eao">Еврейская АО</a>
+        <a href="#magadan">Магаданская область</a>
+        <a href="#kamchatka">Камчатский край</a>
+        <a href="#yakutia">Республика Саха (Якутия)</a>
+        <a href="#chukotka">Чукотский АО</a>
+      </nav>
     </div>
   </section>
 
-  <section class="mufti" id="muftiy">
+  <section class="mosques" id="spisok">
     <div class="wrap">
-      <div class="mufti-grid">
-        <figure class="portrait">
-          <img src="img/ahmad-hazrat.jpg" alt="Муфтий Дальнего Востока Ахмад хазрат Гарифуллин">
-          <figcaption class="portrait-cap">Ахмад хазрат Гарифуллин</figcaption>
-        </figure>
-        <div>
-          <span class="kicker">Муфтий ДУМ ДВ</span>
-          <h2>Гарифуллин Ахмад хазрат</h2>
-          <div class="mufti-role">Председатель Духовного управления мусульман Дальнего Востока</div>
-          <p>Родился 24 марта 1986 года в городе Магдебург, в татарской семье: отец в то время проходил службу в Советской армии.</p>
-          <p>В 1989 году семья переехала в город Октябрьский Республики Башкортостан, где Ахмад хазрат получил первоначальное образование в средней школе № 10. В юности занимался греко-римской борьбой и в 2001 году получил звание кандидата в мастера спорта.</p>
-          <p>Религиозное образование начал в Октябрьском, при Исламском институте, откуда в 2003 году был направлен на обучение в Турцию, в Стамбул. В 2007 году, окончив обучение, вернулся в Россию, прошёл переаттестацию и поступил на третий курс Российского исламского университета, который с успехом окончил в 2011 году. В том же 2007 году поступил в Московский институт юриспруденции и окончил его в 2013 году.</p>
-          <p>Религиозную деятельность начал в конце 2007 года имамом в резиденции Центрального духовного управления мусульман России на ВДНХ. В начале 2009 года приказом Верховного муфтия России назначен имам-хатыбом соборной мечети «Ляля-Тюльпан» в Уфе. Через год начал преподавать в Российском исламском университете, а с 2011 по май 2014 года занимал должность декана теолого-педагогического факультета университета.</p>
-          <p>В конце 2013 года поступил в магистратуру Башкирского государственного педагогического университета им. М. Акмуллы, в институт профессионального образования и информационных технологий, по специальности «технолог управления профессионального развития персонала».</p>
-          <p>В мае 2014 года приказом Верховного муфтия назначен полномочным представителем Верховного муфтия на Дальнем Востоке. В мае 2015 года назначен председателем Духовного управления мусульман Дальнего Востока в составе Центрального духовного управления мусульман России, которое возглавляет по сегодняшний день.</p>
-          <p>Приём по личным вопросам — по предварительной записи в канцелярии. Контакты указаны в разделе <a href="index.html#contacts">Контакты</a>, вопрос можно задать и через форму <a href="index.html#ask">Вопрос имаму</a>.</p>
+      <p class="notice">Демонстрационное наполнение. Названия приходов, адреса, имена имамов и фотографии подставляются из реестра ДУМ ДВ перед публикацией.</p>
+
+      <div class="reg" id="habarovsk">
+        <div class="reg-head"><h2>Хабаровский край</h2><span class="reg-count">4 прихода</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Соборная мечеть, Хабаровск</span></div>
+            <div class="mq-city">Хабаровск</div>
+            <div class="mq-name">Соборная мечеть Хабаровска</div>
+            <div class="mq-note">Резиденция муфтията ДУМ ДВ. Пятничная проповедь, медресе, воскресная школа.</div>
+          </a>
+          <a class="mq soon" href="stroitelstvo.html">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Проект первой соборной мечети</span></div>
+            <div class="mq-city">Хабаровск</div>
+            <div class="mq-name">Первая соборная мечеть Дальнего Востока</div>
+            <div class="mq-note">Строится. Идёт четвёртый этап — монолит и фасадные работы.</div>
+            <span class="mq-tag">Строится</span>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Комсомольск-на-Амуре</span></div>
+            <div class="mq-city">Комсомольск-на-Амуре</div>
+            <div class="mq-name">Мусульманская община Комсомольска-на-Амуре</div>
+            <div class="mq-note">Молитвенный дом, пятничная молитва, обрядовые услуги.</div>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенная комната, Амурск</span></div>
+            <div class="mq-city">Амурск</div>
+            <div class="mq-name">Мусульманская община Амурска</div>
+            <div class="mq-note">Молитвенная комната, коллективные намазы по пятницам.</div>
+          </a>
         </div>
       </div>
 
-      <div class="deputy">
-        <figure class="portrait portrait-sm">
-          <img src="img/aydar-hazrat.jpg" alt="Первый заместитель муфтия Дальнего Востока Айдар хазрат Гарифуллин">
-        </figure>
-        <div>
-          <span class="kicker">Первый заместитель</span>
-          <h3 class="deputy-name">Гарифуллин Айдар хазрат</h3>
-          <div class="mufti-role">Первый заместитель муфтия Дальнего Востока, руководитель администрации</div>
-          <p>Замещает председателя управления, руководит администрацией ДУМ ДВ, координирует работу местных религиозных организаций округа и текущую деятельность канцелярии.</p>
-          <p>Биография — подставить из документов ДУМ ДВ.</p>
+      <div class="reg" id="primorye">
+        <div class="reg-head"><h2>Приморский край</h2><span class="reg-count">3 прихода</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Мечеть во Владивостоке</span></div>
+            <div class="mq-city">Владивосток</div>
+            <div class="mq-name">Соборная мечеть Владивостока</div>
+            <div class="mq-note">Крупнейший приход Приморья. Пятничная проповедь, курсы для взрослых.</div>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Находка</span></div>
+            <div class="mq-city">Находка</div>
+            <div class="mq-name">Мусульманская община Находки</div>
+            <div class="mq-note">Молитвенный дом, обрядовые услуги, помощь морякам-мусульманам.</div>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Уссурийск</span></div>
+            <div class="mq-city">Уссурийск</div>
+            <div class="mq-name">Мусульманская община Уссурийска</div>
+            <div class="mq-note">Пятничная молитва, занятия по основам ислама.</div>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="board" id="rukovodstvo">
-    <div class="wrap">
-      <span class="kicker">Руководство</span>
-      <h2>Руководство ДУМ ДВ</h2>
-      <p class="board-sub">Состав руководства управления. Имена и биографии подставляются из документов ДУМ ДВ перед публикацией.</p>
-      <div class="board-grid">
-        <div class="person">
-          <div class="person-role">Председатель</div>
-          <div class="person-name">Гарифуллин Ахмад хазрат</div>
-          <div class="person-note">Муфтий Дальнего Востока. Возглавляет управление, назначает имамов, представляет общину округа.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Первый заместитель</div>
-          <div class="person-name">Гарифуллин Айдар хазрат</div>
-          <div class="person-note">Руководитель администрации. Замещает председателя, курирует работу местных религиозных организаций.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Заместитель по образованию</div>
-          <div class="person-name">Имя — подставить</div>
-          <div class="person-note">Медресе, воскресная школа, курсы для взрослых, подготовка имамов.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Ответственный секретарь</div>
-          <div class="person-name">Имя — подставить</div>
-          <div class="person-note">Канцелярия, документооборот, приём обращений от прихожан.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Имам-хатыб</div>
-          <div class="person-name">Имя — подставить</div>
-          <div class="person-note">Пятничная проповедь, обрядовая работа, никах и джаназа.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Ревизионная комиссия</div>
-          <div class="person-name">Состав — подставить</div>
-          <div class="person-note">Контроль расходования средств, в том числе собранных на строительство.</div>
+      <div class="reg" id="amur">
+        <div class="reg-head"><h2>Амурская область</h2><span class="reg-count">2 прихода</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Мечеть в Благовещенске</span></div>
+            <div class="mq-city">Благовещенск</div>
+            <div class="mq-name">Соборная мечеть Благовещенска</div>
+            <div class="mq-note">Пятничная проповедь, воскресная школа для детей.</div>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенная комната, Тында</span></div>
+            <div class="mq-city">Тында</div>
+            <div class="mq-name">Мусульманская община Тынды</div>
+            <div class="mq-note">Молитвенная комната, коллективные намазы.</div>
+          </a>
         </div>
       </div>
+
+      <div class="reg" id="sahalin">
+        <div class="reg-head"><h2>Сахалинская область</h2><span class="reg-count">2 прихода</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Мечеть в Южно-Сахалинске</span></div>
+            <div class="mq-city">Южно-Сахалинск</div>
+            <div class="mq-name">Соборная мечеть Южно-Сахалинска</div>
+            <div class="mq-note">Пятничная проповедь, обрядовые услуги, ифтары в Рамадан.</div>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Корсаков</span></div>
+            <div class="mq-city">Корсаков</div>
+            <div class="mq-name">Мусульманская община Корсакова</div>
+            <div class="mq-note">Молитвенный дом, пятничная молитва.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="reg" id="eao">
+        <div class="reg-head"><h2>Еврейская автономная область</h2><span class="reg-count">1 приход</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Биробиджан</span></div>
+            <div class="mq-city">Биробиджан</div>
+            <div class="mq-name">Мусульманская община Биробиджана</div>
+            <div class="mq-note">Молитвенный дом, пятничная молитва, обрядовые услуги.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="reg" id="magadan">
+        <div class="reg-head"><h2>Магаданская область</h2><span class="reg-count">1 приход</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Мечеть в Магадане</span></div>
+            <div class="mq-city">Магадан</div>
+            <div class="mq-name">Мусульманская община Магадана</div>
+            <div class="mq-note">Пятничная молитва, обрядовые услуги, помощь вахтовикам.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="reg" id="kamchatka">
+        <div class="reg-head"><h2>Камчатский край</h2><span class="reg-count">1 приход</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Петропавловск-Камчатский</span></div>
+            <div class="mq-city">Петропавловск-Камчатский</div>
+            <div class="mq-name">Мусульманская община Камчатки</div>
+            <div class="mq-note">Молитвенный дом, коллективные намазы, праздничные богослужения.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="reg" id="yakutia">
+        <div class="reg-head"><h2>Республика Саха (Якутия)</h2><span class="reg-count">2 прихода</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Мечеть в Якутске</span></div>
+            <div class="mq-city">Якутск</div>
+            <div class="mq-name">Соборная мечеть Якутска</div>
+            <div class="mq-note">Пятничная проповедь, медресе, курсы арабского языка.</div>
+          </a>
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенный дом, Нерюнгри</span></div>
+            <div class="mq-city">Нерюнгри</div>
+            <div class="mq-name">Мусульманская община Нерюнгри</div>
+            <div class="mq-note">Молитвенный дом, пятничная молитва.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="reg" id="chukotka">
+        <div class="reg-head"><h2>Чукотский автономный округ</h2><span class="reg-count">1 приход</span></div>
+        <div class="mq-grid">
+          <a class="mq" href="index.html#contacts">
+            <div class="mq-photo"><span class="mq-slot">Слот для фото</span><span class="mq-hint">Молитвенная комната, Анадырь</span></div>
+            <div class="mq-city">Анадырь</div>
+            <div class="mq-name">Мусульманская община Анадыря</div>
+            <div class="mq-note">Молитвенная комната, коллективные намазы по пятницам.</div>
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
