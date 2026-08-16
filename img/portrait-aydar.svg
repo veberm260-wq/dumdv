@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <rect width="300" height="400" fill="#f7efdf"/>
+  <circle cx="150" cy="150" r="62" fill="#e3d3ad"/>
+  <path d="M150 232c58 0 96 36 102 90H48c6-54 44-90 102-90z" fill="#e3d3ad"/>
+  <text x="150" y="368" text-anchor="middle" font-family="Golos Text,system-ui,sans-serif" font-size="13" fill="#8a6f2e" letter-spacing="1.4">ФОТО — ПОДСТАВИТЬ</text>
+</svg>

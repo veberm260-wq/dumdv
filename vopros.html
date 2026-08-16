@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ДУМ ДВ — Духовное управление мусульман Дальнего Востока</title>
+<title>Вопрос имаму — Духовное управление мусульман Дальнего Востока</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -263,44 +263,52 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .regions-grid{grid-template-columns:1fr}
 }
 
-/* страница ДУМ ДВ */
-.page-head{padding:120px 0 56px}
+/* страница «Вопрос имаму» */
+.page-head{padding:120px 0 46px}
 .page-head h1{font-size:clamp(48px,7vw,92px);line-height:1.03;letter-spacing:.01em;color:var(--tx)}
 .page-head .lead{margin-top:26px}
 
-.mufti{background:var(--srf);padding:76px 0}
-.mufti-grid{display:grid;grid-template-columns:360px 1fr;gap:56px;align-items:start}
-.portrait{margin:0;border:1px solid var(--brd);border-radius:6px;background:var(--pnl);overflow:hidden;position:relative}
-.portrait img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 22%}
-.portrait-cap{display:block;padding:14px 18px;font-size:12.5px;letter-spacing:.03em;color:var(--mut);background:var(--srf);border-top:1px solid var(--brd)}
-.portrait-k{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-.portrait-hint{font-size:13px;line-height:1.5;color:var(--mut);max-width:24ch}
-.deputy{display:grid;grid-template-columns:220px 1fr;gap:44px;align-items:start;margin-top:64px;padding-top:52px;border-top:1px solid var(--brd)}
-.portrait-sm img{aspect-ratio:1/1;object-position:50% 18%}
-.deputy-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;line-height:1.15;color:var(--tx);margin:14px 0 8px}
-.deputy p{font-size:16px;line-height:1.8;color:var(--mut);margin:0 0 14px;max-width:62ch}
-.mufti h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 8px}
-.mufti-role{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
-.mufti p{font-size:16px;line-height:1.8;color:var(--mut);margin:0 0 16px;max-width:62ch}
+.qa{background:var(--srf);padding:70px 0 100px}
+.qa-grid{display:grid;grid-template-columns:1.15fr 400px;gap:64px;align-items:start}
 
-.board{background:var(--pnl);padding:76px 0 96px}
-.board h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 10px}
-.board-sub{font-size:15px;line-height:1.7;color:var(--mut);margin:0 0 40px;max-width:60ch}
-.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd)}
-.person{background:var(--srf);padding:28px 26px}
-.person-role{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.person-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx);margin-top:10px}
-.person-note{font-size:14px;line-height:1.65;color:var(--mut);margin-top:10px}
+.form{background:var(--pnl);border:1px solid var(--brd);border-radius:20px;padding:30px}
+.form h2{font-size:30px;line-height:1.2;color:var(--tx);margin-bottom:8px}
+.form-sub{font-size:14px;line-height:1.6;color:var(--mut);margin:0 0 26px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.field input,.field select,.field textarea{width:100%;padding:14px 16px;border:1px solid var(--brd);border-radius:12px;background:var(--srf);color:var(--tx);font-family:inherit;font-size:15px;line-height:1.5}
+.field textarea{min-height:150px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#B98F22}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form .btn{width:100%;justify-content:center;border-radius:14px;margin-top:8px}
+.form-note{font-size:12px;line-height:1.6;color:var(--mut);margin-top:16px}
+
+.rules{margin-bottom:44px}
+.rules h2{font-size:clamp(26px,3vw,38px);line-height:1.15;color:var(--tx);margin-bottom:16px}
+.rules p{font-size:16px;line-height:1.8;color:var(--mut);margin:0 0 14px;max-width:60ch}
+.steps{display:grid;gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:14px;overflow:hidden;margin-top:32px}
+.step-row{background:var(--srf);padding:22px 24px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start}
+.step-n{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;line-height:1;color:var(--goldsoft)}
+.step-t{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;line-height:1.3;color:var(--tx)}
+.step-d{font-size:14px;line-height:1.65;color:var(--mut);margin-top:6px}
+
+.faq{margin-top:56px;padding-top:44px;border-top:1px solid var(--brd)}
+.faq h2{font-size:clamp(26px,3vw,38px);line-height:1.15;color:var(--tx);margin-bottom:24px}
+.faq details{border-bottom:1px solid var(--brd)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 0;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;line-height:1.35;color:var(--tx);display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:22px;color:var(--gold);line-height:1.2}
+.faq details[open] summary::after{content:"–"}
+.faq details p{font-size:15px;line-height:1.75;color:var(--mut);margin:0 0 22px;max-width:64ch}
 @media (max-width:1080px){
-  .mufti-grid{grid-template-columns:1fr}
-  .portrait{max-width:360px}
-  .deputy{grid-template-columns:1fr}
-  .portrait-sm{max-width:220px}
-  .board-grid{grid-template-columns:1fr 1fr}
+  .qa-grid{grid-template-columns:1fr}
 }
-@media (max-width:680px){
-  .board-grid{grid-template-columns:1fr}
+@media (max-width:560px){
+  .field-row{grid-template-columns:1fr}
 }
+.check{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.5;color:var(--tx);cursor:pointer;margin-top:12px}
+.check input{width:17px;height:17px;flex:none;margin:1px 0 0;accent-color:#B98F22;cursor:pointer}
+.check-consent{font-size:12px;color:var(--mut);margin-top:14px;margin-bottom:20px}
 </style>
 </head>
 <body>
@@ -330,7 +338,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         </span>
       </a>
       <nav class="hdr-nav">
-        <a class="active" href="dumdv.html">ДУМ ДВ</a>
+        <a href="dumdv.html">ДУМ ДВ</a>
         <a href="mecheti.html">Мечети</a>
         <a href="namaz.html">Время намаза</a>
         <a href="stroitelstvo.html">Строительство</a>
@@ -339,87 +347,123 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   </header>
 
 
+
+
   <section class="page-head" id="top">
     <div class="wrap">
-      <span class="kicker">Об организации</span>
-      <h1>Духовное управление мусульман Дальнего Востока</h1>
-      <p class="lead">Централизованная религиозная организация в составе Центрального духовного управления мусульман России. Канцелярия и муфтият находятся в Хабаровске.</p>
-      <p class="lead">Управление объединяет местные мусульманские общины Дальневосточного федерального округа: назначает имамов, ведёт обрядовую и образовательную работу, представляет общину в диалоге с органами власти.</p>
+      <span class="kicker">Обращения</span>
+      <h1>Вопрос имаму</h1>
+      <p class="lead">Вопросы по вероучению, обрядам, никаху, джаназа и семейным делам рассматривает имам-мухтасиб муфтията. Ответ направляется на указанную вами почту.</p>
     </div>
   </section>
 
-  <section class="mufti" id="muftiy">
+  <section class="qa" id="forma">
     <div class="wrap">
-      <div class="mufti-grid">
-        <figure class="portrait">
-          <img src="img/ahmad-hazrat.jpg" alt="Муфтий Дальнего Востока Ахмад хазрат Гарифуллин" onerror="this.onerror=null;this.src='img/portrait-ahmad.svg'">
-          <figcaption class="portrait-cap">Ахмад хазрат Гарифуллин</figcaption>
-        </figure>
+      <div class="qa-grid">
         <div>
-          <span class="kicker">Муфтий ДУМ ДВ</span>
-          <h2>Гарифуллин Ахмад хазрат</h2>
-          <div class="mufti-role">Председатель Духовного управления мусульман Дальнего Востока</div>
-          <p>Родился 24 марта 1986 года в городе Магдебург, в татарской семье: отец в то время проходил службу в Советской армии.</p>
-          <p>В 1989 году семья переехала в город Октябрьский Республики Башкортостан, где Ахмад хазрат получил первоначальное образование в средней школе № 10. В юности занимался греко-римской борьбой и в 2001 году получил звание кандидата в мастера спорта.</p>
-          <p>Религиозное образование начал в Октябрьском, при Исламском институте, откуда в 2003 году был направлен на обучение в Турцию, в Стамбул. В 2007 году, окончив обучение, вернулся в Россию, прошёл переаттестацию и поступил на третий курс Российского исламского университета, который с успехом окончил в 2011 году. В том же 2007 году поступил в Московский институт юриспруденции и окончил его в 2013 году.</p>
-          <p>Религиозную деятельность начал в конце 2007 года имамом в резиденции Центрального духовного управления мусульман России на ВДНХ. В начале 2009 года приказом Верховного муфтия России назначен имам-хатыбом соборной мечети «Ляля-Тюльпан» в Уфе. Через год начал преподавать в Российском исламском университете, а с 2011 по май 2014 года занимал должность декана теолого-педагогического факультета университета.</p>
-          <p>В конце 2013 года поступил в магистратуру Башкирского государственного педагогического университета им. М. Акмуллы, в институт профессионального образования и информационных технологий, по специальности «технолог управления профессионального развития персонала».</p>
-          <p>В мае 2014 года приказом Верховного муфтия назначен полномочным представителем Верховного муфтия на Дальнем Востоке. В мае 2015 года назначен председателем Духовного управления мусульман Дальнего Востока в составе Центрального духовного управления мусульман России, которое возглавляет по сегодняшний день.</p>
-          <p>Приём по личным вопросам — по предварительной записи в канцелярии. Контакты указаны в разделе <a href="index.html#contacts">Контакты</a>, вопрос можно задать и через форму <a href="vopros.html">Вопрос имаму</a>.</p>
-        </div>
-      </div>
+          <div class="rules">
+            <h2>Как это работает</h2>
+            <p>Обращения рассматриваются в порядке поступления. Если вопрос требует очной беседы, канцелярия предложит время приёма у имама.</p>
+            <div class="steps">
+              <div class="step-row">
+                <div class="step-n">01</div>
+                <div>
+                  <div class="step-t">Вы отправляете вопрос</div>
+                  <div class="step-d">Достаточно имени и почты. Город помогает направить вопрос имаму вашего прихода.</div>
+                </div>
+              </div>
+              <div class="step-row">
+                <div class="step-n">02</div>
+                <div>
+                  <div class="step-t">Обращение попадает в канцелярию</div>
+                  <div class="step-d">Секретарь регистрирует его и передаёт имаму-мухтасибу или профильному специалисту.</div>
+                </div>
+              </div>
+              <div class="step-row">
+                <div class="step-n">03</div>
+                <div>
+                  <div class="step-t">Имам готовит ответ</div>
+                  <div class="step-d">Обычно в течение нескольких рабочих дней. Сложные вопросы выносятся на совет улемов.</div>
+                </div>
+              </div>
+              <div class="step-row">
+                <div class="step-n">04</div>
+                <div>
+                  <div class="step-t">Ответ приходит на почту</div>
+                  <div class="step-d">Личные обращения не публикуются. Обезличенные типовые вопросы могут попасть в раздел ниже.</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="deputy">
-        <figure class="portrait portrait-sm">
-          <img src="img/aydar-hazrat.jpg" alt="Первый заместитель муфтия Дальнего Востока Айдар хазрат Гарифуллин" onerror="this.onerror=null;this.src='img/portrait-aydar.svg'">
-        </figure>
-        <div>
-          <span class="kicker">Первый заместитель</span>
-          <h3 class="deputy-name">Гарифуллин Айдар хазрат</h3>
-          <div class="mufti-role">Первый заместитель муфтия Дальнего Востока, руководитель администрации</div>
-          <p>Замещает председателя управления, руководит администрацией ДУМ ДВ, координирует работу местных религиозных организаций округа и текущую деятельность канцелярии.</p>
-          <p>Биография — подставить из документов ДУМ ДВ.</p>
+          <div class="faq">
+            <h2>Частые вопросы</h2>
+            <details>
+              <summary>Как заключить никах в мечети?</summary>
+              <p>Порядок и перечень документов — подставить из регламента ДУМ ДВ. Обычно требуется присутствие обеих сторон, свидетелей и предварительная запись в канцелярии.</p>
+            </details>
+            <details>
+              <summary>Как организовать джаназа-намаз?</summary>
+              <p>Порядок обращения и контакты дежурного имама — подставить. В экстренных случаях звонить в приёмную управления.</p>
+            </details>
+            <details>
+              <summary>Можно ли записать ребёнка в медресе?</summary>
+              <p>Условия набора, возраст групп и расписание занятий — подставить. Набор объявляется в разделе <a href="novosti.html">Новости</a>.</p>
+            </details>
+            <details>
+              <summary>Как получить справку о принадлежности к общине?</summary>
+              <p>Порядок выдачи справок — подставить. Обращаться в приёмную по адресу г. Хабаровск, ул. Быстринская, д. 3.</p>
+            </details>
+            <details>
+              <summary>Куда идут пожертвования на строительство?</summary>
+              <p>Средства расходуются по этапам строительства, отчёт по каждому закрытому этапу публикуется в новостях. Подробнее — в разделе <a href="stroitelstvo.html">Строительство</a>.</p>
+            </details>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="board" id="rukovodstvo">
-    <div class="wrap">
-      <span class="kicker">Руководство</span>
-      <h2>Руководство ДУМ ДВ</h2>
-      <p class="board-sub">Состав руководства управления. Имена и биографии подставляются из документов ДУМ ДВ перед публикацией.</p>
-      <div class="board-grid">
-        <div class="person">
-          <div class="person-role">Председатель</div>
-          <div class="person-name">Гарифуллин Ахмад хазрат</div>
-          <div class="person-note">Муфтий Дальнего Востока. Возглавляет управление, назначает имамов, представляет общину округа.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Первый заместитель</div>
-          <div class="person-name">Гарифуллин Айдар хазрат</div>
-          <div class="person-note">Руководитель администрации. Замещает председателя, курирует работу местных религиозных организаций.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Заместитель по образованию</div>
-          <div class="person-name">Имя — подставить</div>
-          <div class="person-note">Медресе, воскресная школа, курсы для взрослых, подготовка имамов.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Ответственный секретарь</div>
-          <div class="person-name">Имя — подставить</div>
-          <div class="person-note">Канцелярия, документооборот, приём обращений от прихожан.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Имам-хатыб</div>
-          <div class="person-name">Имя — подставить</div>
-          <div class="person-note">Пятничная проповедь, обрядовая работа, никах и джаназа.</div>
-        </div>
-        <div class="person">
-          <div class="person-role">Ревизионная комиссия</div>
-          <div class="person-name">Состав — подставить</div>
-          <div class="person-note">Контроль расходования средств, в том числе собранных на строительство.</div>
-        </div>
+        <form class="form" id="ask-form" action="#" method="post">
+          <h2>Задать вопрос</h2>
+          <p class="form-sub">Поля со звёздочкой обязательны. Ответ придёт на указанную почту.</p>
+
+          <div class="field">
+            <label for="q-name">Имя *</label>
+            <input id="q-name" name="name" type="text" required placeholder="Как к вам обращаться">
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="q-mail">Почта *</label>
+              <input id="q-mail" name="email" type="email" required placeholder="name@mail.ru">
+            </div>
+            <div class="field">
+              <label for="q-city">Город</label>
+              <input id="q-city" name="city" type="text" placeholder="Хабаровск">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="q-topic">Тема обращения</label>
+            <select id="q-topic" name="topic">
+              <option>Вероучение и обряды</option>
+              <option>Никах и семейные вопросы</option>
+              <option>Джаназа и похоронный обряд</option>
+              <option>Образование и медресе</option>
+              <option>Строительство мечети</option>
+              <option>Другое</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="q-text">Вопрос *</label>
+            <textarea id="q-text" name="message" required placeholder="Опишите вопрос своими словами"></textarea>
+          </div>
+
+          <label class="check"><input type="checkbox"><span>Не публиковать вопрос даже обезличенно</span></label>
+          <label class="check check-consent"><input type="checkbox" required checked><span>Я даю согласие на <a href="index.html#contacts">обработку персональных данных</a></span></label>
+
+          <button class="btn btn-primary" type="submit">Отправить вопрос<span class="arrow">→</span></button>
+          <p class="form-note">Форма показана для демонстрации: отправка подключается вместе с почтовым сервисом. Пока вопрос можно направить на <a href="mailto:dumdv@yandex.ru">dumdv@yandex.ru</a> или в приёмную по телефону <a href="tel:+74212693372">+7 (4212) 69-33-72</a>.</p>
+        </form>
       </div>
     </div>
   </section>

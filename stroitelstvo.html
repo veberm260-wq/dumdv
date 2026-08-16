@@ -50,26 +50,27 @@ img{max-width:100%}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
 .strip-link{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none}
-.strip-link .arr{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;border:1px solid var(--brd);font-size:10px;line-height:1;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.strip-link .arr{display:inline-grid;place-items:center;width:20px;height:20px;flex:none;border-radius:50%;border:1px solid var(--brd);transition:background .2s ease,border-color .2s ease}
+.strip-link .arr svg{display:block;width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:1.8}
 .strip-link:hover{color:var(--gold)}
 .strip-link:hover .arr{background:var(--gold);border-color:var(--gold);color:#fff}
+.strip-link:hover .arr svg{stroke:#fff}
 /* времена намазов */
-.prayers{display:flex;gap:12px;flex-wrap:wrap}
-.prayer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 11px;border-radius:9px;transition:background .2s ease}
-.prayer.is-next{background:rgba(185,143,34,.16)}
+.prayers{display:flex;gap:4px;flex-wrap:wrap;align-items:stretch;padding:4px;border-radius:16px;background:var(--pnl);border:1px solid rgba(185,143,34,.2)}
+#night:checked ~ .page .prayers{background:rgba(255,255,255,.05)}
+.prayer{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:78px;padding:9px 14px;border-radius:12px;border:1px solid transparent;transition:background .25s ease,border-color .25s ease}
+.prayer + .prayer::before{content:"";position:absolute;left:-2px;top:22%;bottom:22%;width:1px;background:var(--brd)}
+.prayer.is-next{background:var(--srf);border-color:rgba(185,143,34,.5);box-shadow:0 3px 12px rgba(185,143,34,.16)}
+.prayer.is-next::before,.prayer.is-next + .prayer::before{opacity:0}
 .prayer.is-next .prayer-k,.prayer.is-next .prayer-v{color:#87680F}
-#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.2)}
+#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
 #night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
-.prayer-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:23px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
-/* отсчёт до намаза — справа от времён */
-.countdown{display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding:8px 16px;border-radius:12px;background:var(--pnl);border:1px solid rgba(185,143,34,.32)}
-#night:checked ~ .page .countdown{background:rgba(255,255,255,.07)}
-.cd-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
-.cd-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
+.prayer-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
+.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
 @media (max-width:900px){
   .strip-in{gap:18px}
-  .countdown{order:-1}
+  .prayer{min-width:0;padding:8px 10px}
+  .prayer-v{font-size:21px}
 }
 
 /* шапка */
@@ -228,7 +229,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .socials{display:flex;gap:12px;margin-top:16px}
 .social{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;overflow:hidden}
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
-.legal-in{border-top:1px solid var(--brd);padding-top:20px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--mut)}
+.legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
 
 .theme-btn{font-size:12px;color:var(--gold);cursor:pointer;border-bottom:1px solid var(--brd);padding-bottom:2px}
 .theme-btn:hover{color:var(--tx)}
@@ -287,6 +288,54 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 @media (max-width:560px){
   .facts{grid-template-columns:1fr}
 }
+/* форма пожертвования */
+.panel{border-radius:20px;padding:26px}
+.track{position:relative;overflow:visible}
+.bar{position:relative;border-radius:999px}
+.bar-tag{position:absolute;right:-1px;top:50%;transform:translateY(-50%);background:var(--gold);color:#fff;font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-weight:600;line-height:1;padding:4px 9px;border-radius:999px;border:2px solid var(--srf)}
+.goal{border-radius:16px;background:linear-gradient(135deg,#B98F22,#87680F);color:#fff;padding:18px}
+.goal .panel-label,.goal .fine{color:rgba(255,255,255,.82)}
+.goal .panel-num{color:#fff}
+.goal .track{background:rgba(255,255,255,.28)}
+.goal .bar{background:#fff}
+.goal-chip{background:rgba(255,255,255,.2);border-radius:999px;padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.goal-pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:#fff;background:rgba(255,255,255,.2);border-radius:999px;padding:4px 12px}
+.panel-note{font-size:13px;line-height:1.6;color:var(--mut);margin:18px 0 16px}
+.check{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.5;color:var(--tx);cursor:pointer;margin-top:12px}
+.check input{width:17px;height:17px;flex:none;margin:1px 0 0;accent-color:#B98F22;cursor:pointer}
+.check-consent{font-size:12px;color:var(--mut);margin-top:18px}
+.check-week{margin-top:10px}
+.sum-input{width:100%;margin-top:10px;padding:14px 16px;border:1px solid var(--brd);border-radius:12px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-variant-numeric:tabular-nums}
+.sum-input:focus{outline:none;border-color:#B98F22}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.amount{cursor:pointer;background:var(--srf);transition:background .2s ease,border-color .2s ease,color .2s ease}
+.amount:hover{border-color:#B98F22}
+.pay-mode{display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:20px}
+.mode{cursor:pointer;border-radius:14px;padding:15px 12px;font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:filter .2s ease,background .2s ease,color .2s ease}
+.mode-auto{border:0;background:linear-gradient(135deg,#C79A26,#87680F);color:#fff;box-shadow:0 8px 22px rgba(185,143,34,.32)}
+.mode-auto:hover{filter:brightness(1.06)}
+.mode-once{border:1px solid var(--brd);background:var(--srf);color:var(--tx)}
+.mode-once:hover{border-color:#B98F22;color:#87680F}
+.mode-badge{background:rgba(255,255,255,.24);border-radius:999px;padding:3px 9px;font-size:10.5px;letter-spacing:.04em}
+.pay-tabs{display:flex;gap:22px;margin-top:24px;border-bottom:1px solid var(--brd)}
+.ptab{appearance:none;border:0;background:none;font-family:inherit;font-size:13px;color:var(--mut);padding:0 0 12px;cursor:pointer;position:relative}
+.ptab.on{color:var(--tx);font-weight:600}
+.ptab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#B98F22}
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.method{display:flex;align-items:center;gap:10px;padding:13px 14px;border:1px solid var(--brd);border-radius:12px;background:var(--srf);font-family:inherit;font-size:13px;color:var(--tx);cursor:pointer;text-align:left;transition:border-color .2s ease,background .2s ease}
+.method:hover{border-color:#B98F22}
+.method.on{border-color:#B98F22;background:rgba(185,143,34,.08)}
+.method .mi{width:26px;height:22px;flex:none;display:grid;place-items:center}
+.method .mi svg{width:100%;height:100%;display:block}
+.panel .btn{border-radius:14px}
+@media (max-width:420px){
+  .amounts{grid-template-columns:1fr 1fr}
+  .methods{grid-template-columns:1fr}
+  .pay-mode{grid-template-columns:1fr}
+}
+.build-shot{margin:44px 0 0;border:1px solid var(--brd);border-radius:16px;overflow:hidden;background:var(--pnl)}
+.build-shot img{display:block;width:100%;aspect-ratio:21/9;object-fit:cover}
+.build-shot figcaption{padding:14px 20px;font-size:13px;color:var(--mut);background:var(--srf);border-top:1px solid var(--brd)}
 </style>
 </head>
 <body>
@@ -299,7 +348,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
           <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
-          <a class="strip-link" href="namaz.html">Полное расписание<span class="arr">→</span></a>
+          <a class="strip-link" href="namaz.html">Полное расписание<span class="arr"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9M7 2.5 10.5 6 7 9.5"/></svg></span></a>
         </div>
       </div>
       <div class="prayers">
@@ -310,54 +359,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
-      <span class="countdown"><span class="cd-k" id="next-label">До намаза</span><span class="cd-v" id="countdown">--:--:--</span></span>    </div>
-  </div>
-
-  <header class="hdr" id="hdr">
-    <div class="hdr-in">
-      <a class="brand" href="index.html">
-        <span class="brand-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-  <defs>
-    <clipPath id="mkIn1"><circle cx="50" cy="50" r="35"/></clipPath>
-    <g id="mkStar1">
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6"/>
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6" transform="rotate(45 50 7.8)"/>
-    </g>
-  </defs>
-
-  <circle cx="50" cy="50" r="48.6" fill="none" stroke="#B98F22" stroke-width="1.8"/>
-  <circle cx="50" cy="50" r="35" fill="none" stroke="#B98F22" stroke-width="1.8"/>
-
-  <g fill="#B98F22">
-    <use href="#mkStar1"/>
-    <use href="#mkStar1" transform="rotate(45 50 50)"/>
-    <use href="#mkStar1" transform="rotate(90 50 50)"/>
-    <use href="#mkStar1" transform="rotate(135 50 50)"/>
-    <use href="#mkStar1" transform="rotate(180 50 50)"/>
-    <use href="#mkStar1" transform="rotate(225 50 50)"/>
-    <use href="#mkStar1" transform="rotate(270 50 50)"/>
-    <use href="#mkStar1" transform="rotate(315 50 50)"/>
-  </g>
-
-  <g clip-path="url(#mkIn1)" transform="translate(50 51) scale(.86) translate(-50 -51)">
-    <g fill="#B98F22">
-      <path d="M72.6 39.5h5.6v34h-5.6z"/>
-      <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
-      <rect x="71.8" y="43.6" width="7.2" height="1.6"/>
-      <path d="M50 27.4c9.1 5.2 13.9 11.3 13.9 17.9 0 5.7-6.2 9.5-13.9 9.5s-13.9-3.8-13.9-9.5c0-6.6 4.8-12.7 13.9-17.9z"/>
-      <path d="M49.3 20.4a3.6 3.6 0 0 1 0 6.6 2.6 2.6 0 0 0 0-6.6z"/>
-      <path d="M30.4 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
-      <path d="M69.6 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
-      <path d="M24.5 54.2h51v19.3h-51z"/>
-      <path d="M19 73.5h62v4.4H19z"/>
-    </g>
-    <g class="cut">
-      <path d="M44.4 73.5V63.8a5.6 5.6 0 0 1 11.2 0v9.7z"/>
-      <path d="M31.6 62.6a2.7 2.7 0 0 1 5.4 0v7.4h-5.4z"/>
-      <path d="M63 62.6a2.7 2.7 0 0 1 5.4 0v7.4H63z"/>
-    </g>
-  </g>
-</svg></span>
         <span>
           <span class="brand-name">Духовное управление</span>
           <span class="brand-sub">мусульман Дальнего Востока · Хабаровск</span>
@@ -379,6 +380,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <h1>Первая соборная мечеть Дальнего Востока</h1>
       <p class="lead">Участок выделен, разрешение на строительство получено, монолит выходит на фасадные работы. Это единственный проект такого масштаба на Дальнем Востоке с полным пакетом разрешительных документов.</p>
       <p class="lead">Проект разбит на шесть этапов. Каждый этап закрывается полностью, прежде чем начинается следующий: так община видит, за что именно собираются средства, и получает отчёт по каждому закрытому этапу.</p>
+      <figure class="build-shot">
+        <img src="img/mechet.jpg" alt="Проект первой соборной мечети Дальнего Востока в Хабаровске">
+        <figcaption>Проектное решение первой соборной мечети Дальнего Востока, Хабаровск</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -410,25 +415,83 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
               <div class="panel-num">426 350 000 ₽</div>
             </div>
           </div>
-          <div class="track"><div class="bar" style="width:49%"></div></div>
-          <div class="meta-row"><span>Собрано 49% от общей суммы</span><span>Этапы 1–3</span></div>
+          <div class="track"><div class="bar" style="width:49%"><span class="bar-tag">49%</span></div></div>
+          <div class="meta-row"><span>Собрано от общей суммы</span><span>Этапы 1–3</span></div>
+
           <div class="goal">
-            <div class="panel-row"><span class="panel-label">Цель на месяц</span><span class="panel-label">24%</span></div>
+            <div class="panel-row"><span class="goal-chip">Цель на месяц</span><span class="goal-pct">24%</span></div>
             <div class="track"><div class="bar" style="width:24%"></div></div>
-            <div class="panel-row" style="margin-top:14px">
+            <div class="panel-row" style="margin-top:16px">
               <div><div class="fine" style="margin:0">Собрали</div><div class="panel-num panel-num-sm">3 671 746 ₽</div></div>
               <div style="text-align:right"><div class="fine" style="margin:0">Необходимо</div><div class="panel-num panel-num-sm">15 000 000 ₽</div></div>
             </div>
           </div>
-          <div class="panel-label" style="margin-top:22px">Сумма пожертвования</div>
+
+          <p class="panel-note">Строительство запланировано в шесть этапов. Общая сумма (предварительно) — около 700 млн ₽.</p>
+
+          <label class="check"><input type="checkbox"><span>Анонимное пожертвование</span></label>
+
+          <div class="panel-label" style="margin-top:20px">Сумма пожертвования</div>
+          <input class="sum-input" type="text" inputmode="numeric" value="1 000" aria-label="Сумма пожертвования">
           <div class="amounts">
-            <span class="amount">500</span>
-            <span class="amount on">1 000</span>
-            <span class="amount">5 000</span>
-            <span class="amount">10 000</span>
+            <button class="amount" type="button">500 ₽</button>
+            <button class="amount on" type="button">1 000 ₽</button>
+            <button class="amount" type="button">5 000 ₽</button>
+            <button class="amount" type="button">10 000 ₽</button>
           </div>
-          <a class="btn btn-primary" href="#contacts">Внести вклад<span class="arrow">→</span></a>
-          <div class="fine">Способы оплаты и реквизиты для перевода подставляются после подключения платёжного сервиса.</div>
+
+          <label class="check"><input type="checkbox"><span>Выбрать регион</span></label>
+
+          <div class="pay-mode">
+            <button class="mode mode-auto on" type="button">Автоплатёж<span class="mode-badge">♥ 202</span></button>
+            <button class="mode mode-once" type="button">Единоразовое</button>
+          </div>
+          <label class="check check-week"><input type="checkbox" checked><span>Списывать еженедельно</span></label>
+
+          <div class="pay-tabs">
+            <button class="ptab on" type="button">Онлайн оплата</button>
+            <button class="ptab" type="button">Расчётный счёт</button>
+          </div>
+
+          <div class="methods">
+            <button class="method on" type="button">
+              <span class="mi">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" fill="none" stroke="#4a4540" stroke-width="1.8"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z" fill="#4a4540"/></svg>
+              </span>СБП (QR-код)
+            </button>
+            <button class="method" type="button">
+              <span class="mi">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="none" stroke="#4a4540" stroke-width="1.8"/><path d="M2 10h20" stroke="#4a4540" stroke-width="1.8"/></svg>
+              </span>Картой онлайн
+            </button>
+            <button class="method" type="button">
+              <span class="mi">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" fill="none" stroke="#21A038" stroke-width="1.9"/><path d="M7.6 12.2l3.1 3 5.9-5.8" fill="none" stroke="#21A038" stroke-width="2.1" stroke-linecap="round"/></svg>
+              </span>SberPay
+            </button>
+            <button class="method" type="button">
+              <span class="mi">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#FFDD2D"/><path d="M7.4 8.2h9.2v2.5h-3.3v6.1h-2.6v-6.1H7.4z" fill="#333"/></svg>
+              </span>T-Pay
+            </button>
+            <button class="method" type="button">
+              <span class="mi">
+                <svg viewBox="0 0 48 24" aria-hidden="true">
+                  <rect x="1" y="3" width="46" height="18" rx="3.5" fill="#fff" stroke="#d9d2c2"/>
+                  <path d="M8.4 9.1h3.1l1.5 4.1 1.5-4.1h3.1v6.4h-2v-4.2l-1.6 4.2h-2l-1.6-4.2v4.2h-2z" fill="#0F754E"/>
+                  <path d="M18.6 9.1h2.1v3.6l2.4-3.6h2.2v6.4h-2.1v-3.6l-2.4 3.6h-2.2z" fill="#0F754E"/>
+                  <path d="M26.6 9.1h4.1c1.4 0 2.3.8 2.3 2.1 0 1.3-.9 2.1-2.3 2.1h-2v2.2h-2.1zm2.1 1.6v1.1h1.5c.4 0 .6-.2.6-.55 0-.36-.2-.55-.6-.55z" fill="#0F754E"/>
+                  <path d="M34.6 15.5c2.6 0 4.4-1.3 5.2-3.6h-2.4c-.5 1-1.4 1.6-2.8 1.6z" fill="#0F754E"/>
+                  <path d="M40.1 11.2c.1-.5.15-1 .15-1.5V8.3h-2.1v1.4c0 .55-.05 1-.15 1.5z" fill="#4FAD50"/>
+                </svg>
+              </span>МИР
+            </button>
+          </div>
+
+          <label class="check check-consent"><input type="checkbox" checked><span>Я даю согласие на <a href="index.html#contacts">обработку персональных данных</a> и условия оплаты</span></label>
+
+          <a class="btn btn-primary" href="index.html#contacts">Внести свой вклад<span class="arrow">→</span></a>
+          <div class="fine">Способы оплаты и реквизиты для перевода подключаются платёжным сервисом. Сейчас форма показана для демонстрации и платежи не проводит.</div>
         </aside>
       </div>
     </div>
@@ -501,15 +564,15 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="foot-brand">
           <span class="foot-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
   <defs>
-    <clipPath id="mkIn2"><circle cx="50" cy="50" r="35"/></clipPath>
+    <clipPath id="mkIn2"><circle cx="50" cy="50" r="43.5"/></clipPath>
     <g id="mkStar2">
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6"/>
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6" transform="rotate(45 50 7.8)"/>
+      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5"/>
+      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5" transform="rotate(45 50 4)"/>
     </g>
   </defs>
 
-  <circle cx="50" cy="50" r="48.6" fill="none" stroke="#B98F22" stroke-width="1.8"/>
-  <circle cx="50" cy="50" r="35" fill="none" stroke="#B98F22" stroke-width="1.8"/>
+  <circle cx="50" cy="50" r="48.4" fill="none" stroke="#B98F22" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="43.5" fill="none" stroke="#B98F22" stroke-width="1.5"/>
 
   <g fill="#B98F22">
     <use href="#mkStar2"/>
@@ -522,7 +585,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <use href="#mkStar2" transform="rotate(315 50 50)"/>
   </g>
 
-  <g clip-path="url(#mkIn2)" transform="translate(50 51) scale(.86) translate(-50 -51)">
+  <g clip-path="url(#mkIn2)" transform="translate(50 52) scale(1.06) translate(-50 -52)">
     <g fill="#B98F22">
       <path d="M72.6 39.5h5.6v34h-5.6z"/>
       <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
@@ -577,7 +640,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <span>г. Хабаровск, ул. Быстринская, д. 3</span>
         <a href="tel:+74212693372">+7 (4212) 69-33-72</a>
         <a href="mailto:dumdv@yandex.ru">dumdv@yandex.ru</a>
-        <span>Часы приёма — уточнить по телефону</span>
+        <span>Часы приёма: 8:00 — 17:00</span>
       </div>
       <div class="foot-col">
         <h4>Разделы</h4>
@@ -586,7 +649,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a href="stroitelstvo.html">Ход строительства</a>
         <a href="novosti.html">Новости</a>
         <a href="mecheti.html">Мечети и приходы</a>
-        <a href="index.html#ask">Вопрос имаму</a>
+        <a href="vopros.html">Вопрос имаму</a>
       </div>
     </div>
     <div class="legal">
@@ -618,39 +681,24 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     return (g('hour') % 24) * 3600 + g('minute') * 60 + g('second');
   }
   var slots = [].slice.call(document.querySelectorAll('.prayer'));
-  var nextLabel = document.getElementById('next-label');
-  var countdown = document.getElementById('countdown');
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
-  function updateNext(now) {
+  function highlightNext(now) {
     if (!slots.length) return;
-    var cur = khbSeconds(now), target = null, chosen = null;
+    var cur = khbSeconds(now), chosen = null;
     for (var i = 0; i < slots.length; i++) {
       slots[i].classList.remove('is-next');
       if (slots[i].getAttribute('data-sun')) continue;
       var hm = slots[i].getAttribute('data-t').split(':');
       var sec = parseInt(hm[0], 10) * 3600 + parseInt(hm[1], 10) * 60;
-      if (target === null && sec > cur) { target = sec; chosen = slots[i]; }
+      if (!chosen && sec > cur) chosen = slots[i];
     }
-    if (target === null) {
-      for (var j = 0; j < slots.length; j++) {
-        if (slots[j].getAttribute('data-sun')) continue;
-        var f = slots[j].getAttribute('data-t').split(':');
-        target = parseInt(f[0], 10) * 3600 + parseInt(f[1], 10) * 60 + 86400;
-        chosen = slots[j];
-        break;
-      }
-    }
-    if (!chosen) return;
-    chosen.classList.add('is-next');
-    var left = target - cur;
-    if (nextLabel) nextLabel.textContent = 'До ' + chosen.getAttribute('data-gen');
-    if (countdown) countdown.textContent = pad(Math.floor(left / 3600)) + ':' + pad(Math.floor(left / 60) % 60) + ':' + pad(left % 60);
+    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun')) { chosen = slots[j]; break; } } }
+    if (chosen) chosen.classList.add('is-next');
   }
   function tick() {
     var now = new Date();
     today.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
     if (hijriEl) hijriEl.textContent = hijri(now);
-    updateNext(now);
+    highlightNext(now);
   }
   tick();
   setInterval(tick, 1000);

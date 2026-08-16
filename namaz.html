@@ -50,26 +50,27 @@ img{max-width:100%}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
 .strip-link{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none}
-.strip-link .arr{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;border:1px solid var(--brd);font-size:10px;line-height:1;transition:background .2s ease,border-color .2s ease,color .2s ease}
+.strip-link .arr{display:inline-grid;place-items:center;width:20px;height:20px;flex:none;border-radius:50%;border:1px solid var(--brd);transition:background .2s ease,border-color .2s ease}
+.strip-link .arr svg{display:block;width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:1.8}
 .strip-link:hover{color:var(--gold)}
 .strip-link:hover .arr{background:var(--gold);border-color:var(--gold);color:#fff}
+.strip-link:hover .arr svg{stroke:#fff}
 /* времена намазов */
-.prayers{display:flex;gap:12px;flex-wrap:wrap}
-.prayer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 11px;border-radius:9px;transition:background .2s ease}
-.prayer.is-next{background:rgba(185,143,34,.16)}
+.prayers{display:flex;gap:4px;flex-wrap:wrap;align-items:stretch;padding:4px;border-radius:16px;background:var(--pnl);border:1px solid rgba(185,143,34,.2)}
+#night:checked ~ .page .prayers{background:rgba(255,255,255,.05)}
+.prayer{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:78px;padding:9px 14px;border-radius:12px;border:1px solid transparent;transition:background .25s ease,border-color .25s ease}
+.prayer + .prayer::before{content:"";position:absolute;left:-2px;top:22%;bottom:22%;width:1px;background:var(--brd)}
+.prayer.is-next{background:var(--srf);border-color:rgba(185,143,34,.5);box-shadow:0 3px 12px rgba(185,143,34,.16)}
+.prayer.is-next::before,.prayer.is-next + .prayer::before{opacity:0}
 .prayer.is-next .prayer-k,.prayer.is-next .prayer-v{color:#87680F}
-#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.2)}
+#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
 #night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
-.prayer-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:23px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
-/* отсчёт до намаза — справа от времён */
-.countdown{display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding:8px 16px;border-radius:12px;background:var(--pnl);border:1px solid rgba(185,143,34,.32)}
-#night:checked ~ .page .countdown{background:rgba(255,255,255,.07)}
-.cd-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
-.cd-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
+.prayer-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
+.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
 @media (max-width:900px){
   .strip-in{gap:18px}
-  .countdown{order:-1}
+  .prayer{min-width:0;padding:8px 10px}
+  .prayer-v{font-size:21px}
 }
 
 /* шапка */
@@ -228,7 +229,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .socials{display:flex;gap:12px;margin-top:16px}
 .social{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;overflow:hidden}
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
-.legal-in{border-top:1px solid var(--brd);padding-top:20px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--mut)}
+.legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
 
 .theme-btn{font-size:12px;color:var(--gold);cursor:pointer;border-bottom:1px solid var(--brd);padding-bottom:2px}
 .theme-btn:hover{color:var(--tx)}
@@ -328,7 +329,7 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
           <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
-          <a class="strip-link" href="namaz.html">Полное расписание<span class="arr">→</span></a>
+          <a class="strip-link" href="namaz.html">Полное расписание<span class="arr"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9M7 2.5 10.5 6 7 9.5"/></svg></span></a>
         </div>
       </div>
       <div class="prayers">
@@ -339,54 +340,6 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
-      <span class="countdown"><span class="cd-k" id="next-label">До намаза</span><span class="cd-v" id="countdown">--:--:--</span></span>    </div>
-  </div>
-
-  <header class="hdr" id="hdr">
-    <div class="hdr-in">
-      <a class="brand" href="index.html">
-        <span class="brand-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-  <defs>
-    <clipPath id="mkIn1"><circle cx="50" cy="50" r="35"/></clipPath>
-    <g id="mkStar1">
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6"/>
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6" transform="rotate(45 50 7.8)"/>
-    </g>
-  </defs>
-
-  <circle cx="50" cy="50" r="48.6" fill="none" stroke="#B98F22" stroke-width="1.8"/>
-  <circle cx="50" cy="50" r="35" fill="none" stroke="#B98F22" stroke-width="1.8"/>
-
-  <g fill="#B98F22">
-    <use href="#mkStar1"/>
-    <use href="#mkStar1" transform="rotate(45 50 50)"/>
-    <use href="#mkStar1" transform="rotate(90 50 50)"/>
-    <use href="#mkStar1" transform="rotate(135 50 50)"/>
-    <use href="#mkStar1" transform="rotate(180 50 50)"/>
-    <use href="#mkStar1" transform="rotate(225 50 50)"/>
-    <use href="#mkStar1" transform="rotate(270 50 50)"/>
-    <use href="#mkStar1" transform="rotate(315 50 50)"/>
-  </g>
-
-  <g clip-path="url(#mkIn1)" transform="translate(50 51) scale(.86) translate(-50 -51)">
-    <g fill="#B98F22">
-      <path d="M72.6 39.5h5.6v34h-5.6z"/>
-      <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
-      <rect x="71.8" y="43.6" width="7.2" height="1.6"/>
-      <path d="M50 27.4c9.1 5.2 13.9 11.3 13.9 17.9 0 5.7-6.2 9.5-13.9 9.5s-13.9-3.8-13.9-9.5c0-6.6 4.8-12.7 13.9-17.9z"/>
-      <path d="M49.3 20.4a3.6 3.6 0 0 1 0 6.6 2.6 2.6 0 0 0 0-6.6z"/>
-      <path d="M30.4 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
-      <path d="M69.6 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
-      <path d="M24.5 54.2h51v19.3h-51z"/>
-      <path d="M19 73.5h62v4.4H19z"/>
-    </g>
-    <g class="cut">
-      <path d="M44.4 73.5V63.8a5.6 5.6 0 0 1 11.2 0v9.7z"/>
-      <path d="M31.6 62.6a2.7 2.7 0 0 1 5.4 0v7.4h-5.4z"/>
-      <path d="M63 62.6a2.7 2.7 0 0 1 5.4 0v7.4H63z"/>
-    </g>
-  </g>
-</svg></span>
         <span>
           <span class="brand-name">Духовное управление</span>
           <span class="brand-sub">мусульман Дальнего Востока · Хабаровск</span>
@@ -635,15 +588,15 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
         <div class="foot-brand">
           <span class="foot-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
   <defs>
-    <clipPath id="mkIn2"><circle cx="50" cy="50" r="35"/></clipPath>
+    <clipPath id="mkIn2"><circle cx="50" cy="50" r="43.5"/></clipPath>
     <g id="mkStar2">
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6"/>
-      <rect x="46.4" y="4.2" width="7.2" height="7.2" rx=".6" transform="rotate(45 50 7.8)"/>
+      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5"/>
+      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5" transform="rotate(45 50 4)"/>
     </g>
   </defs>
 
-  <circle cx="50" cy="50" r="48.6" fill="none" stroke="#B98F22" stroke-width="1.8"/>
-  <circle cx="50" cy="50" r="35" fill="none" stroke="#B98F22" stroke-width="1.8"/>
+  <circle cx="50" cy="50" r="48.4" fill="none" stroke="#B98F22" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="43.5" fill="none" stroke="#B98F22" stroke-width="1.5"/>
 
   <g fill="#B98F22">
     <use href="#mkStar2"/>
@@ -656,7 +609,7 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
     <use href="#mkStar2" transform="rotate(315 50 50)"/>
   </g>
 
-  <g clip-path="url(#mkIn2)" transform="translate(50 51) scale(.86) translate(-50 -51)">
+  <g clip-path="url(#mkIn2)" transform="translate(50 52) scale(1.06) translate(-50 -52)">
     <g fill="#B98F22">
       <path d="M72.6 39.5h5.6v34h-5.6z"/>
       <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
@@ -711,7 +664,7 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
         <span>г. Хабаровск, ул. Быстринская, д. 3</span>
         <a href="tel:+74212693372">+7 (4212) 69-33-72</a>
         <a href="mailto:dumdv@yandex.ru">dumdv@yandex.ru</a>
-        <span>Часы приёма — уточнить по телефону</span>
+        <span>Часы приёма: 8:00 — 17:00</span>
       </div>
       <div class="foot-col">
         <h4>Разделы</h4>
@@ -720,7 +673,7 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
         <a href="stroitelstvo.html">Ход строительства</a>
         <a href="novosti.html">Новости</a>
         <a href="mecheti.html">Мечети и приходы</a>
-        <a href="index.html#ask">Вопрос имаму</a>
+        <a href="vopros.html">Вопрос имаму</a>
       </div>
     </div>
     <div class="legal">
@@ -752,39 +705,24 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
     return (g('hour') % 24) * 3600 + g('minute') * 60 + g('second');
   }
   var slots = [].slice.call(document.querySelectorAll('.prayer'));
-  var nextLabel = document.getElementById('next-label');
-  var countdown = document.getElementById('countdown');
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
-  function updateNext(now) {
+  function highlightNext(now) {
     if (!slots.length) return;
-    var cur = khbSeconds(now), target = null, chosen = null;
+    var cur = khbSeconds(now), chosen = null;
     for (var i = 0; i < slots.length; i++) {
       slots[i].classList.remove('is-next');
       if (slots[i].getAttribute('data-sun')) continue;
       var hm = slots[i].getAttribute('data-t').split(':');
       var sec = parseInt(hm[0], 10) * 3600 + parseInt(hm[1], 10) * 60;
-      if (target === null && sec > cur) { target = sec; chosen = slots[i]; }
+      if (!chosen && sec > cur) chosen = slots[i];
     }
-    if (target === null) {
-      for (var j = 0; j < slots.length; j++) {
-        if (slots[j].getAttribute('data-sun')) continue;
-        var f = slots[j].getAttribute('data-t').split(':');
-        target = parseInt(f[0], 10) * 3600 + parseInt(f[1], 10) * 60 + 86400;
-        chosen = slots[j];
-        break;
-      }
-    }
-    if (!chosen) return;
-    chosen.classList.add('is-next');
-    var left = target - cur;
-    if (nextLabel) nextLabel.textContent = 'До ' + chosen.getAttribute('data-gen');
-    if (countdown) countdown.textContent = pad(Math.floor(left / 3600)) + ':' + pad(Math.floor(left / 60) % 60) + ':' + pad(left % 60);
+    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun')) { chosen = slots[j]; break; } } }
+    if (chosen) chosen.classList.add('is-next');
   }
   function tick() {
     var now = new Date();
     today.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
     if (hijriEl) hijriEl.textContent = hijri(now);
-    updateNext(now);
+    highlightNext(now);
   }
   tick();
   setInterval(tick, 1000);
