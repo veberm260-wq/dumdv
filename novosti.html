@@ -261,16 +261,18 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .filters a.active{color:var(--tx)}
 .filters a.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
 .notice{margin:0 0 40px;padding:12px 16px;border:1px dashed var(--brd);border-radius:2px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
-.feed{background:var(--srf);padding:72px 0 96px}
-.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px}
+/* лента новостей — та же воздушная сетка, что и на главной */
+.feed{background:var(--srf);padding:80px 0 110px}
+.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:72px 44px}
 .card{display:block;text-decoration:none;color:inherit}
-.card-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:2px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;transition:filter .25s ease,background .25s ease}
-.card:hover .card-photo{filter:brightness(1.05)}
-.slot-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B98F22}
-.slot-hint{font-size:13px;line-height:1.5;color:var(--mut);max-width:26ch}
-.card-date{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#B98F22;margin-top:20px}
-.card-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;line-height:1.3;color:var(--tx);margin-top:8px;transition:color .2s ease;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card:hover .card-title{color:#87680F}
+.card-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:4px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;overflow:hidden;transition:filter .3s ease}
+.card:hover .card-photo{filter:brightness(1.04)}
+.slot-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);opacity:.75}
+.slot-hint{font-size:12.5px;line-height:1.5;color:var(--mut);max-width:26ch;opacity:.75}
+.card-date{font-size:12.5px;font-weight:400;letter-spacing:.01em;text-transform:none;color:var(--mut);margin-top:26px}
+.card-title{font-family:"Golos Text",system-ui,sans-serif;font-size:19px;font-weight:400;line-height:1.55;letter-spacing:.005em;color:#87680F;margin-top:12px;transition:color .2s ease;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card:hover .card-title{color:var(--tx)}
+#night:checked ~ .page .card-title{color:#E2C169}
 .pager{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:76px}
 .pager a{position:relative;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:6px}
 .pager a:hover{color:#43340D}
