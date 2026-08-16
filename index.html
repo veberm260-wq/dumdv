@@ -188,7 +188,7 @@ img{max-width:100%}
 /* приходы */
 .regions{background:var(--pg);padding:100px 0}
 .regions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--brd)}
-.region{background:var(--pg);padding:30px 26px}
+.region{background:var(--pg);padding:30px 26px;min-width:0}
 .region-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.2;color:var(--tx)}
 .region-note{font-size:14px;line-height:1.6;color:var(--mut);margin-top:10px}
 
@@ -238,6 +238,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .regions-grid{grid-template-columns:1fr 1fr}
   .foot{grid-template-columns:1fr}
   .moon{right:40px;top:40px;width:70px;height:70px}
+}
+@media (max-width:680px){
+  .regions-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
