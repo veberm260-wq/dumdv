@@ -285,56 +285,57 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .regions-grid{grid-template-columns:1fr}
 }
 /* форма пожертвования */
-.panel{border-radius:18px;padding:20px}
+.panel{border-radius:18px;padding:17px}
 .panel .panel-label{font-size:9.5px;letter-spacing:.13em}
-.panel .panel-num{font-size:26px}
-.panel .panel-num-sm{font-size:21px}
-.panel .meta-row{font-size:11.5px;margin-top:7px}
-.panel .track{height:9px;margin-top:12px}
-.panel .goal{margin-top:14px}
-.panel .fine{font-size:11px;margin-top:11px}
-.panel .btn{padding:15px 20px;font-size:11px;margin-top:14px}
-.field-name{margin-top:14px}
-.name-input{margin-top:8px;padding:11px 13px;font-size:17px}
+.panel .panel-num{font-size:21px;margin-top:2px}
+.panel .panel-num-sm{font-size:17px;margin-top:1px}
+.panel .meta-row{font-size:11px;margin-top:6px}
+.panel .track{height:7px;margin-top:10px}
+.panel .goal{margin-top:12px}
+.panel .fine{font-size:10.5px;line-height:1.5;margin-top:9px}
+.panel .btn{padding:13px 18px;font-size:10.5px;margin-top:12px}
+.field-name{margin-top:12px}
+.name-input{margin-top:7px;padding:9px 12px;font-size:16px}
 .field-name.hidden{display:none}
-.period{display:grid;gap:4px;margin-top:8px}
+.period{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
+.period .check{margin-top:0}
 .track{position:relative;overflow:visible}
 .bar{position:relative;border-radius:999px}
-.bar-tag{position:absolute;right:-1px;top:50%;transform:translateY(-50%);background:var(--gold);color:#fff;font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-weight:600;line-height:1;padding:4px 9px;border-radius:999px;border:2px solid var(--srf)}
-.goal{border-radius:14px;background:linear-gradient(135deg,#B98F22,#87680F);color:#fff;padding:14px}
+.bar-tag{position:absolute;right:-1px;top:50%;transform:translateY(-50%);background:var(--gold);color:#fff;font-family:"Cormorant Garamond",Georgia,serif;font-size:11.5px;font-weight:600;line-height:1;padding:3px 8px;border-radius:999px;border:2px solid var(--srf)}
+.goal{border-radius:13px;background:linear-gradient(135deg,#E0AC2B,#B98F22 55%,#8E6B12);color:#fff;padding:11px 12px;box-shadow:0 6px 18px rgba(185,143,34,.34)}
 .goal .panel-label,.goal .fine{color:rgba(255,255,255,.82)}
-.goal .panel-num{color:#fff}
+.goal .panel-num{color:#fff;font-size:18px}
 .goal .track{background:rgba(255,255,255,.28)}
 .goal .bar{background:#fff}
-.goal-chip{background:rgba(255,255,255,.2);border-radius:999px;padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff}
-.goal-pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:#fff;background:rgba(255,255,255,.2);border-radius:999px;padding:4px 12px}
+.goal-chip{background:rgba(255,255,255,.26);border-radius:999px;padding:4px 10px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#fff}
+.goal-pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:#fff;background:rgba(255,255,255,.26);border-radius:999px;padding:3px 10px}
 .panel-note{font-size:13px;line-height:1.6;color:var(--mut);margin:18px 0 16px}
-.check{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.45;color:var(--tx);cursor:pointer;margin-top:10px}
+.check{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.4;color:var(--tx);cursor:pointer;margin-top:8px}
 .check input{width:15px;height:15px;flex:none;margin:1px 0 0;accent-color:#B98F22;cursor:pointer}
-.check-consent{font-size:11px;color:var(--mut);margin-top:14px}
+.check-consent{font-size:10.5px;color:var(--mut);margin-top:11px}
 .check-week{margin-top:10px}
-.sum-input{width:100%;margin-top:8px;padding:11px 13px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;font-variant-numeric:tabular-nums}
+.sum-input{width:100%;margin-top:7px;padding:10px 12px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-variant-numeric:tabular-nums}
 .sum-input:focus{outline:none;border-color:#B98F22}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .amount{cursor:pointer;background:var(--srf);transition:background .2s ease,border-color .2s ease,color .2s ease}
 .amount:hover{border-color:#B98F22}
-.pay-mode{display:grid;grid-template-columns:1.25fr 1fr;gap:8px;margin-top:16px}
-.mode{cursor:pointer;border-radius:12px;padding:12px 10px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:filter .2s ease,background .2s ease,color .2s ease}
+.pay-mode{display:grid;grid-template-columns:1.25fr 1fr;gap:8px;margin-top:14px}
+.mode{cursor:pointer;border-radius:11px;padding:10px 9px;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:filter .2s ease,background .2s ease,color .2s ease}
 .mode-auto{border:0;background:linear-gradient(135deg,#C79A26,#87680F);color:#fff;box-shadow:0 8px 22px rgba(185,143,34,.32)}
 .mode-auto:hover{filter:brightness(1.06)}
 .mode-once{border:1px solid var(--brd);background:var(--srf);color:var(--tx)}
 .mode-once:hover{border-color:#B98F22;color:#87680F}
 .mode-badge{background:rgba(255,255,255,.24);border-radius:999px;padding:3px 9px;font-size:10.5px;letter-spacing:.04em}
-.pay-tabs{display:flex;gap:20px;margin-top:18px;border-bottom:1px solid var(--brd)}
-.ptab{appearance:none;border:0;background:none;font-family:inherit;font-size:12px;color:var(--mut);padding:0 0 10px;cursor:pointer;position:relative}
+.pay-tabs{display:flex;gap:18px;margin-top:14px;border-bottom:1px solid var(--brd)}
+.ptab{appearance:none;border:0;background:none;font-family:inherit;font-size:11.5px;color:var(--mut);padding:0 0 8px;cursor:pointer;position:relative}
 .ptab.on{color:var(--tx);font-weight:600}
 .ptab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#B98F22}
-.methods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
 .method-wide{grid-column:1 / -1;justify-content:center}
-.method{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);font-family:inherit;font-size:12px;color:var(--tx);cursor:pointer;text-align:left;transition:border-color .2s ease,background .2s ease}
+.method{display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid var(--brd);border-radius:10px;background:var(--srf);font-family:inherit;font-size:11.5px;color:var(--tx);cursor:pointer;text-align:left;transition:border-color .2s ease,background .2s ease}
 .method:hover{border-color:#B98F22}
 .method.on{border-color:#B98F22;background:rgba(185,143,34,.08)}
-.method .mi{width:26px;height:22px;flex:none;display:grid;place-items:center}
+.method .mi{width:23px;height:19px;flex:none;display:grid;place-items:center}
 .method .mi svg{width:100%;height:100%;display:block}
 .panel .btn{border-radius:14px}
 @media (max-width:420px){
@@ -481,22 +482,14 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
           <div class="panel-label" style="margin-top:20px">Сумма пожертвования</div>
           <input class="sum-input" type="text" inputmode="numeric" value="1 000" aria-label="Сумма пожертвования">
-          <div class="amounts">
-            <button class="amount" type="button">500 ₽</button>
-            <button class="amount on" type="button">1 000 ₽</button>
-            <button class="amount" type="button">5 000 ₽</button>
-            <button class="amount" type="button">10 000 ₽</button>
-          </div>
-
-          <label class="check"><input type="checkbox"><span>Выбрать регион</span></label>
 
           <div class="pay-mode">
             <button class="mode mode-auto on" type="button">Автоплатёж<span class="mode-badge">♥ 202</span></button>
             <button class="mode mode-once" type="button">Единоразовое</button>
           </div>
           <div class="period" id="period">
-            <label class="check"><input type="radio" name="period" checked><span>Списывать еженедельно</span></label>
-            <label class="check"><input type="radio" name="period"><span>Списывать ежемесячно</span></label>
+            <label class="check"><input type="radio" name="period" checked><span>Еженедельно</span></label>
+            <label class="check"><input type="radio" name="period"><span>Ежемесячно</span></label>
           </div>
 
           <div class="pay-tabs">
