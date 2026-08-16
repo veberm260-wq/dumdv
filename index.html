@@ -53,8 +53,12 @@ img{max-width:100%}
 #night:checked ~ .page .clock{background:rgba(255,255,255,.08)}
 .clock-label{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);line-height:1}
 .clock-time{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
-.prayers{display:flex;gap:26px;flex-wrap:wrap}
-.prayer{display:flex;flex-direction:column;align-items:center;gap:3px}
+.prayers{display:flex;gap:14px;flex-wrap:wrap}
+.prayer{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 11px;border-radius:9px;transition:background .2s ease}
+.prayer.is-next{background:rgba(185,143,34,.16)}
+.prayer.is-next .prayer-k,.prayer.is-next .prayer-v{color:#87680F}
+#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.2)}
+#night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
 .prayer-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .prayer-v{font-weight:600;font-size:19px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--tx)}
 
@@ -264,18 +268,18 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <div class="strip-left">
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
-          <span class="clock"><span class="clock-label">Хабаровск сейчас</span><span class="clock-time" id="clock">--:--:--</span></span>
+          <span class="clock"><span class="clock-label" id="next-label">До намаза</span><span class="clock-time" id="countdown">--:--:--</span></span>
           <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
           <a class="strip-link" href="namaz.html">Полное расписание</a>
         </div>
       </div>
       <div class="prayers">
-        <div class="prayer"><span class="prayer-k">Фаджр</span><span class="prayer-v">02:48</span></div>
-        <div class="prayer"><span class="prayer-k">Восход</span><span class="prayer-v">04:52</span></div>
-        <div class="prayer"><span class="prayer-k">Зухр</span><span class="prayer-v">12:32</span></div>
-        <div class="prayer"><span class="prayer-k">Аср</span><span class="prayer-v">16:41</span></div>
-        <div class="prayer"><span class="prayer-k">Магриб</span><span class="prayer-v">20:04</span></div>
-        <div class="prayer"><span class="prayer-k">Иша</span><span class="prayer-v">22:02</span></div>
+        <div class="prayer" data-t="02:48" data-gen="фаджра"><span class="prayer-k">Фаджр</span><span class="prayer-v">02:48</span></div>
+        <div class="prayer" data-t="04:52" data-sun="1"><span class="prayer-k">Восход</span><span class="prayer-v">04:52</span></div>
+        <div class="prayer" data-t="12:32" data-gen="зухра"><span class="prayer-k">Зухр</span><span class="prayer-v">12:32</span></div>
+        <div class="prayer" data-t="16:41" data-gen="асра"><span class="prayer-k">Аср</span><span class="prayer-v">16:41</span></div>
+        <div class="prayer" data-t="20:04" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">20:04</span></div>
+        <div class="prayer" data-t="22:02" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">22:02</span></div>
       </div>
     </div>
   </div>
@@ -571,7 +575,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
 <script>
 (function () {
-  var clock = document.getElementById('clock');
   var today = document.getElementById('today');
   var hijriEl = document.getElementById('hijri');
   var HIJRI_MONTHS = ['мухаррам', 'сафар', 'раби-уль-авваль', 'раби-уль-ахир', 'джумада-уль-уля', 'джумада-уль-ахира', 'раджаб', 'шаабан', 'рамадан', 'шавваль', 'зуль-каада', 'зуль-хиджа'];
@@ -582,11 +585,46 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       return get('day') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
     } catch (e) { return ''; }
   }
+  // секунды от полуночи по Хабаровску
+  function khbSeconds(now) {
+    var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Vladivostok', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).formatToParts(now);
+    var g = function (t) { for (var i = 0; i < p.length; i++) if (p[i].type === t) return parseInt(p[i].value, 10); return 0; };
+    return (g('hour') % 24) * 3600 + g('minute') * 60 + g('second');
+  }
+  var slots = [].slice.call(document.querySelectorAll('.prayer'));
+  var nextLabel = document.getElementById('next-label');
+  var countdown = document.getElementById('countdown');
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function updateNext(now) {
+    if (!slots.length) return;
+    var cur = khbSeconds(now), target = null, chosen = null;
+    for (var i = 0; i < slots.length; i++) {
+      slots[i].classList.remove('is-next');
+      if (slots[i].getAttribute('data-sun')) continue;
+      var hm = slots[i].getAttribute('data-t').split(':');
+      var sec = parseInt(hm[0], 10) * 3600 + parseInt(hm[1], 10) * 60;
+      if (target === null && sec > cur) { target = sec; chosen = slots[i]; }
+    }
+    if (target === null) {
+      for (var j = 0; j < slots.length; j++) {
+        if (slots[j].getAttribute('data-sun')) continue;
+        var f = slots[j].getAttribute('data-t').split(':');
+        target = parseInt(f[0], 10) * 3600 + parseInt(f[1], 10) * 60 + 86400;
+        chosen = slots[j];
+        break;
+      }
+    }
+    if (!chosen) return;
+    chosen.classList.add('is-next');
+    var left = target - cur;
+    if (nextLabel) nextLabel.textContent = 'До ' + chosen.getAttribute('data-gen');
+    if (countdown) countdown.textContent = pad(Math.floor(left / 3600)) + ':' + pad(Math.floor(left / 60) % 60) + ':' + pad(left % 60);
+  }
   function tick() {
     var now = new Date();
-    clock.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(now);
     today.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
     if (hijriEl) hijriEl.textContent = hijri(now);
+    updateNext(now);
   }
   tick();
   setInterval(tick, 1000);
