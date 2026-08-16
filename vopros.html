@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Мечети и приходы — Духовное управление мусульман Дальнего Востока</title>
+<title>Вопрос имаму — Духовное управление мусульман Дальнего Востока</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -271,40 +271,23 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .regions-grid{grid-template-columns:1fr}
 }
 
-/* страница мечетей */
+/* страница «Вопрос имаму» */
 .page-head{padding:120px 0 46px}
 .page-head h1{font-size:clamp(48px,7vw,92px);line-height:1.03;letter-spacing:.01em;color:var(--tx)}
 .page-head .lead{margin-top:26px}
-.notice{margin:0 0 44px;padding:12px 16px;border:1px dashed var(--brd);border-radius:6px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
 
-.reg-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:40px}
-.reg-nav a{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);text-decoration:none;padding:9px 16px;border:1px solid var(--brd);border-radius:999px;background:var(--srf);transition:background .2s ease,color .2s ease,border-color .2s ease}
-.reg-nav a:hover{background:#B98F22;border-color:#B98F22;color:#fff}
-
-.mosques{background:var(--srf);padding:70px 0 100px}
-.reg{padding-top:56px}
-.reg:first-child{padding-top:0}
-.reg-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--brd);margin-bottom:36px}
-.reg-head h2{font-size:clamp(26px,3vw,38px);line-height:1.15;color:var(--tx)}
-.reg-count{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap}
-.mq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px}
-.mq{display:block;text-decoration:none;color:inherit}
-.mq-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:5px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;overflow:hidden;transition:filter .3s ease}
-.mq-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.mq:hover .mq-photo{filter:brightness(1.04)}
-.mq-slot{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);opacity:.75}
-.mq-hint{font-size:12.5px;line-height:1.5;color:var(--mut);max-width:26ch;opacity:.75}
-.mq-city{font-size:12.5px;color:var(--mut);margin-top:22px}
-.mq-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;line-height:1.25;color:var(--tx);margin-top:8px}
-.mq-note{font-size:13.5px;line-height:1.65;color:var(--mut);margin-top:10px}
-.mq.soon .mq-name{color:var(--mut)}
-.mq-tag{display:inline-block;margin-top:12px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(185,143,34,.4);border-radius:999px;padding:5px 11px}
-@media (max-width:1080px){
-  .mq-grid{grid-template-columns:1fr 1fr}
-}
-@media (max-width:680px){
-  .mq-grid{grid-template-columns:1fr}
-}
+.qa{background:var(--srf);padding:70px 0 110px}
+.qa-in{max-width:640px;margin:0 auto}
+.form{background:var(--pnl);border:1px solid var(--brd);border-radius:20px;padding:34px}
+.form h2{font-size:32px;line-height:1.2;color:var(--tx);margin-bottom:8px}
+.form-sub{font-size:14px;line-height:1.6;color:var(--mut);margin:0 0 28px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.field input,.field textarea{width:100%;padding:15px 17px;border:1px solid var(--brd);border-radius:13px;background:var(--srf);color:var(--tx);font-family:inherit;font-size:15px;line-height:1.55}
+.field textarea{min-height:160px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:#B98F22}
+.form .btn{width:100%;justify-content:center;border-radius:14px;padding:17px 26px}
+.form-note{font-size:12px;line-height:1.65;color:var(--mut);margin-top:18px}
 </style>
 </head>
 <body>
@@ -383,7 +366,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       </a>
       <nav class="hdr-nav">
         <a href="dumdv.html">ДУМ ДВ</a>
-        <a class="active" href="mecheti.html">Мечети</a>
+        <a href="mecheti.html">Мечети</a>
         <a href="namaz.html">Время намаза</a>
         <a href="stroitelstvo.html">Строительство</a>
       </nav>
@@ -392,189 +375,43 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
 
 
+
   <section class="page-head" id="top">
     <div class="wrap">
-      <span class="kicker">Округ</span>
-      <h1>Мечети и приходы Дальнего Востока</h1>
-      <p class="lead">Мусульманские общины Дальневосточного федерального округа, входящие в состав Духовного управления мусульман Дальнего Востока. Список сгруппирован по регионам.</p>
-      <nav class="reg-nav">
-        <a href="#habarovsk">Хабаровский край</a>
-        <a href="#primorye">Приморский край</a>
-        <a href="#amur">Амурская область</a>
-        <a href="#sahalin">Сахалинская область</a>
-        <a href="#eao">Еврейская АО</a>
-        <a href="#magadan">Магаданская область</a>
-        <a href="#kamchatka">Камчатский край</a>
-        <a href="#yakutia">Республика Саха (Якутия)</a>
-        <a href="#chukotka">Чукотский АО</a>
-      </nav>
+      <span class="kicker">Обращения</span>
+      <h1>Вопрос имаму</h1>
+      <p class="lead">Вопросы по вероучению, обрядам, никаху, джаназа и семейным делам рассматривает имам-мухтасиб муфтията. Ответ придёт на указанную вами почту.</p>
     </div>
   </section>
 
-  <section class="mosques" id="spisok">
+  <section class="qa" id="forma">
     <div class="wrap">
-      <p class="notice">Демонстрационное наполнение. Названия приходов, адреса, имена имамов и фотографии подставляются из реестра ДУМ ДВ перед публикацией.</p>
+      <div class="qa-in">
+        <form class="form" action="#" method="post">
+          <h2>Задать вопрос</h2>
+          <p class="form-sub">Заполните три поля — обращение попадёт в канцелярию управления.</p>
 
-      <div class="reg" id="habarovsk">
-        <div class="reg-head"><h2>Хабаровский край</h2><span class="reg-count">4 прихода</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-1.svg" alt="Соборная мечеть, Хабаровск" loading="lazy"></div>
-            <div class="mq-city">Хабаровск</div>
-            <div class="mq-name">Соборная мечеть Хабаровска</div>
-            <div class="mq-note">Резиденция муфтията ДУМ ДВ. Пятничная проповедь, медресе, воскресная школа.</div>
-          </a>
-          <a class="mq soon" href="stroitelstvo.html">
-            <div class="mq-photo"><img src="img/mechet.jpg" alt="Проект первой соборной мечети" loading="lazy"></div>
-            <div class="mq-city">Хабаровск</div>
-            <div class="mq-name">Первая соборная мечеть Дальнего Востока</div>
-            <div class="mq-note">Строится. Идёт четвёртый этап — монолит и фасадные работы.</div>
-            <span class="mq-tag">Строится</span>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-3.svg" alt="Молитвенный дом, Комсомольск-на-Амуре" loading="lazy"></div>
-            <div class="mq-city">Комсомольск-на-Амуре</div>
-            <div class="mq-name">Мусульманская община Комсомольска-на-Амуре</div>
-            <div class="mq-note">Молитвенный дом, пятничная молитва, обрядовые услуги.</div>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-4.svg" alt="Молитвенная комната, Амурск" loading="lazy"></div>
-            <div class="mq-city">Амурск</div>
-            <div class="mq-name">Мусульманская община Амурска</div>
-            <div class="mq-note">Молитвенная комната, коллективные намазы по пятницам.</div>
-          </a>
-        </div>
+          <div class="field">
+            <label for="q-name">Имя</label>
+            <input id="q-name" name="name" type="text" required placeholder="Как к вам обращаться">
+          </div>
+
+          <div class="field">
+            <label for="q-mail">Почта</label>
+            <input id="q-mail" name="email" type="email" required placeholder="name@mail.ru">
+          </div>
+
+          <div class="field">
+            <label for="q-text">Ваш вопрос</label>
+            <textarea id="q-text" name="message" required placeholder="Опишите вопрос своими словами"></textarea>
+          </div>
+
+          <button class="btn btn-primary" type="submit">Отправить<span class="arrow">→</span></button>
+          <p class="form-note">Форма показана для демонстрации: отправка подключается вместе с почтовым сервисом. Пока вопрос можно направить на <a href="mailto:dumdv@yandex.ru">dumdv@yandex.ru</a> или в приёмную по телефону <a href="tel:+74212693372">+7 (4212) 69-33-72</a>.</p>
+        </form>
       </div>
-
-      <div class="reg" id="primorye">
-        <div class="reg-head"><h2>Приморский край</h2><span class="reg-count">3 прихода</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-5.svg" alt="Мечеть во Владивостоке" loading="lazy"></div>
-            <div class="mq-city">Владивосток</div>
-            <div class="mq-name">Соборная мечеть Владивостока</div>
-            <div class="mq-note">Крупнейший приход Приморья. Пятничная проповедь, курсы для взрослых.</div>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-6.svg" alt="Молитвенный дом, Находка" loading="lazy"></div>
-            <div class="mq-city">Находка</div>
-            <div class="mq-name">Мусульманская община Находки</div>
-            <div class="mq-note">Молитвенный дом, обрядовые услуги, помощь морякам-мусульманам.</div>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-1.svg" alt="Молитвенный дом, Уссурийск" loading="lazy"></div>
-            <div class="mq-city">Уссурийск</div>
-            <div class="mq-name">Мусульманская община Уссурийска</div>
-            <div class="mq-note">Пятничная молитва, занятия по основам ислама.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="amur">
-        <div class="reg-head"><h2>Амурская область</h2><span class="reg-count">2 прихода</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-2.svg" alt="Мечеть в Благовещенске" loading="lazy"></div>
-            <div class="mq-city">Благовещенск</div>
-            <div class="mq-name">Соборная мечеть Благовещенска</div>
-            <div class="mq-note">Пятничная проповедь, воскресная школа для детей.</div>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-3.svg" alt="Молитвенная комната, Тында" loading="lazy"></div>
-            <div class="mq-city">Тында</div>
-            <div class="mq-name">Мусульманская община Тынды</div>
-            <div class="mq-note">Молитвенная комната, коллективные намазы.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="sahalin">
-        <div class="reg-head"><h2>Сахалинская область</h2><span class="reg-count">2 прихода</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-4.svg" alt="Мечеть в Южно-Сахалинске" loading="lazy"></div>
-            <div class="mq-city">Южно-Сахалинск</div>
-            <div class="mq-name">Соборная мечеть Южно-Сахалинска</div>
-            <div class="mq-note">Пятничная проповедь, обрядовые услуги, ифтары в Рамадан.</div>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-5.svg" alt="Молитвенный дом, Корсаков" loading="lazy"></div>
-            <div class="mq-city">Корсаков</div>
-            <div class="mq-name">Мусульманская община Корсакова</div>
-            <div class="mq-note">Молитвенный дом, пятничная молитва.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="eao">
-        <div class="reg-head"><h2>Еврейская автономная область</h2><span class="reg-count">1 приход</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-6.svg" alt="Молитвенный дом, Биробиджан" loading="lazy"></div>
-            <div class="mq-city">Биробиджан</div>
-            <div class="mq-name">Мусульманская община Биробиджана</div>
-            <div class="mq-note">Молитвенный дом, пятничная молитва, обрядовые услуги.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="magadan">
-        <div class="reg-head"><h2>Магаданская область</h2><span class="reg-count">1 приход</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-1.svg" alt="Мечеть в Магадане" loading="lazy"></div>
-            <div class="mq-city">Магадан</div>
-            <div class="mq-name">Мусульманская община Магадана</div>
-            <div class="mq-note">Пятничная молитва, обрядовые услуги, помощь вахтовикам.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="kamchatka">
-        <div class="reg-head"><h2>Камчатский край</h2><span class="reg-count">1 приход</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-2.svg" alt="Молитвенный дом, Петропавловск-Камчатский" loading="lazy"></div>
-            <div class="mq-city">Петропавловск-Камчатский</div>
-            <div class="mq-name">Мусульманская община Камчатки</div>
-            <div class="mq-note">Молитвенный дом, коллективные намазы, праздничные богослужения.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="yakutia">
-        <div class="reg-head"><h2>Республика Саха (Якутия)</h2><span class="reg-count">2 прихода</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-3.svg" alt="Мечеть в Якутске" loading="lazy"></div>
-            <div class="mq-city">Якутск</div>
-            <div class="mq-name">Соборная мечеть Якутска</div>
-            <div class="mq-note">Пятничная проповедь, медресе, курсы арабского языка.</div>
-          </a>
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-4.svg" alt="Молитвенный дом, Нерюнгри" loading="lazy"></div>
-            <div class="mq-city">Нерюнгри</div>
-            <div class="mq-name">Мусульманская община Нерюнгри</div>
-            <div class="mq-note">Молитвенный дом, пятничная молитва.</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="reg" id="chukotka">
-        <div class="reg-head"><h2>Чукотский автономный округ</h2><span class="reg-count">1 приход</span></div>
-        <div class="mq-grid">
-          <a class="mq" href="index.html#contacts">
-            <div class="mq-photo"><img src="img/mosque-5.svg" alt="Молитвенная комната, Анадырь" loading="lazy"></div>
-            <div class="mq-city">Анадырь</div>
-            <div class="mq-name">Мусульманская община Анадыря</div>
-            <div class="mq-note">Молитвенная комната, коллективные намазы по пятницам.</div>
-          </a>
-        </div>
-      </div>
-
     </div>
   </section>
-
   <footer id="contacts">
     <div class="foot">
       <div>

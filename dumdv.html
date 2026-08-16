@@ -227,7 +227,15 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .foot-col a,.foot-col span{display:block;font-size:15px;line-height:1.6;color:var(--tx);text-decoration:none;margin-bottom:10px}
 .foot-note{font-size:12.5px;color:var(--mut);line-height:1.6}
 .socials{display:flex;gap:12px;margin-top:16px}
-.social{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;overflow:hidden}
+.social{position:relative;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.social::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.75) 50%,transparent 70%);background-size:280% 100%;background-position:130% 0}
+.social:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(32,30,29,.22)}
+.social:hover::after{opacity:1;animation:sheen 1.1s ease-in-out infinite}
+@keyframes sheen{0%{background-position:130% 0}100%{background-position:-130% 0}}
+@media (prefers-reduced-motion:reduce){
+  .social:hover::after{animation:none;opacity:.35;background-position:50% 0}
+  .social:hover{transform:none}
+}
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
 .legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
 
@@ -332,15 +340,15 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <a class="brand" href="index.html">
         <span class="brand-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
   <defs>
-    <clipPath id="mkIn1"><circle cx="50" cy="50" r="43.5"/></clipPath>
+    <clipPath id="mkIn1"><circle cx="50" cy="50" r="44.6"/></clipPath>
     <g id="mkStar1">
-      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5"/>
-      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5" transform="rotate(45 50 4)"/>
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4"/>
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4" transform="rotate(45 50 3.45)"/>
     </g>
   </defs>
 
-  <circle cx="50" cy="50" r="48.4" fill="none" stroke="#B98F22" stroke-width="1.5"/>
-  <circle cx="50" cy="50" r="43.5" fill="none" stroke="#B98F22" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="48.8" fill="none" stroke="#B98F22" stroke-width="1.3"/>
+  <circle cx="50" cy="50" r="44.6" fill="none" stroke="#B98F22" stroke-width="1.3"/>
 
   <g fill="#B98F22">
     <use href="#mkStar1"/>
@@ -353,7 +361,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <use href="#mkStar1" transform="rotate(315 50 50)"/>
   </g>
 
-  <g clip-path="url(#mkIn1)" transform="translate(50 52) scale(1.06) translate(-50 -52)">
+  <g clip-path="url(#mkIn1)" transform="translate(50 52) scale(1.15) translate(-50 -52)">
     <g fill="#B98F22">
       <path d="M72.6 39.5h5.6v34h-5.6z"/>
       <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
@@ -413,7 +421,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <p>Религиозную деятельность начал в конце 2007 года имамом в резиденции Центрального духовного управления мусульман России на ВДНХ. В начале 2009 года приказом Верховного муфтия России назначен имам-хатыбом соборной мечети «Ляля-Тюльпан» в Уфе. Через год начал преподавать в Российском исламском университете, а с 2011 по май 2014 года занимал должность декана теолого-педагогического факультета университета.</p>
           <p>В конце 2013 года поступил в магистратуру Башкирского государственного педагогического университета им. М. Акмуллы, в институт профессионального образования и информационных технологий, по специальности «технолог управления профессионального развития персонала».</p>
           <p>В мае 2014 года приказом Верховного муфтия назначен полномочным представителем Верховного муфтия на Дальнем Востоке. В мае 2015 года назначен председателем Духовного управления мусульман Дальнего Востока в составе Центрального духовного управления мусульман России, которое возглавляет по сегодняшний день.</p>
-          <p>Приём по личным вопросам — по предварительной записи в канцелярии. Контакты указаны в разделе <a href="index.html#contacts">Контакты</a>, вопрос можно задать и через форму <a href="index.html#ask">Вопрос имаму</a>.</p>
+          <p>Приём по личным вопросам — по предварительной записи в канцелярии. Контакты указаны в разделе <a href="index.html#contacts">Контакты</a>, вопрос можно задать и через форму <a href="vopros.html">Вопрос имаму</a>.</p>
         </div>
       </div>
 
@@ -478,15 +486,15 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="foot-brand">
           <span class="foot-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
   <defs>
-    <clipPath id="mkIn2"><circle cx="50" cy="50" r="43.5"/></clipPath>
+    <clipPath id="mkIn2"><circle cx="50" cy="50" r="44.6"/></clipPath>
     <g id="mkStar2">
-      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5"/>
-      <rect x="47.2" y="1.2" width="5.6" height="5.6" rx=".5" transform="rotate(45 50 4)"/>
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4"/>
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4" transform="rotate(45 50 3.45)"/>
     </g>
   </defs>
 
-  <circle cx="50" cy="50" r="48.4" fill="none" stroke="#B98F22" stroke-width="1.5"/>
-  <circle cx="50" cy="50" r="43.5" fill="none" stroke="#B98F22" stroke-width="1.5"/>
+  <circle cx="50" cy="50" r="48.8" fill="none" stroke="#B98F22" stroke-width="1.3"/>
+  <circle cx="50" cy="50" r="44.6" fill="none" stroke="#B98F22" stroke-width="1.3"/>
 
   <g fill="#B98F22">
     <use href="#mkStar2"/>
@@ -499,7 +507,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <use href="#mkStar2" transform="rotate(315 50 50)"/>
   </g>
 
-  <g clip-path="url(#mkIn2)" transform="translate(50 52) scale(1.06) translate(-50 -52)">
+  <g clip-path="url(#mkIn2)" transform="translate(50 52) scale(1.15) translate(-50 -52)">
     <g fill="#B98F22">
       <path d="M72.6 39.5h5.6v34h-5.6z"/>
       <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
@@ -522,7 +530,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         </div>
         <div class="foot-note" style="margin-top:18px">Централизованная религиозная организация в составе Центрального духовного управления мусульман России. Хабаровск.</div>
         <div class="socials">
-          <a class="social" href="novosti.html#contacts" aria-label="Telegram" style="background:#229ED9">
+          <a class="social" href="https://t.me/domvrayu_mechet" target="_blank" rel="noopener" aria-label="Telegram" style="background:#229ED9">
             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 4.2 3.7 10.6c-.9.3-.9 1.6.1 1.9l3.9 1.2 1.5 4.6c.3.8 1.3 1 1.8.3l2-2.4 3.9 2.9c.7.5 1.7.1 1.9-.7l2.7-12.6c.2-1-.8-1.8-1.8-1.6z" fill="#fff"/><path d="M8.1 14.2l8.4-6.1-6.4 7.1-.1 2.6z" fill="#cfeafc"/></svg>
           </a>
           <a class="social" href="novosti.html#contacts" aria-label="MAX">
@@ -533,10 +541,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
               <circle cx="24" cy="23.6" r="8" fill="url(#mx)"/>
             </svg>
           </a>
-          <a class="social" href="novosti.html#contacts" aria-label="YouTube" style="background:#fff;border:1px solid rgba(32,30,29,.14)">
+          <a class="social" href="https://www.youtube.com/@domvrayu" target="_blank" rel="noopener" aria-label="YouTube" style="background:#fff;border:1px solid rgba(32,30,29,.14)">
             <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M28.4 10.2c-.3-1.4-1.3-2.4-2.6-2.6C23.4 7.2 19.8 7 16 7s-7.4.2-9.8.6c-1.3.2-2.3 1.2-2.6 2.6C3.2 12 3 13.8 3 16s.2 4 .6 5.8c.3 1.4 1.3 2.4 2.6 2.6 2.4.4 6 .6 9.8.6s7.4-.2 9.8-.6c1.3-.2 2.3-1.2 2.6-2.6.4-1.8.6-3.6.6-5.8s-.2-4-.6-5.8z" fill="#ED1D24"/><path d="M13.2 20.6V11.4L21.4 16z" fill="#fff"/></svg>
           </a>
-          <a class="social" href="novosti.html#contacts" aria-label="Rutube">
+          <a class="social" href="https://rutube.ru/channel/45239569/" target="_blank" rel="noopener" aria-label="Rutube">
             <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
               <rect width="48" height="48" rx="13" fill="#160C45"/>
               <path d="M30 0h12a6 6 0 0 1 6 6v12A18 18 0 0 1 30 0z" fill="#EF1B4C"/>
@@ -559,7 +567,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a href="stroitelstvo.html">Ход строительства</a>
         <a href="novosti.html">Новости</a>
         <a href="mecheti.html">Мечети и приходы</a>
-        <a href="index.html#ask">Вопрос имаму</a>
+        <a href="vopros.html">Вопрос имаму</a>
       </div>
     </div>
     <div class="legal">
