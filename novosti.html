@@ -60,7 +60,7 @@ img{max-width:100%}
 
 /* шапка */
 .hdr{position:sticky;top:18px;z-index:50;padding:0 28px;transition:top .25s ease,padding .25s ease}
-.hdr-in{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:nowrap;white-space:nowrap;padding:16px 24px;background:rgba(255,253,247,.86);backdrop-filter:blur(10px);border:1px solid rgba(185,143,34,.18);transition:background .25s ease,box-shadow .25s ease,padding .25s ease,max-width .25s ease}
+.hdr-in{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:nowrap;white-space:nowrap;padding:16px 20px;background:rgba(255,253,247,.86);backdrop-filter:blur(10px);border:1px solid rgba(185,143,34,.18);transition:background .25s ease,box-shadow .25s ease,padding .25s ease,max-width .25s ease}
 #night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
 .hdr.stuck{top:0;padding:0}
 .hdr.stuck .hdr-in{max-width:none;background:#fff;box-shadow:0 12px 30px rgba(32,30,29,.12);border-left:0;border-right:0;border-top:0;padding:12px 40px}
@@ -71,7 +71,7 @@ img{max-width:100%}
 .mark .cut{fill:var(--pnl)}
 .brand-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:#87680F;line-height:1}
 .brand-sub{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-top:4px;display:block}
-.hdr-nav{display:flex;align-items:center;gap:18px;flex-wrap:nowrap;align-self:stretch}
+.hdr-nav{display:flex;align-items:center;gap:13px;flex-wrap:nowrap;align-self:stretch}
 .hdr-nav a{position:relative;display:flex;align-items:center;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8a7f6a;text-decoration:none}
 .hdr-nav a:hover{color:#43340D}
 #night:checked ~ .page .hdr-nav a{color:rgba(243,236,221,.62)}
@@ -80,7 +80,7 @@ img{max-width:100%}
 .hdr-nav a.active::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
 .hdr.stuck .hdr-nav a.active::after{bottom:-16px}
 #night:checked ~ .page .hdr-nav a.active::after{background:#E2C169}
-.hdr-right{display:flex;align-items:center;gap:14px;flex-wrap:nowrap;flex:none}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;flex:none}
 .hdr-link{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#43340D;text-decoration:none;cursor:pointer}
 .hdr-link:hover{color:#87680F}
 .hdr-link.active-link{color:#201e1d;position:relative}
@@ -217,13 +217,22 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .legal-in{border-top:1px solid var(--brd);padding-top:20px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--mut)}
 
 /* шапка в одну строку: на узких экранах разделы уходят в полноэкранное меню */
-@media (max-width:1180px){
+@media (max-width:1240px){
   .hdr-nav{display:none}
 }
-@media (max-width:640px){
-  .hdr-in{gap:14px;padding:12px 16px}
+@media (max-width:860px){
+  .hdr{padding:0 16px}
+  .hdr-in{gap:12px;padding:12px 16px}
   .brand-sub{display:none}
   .hdr-right a.hdr-link{display:none}
+}
+@media (max-width:560px){
+  .hdr{padding:0 10px}
+  .hdr-in{gap:10px;padding:12px 14px}
+  .brand-badge{width:40px;height:40px}
+  .mark{width:26px;height:26px}
+  .brand-name{font-size:15px;letter-spacing:.08em}
+  .hdr-cta{display:none}
 }
 @media (max-width:1080px){
   .build-grid,.about-grid{grid-template-columns:1fr}
@@ -340,6 +349,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <a href="index.html#ask">Услуги</a>
           <a href="index.html#build">Строительство</a>
           <a href="novosti.html">Новости</a>
+          <a href="index.html#donate">Пожертвовать</a>
         </div>
         <div class="fs-col">
           <h4>Служебное</h4>
