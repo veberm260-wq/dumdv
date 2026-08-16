@@ -253,38 +253,58 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 }
 
 /* страница расписания намазов */
-.page-head{padding:120px 0 56px}
-.page-head h1{font-size:clamp(52px,8vw,104px);line-height:1.02;letter-spacing:.01em;color:var(--tx)}
-.page-head .lead{margin-top:26px}
-.notice{margin:0 0 36px;padding:12px 16px;border:1px dashed var(--brd);border-radius:2px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
+.page-head{padding:110px 0 0}
+.page-head h1{font-size:clamp(38px,5.2vw,62px);line-height:1.08;letter-spacing:.01em;color:var(--tx)}
+.page-head .lead{margin-top:22px;max-width:58ch}
+.notice{margin:0 0 28px;padding:12px 16px;border:1px dashed var(--brd);border-radius:6px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
 
-.today-card{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:4px;overflow:hidden;margin-top:44px;max-width:620px}
-.today-cell{background:var(--srf);padding:20px 22px}
-.today-k{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.today-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;line-height:1.25;color:var(--tx);margin-top:8px}
+.cities{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:44px}
+.cities-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.city-row{display:flex;flex-wrap:wrap;border:1px solid var(--brd);border-radius:999px;overflow:hidden;background:var(--srf)}
+.city{appearance:none;border:0;border-left:1px solid var(--brd);background:transparent;font-family:inherit;font-size:13.5px;color:var(--tx);padding:11px 20px;cursor:pointer;white-space:nowrap;transition:background .2s ease,color .2s ease}
+.city:first-child{border-left:0}
+.city:hover{background:var(--pnl)}
+.city.on{background:#B98F22;color:#fff}
+#night:checked ~ .page .city.on{background:#E2C169;color:#201e1d}
 
-.sched{background:var(--srf);padding:72px 0 96px}
-.sched h2{font-size:clamp(28px,3.4vw,42px);line-height:1.15;color:var(--tx);margin-bottom:8px}
-.sched-sub{font-size:14px;color:var(--mut);margin:0 0 32px}
-.table-scroll{overflow-x:auto;border:1px solid var(--brd);border-radius:4px}
-table.sched-table{border-collapse:collapse;width:100%;min-width:720px;font-variant-numeric:tabular-nums}
-.sched-table th{background:var(--pnl);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);text-align:right;padding:14px 16px;white-space:nowrap;border-bottom:1px solid var(--brd)}
-.sched-table th:first-child,.sched-table th:nth-child(2){text-align:left}
-.sched-table td{font-size:15px;font-weight:500;color:var(--tx);text-align:right;padding:12px 16px;border-bottom:1px solid var(--brd);white-space:nowrap}
-.sched-table tr:last-child td{border-bottom:0}
-.sched-table td.d{text-align:left;font-weight:600}
-.sched-table td.w{text-align:left;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
-.sched-table tr.fri{background:rgba(200,169,79,.12)}
-.sched-table tr.fri td.w{color:var(--gold)}
-.sched-table tr.now{background:rgba(185,143,34,.18)}
-.sched-table tr.now td{font-weight:700}
+.today{background:#43340D;border-radius:24px;padding:30px 38px;margin-top:40px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;color:#f3ecdd}
+.today-left{margin-right:auto}
+.today-k{font-size:10px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:#E2C169}
+.today-date{font-family:"Cormorant Garamond",Georgia,serif;font-size:30px;line-height:1.2;margin-top:12px}
+.today-sub{font-size:12.5px;color:rgba(243,236,221,.7);margin-top:10px}
+.today-times{display:flex;gap:32px;flex-wrap:wrap}
+.today-slot{display:flex;flex-direction:column;align-items:center;gap:9px}
+.today-slot .k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#E2C169}
+.today-slot .v{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
 
-.jumua-block{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;margin-top:64px;padding-top:44px;border-top:1px solid var(--brd)}
+.sched{padding:52px 0 100px}
+.table-card{background:var(--pnl);border-radius:20px;padding:6px 14px 14px;overflow-x:auto}
+table.sched-table{border-collapse:collapse;width:100%;min-width:760px}
+.sched-table th{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);text-align:left;padding:22px 18px 14px}
+.sched-table td{font-size:15px;color:var(--tx);text-align:left;padding:13px 18px;border-top:1px solid var(--brd);white-space:nowrap;font-variant-numeric:tabular-nums}
+.sched-table td.d{font-weight:600}
+.sched-table td.d .w{color:var(--mut);font-weight:500}
+.sched-table tr.fri td{color:#87680F}
+#night:checked ~ .page .sched-table tr.fri td{color:#E2C169}
+.sched-table tr.now td{background:rgba(185,143,34,.2);font-weight:700}
+.sched-table tr.now td:first-child{border-radius:9px 0 0 9px}
+.sched-table tr.now td:last-child{border-radius:0 9px 9px 0}
+.city-body{display:none}
+.city-body.on{display:table-row-group}
+
+.jumua-block{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;margin-top:60px;padding-top:44px;border-top:1px solid var(--brd)}
 .jumua-block h3{font-size:28px;line-height:1.2;color:var(--tx);margin-bottom:14px}
 .jumua-block p{font-size:15px;line-height:1.7;color:var(--mut);margin:0 0 10px}
 @media (max-width:1080px){
-  .today-card{grid-template-columns:1fr}
   .jumua-block{grid-template-columns:1fr}
+  .today{padding:26px 24px;gap:28px}
+  .today-times{gap:22px}
+}
+@media (max-width:560px){
+  .today-date{font-size:24px}
+  .today-slot .v{font-size:21px}
+  .today-times{gap:16px}
+  .city{font-size:12.5px;padding:10px 14px}
 }
 </style>
 </head>
@@ -303,12 +323,12 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:720px;font-varia
         </div>
       </div>
       <div class="prayers">
-        <div class="prayer" data-t="02:48" data-gen="фаджра"><span class="prayer-k">Фаджр</span><span class="prayer-v">02:48</span></div>
-        <div class="prayer" data-t="04:52" data-sun="1"><span class="prayer-k">Восход</span><span class="prayer-v">04:52</span></div>
-        <div class="prayer" data-t="12:32" data-gen="зухра"><span class="prayer-k">Зухр</span><span class="prayer-v">12:32</span></div>
-        <div class="prayer" data-t="16:41" data-gen="асра"><span class="prayer-k">Аср</span><span class="prayer-v">16:41</span></div>
-        <div class="prayer" data-t="20:04" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">20:04</span></div>
-        <div class="prayer" data-t="22:02" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">22:02</span></div>
+        <div class="prayer" data-t="03:10" data-gen="фаджра"><span class="prayer-k">Фаджр</span><span class="prayer-v">03:10</span></div>
+        <div class="prayer" data-t="05:25" data-sun="1"><span class="prayer-k">Восход</span><span class="prayer-v">05:25</span></div>
+        <div class="prayer" data-t="12:38" data-gen="зухра"><span class="prayer-k">Зухр</span><span class="prayer-v">12:38</span></div>
+        <div class="prayer" data-t="16:25" data-gen="асра"><span class="prayer-k">Аср</span><span class="prayer-v">16:25</span></div>
+        <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
+        <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
     </div>
   </div>
@@ -372,14 +392,39 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:720px;font-varia
     </div>
   </header>
 
+
+
   <section class="page-head" id="top">
     <div class="wrap">
-      <span class="kicker">Намаз · Хабаровск</span>
-      <h1>Расписание намазов</h1>
-      <p class="lead">Времена намазов для Хабаровска по расписанию, утверждённому Духовным управлением мусульман Дальнего Востока. Время местное, часовой пояс UTC+10.</p>
-      <div class="today-card">
-        <div class="today-cell"><div class="today-k">Сегодня</div><div class="today-v" id="today-full">—</div></div>
-        <div class="today-cell"><div class="today-k">По хиджре</div><div class="today-v" id="hijri-full">—</div></div>
+      <span class="kicker">Намаз</span>
+      <h1>Расписание на август 2026 г.</h1>
+      <p class="lead">Время указано по местному часовому поясу выбранного города. Расписание составлено по методике Всемирной исламской лиги, принятой ЦДУМ России.</p>
+
+      <div class="cities">
+        <span class="cities-label">Город</span>
+        <div class="city-row" id="city-row">
+        <button class="city on" type="button" data-city="khb">Хабаровск</button>
+        <button class="city" type="button" data-city="kms">Комсомольск-на-Амуре</button>
+        <button class="city" type="button" data-city="yuzh">Южно-Сахалинск</button>
+        <button class="city" type="button" data-city="blg">Благовещенск</button>
+        <button class="city" type="button" data-city="bir">Биробиджан</button>
+        </div>
+      </div>
+
+      <div class="today">
+        <div class="today-left">
+          <div class="today-k">Сегодня</div>
+          <div class="today-date" id="today-date">—</div>
+          <div class="today-sub"><span id="hijri-full">—</span> · <span id="today-city">Хабаровск</span></div>
+        </div>
+        <div class="today-times" id="today-times">
+          <div class="today-slot"><span class="k">Фаджр</span><span class="v">—</span></div>
+          <div class="today-slot"><span class="k">Восход</span><span class="v">—</span></div>
+          <div class="today-slot"><span class="k">Зухр</span><span class="v">—</span></div>
+          <div class="today-slot"><span class="k">Аср</span><span class="v">—</span></div>
+          <div class="today-slot"><span class="k">Магриб</span><span class="v">—</span></div>
+          <div class="today-slot"><span class="k">Иша</span><span class="v">—</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -387,48 +432,176 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:720px;font-varia
   <section class="sched" id="raspisanie">
     <div class="wrap">
       <p class="notice">Демонстрационные значения. Перед публикацией таблицу нужно заменить на расписание, утверждённое ДУМ ДВ.</p>
-      <h2>Август 2026</h2>
-      <p class="sched-sub">Пятничные дни выделены; джума-намаз читается по времени, указанному ниже.</p>
-      <div class="table-scroll">
+      <div class="table-card">
         <table class="sched-table">
           <thead>
-            <tr>
-              <th>Дата</th><th>День</th><th>Фаджр</th><th>Восход</th><th>Зухр</th><th>Аср</th><th>Магриб</th><th>Иша</th>
-            </tr>
+            <tr><th>Дата</th><th>Фаджр</th><th>Восход</th><th>Зухр</th><th>Аср</th><th>Магриб</th><th>Иша</th></tr>
           </thead>
-          <tbody id="sched-body">
-        <tr><td class="d">1 августа</td><td class="w">сб</td><td>02:24</td><td>04:34</td><td>12:34</td><td>16:53</td><td>20:27</td><td>22:30</td></tr>
-        <tr><td class="d">2 августа</td><td class="w">вс</td><td>02:26</td><td>04:35</td><td>12:34</td><td>16:52</td><td>20:26</td><td>22:29</td></tr>
-        <tr><td class="d">3 августа</td><td class="w">пн</td><td>02:27</td><td>04:36</td><td>12:34</td><td>16:51</td><td>20:24</td><td>22:27</td></tr>
-        <tr><td class="d">4 августа</td><td class="w">вт</td><td>02:29</td><td>04:38</td><td>12:34</td><td>16:51</td><td>20:23</td><td>22:25</td></tr>
-        <tr><td class="d">5 августа</td><td class="w">ср</td><td>02:30</td><td>04:39</td><td>12:33</td><td>16:50</td><td>20:21</td><td>22:23</td></tr>
-        <tr><td class="d">6 августа</td><td class="w">чт</td><td>02:32</td><td>04:40</td><td>12:33</td><td>16:49</td><td>20:20</td><td>22:21</td></tr>
-        <tr class="fri"><td class="d">7 августа</td><td class="w">пт</td><td>02:34</td><td>04:41</td><td>12:33</td><td>16:48</td><td>20:18</td><td>22:19</td></tr>
-        <tr><td class="d">8 августа</td><td class="w">сб</td><td>02:35</td><td>04:42</td><td>12:33</td><td>16:47</td><td>20:16</td><td>22:17</td></tr>
-        <tr><td class="d">9 августа</td><td class="w">вс</td><td>02:37</td><td>04:44</td><td>12:33</td><td>16:47</td><td>20:15</td><td>22:15</td></tr>
-        <tr><td class="d">10 августа</td><td class="w">пн</td><td>02:38</td><td>04:45</td><td>12:33</td><td>16:46</td><td>20:13</td><td>22:13</td></tr>
-        <tr><td class="d">11 августа</td><td class="w">вт</td><td>02:40</td><td>04:46</td><td>12:33</td><td>16:45</td><td>20:12</td><td>22:12</td></tr>
-        <tr><td class="d">12 августа</td><td class="w">ср</td><td>02:42</td><td>04:47</td><td>12:33</td><td>16:44</td><td>20:10</td><td>22:10</td></tr>
-        <tr><td class="d">13 августа</td><td class="w">чт</td><td>02:43</td><td>04:48</td><td>12:32</td><td>16:43</td><td>20:09</td><td>22:08</td></tr>
-        <tr class="fri"><td class="d">14 августа</td><td class="w">пт</td><td>02:45</td><td>04:50</td><td>12:32</td><td>16:43</td><td>20:07</td><td>22:06</td></tr>
-        <tr><td class="d">15 августа</td><td class="w">сб</td><td>02:46</td><td>04:51</td><td>12:32</td><td>16:42</td><td>20:06</td><td>22:04</td></tr>
-        <tr><td class="d">16 августа</td><td class="w">вс</td><td>02:48</td><td>04:52</td><td>12:32</td><td>16:41</td><td>20:04</td><td>22:02</td></tr>
-        <tr><td class="d">17 августа</td><td class="w">пн</td><td>02:50</td><td>04:53</td><td>12:32</td><td>16:40</td><td>20:02</td><td>22:00</td></tr>
-        <tr><td class="d">18 августа</td><td class="w">вт</td><td>02:51</td><td>04:54</td><td>12:32</td><td>16:39</td><td>20:01</td><td>21:58</td></tr>
-        <tr><td class="d">19 августа</td><td class="w">ср</td><td>02:53</td><td>04:56</td><td>12:32</td><td>16:39</td><td>19:59</td><td>21:56</td></tr>
-        <tr><td class="d">20 августа</td><td class="w">чт</td><td>02:54</td><td>04:57</td><td>12:31</td><td>16:38</td><td>19:58</td><td>21:54</td></tr>
-        <tr class="fri"><td class="d">21 августа</td><td class="w">пт</td><td>02:56</td><td>04:58</td><td>12:31</td><td>16:37</td><td>19:56</td><td>21:52</td></tr>
-        <tr><td class="d">22 августа</td><td class="w">сб</td><td>02:58</td><td>04:59</td><td>12:31</td><td>16:36</td><td>19:55</td><td>21:51</td></tr>
-        <tr><td class="d">23 августа</td><td class="w">вс</td><td>02:59</td><td>05:00</td><td>12:31</td><td>16:35</td><td>19:53</td><td>21:49</td></tr>
-        <tr><td class="d">24 августа</td><td class="w">пн</td><td>03:01</td><td>05:02</td><td>12:31</td><td>16:35</td><td>19:52</td><td>21:47</td></tr>
-        <tr><td class="d">25 августа</td><td class="w">вт</td><td>03:02</td><td>05:03</td><td>12:31</td><td>16:34</td><td>19:50</td><td>21:45</td></tr>
-        <tr><td class="d">26 августа</td><td class="w">ср</td><td>03:04</td><td>05:04</td><td>12:31</td><td>16:33</td><td>19:48</td><td>21:43</td></tr>
-        <tr><td class="d">27 августа</td><td class="w">чт</td><td>03:06</td><td>05:05</td><td>12:31</td><td>16:32</td><td>19:47</td><td>21:41</td></tr>
-        <tr class="fri"><td class="d">28 августа</td><td class="w">пт</td><td>03:07</td><td>05:06</td><td>12:30</td><td>16:31</td><td>19:45</td><td>21:39</td></tr>
-        <tr><td class="d">29 августа</td><td class="w">сб</td><td>03:09</td><td>05:08</td><td>12:30</td><td>16:31</td><td>19:44</td><td>21:37</td></tr>
-        <tr><td class="d">30 августа</td><td class="w">вс</td><td>03:10</td><td>05:09</td><td>12:30</td><td>16:30</td><td>19:42</td><td>21:35</td></tr>
-        <tr><td class="d">31 августа</td><td class="w">пн</td><td>03:12</td><td>05:10</td><td>12:30</td><td>16:29</td><td>19:41</td><td>21:34</td></tr>
-          </tbody>
+        <tbody class="city-body" data-city="khb">
+          <tr data-day="1"><td class="d">01.08 · <span class="w">сб</span></td><td>02:46</td><td>05:07</td><td>12:40</td><td>16:37</td><td>20:09</td><td>22:02</td></tr>
+          <tr data-day="2"><td class="d">02.08 · <span class="w">вс</span></td><td>02:48</td><td>05:08</td><td>12:40</td><td>16:36</td><td>20:08</td><td>22:00</td></tr>
+          <tr data-day="3"><td class="d">03.08 · <span class="w">пн</span></td><td>02:49</td><td>05:09</td><td>12:40</td><td>16:35</td><td>20:06</td><td>21:58</td></tr>
+          <tr data-day="4"><td class="d">04.08 · <span class="w">вт</span></td><td>02:51</td><td>05:11</td><td>12:40</td><td>16:35</td><td>20:05</td><td>21:56</td></tr>
+          <tr data-day="5"><td class="d">05.08 · <span class="w">ср</span></td><td>02:52</td><td>05:12</td><td>12:39</td><td>16:34</td><td>20:03</td><td>21:54</td></tr>
+          <tr data-day="6"><td class="d">06.08 · <span class="w">чт</span></td><td>02:54</td><td>05:13</td><td>12:39</td><td>16:33</td><td>20:02</td><td>21:52</td></tr>
+          <tr class="fri" data-day="7"><td class="d">07.08 · <span class="w">пт</span></td><td>02:56</td><td>05:14</td><td>12:39</td><td>16:32</td><td>20:00</td><td>21:50</td></tr>
+          <tr data-day="8"><td class="d">08.08 · <span class="w">сб</span></td><td>02:57</td><td>05:15</td><td>12:39</td><td>16:31</td><td>19:58</td><td>21:48</td></tr>
+          <tr data-day="9"><td class="d">09.08 · <span class="w">вс</span></td><td>02:59</td><td>05:17</td><td>12:39</td><td>16:31</td><td>19:57</td><td>21:46</td></tr>
+          <tr data-day="10"><td class="d">10.08 · <span class="w">пн</span></td><td>03:00</td><td>05:18</td><td>12:39</td><td>16:30</td><td>19:55</td><td>21:44</td></tr>
+          <tr data-day="11"><td class="d">11.08 · <span class="w">вт</span></td><td>03:02</td><td>05:19</td><td>12:39</td><td>16:29</td><td>19:54</td><td>21:42</td></tr>
+          <tr data-day="12"><td class="d">12.08 · <span class="w">ср</span></td><td>03:04</td><td>05:20</td><td>12:39</td><td>16:28</td><td>19:52</td><td>21:41</td></tr>
+          <tr data-day="13"><td class="d">13.08 · <span class="w">чт</span></td><td>03:05</td><td>05:21</td><td>12:38</td><td>16:27</td><td>19:51</td><td>21:39</td></tr>
+          <tr class="fri" data-day="14"><td class="d">14.08 · <span class="w">пт</span></td><td>03:07</td><td>05:23</td><td>12:38</td><td>16:27</td><td>19:49</td><td>21:37</td></tr>
+          <tr data-day="15"><td class="d">15.08 · <span class="w">сб</span></td><td>03:08</td><td>05:24</td><td>12:38</td><td>16:26</td><td>19:48</td><td>21:35</td></tr>
+          <tr data-day="16"><td class="d">16.08 · <span class="w">вс</span></td><td>03:10</td><td>05:25</td><td>12:38</td><td>16:25</td><td>19:46</td><td>21:33</td></tr>
+          <tr data-day="17"><td class="d">17.08 · <span class="w">пн</span></td><td>03:12</td><td>05:26</td><td>12:38</td><td>16:24</td><td>19:44</td><td>21:31</td></tr>
+          <tr data-day="18"><td class="d">18.08 · <span class="w">вт</span></td><td>03:13</td><td>05:27</td><td>12:38</td><td>16:23</td><td>19:43</td><td>21:29</td></tr>
+          <tr data-day="19"><td class="d">19.08 · <span class="w">ср</span></td><td>03:15</td><td>05:29</td><td>12:38</td><td>16:23</td><td>19:41</td><td>21:27</td></tr>
+          <tr data-day="20"><td class="d">20.08 · <span class="w">чт</span></td><td>03:16</td><td>05:30</td><td>12:37</td><td>16:22</td><td>19:40</td><td>21:25</td></tr>
+          <tr class="fri" data-day="21"><td class="d">21.08 · <span class="w">пт</span></td><td>03:18</td><td>05:31</td><td>12:37</td><td>16:21</td><td>19:38</td><td>21:24</td></tr>
+          <tr data-day="22"><td class="d">22.08 · <span class="w">сб</span></td><td>03:20</td><td>05:32</td><td>12:37</td><td>16:20</td><td>19:37</td><td>21:22</td></tr>
+          <tr data-day="23"><td class="d">23.08 · <span class="w">вс</span></td><td>03:21</td><td>05:33</td><td>12:37</td><td>16:19</td><td>19:35</td><td>21:20</td></tr>
+          <tr data-day="24"><td class="d">24.08 · <span class="w">пн</span></td><td>03:23</td><td>05:35</td><td>12:37</td><td>16:19</td><td>19:34</td><td>21:18</td></tr>
+          <tr data-day="25"><td class="d">25.08 · <span class="w">вт</span></td><td>03:24</td><td>05:36</td><td>12:37</td><td>16:18</td><td>19:32</td><td>21:16</td></tr>
+          <tr data-day="26"><td class="d">26.08 · <span class="w">ср</span></td><td>03:26</td><td>05:37</td><td>12:37</td><td>16:17</td><td>19:30</td><td>21:14</td></tr>
+          <tr data-day="27"><td class="d">27.08 · <span class="w">чт</span></td><td>03:28</td><td>05:38</td><td>12:37</td><td>16:16</td><td>19:29</td><td>21:12</td></tr>
+          <tr class="fri" data-day="28"><td class="d">28.08 · <span class="w">пт</span></td><td>03:29</td><td>05:39</td><td>12:36</td><td>16:15</td><td>19:27</td><td>21:10</td></tr>
+          <tr data-day="29"><td class="d">29.08 · <span class="w">сб</span></td><td>03:31</td><td>05:41</td><td>12:36</td><td>16:15</td><td>19:26</td><td>21:08</td></tr>
+          <tr data-day="30"><td class="d">30.08 · <span class="w">вс</span></td><td>03:32</td><td>05:42</td><td>12:36</td><td>16:14</td><td>19:24</td><td>21:06</td></tr>
+          <tr data-day="31"><td class="d">31.08 · <span class="w">пн</span></td><td>03:34</td><td>05:43</td><td>12:36</td><td>16:13</td><td>19:23</td><td>21:04</td></tr>
+        </tbody>
+        <tbody class="city-body" data-city="kms">
+          <tr data-day="1"><td class="d">01.08 · <span class="w">сб</span></td><td>02:40</td><td>05:01</td><td>12:34</td><td>16:31</td><td>20:03</td><td>21:56</td></tr>
+          <tr data-day="2"><td class="d">02.08 · <span class="w">вс</span></td><td>02:42</td><td>05:02</td><td>12:34</td><td>16:30</td><td>20:02</td><td>21:54</td></tr>
+          <tr data-day="3"><td class="d">03.08 · <span class="w">пн</span></td><td>02:43</td><td>05:03</td><td>12:34</td><td>16:29</td><td>20:00</td><td>21:52</td></tr>
+          <tr data-day="4"><td class="d">04.08 · <span class="w">вт</span></td><td>02:45</td><td>05:05</td><td>12:34</td><td>16:29</td><td>19:59</td><td>21:50</td></tr>
+          <tr data-day="5"><td class="d">05.08 · <span class="w">ср</span></td><td>02:46</td><td>05:06</td><td>12:33</td><td>16:28</td><td>19:57</td><td>21:48</td></tr>
+          <tr data-day="6"><td class="d">06.08 · <span class="w">чт</span></td><td>02:48</td><td>05:07</td><td>12:33</td><td>16:27</td><td>19:56</td><td>21:46</td></tr>
+          <tr class="fri" data-day="7"><td class="d">07.08 · <span class="w">пт</span></td><td>02:50</td><td>05:08</td><td>12:33</td><td>16:26</td><td>19:54</td><td>21:44</td></tr>
+          <tr data-day="8"><td class="d">08.08 · <span class="w">сб</span></td><td>02:51</td><td>05:09</td><td>12:33</td><td>16:25</td><td>19:52</td><td>21:42</td></tr>
+          <tr data-day="9"><td class="d">09.08 · <span class="w">вс</span></td><td>02:53</td><td>05:11</td><td>12:33</td><td>16:25</td><td>19:51</td><td>21:40</td></tr>
+          <tr data-day="10"><td class="d">10.08 · <span class="w">пн</span></td><td>02:54</td><td>05:12</td><td>12:33</td><td>16:24</td><td>19:49</td><td>21:38</td></tr>
+          <tr data-day="11"><td class="d">11.08 · <span class="w">вт</span></td><td>02:56</td><td>05:13</td><td>12:33</td><td>16:23</td><td>19:48</td><td>21:36</td></tr>
+          <tr data-day="12"><td class="d">12.08 · <span class="w">ср</span></td><td>02:58</td><td>05:14</td><td>12:33</td><td>16:22</td><td>19:46</td><td>21:35</td></tr>
+          <tr data-day="13"><td class="d">13.08 · <span class="w">чт</span></td><td>02:59</td><td>05:15</td><td>12:32</td><td>16:21</td><td>19:45</td><td>21:33</td></tr>
+          <tr class="fri" data-day="14"><td class="d">14.08 · <span class="w">пт</span></td><td>03:01</td><td>05:17</td><td>12:32</td><td>16:21</td><td>19:43</td><td>21:31</td></tr>
+          <tr data-day="15"><td class="d">15.08 · <span class="w">сб</span></td><td>03:02</td><td>05:18</td><td>12:32</td><td>16:20</td><td>19:42</td><td>21:29</td></tr>
+          <tr data-day="16"><td class="d">16.08 · <span class="w">вс</span></td><td>03:04</td><td>05:19</td><td>12:32</td><td>16:19</td><td>19:40</td><td>21:27</td></tr>
+          <tr data-day="17"><td class="d">17.08 · <span class="w">пн</span></td><td>03:06</td><td>05:20</td><td>12:32</td><td>16:18</td><td>19:38</td><td>21:25</td></tr>
+          <tr data-day="18"><td class="d">18.08 · <span class="w">вт</span></td><td>03:07</td><td>05:21</td><td>12:32</td><td>16:17</td><td>19:37</td><td>21:23</td></tr>
+          <tr data-day="19"><td class="d">19.08 · <span class="w">ср</span></td><td>03:09</td><td>05:23</td><td>12:32</td><td>16:17</td><td>19:35</td><td>21:21</td></tr>
+          <tr data-day="20"><td class="d">20.08 · <span class="w">чт</span></td><td>03:10</td><td>05:24</td><td>12:31</td><td>16:16</td><td>19:34</td><td>21:19</td></tr>
+          <tr class="fri" data-day="21"><td class="d">21.08 · <span class="w">пт</span></td><td>03:12</td><td>05:25</td><td>12:31</td><td>16:15</td><td>19:32</td><td>21:18</td></tr>
+          <tr data-day="22"><td class="d">22.08 · <span class="w">сб</span></td><td>03:14</td><td>05:26</td><td>12:31</td><td>16:14</td><td>19:31</td><td>21:16</td></tr>
+          <tr data-day="23"><td class="d">23.08 · <span class="w">вс</span></td><td>03:15</td><td>05:27</td><td>12:31</td><td>16:13</td><td>19:29</td><td>21:14</td></tr>
+          <tr data-day="24"><td class="d">24.08 · <span class="w">пн</span></td><td>03:17</td><td>05:29</td><td>12:31</td><td>16:13</td><td>19:28</td><td>21:12</td></tr>
+          <tr data-day="25"><td class="d">25.08 · <span class="w">вт</span></td><td>03:18</td><td>05:30</td><td>12:31</td><td>16:12</td><td>19:26</td><td>21:10</td></tr>
+          <tr data-day="26"><td class="d">26.08 · <span class="w">ср</span></td><td>03:20</td><td>05:31</td><td>12:31</td><td>16:11</td><td>19:24</td><td>21:08</td></tr>
+          <tr data-day="27"><td class="d">27.08 · <span class="w">чт</span></td><td>03:22</td><td>05:32</td><td>12:31</td><td>16:10</td><td>19:23</td><td>21:06</td></tr>
+          <tr class="fri" data-day="28"><td class="d">28.08 · <span class="w">пт</span></td><td>03:23</td><td>05:33</td><td>12:30</td><td>16:09</td><td>19:21</td><td>21:04</td></tr>
+          <tr data-day="29"><td class="d">29.08 · <span class="w">сб</span></td><td>03:25</td><td>05:35</td><td>12:30</td><td>16:09</td><td>19:20</td><td>21:02</td></tr>
+          <tr data-day="30"><td class="d">30.08 · <span class="w">вс</span></td><td>03:26</td><td>05:36</td><td>12:30</td><td>16:08</td><td>19:18</td><td>21:00</td></tr>
+          <tr data-day="31"><td class="d">31.08 · <span class="w">пн</span></td><td>03:28</td><td>05:37</td><td>12:30</td><td>16:07</td><td>19:17</td><td>20:58</td></tr>
+        </tbody>
+        <tbody class="city-body" data-city="yuzh">
+          <tr data-day="1"><td class="d">01.08 · <span class="w">сб</span></td><td>02:24</td><td>04:45</td><td>12:18</td><td>16:15</td><td>19:47</td><td>21:40</td></tr>
+          <tr data-day="2"><td class="d">02.08 · <span class="w">вс</span></td><td>02:26</td><td>04:46</td><td>12:18</td><td>16:14</td><td>19:46</td><td>21:38</td></tr>
+          <tr data-day="3"><td class="d">03.08 · <span class="w">пн</span></td><td>02:27</td><td>04:47</td><td>12:18</td><td>16:13</td><td>19:44</td><td>21:36</td></tr>
+          <tr data-day="4"><td class="d">04.08 · <span class="w">вт</span></td><td>02:29</td><td>04:49</td><td>12:18</td><td>16:13</td><td>19:43</td><td>21:34</td></tr>
+          <tr data-day="5"><td class="d">05.08 · <span class="w">ср</span></td><td>02:30</td><td>04:50</td><td>12:17</td><td>16:12</td><td>19:41</td><td>21:32</td></tr>
+          <tr data-day="6"><td class="d">06.08 · <span class="w">чт</span></td><td>02:32</td><td>04:51</td><td>12:17</td><td>16:11</td><td>19:40</td><td>21:30</td></tr>
+          <tr class="fri" data-day="7"><td class="d">07.08 · <span class="w">пт</span></td><td>02:34</td><td>04:52</td><td>12:17</td><td>16:10</td><td>19:38</td><td>21:28</td></tr>
+          <tr data-day="8"><td class="d">08.08 · <span class="w">сб</span></td><td>02:35</td><td>04:53</td><td>12:17</td><td>16:09</td><td>19:36</td><td>21:26</td></tr>
+          <tr data-day="9"><td class="d">09.08 · <span class="w">вс</span></td><td>02:37</td><td>04:55</td><td>12:17</td><td>16:09</td><td>19:35</td><td>21:24</td></tr>
+          <tr data-day="10"><td class="d">10.08 · <span class="w">пн</span></td><td>02:38</td><td>04:56</td><td>12:17</td><td>16:08</td><td>19:33</td><td>21:22</td></tr>
+          <tr data-day="11"><td class="d">11.08 · <span class="w">вт</span></td><td>02:40</td><td>04:57</td><td>12:17</td><td>16:07</td><td>19:32</td><td>21:20</td></tr>
+          <tr data-day="12"><td class="d">12.08 · <span class="w">ср</span></td><td>02:42</td><td>04:58</td><td>12:17</td><td>16:06</td><td>19:30</td><td>21:19</td></tr>
+          <tr data-day="13"><td class="d">13.08 · <span class="w">чт</span></td><td>02:43</td><td>04:59</td><td>12:16</td><td>16:05</td><td>19:29</td><td>21:17</td></tr>
+          <tr class="fri" data-day="14"><td class="d">14.08 · <span class="w">пт</span></td><td>02:45</td><td>05:01</td><td>12:16</td><td>16:05</td><td>19:27</td><td>21:15</td></tr>
+          <tr data-day="15"><td class="d">15.08 · <span class="w">сб</span></td><td>02:46</td><td>05:02</td><td>12:16</td><td>16:04</td><td>19:26</td><td>21:13</td></tr>
+          <tr data-day="16"><td class="d">16.08 · <span class="w">вс</span></td><td>02:48</td><td>05:03</td><td>12:16</td><td>16:03</td><td>19:24</td><td>21:11</td></tr>
+          <tr data-day="17"><td class="d">17.08 · <span class="w">пн</span></td><td>02:50</td><td>05:04</td><td>12:16</td><td>16:02</td><td>19:22</td><td>21:09</td></tr>
+          <tr data-day="18"><td class="d">18.08 · <span class="w">вт</span></td><td>02:51</td><td>05:05</td><td>12:16</td><td>16:01</td><td>19:21</td><td>21:07</td></tr>
+          <tr data-day="19"><td class="d">19.08 · <span class="w">ср</span></td><td>02:53</td><td>05:07</td><td>12:16</td><td>16:01</td><td>19:19</td><td>21:05</td></tr>
+          <tr data-day="20"><td class="d">20.08 · <span class="w">чт</span></td><td>02:54</td><td>05:08</td><td>12:15</td><td>16:00</td><td>19:18</td><td>21:03</td></tr>
+          <tr class="fri" data-day="21"><td class="d">21.08 · <span class="w">пт</span></td><td>02:56</td><td>05:09</td><td>12:15</td><td>15:59</td><td>19:16</td><td>21:02</td></tr>
+          <tr data-day="22"><td class="d">22.08 · <span class="w">сб</span></td><td>02:58</td><td>05:10</td><td>12:15</td><td>15:58</td><td>19:15</td><td>21:00</td></tr>
+          <tr data-day="23"><td class="d">23.08 · <span class="w">вс</span></td><td>02:59</td><td>05:11</td><td>12:15</td><td>15:57</td><td>19:13</td><td>20:58</td></tr>
+          <tr data-day="24"><td class="d">24.08 · <span class="w">пн</span></td><td>03:01</td><td>05:13</td><td>12:15</td><td>15:57</td><td>19:12</td><td>20:56</td></tr>
+          <tr data-day="25"><td class="d">25.08 · <span class="w">вт</span></td><td>03:02</td><td>05:14</td><td>12:15</td><td>15:56</td><td>19:10</td><td>20:54</td></tr>
+          <tr data-day="26"><td class="d">26.08 · <span class="w">ср</span></td><td>03:04</td><td>05:15</td><td>12:15</td><td>15:55</td><td>19:08</td><td>20:52</td></tr>
+          <tr data-day="27"><td class="d">27.08 · <span class="w">чт</span></td><td>03:06</td><td>05:16</td><td>12:15</td><td>15:54</td><td>19:07</td><td>20:50</td></tr>
+          <tr class="fri" data-day="28"><td class="d">28.08 · <span class="w">пт</span></td><td>03:07</td><td>05:17</td><td>12:14</td><td>15:53</td><td>19:05</td><td>20:48</td></tr>
+          <tr data-day="29"><td class="d">29.08 · <span class="w">сб</span></td><td>03:09</td><td>05:19</td><td>12:14</td><td>15:53</td><td>19:04</td><td>20:46</td></tr>
+          <tr data-day="30"><td class="d">30.08 · <span class="w">вс</span></td><td>03:10</td><td>05:20</td><td>12:14</td><td>15:52</td><td>19:02</td><td>20:44</td></tr>
+          <tr data-day="31"><td class="d">31.08 · <span class="w">пн</span></td><td>03:12</td><td>05:21</td><td>12:14</td><td>15:51</td><td>19:01</td><td>20:42</td></tr>
+        </tbody>
+        <tbody class="city-body" data-city="blg">
+          <tr data-day="1"><td class="d">01.08 · <span class="w">сб</span></td><td>03:03</td><td>05:24</td><td>12:57</td><td>16:54</td><td>20:26</td><td>22:19</td></tr>
+          <tr data-day="2"><td class="d">02.08 · <span class="w">вс</span></td><td>03:05</td><td>05:25</td><td>12:57</td><td>16:53</td><td>20:25</td><td>22:17</td></tr>
+          <tr data-day="3"><td class="d">03.08 · <span class="w">пн</span></td><td>03:06</td><td>05:26</td><td>12:57</td><td>16:52</td><td>20:23</td><td>22:15</td></tr>
+          <tr data-day="4"><td class="d">04.08 · <span class="w">вт</span></td><td>03:08</td><td>05:28</td><td>12:57</td><td>16:52</td><td>20:22</td><td>22:13</td></tr>
+          <tr data-day="5"><td class="d">05.08 · <span class="w">ср</span></td><td>03:09</td><td>05:29</td><td>12:56</td><td>16:51</td><td>20:20</td><td>22:11</td></tr>
+          <tr data-day="6"><td class="d">06.08 · <span class="w">чт</span></td><td>03:11</td><td>05:30</td><td>12:56</td><td>16:50</td><td>20:19</td><td>22:09</td></tr>
+          <tr class="fri" data-day="7"><td class="d">07.08 · <span class="w">пт</span></td><td>03:13</td><td>05:31</td><td>12:56</td><td>16:49</td><td>20:17</td><td>22:07</td></tr>
+          <tr data-day="8"><td class="d">08.08 · <span class="w">сб</span></td><td>03:14</td><td>05:32</td><td>12:56</td><td>16:48</td><td>20:15</td><td>22:05</td></tr>
+          <tr data-day="9"><td class="d">09.08 · <span class="w">вс</span></td><td>03:16</td><td>05:34</td><td>12:56</td><td>16:48</td><td>20:14</td><td>22:03</td></tr>
+          <tr data-day="10"><td class="d">10.08 · <span class="w">пн</span></td><td>03:17</td><td>05:35</td><td>12:56</td><td>16:47</td><td>20:12</td><td>22:01</td></tr>
+          <tr data-day="11"><td class="d">11.08 · <span class="w">вт</span></td><td>03:19</td><td>05:36</td><td>12:56</td><td>16:46</td><td>20:11</td><td>21:59</td></tr>
+          <tr data-day="12"><td class="d">12.08 · <span class="w">ср</span></td><td>03:21</td><td>05:37</td><td>12:56</td><td>16:45</td><td>20:09</td><td>21:58</td></tr>
+          <tr data-day="13"><td class="d">13.08 · <span class="w">чт</span></td><td>03:22</td><td>05:38</td><td>12:55</td><td>16:44</td><td>20:08</td><td>21:56</td></tr>
+          <tr class="fri" data-day="14"><td class="d">14.08 · <span class="w">пт</span></td><td>03:24</td><td>05:40</td><td>12:55</td><td>16:44</td><td>20:06</td><td>21:54</td></tr>
+          <tr data-day="15"><td class="d">15.08 · <span class="w">сб</span></td><td>03:25</td><td>05:41</td><td>12:55</td><td>16:43</td><td>20:05</td><td>21:52</td></tr>
+          <tr data-day="16"><td class="d">16.08 · <span class="w">вс</span></td><td>03:27</td><td>05:42</td><td>12:55</td><td>16:42</td><td>20:03</td><td>21:50</td></tr>
+          <tr data-day="17"><td class="d">17.08 · <span class="w">пн</span></td><td>03:29</td><td>05:43</td><td>12:55</td><td>16:41</td><td>20:01</td><td>21:48</td></tr>
+          <tr data-day="18"><td class="d">18.08 · <span class="w">вт</span></td><td>03:30</td><td>05:44</td><td>12:55</td><td>16:40</td><td>20:00</td><td>21:46</td></tr>
+          <tr data-day="19"><td class="d">19.08 · <span class="w">ср</span></td><td>03:32</td><td>05:46</td><td>12:55</td><td>16:40</td><td>19:58</td><td>21:44</td></tr>
+          <tr data-day="20"><td class="d">20.08 · <span class="w">чт</span></td><td>03:33</td><td>05:47</td><td>12:54</td><td>16:39</td><td>19:57</td><td>21:42</td></tr>
+          <tr class="fri" data-day="21"><td class="d">21.08 · <span class="w">пт</span></td><td>03:35</td><td>05:48</td><td>12:54</td><td>16:38</td><td>19:55</td><td>21:41</td></tr>
+          <tr data-day="22"><td class="d">22.08 · <span class="w">сб</span></td><td>03:37</td><td>05:49</td><td>12:54</td><td>16:37</td><td>19:54</td><td>21:39</td></tr>
+          <tr data-day="23"><td class="d">23.08 · <span class="w">вс</span></td><td>03:38</td><td>05:50</td><td>12:54</td><td>16:36</td><td>19:52</td><td>21:37</td></tr>
+          <tr data-day="24"><td class="d">24.08 · <span class="w">пн</span></td><td>03:40</td><td>05:52</td><td>12:54</td><td>16:36</td><td>19:51</td><td>21:35</td></tr>
+          <tr data-day="25"><td class="d">25.08 · <span class="w">вт</span></td><td>03:41</td><td>05:53</td><td>12:54</td><td>16:35</td><td>19:49</td><td>21:33</td></tr>
+          <tr data-day="26"><td class="d">26.08 · <span class="w">ср</span></td><td>03:43</td><td>05:54</td><td>12:54</td><td>16:34</td><td>19:47</td><td>21:31</td></tr>
+          <tr data-day="27"><td class="d">27.08 · <span class="w">чт</span></td><td>03:45</td><td>05:55</td><td>12:54</td><td>16:33</td><td>19:46</td><td>21:29</td></tr>
+          <tr class="fri" data-day="28"><td class="d">28.08 · <span class="w">пт</span></td><td>03:46</td><td>05:56</td><td>12:53</td><td>16:32</td><td>19:44</td><td>21:27</td></tr>
+          <tr data-day="29"><td class="d">29.08 · <span class="w">сб</span></td><td>03:48</td><td>05:58</td><td>12:53</td><td>16:32</td><td>19:43</td><td>21:25</td></tr>
+          <tr data-day="30"><td class="d">30.08 · <span class="w">вс</span></td><td>03:49</td><td>05:59</td><td>12:53</td><td>16:31</td><td>19:41</td><td>21:23</td></tr>
+          <tr data-day="31"><td class="d">31.08 · <span class="w">пн</span></td><td>03:51</td><td>06:00</td><td>12:53</td><td>16:30</td><td>19:40</td><td>21:21</td></tr>
+        </tbody>
+        <tbody class="city-body" data-city="bir">
+          <tr data-day="1"><td class="d">01.08 · <span class="w">сб</span></td><td>02:51</td><td>05:12</td><td>12:45</td><td>16:42</td><td>20:14</td><td>22:07</td></tr>
+          <tr data-day="2"><td class="d">02.08 · <span class="w">вс</span></td><td>02:53</td><td>05:13</td><td>12:45</td><td>16:41</td><td>20:13</td><td>22:05</td></tr>
+          <tr data-day="3"><td class="d">03.08 · <span class="w">пн</span></td><td>02:54</td><td>05:14</td><td>12:45</td><td>16:40</td><td>20:11</td><td>22:03</td></tr>
+          <tr data-day="4"><td class="d">04.08 · <span class="w">вт</span></td><td>02:56</td><td>05:16</td><td>12:45</td><td>16:40</td><td>20:10</td><td>22:01</td></tr>
+          <tr data-day="5"><td class="d">05.08 · <span class="w">ср</span></td><td>02:57</td><td>05:17</td><td>12:44</td><td>16:39</td><td>20:08</td><td>21:59</td></tr>
+          <tr data-day="6"><td class="d">06.08 · <span class="w">чт</span></td><td>02:59</td><td>05:18</td><td>12:44</td><td>16:38</td><td>20:07</td><td>21:57</td></tr>
+          <tr class="fri" data-day="7"><td class="d">07.08 · <span class="w">пт</span></td><td>03:01</td><td>05:19</td><td>12:44</td><td>16:37</td><td>20:05</td><td>21:55</td></tr>
+          <tr data-day="8"><td class="d">08.08 · <span class="w">сб</span></td><td>03:02</td><td>05:20</td><td>12:44</td><td>16:36</td><td>20:03</td><td>21:53</td></tr>
+          <tr data-day="9"><td class="d">09.08 · <span class="w">вс</span></td><td>03:04</td><td>05:22</td><td>12:44</td><td>16:36</td><td>20:02</td><td>21:51</td></tr>
+          <tr data-day="10"><td class="d">10.08 · <span class="w">пн</span></td><td>03:05</td><td>05:23</td><td>12:44</td><td>16:35</td><td>20:00</td><td>21:49</td></tr>
+          <tr data-day="11"><td class="d">11.08 · <span class="w">вт</span></td><td>03:07</td><td>05:24</td><td>12:44</td><td>16:34</td><td>19:59</td><td>21:47</td></tr>
+          <tr data-day="12"><td class="d">12.08 · <span class="w">ср</span></td><td>03:09</td><td>05:25</td><td>12:44</td><td>16:33</td><td>19:57</td><td>21:46</td></tr>
+          <tr data-day="13"><td class="d">13.08 · <span class="w">чт</span></td><td>03:10</td><td>05:26</td><td>12:43</td><td>16:32</td><td>19:56</td><td>21:44</td></tr>
+          <tr class="fri" data-day="14"><td class="d">14.08 · <span class="w">пт</span></td><td>03:12</td><td>05:28</td><td>12:43</td><td>16:32</td><td>19:54</td><td>21:42</td></tr>
+          <tr data-day="15"><td class="d">15.08 · <span class="w">сб</span></td><td>03:13</td><td>05:29</td><td>12:43</td><td>16:31</td><td>19:53</td><td>21:40</td></tr>
+          <tr data-day="16"><td class="d">16.08 · <span class="w">вс</span></td><td>03:15</td><td>05:30</td><td>12:43</td><td>16:30</td><td>19:51</td><td>21:38</td></tr>
+          <tr data-day="17"><td class="d">17.08 · <span class="w">пн</span></td><td>03:17</td><td>05:31</td><td>12:43</td><td>16:29</td><td>19:49</td><td>21:36</td></tr>
+          <tr data-day="18"><td class="d">18.08 · <span class="w">вт</span></td><td>03:18</td><td>05:32</td><td>12:43</td><td>16:28</td><td>19:48</td><td>21:34</td></tr>
+          <tr data-day="19"><td class="d">19.08 · <span class="w">ср</span></td><td>03:20</td><td>05:34</td><td>12:43</td><td>16:28</td><td>19:46</td><td>21:32</td></tr>
+          <tr data-day="20"><td class="d">20.08 · <span class="w">чт</span></td><td>03:21</td><td>05:35</td><td>12:42</td><td>16:27</td><td>19:45</td><td>21:30</td></tr>
+          <tr class="fri" data-day="21"><td class="d">21.08 · <span class="w">пт</span></td><td>03:23</td><td>05:36</td><td>12:42</td><td>16:26</td><td>19:43</td><td>21:29</td></tr>
+          <tr data-day="22"><td class="d">22.08 · <span class="w">сб</span></td><td>03:25</td><td>05:37</td><td>12:42</td><td>16:25</td><td>19:42</td><td>21:27</td></tr>
+          <tr data-day="23"><td class="d">23.08 · <span class="w">вс</span></td><td>03:26</td><td>05:38</td><td>12:42</td><td>16:24</td><td>19:40</td><td>21:25</td></tr>
+          <tr data-day="24"><td class="d">24.08 · <span class="w">пн</span></td><td>03:28</td><td>05:40</td><td>12:42</td><td>16:24</td><td>19:39</td><td>21:23</td></tr>
+          <tr data-day="25"><td class="d">25.08 · <span class="w">вт</span></td><td>03:29</td><td>05:41</td><td>12:42</td><td>16:23</td><td>19:37</td><td>21:21</td></tr>
+          <tr data-day="26"><td class="d">26.08 · <span class="w">ср</span></td><td>03:31</td><td>05:42</td><td>12:42</td><td>16:22</td><td>19:35</td><td>21:19</td></tr>
+          <tr data-day="27"><td class="d">27.08 · <span class="w">чт</span></td><td>03:33</td><td>05:43</td><td>12:42</td><td>16:21</td><td>19:34</td><td>21:17</td></tr>
+          <tr class="fri" data-day="28"><td class="d">28.08 · <span class="w">пт</span></td><td>03:34</td><td>05:44</td><td>12:41</td><td>16:20</td><td>19:32</td><td>21:15</td></tr>
+          <tr data-day="29"><td class="d">29.08 · <span class="w">сб</span></td><td>03:36</td><td>05:46</td><td>12:41</td><td>16:20</td><td>19:31</td><td>21:13</td></tr>
+          <tr data-day="30"><td class="d">30.08 · <span class="w">вс</span></td><td>03:37</td><td>05:47</td><td>12:41</td><td>16:19</td><td>19:29</td><td>21:11</td></tr>
+          <tr data-day="31"><td class="d">31.08 · <span class="w">пн</span></td><td>03:39</td><td>05:48</td><td>12:41</td><td>16:18</td><td>19:28</td><td>21:09</td></tr>
+        </tbody>
         </table>
       </div>
 
@@ -439,9 +612,9 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:720px;font-varia
           <p>Адрес и порядок пятничной молитвы — в разделе <a href="index.html#contacts">Контакты</a>.</p>
         </div>
         <div>
-          <h3>Как пользуются расписанием</h3>
-          <p>Фаджр и иша рассчитаны по методике, принятой ЦДУМ России; восход приведён справочно и намазом не является.</p>
-          <p>Для приходов в других городах Дальнего Востока время отличается — уточняйте у имама местной общины в разделе <a href="index.html#regions">Мечети и приходы</a>.</p>
+          <h3>Как пользоваться расписанием</h3>
+          <p>Восход приведён справочно и намазом не является — он отмечает конец времени фаджра.</p>
+          <p>Для приходов, которых нет в списке городов, время уточняйте у имама местной общины: раздел <a href="index.html#regions">Мечети и приходы</a>.</p>
         </div>
       </div>
     </div>
@@ -607,21 +780,56 @@ table.sched-table{border-collapse:collapse;width:100%;min-width:720px;font-varia
   tick();
   setInterval(tick, 1000);
 
-  // карточки «сегодня» и подсветка текущей строки в таблице
+  // карточка «сегодня», выбор города и подсветка текущей строки
   var now = new Date();
-  var full = document.getElementById('today-full');
   var hijriFull = document.getElementById('hijri-full');
-  if (full) full.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
-  if (hijriFull) hijriFull.textContent = hijri(now);
+  var todayDate = document.getElementById('today-date');
+  var todayCity = document.getElementById('today-city');
+  var todaySlots = document.querySelectorAll('#today-times .today-slot .v');
+  var buttons = document.querySelectorAll('.city');
+  var bodies = document.querySelectorAll('.city-body');
 
-  var khb = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long' }).format(now);
-  var rows = document.querySelectorAll('#sched-body tr');
-  for (var i = 0; i < rows.length; i++) {
-    if (rows[i].querySelector('.d').textContent.trim() === khb) {
-      rows[i].classList.add('now');
-      break;
+  if (hijriFull) hijriFull.textContent = hijri(now);
+  if (todayDate) {
+    todayDate.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', weekday: 'long', day: 'numeric', month: 'long' }).format(now).replace(' г.', '');
+  }
+
+  // номер сегодняшнего дня по Хабаровску — по нему ищем строку в таблице
+  var dayNum = parseInt(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Vladivostok', day: 'numeric' }).format(now), 10);
+
+  function showCity(id, name) {
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].classList.toggle('on', buttons[i].getAttribute('data-city') === id);
+    }
+    var active = null;
+    for (var j = 0; j < bodies.length; j++) {
+      var match = bodies[j].getAttribute('data-city') === id;
+      bodies[j].classList.toggle('on', match);
+      if (match) active = bodies[j];
+    }
+    if (!active) return;
+    if (todayCity && name) todayCity.textContent = name;
+    var stale = document.querySelectorAll('.city-body tr.now');
+    for (var s = 0; s < stale.length; s++) stale[s].classList.remove('now');
+    var rows = active.querySelectorAll('tr');
+    for (var k = 0; k < rows.length; k++) {
+      var isToday = parseInt(rows[k].getAttribute('data-day'), 10) === dayNum;
+      rows[k].classList.toggle('now', isToday);
+      if (isToday && todaySlots.length) {
+        var cells = rows[k].querySelectorAll('td');
+        for (var c = 1; c < cells.length && c - 1 < todaySlots.length; c++) {
+          todaySlots[c - 1].textContent = cells[c].textContent;
+        }
+      }
     }
   }
+
+  for (var b = 0; b < buttons.length; b++) {
+    buttons[b].addEventListener('click', function () {
+      showCity(this.getAttribute('data-city'), this.textContent.trim());
+    });
+  }
+  if (buttons.length) showCity(buttons[0].getAttribute('data-city'), buttons[0].textContent.trim());
 
   var hdr = document.getElementById('hdr');
   function onScroll() {
