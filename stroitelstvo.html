@@ -358,6 +358,51 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .build-shot{margin:44px 0 0;border:1px solid var(--brd);border-radius:16px;overflow:hidden;background:var(--pnl)}
 .build-shot img{display:block;width:100%;aspect-ratio:21/9;object-fit:cover}
 .build-shot figcaption{padding:14px 20px;font-size:13px;color:var(--mut);background:var(--srf);border-top:1px solid var(--brd)}
+
+/* кто строит мечеть — карта регионов */
+.geo{background:var(--pg);padding:88px 0 96px;--geo-blank:#ece3cf;--geo-edge:#fbf6ec}
+#night:checked ~ .page .geo{--geo-blank:#232838;--geo-edge:#12141c}
+.geo h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 10px}
+.geo-sub{font-size:15px;line-height:1.7;color:var(--mut);margin:0 0 36px;max-width:62ch}
+.geo-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:46px;align-items:start}
+
+.geo-map{position:relative;margin:0;min-width:0;background:var(--srf);border:1px solid var(--brd);border-radius:16px;padding:16px 16px 12px}
+.geo-canvas{min-width:0}
+.geo-canvas svg{display:block;width:100%;height:auto;max-width:100%;overflow:visible}
+.geo-canvas path{fill:var(--geo-blank);stroke:var(--geo-edge);stroke-width:.7;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.geo-canvas path.has-data{cursor:pointer}
+.geo-canvas path.is-on{stroke:var(--tx);stroke-width:1.5}
+.geo-canvas path:focus{outline:none;stroke:var(--tx);stroke-width:1.5}
+.geo-loading{padding:38px 4px;font-size:13px;color:var(--mut);text-align:center}
+
+.geo-tip{position:absolute;left:0;top:0;z-index:4;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(5px);transition:opacity .14s ease,transform .14s ease;background:var(--tx);color:var(--pg);font-size:12.5px;line-height:1.45;padding:8px 11px;border-radius:9px;max-width:230px;box-shadow:0 10px 26px rgba(0,0,0,.24)}
+.geo-tip.on{opacity:1;visibility:visible;transform:translateY(0)}
+.geo-tip b{display:block;font-weight:600;font-size:13px;margin-bottom:2px}
+.geo-tip .v{font-variant-numeric:tabular-nums}
+
+.geo-legend{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.geo-scale{flex:1;height:7px;border-radius:999px;background:linear-gradient(90deg,#f6ebd0,#E2C169 38%,#B98F22 72%,#87680F)}
+
+.geo-top h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.2;color:var(--tx);margin:0}
+.geo-top .fine{margin-top:8px}
+.geo-list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:13px;overflow:hidden}
+.geo-list li{background:var(--srf);padding:14px 16px;display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.geo-swatch{width:10px;height:10px;border-radius:3px;align-self:center;background:var(--geo-blank)}
+.geo-name{font-size:14px;line-height:1.35;color:var(--tx);min-width:0}
+.geo-donors{display:block;font-size:11.5px;color:var(--mut);margin-top:3px}
+.geo-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap}
+.geo-note{margin-top:26px}
+
+@media (max-width:1080px){
+  .geo-grid{grid-template-columns:1fr;gap:32px}
+}
+@media (max-width:560px){
+  .geo{padding:62px 0 70px}
+  .geo-map{padding:10px 10px 8px;border-radius:12px}
+  .geo-tip{max-width:min(190px,calc(100vw - 72px));font-size:12px;padding:7px 10px}
+  .geo-list li{padding:12px 13px;gap:10px}
+  .geo-sum{font-size:17px}
+}
 </style>
 </head>
 <body>
@@ -625,6 +670,30 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
   </section>
 
+  <section class="geo" id="geografiya">
+    <div class="wrap">
+      <span class="kicker">Кто строит мечеть</span>
+      <h2>Мечеть строит не один город</h2>
+      <p class="geo-sub">Чем темнее регион, тем больше оттуда пришло за месяц. Наведите на регион, чтобы увидеть сумму и число жертвователей; на телефоне — коснитесь.</p>
+
+      <div class="geo-grid">
+        <figure class="geo-map" id="geoMap">
+          <div class="geo-canvas" id="geoCanvas"><p class="geo-loading">Загружаем карту…</p></div>
+          <div class="geo-tip" id="geoTip" role="status" aria-live="polite"></div>
+          <div class="geo-legend"><span>меньше</span><span class="geo-scale" aria-hidden="true"></span><span>больше</span></div>
+        </figure>
+
+        <div class="geo-top">
+          <h3>Больше всего собрали</h3>
+          <ol class="geo-list" id="geoList"></ol>
+          <p class="fine" id="geoSources">Границы субъектов — OpenStreetMap, лицензия ODbL 1.0. Перечень субъектов — реестр регионов РФ «Инфокультуры», CC0.</p>
+        </div>
+      </div>
+
+      <p class="fine geo-note" id="geoNote"></p>
+    </div>
+  </section>
+
   <footer id="contacts">
     <div class="foot">
       <div>
@@ -828,6 +897,195 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+// карта «кто строит мечеть»: цифры живут в data/regions.json, геометрия — в assets/russia-regions.svg
+(function () {
+  var box = document.getElementById('geoMap');
+  var canvas = document.getElementById('geoCanvas');
+  var tip = document.getElementById('geoTip');
+  var listEl = document.getElementById('geoList');
+  var noteEl = document.getElementById('geoNote');
+  if (!box || !canvas || !tip || !listEl || !noteEl) return;
+
+  // кремовый -> золото сайта
+  var STOPS = [[0, 246, 235, 208], [0.38, 226, 193, 105], [0.72, 185, 143, 34], [1, 135, 104, 15]];
+  function shade(t) {
+    t = t < 0 ? 0 : (t > 1 ? 1 : t);
+    for (var i = 1; i < STOPS.length; i++) {
+      if (t <= STOPS[i][0]) {
+        var a = STOPS[i - 1], b = STOPS[i];
+        var k = (t - a[0]) / (b[0] - a[0]);
+        return 'rgb(' + Math.round(a[1] + (b[1] - a[1]) * k) + ','
+                      + Math.round(a[2] + (b[2] - a[2]) * k) + ','
+                      + Math.round(a[3] + (b[3] - a[3]) * k) + ')';
+      }
+    }
+    return 'rgb(135,104,15)';
+  }
+
+  function money(n) { return n.toLocaleString('ru-RU') + ' ₽'; }
+  function people(n) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return n + ' человек';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return n + ' человека';
+    return n + ' человек';
+  }
+
+  // «Республика Татарстан», «Татарстан» и «татарстан» должны совпасть
+  var ALIAS = {
+    'удмуртия': 'удмуртская', 'чувашия': 'чувашская', 'чечня': 'чеченская',
+    'кабардино балкария': 'кабардино балкарская', 'карачаево черкесия': 'карачаево черкесская',
+    'якутия': 'саха якутия', 'башкирия': 'башкортостан', 'тува': 'тыва',
+    'югра': 'ханты мансийский югра', 'питер': 'санкт петербург'
+  };
+  function norm(s) {
+    s = s.toLowerCase().replace(/ё/g, 'е')
+         .replace(/республика|область|автономный округ|автономная область|край|город/g, ' ')
+         .replace(/[^а-я]+/g, ' ').replace(/\s+/g, ' ').trim();
+    return ALIAS[s] || s;
+  }
+
+  function fail(msg) {
+    canvas.innerHTML = '<p class="geo-loading">' + msg + '</p>';
+  }
+
+  Promise.all([
+    fetch('data/regions.json').then(function (r) { return r.json(); }),
+    fetch('assets/russia-regions.svg').then(function (r) { return r.text(); })
+  ]).then(function (res) {
+    var data = res[0];
+    canvas.innerHTML = res[1];
+    var svg = canvas.querySelector('svg');
+    if (!svg) return fail('Карта не загрузилась.');
+
+    var byName = {};
+    var paths = svg.querySelectorAll('path[data-name]');
+    for (var i = 0; i < paths.length; i++) byName[norm(paths[i].getAttribute('data-name'))] = paths[i];
+
+    function resolve(name) {
+      var hit = byName[norm(name)];
+      if (hit) return [hit];
+      var out = [], parts = name.split(/\s+и\s+/);
+      if (parts.length > 1) {
+        for (var j = 0; j < parts.length; j++) {
+          var p = byName[norm(parts[j])];
+          if (p) out.push(p);
+        }
+      }
+      return out;
+    }
+
+    var rows = (data.regions || []).slice().sort(function (a, b) { return b.sum - a.sum; });
+    var max = rows.length ? rows[0].sum : 0;
+
+    listEl.innerHTML = '';
+    for (var r = 0; r < rows.length; r++) {
+      var row = rows[r];
+      // корень сглаживает разрыв между столицей и небольшими регионами
+      var colour = shade(max ? Math.sqrt(row.sum / max) : 0);
+      var label = row.name + ': ' + money(row.sum) + (row.donors == null ? '' : ', ' + people(row.donors));
+
+      var hits = resolve(row.name);
+      for (var h = 0; h < hits.length; h++) {
+        hits[h].setAttribute('fill', colour);
+        hits[h].setAttribute('class', 'has-data');
+        hits[h].setAttribute('tabindex', '0');
+        hits[h].setAttribute('data-tip', label);
+      }
+      if (r < 5) {
+        var li = document.createElement('li');
+        li.innerHTML = '<span class="geo-swatch"></span>'
+          + '<span class="geo-name"></span>'
+          + '<span class="geo-sum"></span>';
+        li.querySelector('.geo-swatch').style.background = colour;
+        li.querySelector('.geo-name').textContent = row.name;
+        if (row.donors != null) {
+          var d = document.createElement('span');
+          d.className = 'geo-donors';
+          d.textContent = people(row.donors);
+          li.querySelector('.geo-name').appendChild(d);
+        }
+        li.querySelector('.geo-sum').textContent = money(row.sum);
+        listEl.appendChild(li);
+      }
+    }
+
+    noteEl.textContent = 'Данные за ' + (data.period || '—') + ', по жертвователям, указавшим регион.';
+
+    // подсказка
+    var active = null;
+    function hide() {
+      tip.classList.remove('on');
+      if (active) { active.classList.remove('is-on'); active = null; }
+    }
+    function show(path, x, y) {
+      var name = path.getAttribute('data-tip');
+      if (name) {
+        var cut = name.indexOf(': ');
+        tip.innerHTML = '<b></b><span class="v"></span>';
+        tip.querySelector('b').textContent = name.slice(0, cut);
+        tip.querySelector('.v').textContent = name.slice(cut + 2);
+      } else {
+        tip.innerHTML = '<b></b>';
+        tip.querySelector('b').textContent = path.getAttribute('data-name') || '';
+      }
+      if (active && active !== path) active.classList.remove('is-on');
+      active = path;
+      path.classList.add('is-on');
+      tip.classList.add('on');
+
+      var r = box.getBoundingClientRect();
+      var tw = tip.offsetWidth, th = tip.offsetHeight;
+      var left = x - r.left - tw / 2;
+      left = Math.max(8, Math.min(left, r.width - tw - 8));
+      var top = y - r.top - th - 14;
+      if (top < 6) top = y - r.top + 20;
+      tip.style.left = Math.round(left) + 'px';
+      tip.style.top = Math.round(top) + 'px';
+    }
+    function centre(path) {
+      var b = path.getBoundingClientRect();
+      show(path, b.left + b.width / 2, b.top + b.height / 2);
+    }
+
+    svg.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var p = e.target.closest ? e.target.closest('path') : null;
+      if (p) show(p, e.clientX, e.clientY); else hide();
+    });
+    svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
+    // на телефоне карта мелкая: Москва — три пикселя, пальцем не попасть,
+    // поэтому при промахе берём ближайший регион с данными в радиусе 22 px
+    var withData = svg.querySelectorAll('path.has-data');
+    function nearestWithData(x, y) {
+      var best = null, bestD = 22;
+      for (var i = 0; i < withData.length; i++) {
+        var b = withData[i].getBoundingClientRect();
+        var dx = x - Math.max(b.left, Math.min(x, b.right));
+        var dy = y - Math.max(b.top, Math.min(y, b.bottom));
+        var d = Math.sqrt(dx * dx + dy * dy);
+        if (d < bestD) { bestD = d; best = withData[i]; }
+      }
+      return best;
+    }
+
+    svg.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      var p = e.target.closest ? e.target.closest('path') : null;
+      if (p && !p.classList.contains('has-data')) p = nearestWithData(e.clientX, e.clientY) || p;
+      if (!p) return hide();
+      if (p === active) return hide();
+      show(p, e.clientX, e.clientY);
+    });
+    document.addEventListener('pointerdown', function (e) { if (!box.contains(e.target)) hide(); });
+    svg.addEventListener('focusin', function (e) { if (e.target.tagName === 'path') centre(e.target); });
+    svg.addEventListener('focusout', hide);
+    window.addEventListener('scroll', hide, { passive: true });
+  }).catch(function () {
+    fail('Не удалось загрузить данные карты.');
+    noteEl.textContent = '';
+  });
 })();
 </script>
 </body>
