@@ -382,6 +382,14 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .geo-tip .v{font-variant-numeric:tabular-nums}
 
 .geo-plot{position:relative;min-width:0}
+.geo-canvas svg{touch-action:pan-y}
+.geo-map.is-zoomed .geo-canvas svg{cursor:grab;touch-action:none}
+.geo-map.is-zoomed .geo-canvas svg:active{cursor:grabbing}
+.geo-zoom{position:absolute;top:0;right:0;z-index:3;display:flex;flex-direction:column;gap:5px}
+.geo-zoom button{width:30px;height:30px;display:grid;place-items:center;padding:0;cursor:pointer;font-family:inherit;font-size:16px;line-height:1;color:var(--tx);background:var(--srf);border:1px solid var(--brd);border-radius:9px;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:border-color .15s ease,color .15s ease,opacity .15s ease}
+.geo-zoom button:hover:not(:disabled){border-color:#B98F22;color:#87680F}
+.geo-zoom button:disabled{opacity:.38;cursor:default}
+.geo-zoom button:last-child{font-size:14px}
 .geo-pins{position:absolute;inset:0;pointer-events:none;z-index:2}
 .geo-pin{position:absolute;display:flex;align-items:center;gap:5px;transform:translateY(-50%)}
 .geo-pin.to-left{flex-direction:row-reverse}
@@ -415,6 +423,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .geo-pin b{font-size:11.5px;padding:2px 6px}
   .geo-pin i{width:6px;height:6px}
   .geo-legend{gap:6px 12px;font-size:10.5px}
+  .geo-zoom button{width:36px;height:36px;font-size:18px}
+  .geo-zoom button:last-child{font-size:15px}
 }
 </style>
 </head>
@@ -687,13 +697,18 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <div class="wrap">
       <span class="kicker">Кто строит мечеть</span>
       <h2>Мечеть строит не один город</h2>
-      <p class="geo-sub">Чем темнее регион, тем больше оттуда пришло за всё время сбора. Наведите на регион, чтобы увидеть сумму и число жертвователей; на телефоне — коснитесь.</p>
+      <p class="geo-sub">Чем темнее регион, тем больше оттуда пришло за всё время сбора. Наведите на регион, чтобы увидеть сумму и число жертвователей; на телефоне — коснитесь. Кнопками справа карту можно приблизить, двойной щелчок приближает к региону, приближённую карту можно двигать.</p>
 
       <div class="geo-grid">
         <figure class="geo-map" id="geoMap">
           <div class="geo-plot">
             <div class="geo-canvas" id="geoCanvas"><p class="geo-loading">Загружаем карту…</p></div>
             <div class="geo-pins" id="geoPins" aria-hidden="true"></div>
+            <div class="geo-zoom" id="geoZoom">
+              <button type="button" data-z="in" aria-label="Приблизить">+</button>
+              <button type="button" data-z="out" aria-label="Отдалить">−</button>
+              <button type="button" data-z="reset" aria-label="Показать всю страну" disabled>⟲</button>
+            </div>
           </div>
           <div class="geo-tip" id="geoTip" role="status" aria-live="polite"></div>
           <div class="geo-legend" id="geoLegend"></div>
@@ -1054,6 +1069,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     // флажки с суммами: самые крупные регионы иначе теряются —
     // Москва на этой карте занимает меньше 50 px²
     var pinBox = document.getElementById('geoPins');
+    var zoomBox = document.getElementById('geoZoom');
+    var resetBtn = zoomBox.querySelector('[data-z="reset"]');
     var pinEls = pins.map(function (p) {
       var el = document.createElement('span');
       el.className = 'geo-pin';
@@ -1076,6 +1093,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         var b = pinEls[i].path.getBoundingClientRect();
         var x = b.left + b.width / 2 - box.left;
         var y = b.top + b.height / 2 - box.top;
+        // при приближении регион может уехать за край — такую подпись не рисуем
+        if (x < 0 || x > box.width || y < 0 || y > box.height) { el.style.display = 'none'; continue; }
         var left = x > box.width * 0.58;   // в правой половине подпись уходит влево
         el.classList.toggle('to-left', left);
         if (left) { el.style.right = (box.width - x) + 'px'; el.style.left = 'auto'; }
@@ -1084,7 +1103,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         cand.push({ el: el, y: y });
       }
 
-      var taken = [];
+      // кнопки масштаба — занятый угол, подписи туда не ставим
+      var zr = zoomBox.getBoundingClientRect();
+      var taken = [{ x0: zr.left - box.left - 6, x1: zr.right - box.left + 6,
+                     y0: zr.top - box.top - 6, y1: zr.bottom - box.top + 6 }];
       // Точка едет вместе с подписью, поэтому сдвиг привязан к размеру карты:
       // на широкой 12 px кружок всё ещё стоит на своём регионе, а на узкой
       // столько же — уже промах, и там подписи просто не раздвигаются.
@@ -1164,11 +1186,149 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       show(path, b.left + b.width / 2, b.top + b.height / 2);
     }
 
+    // ---- масштаб и перетаскивание -------------------------------------
+    var vb = (svg.getAttribute('viewBox') || '0 0 1000 551').split(/[\s,]+/).map(Number);
+    var base = { x: vb[0], y: vb[1], w: vb[2], h: vb[3] };
+    var view = { x: base.x, y: base.y, w: base.w, h: base.h };
+    var MAX_ZOOM = 8;
+
+    function applyView() {
+      view.w = Math.min(base.w, Math.max(base.w / MAX_ZOOM, view.w));
+      view.h = view.w * base.h / base.w;
+      view.x = Math.min(base.x + base.w - view.w, Math.max(base.x, view.x));
+      view.y = Math.min(base.y + base.h - view.h, Math.max(base.y, view.y));
+      svg.setAttribute('viewBox', view.x + ' ' + view.y + ' ' + view.w + ' ' + view.h);
+      var zoomed = view.w < base.w - 0.5;
+      box.classList.toggle('is-zoomed', zoomed);
+      resetBtn.disabled = !zoomed;
+      placePins();
+    }
+
+    // приближаем «к точке»: то, что под курсором, остаётся на месте
+    function zoomAt(factor, cx, cy) {
+      var r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      var px = (cx - r.left) / r.width, py = (cy - r.top) / r.height;
+      var ux = view.x + px * view.w, uy = view.y + py * view.h;
+      view.w = view.w / factor;
+      view.h = view.w * base.h / base.w;
+      view.x = ux - px * view.w;
+      view.y = uy - py * view.h;
+      applyView();
+    }
+    function zoomCentre(factor) {
+      var r = svg.getBoundingClientRect();
+      zoomAt(factor, r.left + r.width / 2, r.top + r.height / 2);
+    }
+    function zoomToPath(p) {
+      var b = p.getBBox();
+      var pad = Math.max(b.width, b.height) * 0.6 + 8;
+      view.w = Math.max(base.w / MAX_ZOOM, b.width + pad * 2);
+      view.h = view.w * base.h / base.w;
+      view.x = b.x + b.width / 2 - view.w / 2;
+      view.y = b.y + b.height / 2 - view.h / 2;
+      applyView();
+    }
+    function resetView() {
+      view.x = base.x; view.y = base.y; view.w = base.w; view.h = base.h;
+      applyView();
+    }
+
+    zoomBox.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button') : null;
+      if (!b) return;
+      hide();
+      if (b.dataset.z === 'in') zoomCentre(1.6);
+      else if (b.dataset.z === 'out') zoomCentre(1 / 1.6);
+      else resetView();
+    });
+
+    // колесо масштабирует только с Ctrl/⌘, иначе страница должна прокручиваться
+    svg.addEventListener('wheel', function (e) {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      hide();
+      zoomAt(e.deltaY < 0 ? 1.18 : 1 / 1.18, e.clientX, e.clientY);
+    }, { passive: false });
+
+    svg.addEventListener('dblclick', function (e) {
+      var p = e.target.closest ? e.target.closest('path') : null;
+      if (p) { hide(); zoomToPath(p); }
+    });
+
+    var pts = {}, drag = null, pinch = null, moved = 0;
+
+    function pointsList() {
+      var out = [];
+      for (var id in pts) if (pts.hasOwnProperty(id)) out.push(pts[id]);
+      return out;
+    }
+
+    svg.addEventListener('pointerdown', function (e) {
+      pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var list = pointsList();
+      if (list.length === 1) {
+        moved = 0;
+        drag = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
+        if (svg.setPointerCapture) { try { svg.setPointerCapture(e.pointerId); } catch (err) {} }
+      } else if (list.length === 2) {
+        drag = null;
+        pinch = { d: Math.hypot(list[0].x - list[1].x, list[0].y - list[1].y) };
+      }
+    });
+
     svg.addEventListener('pointermove', function (e) {
-      if (e.pointerType !== 'mouse') return;
+      if (pts[e.pointerId]) { pts[e.pointerId].x = e.clientX; pts[e.pointerId].y = e.clientY; }
+      var list = pointsList();
+
+      if (pinch && list.length === 2) {
+        var d = Math.hypot(list[0].x - list[1].x, list[0].y - list[1].y);
+        if (pinch.d > 0 && Math.abs(d - pinch.d) > 1) {
+          hide();
+          zoomAt(d / pinch.d, (list[0].x + list[1].x) / 2, (list[0].y + list[1].y) / 2);
+          pinch.d = d;
+        }
+        return;
+      }
+
+      if (drag) {
+        var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+        moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
+        if (view.w < base.w - 0.5 && moved > 5) {
+          var r = svg.getBoundingClientRect();
+          hide();
+          view.x = drag.vx - dx * view.w / r.width;
+          view.y = drag.vy - dy * view.h / r.height;
+          applyView();
+          return;
+        }
+      }
+
+      if (e.pointerType !== 'mouse' || moved > 5) return;
       var p = e.target.closest ? e.target.closest('path') : null;
       if (p) show(p, e.clientX, e.clientY); else hide();
     });
+
+    function endPointer(e) {
+      var wasDrag = drag, shift = moved;
+      delete pts[e.pointerId];
+      var list = pointsList();
+      if (list.length < 2) pinch = null;
+      // сдвиг обязательно сбрасываем: иначе после перетаскивания
+      // наведение мышью так и останется заблокированным
+      if (list.length === 0) { drag = null; moved = 0; }
+      // палец почти не сдвинулся — это тап, показываем подсказку
+      if (e.pointerType !== 'mouse' && wasDrag && shift <= 5) {
+        var p = e.target.closest ? e.target.closest('path') : null;
+        if (p && !p.classList.contains('has-data')) p = nearestWithData(e.clientX, e.clientY) || p;
+        if (!p) return hide();
+        if (p === active) return hide();
+        show(p, e.clientX, e.clientY);
+      }
+    }
+    svg.addEventListener('pointerup', endPointer);
+    svg.addEventListener('pointercancel', endPointer);
+
     svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
     // на телефоне карта мелкая: Москва — три пикселя, пальцем не попасть,
     // поэтому при промахе берём ближайший регион с данными в радиусе 22 px
@@ -1185,14 +1345,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       return best;
     }
 
-    svg.addEventListener('pointerdown', function (e) {
-      if (e.pointerType === 'mouse') return;
-      var p = e.target.closest ? e.target.closest('path') : null;
-      if (p && !p.classList.contains('has-data')) p = nearestWithData(e.clientX, e.clientY) || p;
-      if (!p) return hide();
-      if (p === active) return hide();
-      show(p, e.clientX, e.clientY);
-    });
     document.addEventListener('pointerdown', function (e) { if (!box.contains(e.target)) hide(); });
     svg.addEventListener('focusin', function (e) { if (e.target.tagName === 'path') centre(e.target); });
     svg.addEventListener('focusout', hide);
