@@ -674,7 +674,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <div class="wrap">
       <span class="kicker">Кто строит мечеть</span>
       <h2>Мечеть строит не один город</h2>
-      <p class="geo-sub">Чем темнее регион, тем больше оттуда пришло за месяц. Наведите на регион, чтобы увидеть сумму и число жертвователей; на телефоне — коснитесь.</p>
+      <p class="geo-sub">Чем темнее регион, тем больше оттуда пришло за всё время сбора. Наведите на регион, чтобы увидеть сумму и число жертвователей; на телефоне — коснитесь.</p>
 
       <div class="geo-grid">
         <figure class="geo-map" id="geoMap">
@@ -686,7 +686,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="geo-top">
           <h3>Больше всего собрали</h3>
           <ol class="geo-list" id="geoList"></ol>
-          <p class="fine" id="geoSources">Границы субъектов — OpenStreetMap, лицензия ODbL 1.0. Перечень субъектов — реестр регионов РФ «Инфокультуры», CC0.</p>
+          <p class="fine" id="geoSources">Цифры — сводка «Топ поддержавших регионов» с domvrayu.ru. Границы субъектов — OpenStreetMap, лицензия ODbL 1.0. Перечень субъектов — реестр регионов РФ «Инфокультуры», CC0.</p>
         </div>
       </div>
 
@@ -977,13 +977,22 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     }
 
     var rows = (data.regions || []).slice().sort(function (a, b) { return b.sum - a.sum; });
-    var max = rows.length ? rows[0].sum : 0;
+    // суммы расходятся на семь порядков (десятки рублей против полусотни миллионов),
+    // поэтому шкала логарифмическая: на линейной или корневой всё, кроме первой
+    // пятёрки, слилось бы с пустыми регионами
+    var sums = rows.map(function (r) { return r.sum; }).filter(function (v) { return v > 0; });
+    var max = sums.length ? Math.max.apply(null, sums) : 0;
+    var min = sums.length ? Math.min.apply(null, sums) : 0;
+    var span = (max > min) ? Math.log(max / min) : 0;
+    function level(v) {
+      if (!(v > 0) || !span) return v > 0 ? 1 : 0;
+      return Math.log(Math.max(v, min) / min) / span;
+    }
 
     listEl.innerHTML = '';
     for (var r = 0; r < rows.length; r++) {
       var row = rows[r];
-      // корень сглаживает разрыв между столицей и небольшими регионами
-      var colour = shade(max ? Math.sqrt(row.sum / max) : 0);
+      var colour = shade(level(row.sum));
       var label = row.name + ': ' + money(row.sum) + (row.donors == null ? '' : ', ' + people(row.donors));
 
       var hits = resolve(row.name);
