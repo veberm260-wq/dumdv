@@ -43,19 +43,19 @@ img{max-width:100%}
 .strip-in{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:16px 28px;max-width:1240px;margin:0 auto}
 .strip-left{margin-right:auto;display:flex;flex-direction:column;gap:11px}
 .strip-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx)}
+.date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx);font-variant-numeric:lining-nums}
 /* джума и ссылка на расписание — единым блоком слева */
 .jumua{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;border-radius:999px;background:var(--pnl);border:1px solid rgba(185,143,34,.28)}
 #night:checked ~ .page .jumua{background:rgba(255,255,255,.07)}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
+.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--gold)}
 /* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
 .clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
 .clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
 #night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
 #night:checked ~ .page .clock{background:#161a23}
 .clock-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.clock-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--tx)}
+.clock-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--tx)}
 /* двоеточие мигает раз в секунду — видно, что время живое */
 .clock-v .sep{font-style:normal;animation:tick 1s step-end infinite}
 @keyframes tick{0%,49%{opacity:1}50%,100%{opacity:.25}}
@@ -76,7 +76,7 @@ img{max-width:100%}
 #night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
 #night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
 .prayer-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
-.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
+.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;letter-spacing:.01em;color:var(--tx)}
 @media (max-width:900px){
   .strip-in{gap:18px}
   .prayer{min-width:0;padding:8px 10px}
@@ -109,7 +109,7 @@ img{max-width:100%}
 .hdr-link{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#43340D;text-decoration:none;cursor:pointer}
 .hdr-link:hover{color:#87680F}
 #night:checked ~ .page .hdr-link{color:#f3ecdd}
-.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:lining-nums tabular-nums}
 .dots{display:inline-flex;align-items:center;gap:4px}
 .dots i{width:5px;height:5px;border-radius:50%;background:#43340D;display:block}
 #night:checked ~ .page .dots i{background:#f3ecdd}
@@ -166,13 +166,13 @@ img{max-width:100%}
 .build-grid{display:grid;grid-template-columns:1fr;gap:64px;align-items:start;margin-top:20px}
 .build h2{font-size:clamp(34px,4vw,54px);line-height:1.12;color:var(--tx);margin-bottom:22px}
 .lead{font-size:17px;line-height:1.75;color:var(--mut);max-width:52ch;margin:0}
-.big-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(40px,5vw,64px);line-height:1;color:var(--gold);margin-top:40px}
+.big-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(40px,5vw,64px);line-height:1;color:var(--gold);margin-top:40px;font-variant-numeric:lining-nums tabular-nums}
 .sub{font-size:14px;color:var(--mut);margin-top:10px}
 .rule{height:1px;background:var(--brd);margin:28px 0 20px;max-width:56ch}
 .panel{background:var(--srf);border:1px solid var(--brd);border-radius:6px;padding:28px}
 .panel-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-end}
 .panel-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-.panel-num{font-family:"Cormorant Garamond",Georgia,serif;font-size:32px;line-height:1.1;margin-top:4px;color:var(--tx);white-space:nowrap;font-variant-numeric:tabular-nums}
+.panel-num{font-family:"Cormorant Garamond",Georgia,serif;font-size:32px;line-height:1.1;margin-top:4px;color:var(--tx);white-space:nowrap;font-variant-numeric:lining-nums tabular-nums}
 .panel-num-sm{font-size:26px}
 .track{height:10px;border-radius:999px;background:var(--track);overflow:hidden}
 .bar{height:100%;background:var(--gold)}
@@ -182,7 +182,7 @@ img{max-width:100%}
 .goal .track{margin-top:10px;height:10px}
 .goal .bar{background:var(--goldsoft)}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.amount{border:1px solid var(--brd);border-radius:999px;padding:7px 4px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
+.amount{border:1px solid var(--brd);border-radius:999px;padding:7px 4px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums}
 .amount.on{background:var(--gold);border-color:var(--gold);color:#fff}
 .panel .btn{width:100%;justify-content:center;margin-top:20px;padding:18px}
 .fine{font-size:12px;line-height:1.6;color:var(--mut);margin-top:14px}
@@ -198,8 +198,8 @@ img{max-width:100%}
 .stage.active .status{color:var(--gold)}
 .stage-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx)}
 .stage-money-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
-.stage-money .sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
-.stage-money .pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--mut);font-variant-numeric:tabular-nums}
+.stage-money .sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums}
+.stage-money .pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--mut);font-variant-numeric:lining-nums tabular-nums}
 .stage.active .pct{color:var(--gold)}
 .stage.done .bar{background:var(--goldsoft)}
 .stage.next .bar{background:transparent}
@@ -316,20 +316,20 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .period .check{margin-top:0}
 .track{position:relative;overflow:visible}
 .bar{position:relative;border-radius:999px}
-.bar-tag{position:absolute;right:-1px;top:50%;transform:translateY(-50%);background:var(--gold);color:#fff;font-family:"Cormorant Garamond",Georgia,serif;font-size:11.5px;font-weight:600;line-height:1;padding:3px 8px;border-radius:999px;border:2px solid var(--srf)}
+.bar-tag{position:absolute;right:-1px;top:50%;transform:translateY(-50%);background:var(--gold);color:#fff;font-family:"Cormorant Garamond",Georgia,serif;font-size:11.5px;font-weight:600;line-height:1;padding:3px 8px;border-radius:999px;border:2px solid var(--srf);font-variant-numeric:lining-nums tabular-nums}
 .goal{border-radius:13px;background:linear-gradient(135deg,#E0AC2B,#B98F22 55%,#8E6B12);color:#fff;padding:11px 12px;box-shadow:0 6px 18px rgba(185,143,34,.34)}
 .goal .panel-label,.goal .fine{color:rgba(255,255,255,.82)}
 .goal .panel-num{color:#fff;font-size:18px}
 .goal .track{background:rgba(255,255,255,.28)}
 .goal .bar{background:#fff}
 .goal-chip{background:rgba(255,255,255,.26);border-radius:999px;padding:4px 10px;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#fff}
-.goal-pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:#fff;background:rgba(255,255,255,.26);border-radius:999px;padding:3px 10px}
+.goal-pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:#fff;background:rgba(255,255,255,.26);border-radius:999px;padding:3px 10px;font-variant-numeric:lining-nums tabular-nums}
 .panel-note{font-size:13px;line-height:1.6;color:var(--mut);margin:18px 0 16px}
 .check{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.4;color:var(--tx);cursor:pointer;margin-top:8px}
 .check input{width:15px;height:15px;flex:none;margin:1px 0 0;accent-color:#B98F22;cursor:pointer}
 .check-consent{font-size:10.5px;color:var(--mut);margin-top:11px}
 .check-week{margin-top:10px}
-.sum-input{width:100%;margin-top:7px;padding:10px 12px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-variant-numeric:tabular-nums}
+.sum-input{width:100%;margin-top:7px;padding:10px 12px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-variant-numeric:lining-nums tabular-nums}
 .sum-input:focus{outline:none;border-color:#B98F22}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .amount{cursor:pointer;background:var(--srf);transition:background .2s ease,border-color .2s ease,color .2s ease}
