@@ -368,7 +368,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
 .geo-map{position:relative;margin:0;min-width:0;background:var(--srf);border:1px solid var(--brd);border-radius:16px;padding:16px 16px 12px}
 .geo-canvas{min-width:0}
-.geo-canvas svg{display:block;width:100%;height:auto;max-width:100%;overflow:visible}
+/* overflow обязательно hidden: при зуме меняется viewBox, и с visible
+   карта продолжает рисоваться за рамкой — разносит её на всю страницу */
+.geo-canvas svg{display:block;width:100%;height:auto;max-width:100%;overflow:hidden}
+.geo-canvas{overflow:hidden;border-radius:8px}
 .geo-canvas path{stroke:var(--geo-edge);stroke-width:.7;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .geo-canvas path:not(.has-data){fill:var(--geo-blank)}
 .geo-canvas path.has-data{cursor:pointer}
