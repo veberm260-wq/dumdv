@@ -49,6 +49,16 @@ img{max-width:100%}
 #night:checked ~ .page .jumua{background:rgba(255,255,255,.07)}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
+/* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
+.clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
+.clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
+#night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
+#night:checked ~ .page .clock{background:#161a23}
+.clock-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.clock-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--tx)}
+/* двоеточие мигает раз в секунду — видно, что время живое */
+.clock-v .sep{font-style:normal;animation:tick 1s step-end infinite}
+@keyframes tick{0%,49%{opacity:1}50%,100%{opacity:.25}}
 .strip-link{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none}
 .strip-link .arr{display:inline-grid;place-items:center;width:20px;height:20px;flex:none;border-radius:50%;border:1px solid var(--brd);transition:background .2s ease,border-color .2s ease}
 .strip-link .arr svg{display:block;width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:1.8}
@@ -243,6 +253,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 @media (prefers-reduced-motion:reduce){
   .social:hover::after{animation:none;opacity:.35;background-position:50% 0}
   .social:hover{transform:none}
+  .clock-v .sep{animation:none}
 }
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
 .legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
@@ -359,6 +370,16 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
           <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
+          <span class="clocks" id="clocks">
+            <span class="clock" title="Время в Москве">
+              <span class="clock-k">Мск</span>
+              <span class="clock-v"><span data-h>--</span><i class="sep">:</i><span data-m>--</span></span>
+            </span>
+            <span class="clock" title="Время в Хабаровске">
+              <span class="clock-k">Хбр</span>
+              <span class="clock-v"><span data-h>--</span><i class="sep">:</i><span data-m>--</span></span>
+            </span>
+          </span>
           <a class="strip-link" href="namaz.html">Полное расписание<span class="arr"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9M7 2.5 10.5 6 7 9.5"/></svg></span></a>
         </div>
       </div>
@@ -700,6 +721,43 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 </div>
 
 <script>
+// живые часы: Москва и Хабаровск
+(function () {
+  var box = document.getElementById('clocks');
+  if (!box) return;
+  var zones = ['Europe/Moscow', 'Asia/Vladivostok'];   // Хабаровск — UTC+10
+  var slots = [];
+  var cells = box.querySelectorAll('.clock-v');
+  for (var i = 0; i < cells.length; i++) {
+    slots.push({
+      tz: zones[i],
+      h: cells[i].querySelector('[data-h]'),
+      m: cells[i].querySelector('[data-m]'),
+      was: ''
+    });
+  }
+  function part(tz, now) {
+    try {
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(now);
+    } catch (e) { return ''; }
+  }
+  function tick() {
+    var now = new Date();
+    for (var i = 0; i < slots.length; i++) {
+      var s = slots[i], v = part(s.tz, now);
+      if (!v || v === s.was) continue;        // пишем только когда минута сменилась
+      s.was = v;
+      var hm = v.split(':');
+      s.h.textContent = hm[0];
+      s.m.textContent = hm[1];
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
 (function () {
   var today = document.getElementById('today');
   var hijriEl = document.getElementById('hijri');
