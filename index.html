@@ -283,6 +283,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 }
 @media (max-width:680px){
   .regions-grid{grid-template-columns:1fr}
+  /* герой вытягивается в столбец, и от кадра остаётся узкая полоса:
+     на 375 px видно меньше 12% ширины. Смещаем так, чтобы в эту
+     полосу попал купол, а не пустое небо слева от минарета */
+  .hero-img{object-position:70% 50%}
 }
 /* форма пожертвования */
 .panel{border-radius:18px;padding:17px}
