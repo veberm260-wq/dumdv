@@ -132,6 +132,28 @@ img{max-width:100%}
 /* герой */
 .hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 50%;opacity:var(--heroimg)}
+/* «Окно в Хабаровск»: баннер темнеет от магриба до восхода по времени
+   Хабаровска. Слой лежит ПОД вуалью — слева вуаль его перекрывает, и
+   тёмный текст на светлом остаётся читаемым, а справа видно ночь.
+   Тема сайта тут ни при чём, страница всегда светлая. */
+.hero-night{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 2s ease}
+html.is-hero-night .hero-night{opacity:1}
+/* Временно. Заменить на ночной рендер: assets/hero-night.webp —
+   как только файл появится, скрипт добавит .has-img и имитация погаснет. */
+.hero-night-tint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,13,30,.88) 0%,rgba(10,16,34,.8) 34%,rgba(14,21,40,.66) 66%,rgba(17,25,44,.54) 100%)}
+.hero-stars{position:absolute;left:0;right:0;top:0;height:44%;background-repeat:no-repeat;background-image:
+  radial-gradient(1.6px 1.6px at 14% 26%,rgba(255,255,255,.5),transparent 62%),
+  radial-gradient(1.3px 1.3px at 29% 14%,rgba(255,255,255,.38),transparent 62%),
+  radial-gradient(1.5px 1.5px at 47% 33%,rgba(255,255,255,.3),transparent 62%),
+  radial-gradient(1.2px 1.2px at 63% 11%,rgba(255,255,255,.42),transparent 62%),
+  radial-gradient(1.7px 1.7px at 78% 24%,rgba(255,255,255,.34),transparent 62%),
+  radial-gradient(1.3px 1.3px at 90% 38%,rgba(255,255,255,.28),transparent 62%)}
+.hero-night-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:inherit}
+.hero-night:not(.has-img) .hero-night-img{display:none}
+.hero-night.has-img .hero-night-tint,.hero-night.has-img .hero-stars{display:none}
+/* подпись под кнопкой: который час в Хабаровске и в Москве.
+   Селектор с .hero — иначе правило .hero p перебивает кегль */
+.hero .hero-local{margin:26px 0 0;max-width:40ch;font-family:"Golos Text",system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--mut);font-variant-numeric:lining-nums tabular-nums}
 .hero-veil{position:absolute;inset:0;background:var(--veil)}
 .sky{display:none;position:absolute;inset:0;pointer-events:none}
 .moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 70px 18px rgba(243,230,192,.16)}
@@ -254,6 +276,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .social:hover::after{animation:none;opacity:.35;background-position:50% 0}
   .social:hover{transform:none}
   .clock-v .sep{animation:none}
+  .hero-night{transition:none}
 }
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
 .legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
@@ -453,8 +476,101 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
   </header>
 
+<script>
+// «Окно в Хабаровск»: день или ночь на баннере по времени Хабаровска.
+// Скрипт стоит ДО баннера и выставляет класс на <html> раньше, чем
+// браузер дойдёт до картинки, — иначе ночью мелькнул бы дневной кадр.
+// Магриб и восход берутся из той же полосы намазов, второго источника нет.
+(function () {
+  var root = document.documentElement;
+  var magrib = document.querySelector('.prayers .prayer[data-gen="магриба"]');
+  var sunrise = document.querySelector('.prayers .prayer[data-sun="1"]');
+  if (!magrib || !sunrise) return;
+
+  function toMin(t) { var a = (t || '').split(':'); return (+a[0]) * 60 + (+a[1]); }
+  var MAGRIB = toMin(magrib.getAttribute('data-t'));
+  var SUNRISE = toMin(sunrise.getAttribute('data-t'));
+
+  function clock(tz) {
+    try {
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(new Date());
+    } catch (e) { return ''; }
+  }
+  function khbMinutes() { return toMin(clock('Asia/Vladivostok')); }
+
+  var forced = /[?&]hero=(night|day)/.exec(location.search);
+  forced = forced ? forced[1] : null;
+
+  function nightNow() {
+    if (forced) return forced === 'night';
+    var m = khbMinutes();
+    return m >= MAGRIB || m < SUNRISE;   // интервал переваливает через полночь
+  }
+
+  var state = nightNow();
+  root.classList.toggle('is-hero-night', state);
+
+  // ночной рендер подгружаем лениво — только когда ночь реально наступила,
+  // чтобы днём не ходить за файлом, которого пока нет
+  var probed = false;
+  function wantNightImage() {
+    if (probed || !state) return;
+    probed = true;
+    var box = document.getElementById('heroNight');
+    if (!box) return;
+    var real = new Image();
+    real.onload = function () {
+      box.querySelector('.hero-night-img').src = real.src;
+      box.classList.add('has-img');
+    };
+    real.src = 'assets/hero-night.webp';
+  }
+
+  function label() {
+    var el = document.getElementById('heroLocal');
+    if (!el) return;
+    var khb = clock('Asia/Vladivostok'), msk = clock('Europe/Moscow');
+    if (!khb || !msk) { el.textContent = ''; return; }
+    var when = 'сейчас ';
+    if (state) when = (khbMinutes() >= MAGRIB) ? 'вечер, ' : 'ночь, ';
+    el.textContent = 'В Хабаровске ' + when + khb + ' · в Москве ' + msk;
+  }
+
+  function paint() {
+    var img = document.getElementById('heroImg');
+    if (img) img.alt = state
+      ? 'Проект соборной мечети Хабаровска ночью'
+      : 'Проект соборной мечети Хабаровска днём';
+    wantNightImage();
+    label();
+  }
+
+  function refresh() {
+    var next = nightNow();
+    if (next !== state) {
+      state = next;
+      root.classList.toggle('is-hero-night', state);   // затухание задаёт CSS
+    }
+    paint();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', paint);
+  } else { paint(); }
+  setInterval(refresh, 60000);
+})();
+</script>
+
   <section class="hero" id="top">
-    <img class="hero-img" src="img/mechet-render.jpg" alt="Проект первой соборной мечети Дальнего Востока">
+    <img class="hero-img" id="heroImg" src="img/mechet-render.jpg" alt="Проект соборной мечети Хабаровска днём">
+    <!-- Временно. Заменить на ночной рендер: assets/hero-night.webp -->
+    <div class="hero-night" id="heroNight" aria-hidden="true">
+      <img class="hero-night-img" alt="" decoding="async">
+      <span class="hero-night-tint"></span>
+      <span class="hero-stars"></span>
+    </div>
     <div class="hero-veil"></div>
     <div class="sky">
       <div class="moon"></div>
@@ -474,6 +590,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <div class="btns">
             <a class="btn btn-ghost" href="stroitelstvo.html">Ход строительства</a>
           </div>
+          <p class="hero-local" id="heroLocal"></p>
         </div>
 
         <aside class="panel" id="donate">
