@@ -360,8 +360,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .build-shot figcaption{padding:14px 20px;font-size:13px;color:var(--mut);background:var(--srf);border-top:1px solid var(--brd)}
 
 /* кто строит мечеть — карта регионов */
-.geo{background:var(--pg);padding:88px 0 96px;--geo-blank:#ece3cf;--geo-edge:#fbf6ec}
-#night:checked ~ .page .geo{--geo-blank:#232838;--geo-edge:#12141c}
+.geo{background:var(--pg);padding:88px 0 96px;--geo-blank:#d9d7d1;--geo-edge:#fbf6ec}
+#night:checked ~ .page .geo{--geo-blank:#2b2f3a;--geo-edge:#12141c}
 .geo h2{font-size:clamp(30px,3.6vw,46px);line-height:1.14;color:var(--tx);margin:14px 0 10px}
 .geo-sub{font-size:15px;line-height:1.7;color:var(--mut);margin:0 0 36px;max-width:62ch}
 .geo-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:46px;align-items:start}
@@ -380,8 +380,17 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .geo-tip b{display:block;font-weight:600;font-size:13px;margin-bottom:2px}
 .geo-tip .v{font-variant-numeric:tabular-nums}
 
-.geo-legend{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
-.geo-scale{flex:1;height:7px;border-radius:999px;background:linear-gradient(90deg,#f6ebd0,#E2C169 38%,#B98F22 72%,#87680F)}
+.geo-plot{position:relative;min-width:0}
+.geo-pins{position:absolute;inset:0;pointer-events:none;z-index:2}
+.geo-pin{position:absolute;display:flex;align-items:center;gap:5px;transform:translateY(-50%)}
+.geo-pin.to-left{flex-direction:row-reverse}
+.geo-pin i{width:7px;height:7px;flex:none;border-radius:50%;background:#87680F;box-shadow:0 0 0 2px var(--srf)}
+.geo-pin b{font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-weight:600;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--tx);background:var(--srf);border:1px solid var(--brd);border-radius:999px;padding:3px 8px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+
+.geo-legend{display:flex;flex-wrap:wrap;align-items:center;gap:7px 14px;margin-top:14px;font-size:11px;color:var(--mut)}
+.geo-step{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.geo-step i{width:11px;height:11px;flex:none;border-radius:3px}
+.geo-step-none i{background:var(--geo-blank)}
 
 .geo-top h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.2;color:var(--tx);margin:0}
 .geo-top .fine{margin-top:8px}
@@ -402,6 +411,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .geo-tip{max-width:min(190px,calc(100vw - 72px));font-size:12px;padding:7px 10px}
   .geo-list li{padding:12px 13px;gap:10px}
   .geo-sum{font-size:17px}
+  .geo-pin b{font-size:11.5px;padding:2px 6px}
+  .geo-pin i{width:6px;height:6px}
+  .geo-legend{gap:6px 12px;font-size:10.5px}
 }
 </style>
 </head>
@@ -678,9 +690,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
       <div class="geo-grid">
         <figure class="geo-map" id="geoMap">
-          <div class="geo-canvas" id="geoCanvas"><p class="geo-loading">Загружаем карту…</p></div>
+          <div class="geo-plot">
+            <div class="geo-canvas" id="geoCanvas"><p class="geo-loading">Загружаем карту…</p></div>
+            <div class="geo-pins" id="geoPins" aria-hidden="true"></div>
+          </div>
           <div class="geo-tip" id="geoTip" role="status" aria-live="polite"></div>
-          <div class="geo-legend"><span>меньше</span><span class="geo-scale" aria-hidden="true"></span><span>больше</span></div>
+          <div class="geo-legend" id="geoLegend"></div>
         </figure>
 
         <div class="geo-top">
@@ -908,23 +923,27 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   var noteEl = document.getElementById('geoNote');
   if (!box || !canvas || !tip || !listEl || !noteEl) return;
 
-  // кремовый -> золото сайта
-  var STOPS = [[0, 246, 235, 208], [0.38, 226, 193, 105], [0.72, 185, 143, 34], [1, 135, 104, 15]];
-  function shade(t) {
-    t = t < 0 ? 0 : (t > 1 ? 1 : t);
-    for (var i = 1; i < STOPS.length; i++) {
-      if (t <= STOPS[i][0]) {
-        var a = STOPS[i - 1], b = STOPS[i];
-        var k = (t - a[0]) / (b[0] - a[0]);
-        return 'rgb(' + Math.round(a[1] + (b[1] - a[1]) * k) + ','
-                      + Math.round(a[2] + (b[2] - a[2]) * k) + ','
-                      + Math.round(a[3] + (b[3] - a[3]) * k) + ')';
-      }
-    }
-    return 'rgb(135,104,15)';
+  // Пять ступеней вместо плавной заливки. Суммы расходятся на семь порядков,
+  // и на непрерывной шкале две трети регионов сливались и друг с другом,
+  // и с пустыми: ступени дают различимые полосы и честную легенду с цифрами.
+  var STEPS = [
+    { upto: 1e3, fill: '#F2DC9B', label: 'до 1 тыс.' },
+    { upto: 1e4, fill: '#E2C169', label: '1–10 тыс.' },
+    { upto: 1e5, fill: '#D5AB47', label: '10–100 тыс.' },
+    { upto: 1e6, fill: '#B98F22', label: '100 тыс. – 1 млн' },
+    { upto: Infinity, fill: '#87680F', label: 'больше 1 млн' }
+  ];
+  function shade(v) {
+    for (var i = 0; i < STEPS.length; i++) if (v < STEPS[i].upto) return STEPS[i].fill;
+    return STEPS[STEPS.length - 1].fill;
   }
 
   function money(n) { return n.toLocaleString('ru-RU') + ' ₽'; }
+  function shortMoney(n) {
+    if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e8 ? 0 : 1).replace('.', ',') + ' млн ₽';
+    if (n >= 1e3) return Math.round(n / 1e3) + ' тыс. ₽';
+    return n.toLocaleString('ru-RU') + ' ₽';
+  }
   function people(n) {
     var a = n % 10, b = n % 100;
     if (a === 1 && b !== 11) return n + ' человек';
@@ -977,22 +996,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     }
 
     var rows = (data.regions || []).slice().sort(function (a, b) { return b.sum - a.sum; });
-    // суммы расходятся на семь порядков (десятки рублей против полусотни миллионов),
-    // поэтому шкала логарифмическая: на линейной или корневой всё, кроме первой
-    // пятёрки, слилось бы с пустыми регионами
-    var sums = rows.map(function (r) { return r.sum; }).filter(function (v) { return v > 0; });
-    var max = sums.length ? Math.max.apply(null, sums) : 0;
-    var min = sums.length ? Math.min.apply(null, sums) : 0;
-    var span = (max > min) ? Math.log(max / min) : 0;
-    function level(v) {
-      if (!(v > 0) || !span) return v > 0 ? 1 : 0;
-      return Math.log(Math.max(v, min) / min) / span;
-    }
+    var pins = [];
 
     listEl.innerHTML = '';
     for (var r = 0; r < rows.length; r++) {
       var row = rows[r];
-      var colour = shade(level(row.sum));
+      var colour = shade(row.sum);
       var label = row.name + ': ' + money(row.sum) + (row.donors == null ? '' : ', ' + people(row.donors));
 
       var hits = resolve(row.name);
@@ -1002,6 +1011,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         hits[h].setAttribute('tabindex', '0');
         hits[h].setAttribute('data-tip', label);
       }
+      if (r < 5 && hits.length) pins.push({ path: hits[0], text: shortMoney(row.sum) });
       if (r < 5) {
         var li = document.createElement('li');
         li.innerHTML = '<span class="geo-swatch"></span>'
@@ -1021,6 +1031,100 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     }
 
     noteEl.textContent = 'Данные за ' + (data.period || '—') + ', по жертвователям, указавшим регион.';
+
+    // легенда: ступени от меньшего к большему, с цифрами
+    var legend = document.getElementById('geoLegend');
+    legend.innerHTML = '';
+    for (var s = 0; s < STEPS.length; s++) {
+      var item = document.createElement('span');
+      item.className = 'geo-step';
+      item.innerHTML = '<i></i>';
+      item.firstChild.style.background = STEPS[s].fill;
+      item.appendChild(document.createTextNode(STEPS[s].label));
+      legend.appendChild(item);
+    }
+    var none = document.createElement('span');
+    none.className = 'geo-step geo-step-none';
+    none.innerHTML = '<i></i>';
+    none.appendChild(document.createTextNode('нет данных'));
+    legend.appendChild(none);
+
+    // флажки с суммами: самые крупные регионы иначе теряются —
+    // Москва на этой карте занимает меньше 50 px²
+    var pinBox = document.getElementById('geoPins');
+    var pinEls = pins.map(function (p) {
+      var el = document.createElement('span');
+      el.className = 'geo-pin';
+      el.innerHTML = '<i></i><b></b>';
+      el.querySelector('b').textContent = p.text;
+      pinBox.appendChild(el);
+      return { el: el, path: p.path };
+    });
+
+    // Флажки расставляются по убыванию суммы: крупный регион занимает место
+    // первым, а подпись, которой не хватило места, просто не показывается —
+    // так одна вёрстка работает и на 1440, и на 375, где карта вчетверо меньше.
+    function placePins() {
+      var box = pinBox.getBoundingClientRect();
+      if (!box.width) return;
+      var i, cand = [];
+      for (i = 0; i < pinEls.length; i++) {
+        var el = pinEls[i].el;
+        el.style.display = '';
+        var b = pinEls[i].path.getBoundingClientRect();
+        var x = b.left + b.width / 2 - box.left;
+        var y = b.top + b.height / 2 - box.top;
+        var left = x > box.width * 0.58;   // в правой половине подпись уходит влево
+        el.classList.toggle('to-left', left);
+        if (left) { el.style.right = (box.width - x) + 'px'; el.style.left = 'auto'; }
+        else { el.style.left = x + 'px'; el.style.right = 'auto'; }
+        el.style.top = y + 'px';
+        cand.push({ el: el, y: y });
+      }
+
+      var taken = [];
+      // Точка едет вместе с подписью, поэтому сдвиг привязан к размеру карты:
+      // на широкой 12 px кружок всё ещё стоит на своём регионе, а на узкой
+      // столько же — уже промах, и там подписи просто не раздвигаются.
+      var step = box.height * 0.035;
+      var pad = 3, tries = step >= 8 ? [0, -step, step] : [0];
+      for (i = 0; i < cand.length; i++) {
+        var r = cand[i].el.getBoundingClientRect();
+        var w = r.width, h = r.height;
+        var x0 = r.left - box.left, x1 = r.right - box.left;
+        var fit = null;
+        for (var t = 0; t < tries.length; t++) {
+          var top = cand[i].y + tries[t];
+          if (top - h / 2 < 2 || top + h / 2 > box.height - 2) continue;
+          var y0 = top - h / 2 - pad, y1 = top + h / 2 + pad;
+          var clash = false;
+          for (var k = 0; k < taken.length; k++) {
+            var o = taken[k];
+            if (x0 < o.x1 + pad && o.x0 - pad < x1 && y0 < o.y1 && o.y0 < y1) { clash = true; break; }
+          }
+          if (!clash) { fit = { top: top, x0: x0, x1: x1, y0: y0, y1: y1 }; break; }
+        }
+        if (fit) {
+          cand[i].el.style.top = Math.round(fit.top) + 'px';
+          taken.push(fit);
+        } else {
+          cand[i].el.style.display = 'none';
+        }
+        if (w === 0) cand[i].el.style.display = 'none';
+      }
+    }
+    // пересчёт откладываем на кадр: в момент срабатывания наблюдателя
+    // SVG внутри ещё может иметь старые размеры
+    var pending = 0;
+    function replace() {
+      clearTimeout(pending);
+      pending = setTimeout(placePins, 60);
+    }
+    placePins();
+    if (window.ResizeObserver) new ResizeObserver(replace).observe(pinBox);
+    window.addEventListener('resize', replace);
+    // Cormorant подгружается позже, и ширина подписей меняется
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(replace);
 
     // подсказка
     var active = null;
