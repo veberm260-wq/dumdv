@@ -20,14 +20,14 @@ img{max-width:100%}
 .page{
   --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
   --brd:rgba(32,30,29,.14);--gold:#8a6f2e;--goldsoft:#c8a94f;--track:#e9dcc0;
-  --strip:#ffffff;--heroimg:.5;
+  --strip:#ffffff;--heroimg:1;
   --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
   background:var(--pg);color:var(--tx)
 }
 #night:checked ~ .page{
   --pg:#12141c;--srf:#191d28;--pnl:#161a23;--tx:#f3ecdd;--mut:rgba(243,236,221,.72);
   --brd:rgba(243,236,221,.18);--gold:#d9b45c;--goldsoft:#e9d08a;--track:rgba(243,236,221,.16);
-  --strip:#191d28;--heroimg:.3;
+  --strip:#191d28;--heroimg:.4;
   --veil:linear-gradient(100deg,rgba(18,20,28,.95) 0%,rgba(18,20,28,.82) 34%,rgba(18,20,28,.42) 64%,rgba(18,20,28,.2) 100%)
 }
 #night:checked ~ .page .sky{display:block}
@@ -121,7 +121,7 @@ img{max-width:100%}
 
 /* герой */
 .hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
-.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%;opacity:var(--heroimg);filter:saturate(.62) contrast(.92)}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 50%;opacity:var(--heroimg)}
 .hero-veil{position:absolute;inset:0;background:var(--veil)}
 .sky{display:none;position:absolute;inset:0;pointer-events:none}
 .moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 70px 18px rgba(243,230,192,.16)}
@@ -429,7 +429,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   </header>
 
   <section class="hero" id="top">
-    <img class="hero-img" src="img/mechet.jpg" alt="Проект первой соборной мечети Дальнего Востока">
+    <img class="hero-img" src="img/mechet-render.jpg" alt="Проект первой соборной мечети Дальнего Востока">
     <div class="hero-veil"></div>
     <div class="sky">
       <div class="moon"></div>
