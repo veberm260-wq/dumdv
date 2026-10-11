@@ -1,9 +1,9 @@
-/* Версия v2 — новости. Палитра и шрифты те же, что в v2/stroitelstvo.html. */
+/* v2 — страница новостей. Светлая палитра сайта: кремовый фон, тёмный текст, золото. */
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;background:var(--navy);color:#FFFDF8;
+  margin:0;background:var(--cream);color:var(--ink);
   font-family:"Golos Text",system-ui,sans-serif;font-size:16px;line-height:1.6;
   font-variant-numeric:lining-nums tabular-nums;-webkit-font-smoothing:antialiased;
 }
@@ -11,134 +11,106 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 
 :root{
-  --navy:#0E1C2F;--navy-2:#132742;--cream:#FFFDF8;--sand:#F6EFE1;
+  --cream:#FFFDF8;--sand:#F6EFE1;--navy:#0E1C2F;
   --gold:#B98F22;--gold-l:#E2C169;--gold-d:#87680F;
-  --ink:#1A1C21;--mut:#5C5A55;--mut-d:rgba(255,253,248,.72);
-  --line:rgba(26,28,33,.13);--line-d:rgba(255,253,248,.16);
+  --ink:#1A1C21;--mut:#6B6862;--line:rgba(26,28,33,.12);
 }
 
 .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
-.h-l{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;margin:0;
-  font-size:clamp(30px,4.4vw,58px);line-height:1.08}
-.kicker{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--gold-l)}
-.sec{padding:clamp(48px,6vw,86px) 0}
-.sec-light{background:var(--cream);color:var(--ink)}
-.sec-light .kicker{color:var(--gold)}
 
 /* ── шапка ─────────────────────────────────────────────────────── */
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:18px clamp(20px,4vw,48px);border-bottom:1px solid var(--line-d)}
-.top a{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--mut-d)}
-.top a:hover{color:#FFFDF8}
-.top .brand{color:#FFFDF8}
+  padding:18px clamp(20px,4vw,48px);border-bottom:1px solid var(--line)}
+.top a{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--mut)}
+.top a:hover{color:var(--ink)}
+.top .brand{color:var(--ink)}
 
-/* ── общий вид карточки ────────────────────────────────────────── */
-.card{position:relative;display:block;overflow:hidden;border-radius:20px;background:var(--navy-2);
-  color:#FFFDF8;isolation:isolate}
-.card-shot{position:absolute;inset:0;z-index:1;overflow:hidden}
-.card-shot img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.card:hover .card-shot img,.card:focus-visible .card-shot img{transform:scale(1.03)}
-.card-veil{position:absolute;inset:0;z-index:2;
-  background:linear-gradient(to bottom,rgba(10,18,30,0) 34%,rgba(10,18,30,.56) 66%,rgba(12,22,38,.93) 100%)}
-.card-in{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;
-  height:100%;padding:clamp(18px,2.4vw,32px)}
-.card-cat{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l)}
-.card-t{margin:10px 0 0;font-weight:700;letter-spacing:-.01em;line-height:1.2;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.card-d{margin-top:10px;font-size:12.5px;color:rgba(255,253,248,.7)}
-.card:focus-visible{outline:2px solid var(--gold-l);outline-offset:3px}
-
-/* заглушка, когда обложки нет: не серый прямоугольник, а знак ДУМ ДВ */
-.card-stub{position:absolute;inset:0;z-index:1;background:
-  radial-gradient(circle at 50% 40%,rgba(185,143,34,.22),transparent 62%),
-  linear-gradient(160deg,#13243C,#0B1726)}
-.card-stub::after{content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
-  width:min(140px,42%);aspect-ratio:1;border:1px solid rgba(226,193,105,.42);border-radius:50%;
-  background:
-    linear-gradient(to right,transparent calc(50% - .5px),rgba(226,193,105,.42) calc(50% - .5px),rgba(226,193,105,.42) calc(50% + .5px),transparent calc(50% + .5px)),
-    linear-gradient(to bottom,transparent calc(50% - .5px),rgba(226,193,105,.42) calc(50% - .5px),rgba(226,193,105,.42) calc(50% + .5px),transparent calc(50% + .5px))}
-
-/* ── 1. главная новость ────────────────────────────────────────── */
-.lead-card{height:min(70vh,640px);min-height:380px}
-.lead-card .card-t{font-size:clamp(22px,3.1vw,44px);max-width:22ch}
-.lead-card .card-in{padding:clamp(22px,3vw,44px)}
-
-/* ── 2. лента ──────────────────────────────────────────────────── */
-.strip-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px}
-.rowwrap{position:relative;margin-top:clamp(22px,3vw,34px)}
-.row{display:grid;grid-auto-flow:column;gap:clamp(14px,1.8vw,24px);
-  /* на компьютере видно две карточки и край третьей — видно, что ряд листается */
-  grid-auto-columns:calc((100% - 2 * clamp(14px,1.8vw,24px)) / 2.35);
-  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
-  padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.row::-webkit-scrollbar{display:none}
-.row > .card{scroll-snap-align:start;height:clamp(300px,36vw,420px)}
-.row .card-t{font-size:clamp(17px,1.6vw,23px)}
-@media (max-width:760px){
-  /* на телефоне — одна карточка и край следующей */
-  .row{grid-auto-columns:86%}
-}
-
-.rowbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}
-.dots{display:flex;gap:7px;flex-wrap:wrap}
-.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,253,248,.26);border:0;padding:0;
-  cursor:pointer;transition:background .25s ease,width .25s ease}
-.dot.on{width:20px;border-radius:999px;background:var(--gold-l)}
-.arrows{display:flex;gap:10px}
-.arrow{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-d);background:transparent;
-  color:#FFFDF8;cursor:pointer;display:grid;place-items:center;
-  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
-.arrow:hover:not(:disabled){border-color:var(--gold-l);background:rgba(226,193,105,.12)}
-.arrow:disabled{opacity:.32;cursor:default}
-.arrow:focus-visible{outline:2px solid var(--gold-l);outline-offset:3px}
-.arrow svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-/* ── 3. кнопка ─────────────────────────────────────────────────── */
-.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 24px 17px 30px;border-radius:999px;
-  font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  border:1px solid transparent;cursor:pointer;font-family:inherit;
-  transition:background .25s ease,border-color .25s ease,transform .25s ease}
-.btn i{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;
-  border:1.3px solid currentColor;opacity:.6;font-style:normal;font-size:12px}
-.btn-main{background:var(--gold);color:#fff}
-.btn-main:hover{background:var(--gold-d);transform:translateY(-2px)}
-
-/* ── 4. сетка ──────────────────────────────────────────────────── */
-.filters{display:flex;flex-wrap:wrap;gap:9px;margin-top:clamp(22px,3vw,32px)}
-.filter{padding:11px 19px;border-radius:999px;border:1px solid var(--line);background:transparent;
-  color:var(--ink);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.11em;
-  text-transform:uppercase;cursor:pointer;transition:border-color .2s ease,background .2s ease,color .2s ease}
+/* ── 1. заголовок и фильтры ────────────────────────────────────── */
+.head{padding:clamp(48px,7vw,96px) 0 clamp(26px,3.4vw,42px);text-align:center}
+.head h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0;
+  font-size:clamp(44px,8vw,104px);line-height:1;letter-spacing:.01em;color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:clamp(24px,3vw,38px)}
+.filter{padding:12px 22px;border-radius:999px;border:1px solid var(--line);background:transparent;
+  color:var(--ink);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;cursor:pointer;
+  transition:border-color .2s ease,background .2s ease,color .2s ease}
 .filter:hover{border-color:var(--gold)}
 .filter.on{background:var(--gold);border-color:var(--gold);color:#fff}
 .filter:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,34px);
-  margin-top:clamp(28px,3.4vw,44px)}
-@media (max-width:980px){.grid{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.grid{grid-template-columns:1fr}}
-.tile{display:block;color:var(--ink)}
-.tile-shot{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:var(--navy-2)}
-.tile-shot img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.tile:hover .tile-shot img,.tile:focus-visible .tile-shot img{transform:scale(1.03)}
-.tile-meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;
-  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.tile-d{color:var(--mut)}
-.tile-c{color:var(--gold)}
-.tile-t{margin-top:9px;font-size:clamp(16px,1.35vw,19px);font-weight:600;line-height:1.35;
-  letter-spacing:-.005em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.tile:hover .tile-t{color:var(--gold-d)}
-.tile:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:16px}
-.tile.off{display:none}
+/* ── общее для обложек ─────────────────────────────────────────── */
+.shot{position:relative;overflow:hidden;border-radius:16px;background:var(--sand);aspect-ratio:16/10}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+a:hover .shot img,a:focus-visible .shot img{transform:scale(1.03)}
 
-/* ── подвал ────────────────────────────────────────────────────── */
-.foot{padding:clamp(32px,4vw,52px) 0;border-top:1px solid var(--line-d);font-size:12.5px;color:var(--mut-d)}
-.foot a{color:var(--gold-l);border-bottom:1px solid rgba(226,193,105,.3)}
-.loading{padding:60px 0;text-align:center;color:var(--mut-d)}
+/* нет обложки — тёмно-синий фон с тонким золотым орнаментом, не серый блок */
+.stub{position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 46%,rgba(185,143,34,.2),transparent 64%),
+  linear-gradient(160deg,#13243C,#0B1726)}
+.stub::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);
+  width:min(118px,38%);aspect-ratio:1;border:1px solid rgba(226,193,105,.45);
+  background:
+    radial-gradient(circle at 50% 50%,transparent 46%,rgba(226,193,105,.3) 46.5%,transparent 52%),
+    linear-gradient(to right,transparent calc(50% - .5px),rgba(226,193,105,.3) calc(50% - .5px),rgba(226,193,105,.3) calc(50% + .5px),transparent calc(50% + .5px)),
+    linear-gradient(to bottom,transparent calc(50% - .5px),rgba(226,193,105,.3) calc(50% - .5px),rgba(226,193,105,.3) calc(50% + .5px),transparent calc(50% + .5px))}
+
+/* ── 2. главная новость ────────────────────────────────────────── */
+.lead{display:grid;grid-template-columns:60fr 40fr;gap:clamp(24px,3.4vw,52px);align-items:center;
+  padding-bottom:clamp(40px,5vw,72px);border-bottom:1px solid var(--line)}
+@media (max-width:860px){.lead{grid-template-columns:1fr;gap:22px}}
+.lead-d{display:block;font-size:13px;color:var(--mut)}
+.lead-c{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+.lead-t{margin:14px 0 0;font-size:clamp(23px,2.6vw,32px);font-weight:700;line-height:1.24;
+  letter-spacing:-.01em;color:var(--ink)}
+.lead-x{margin:16px 0 0;color:var(--mut);font-size:15.5px;line-height:1.65;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* кнопка со стрельчатой аркой: внешний слой — золото, внутренний — фон,
+   при наведении внутренний заливается золотом */
+.arch{display:inline-block;margin-top:clamp(20px,2.4vw,30px);background:var(--gold);padding:1.5px;
+  /* стрельчатая арка: вершина по центру, бока сходятся плавной кривой */
+  --arch:polygon(50% 0,62% 4%,74% 12%,86% 25%,95% 38%,100% 52%,100% 100%,0 100%,0 52%,5% 38%,14% 25%,26% 12%,38% 4%);
+  clip-path:var(--arch);transition:background .25s ease}
+.arch-in{display:flex;align-items:center;justify-content:center;gap:11px;min-width:196px;
+  padding:40px 34px 19px;background:var(--cream);color:var(--gold-d);clip-path:var(--arch);
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  transition:background .25s ease,color .25s ease}
+.arch:hover .arch-in{background:var(--gold);color:#fff}
+.arch:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+/* ── 3. сетка ──────────────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(32px,3.4vw,48px);
+  margin-top:clamp(40px,5vw,72px)}
+@media (max-width:980px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.tile{display:block}
+.tile-d{margin-top:16px;font-size:12.5px;color:var(--mut)}
+.tile-t{margin-top:8px;font-size:clamp(17px,1.4vw,20px);font-weight:700;line-height:1.3;
+  letter-spacing:-.005em;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tile:hover .tile-t{color:var(--gold-d)}
+.tile-x{margin-top:9px;font-size:14.5px;line-height:1.6;color:var(--mut);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tile.off{display:none}
+.tile:focus-visible{outline:2px solid var(--gold);outline-offset:5px;border-radius:16px}
+
+/* ── 4. показать ещё ───────────────────────────────────────────── */
+.more{display:flex;justify-content:center;margin-top:clamp(40px,5vw,68px)}
+.more button{padding:17px 34px;border-radius:999px;border:1px solid var(--gold);background:transparent;
+  color:var(--gold-d);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;cursor:pointer;transition:background .25s ease,color .25s ease}
+.more button:hover{background:var(--gold);color:#fff}
+.more button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.more.done{display:none}
+
+.sec{padding:0 0 clamp(60px,7vw,110px)}
+.foot{border-top:1px solid var(--line);padding:clamp(28px,3.4vw,44px) 0;font-size:12.5px;color:var(--mut)}
+.foot a{color:var(--gold-d);border-bottom:1px solid rgba(185,143,34,.35)}
+.loading{padding:60px 0;text-align:center;color:var(--mut)}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .card-shot img,.tile-shot img{transition:none}
-  .card:hover .card-shot img,.tile:hover .tile-shot img{transform:none}
-  .btn:hover{transform:none}
+  .shot img{transition:none}
+  a:hover .shot img{transform:none}
 }

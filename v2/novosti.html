@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="news.css?v=1">
+<link rel="stylesheet" href="news.css?v=2">
 </head>
 <body>
 
@@ -18,74 +18,45 @@
 </header>
 
 <!--
-  ШАБЛОН КАРТОЧКИ НОВОСТИ — при переносе в тему WordPress поля подставляются так:
+  ШАБЛОН КАРТОЧКИ — при переносе в тему WordPress поля подставляются так:
 
-  <a class="card" href="<?php the_permalink(); ?>">
-    <div class="card-shot">
-      <?php the_post_thumbnail('large', [
-            'class' => '', 'loading' => 'lazy',
-            'alt' => get_the_title() ]); ?>   ← обложка: featured_media
+  <a class="tile" href="<?php the_permalink(); ?>">
+    <div class="shot">
+      <?php the_post_thumbnail('large', ['loading' => 'lazy',
+            'alt' => get_the_title()]); ?>            ← обложка: the_post_thumbnail
     </div>
-    <div class="card-veil"></div>
-    <div class="card-in">
-      <span class="card-cat"><?php echo get_the_category()[0]->name; ?></span>  ← рубрика
-      <h3 class="card-t"><?php the_title(); ?></h3>                             ← заголовок
-      <time class="card-d" datetime="<?php echo get_the_date('c'); ?>">
-        <?php echo get_the_date('j F Y'); ?></time>                             ← дата
-    </div>
+    <time class="tile-d" datetime="<?php echo get_the_date('c'); ?>">
+      <?php echo get_the_date('j F Y'); ?></time>     ← дата: get_the_date
+    <h3 class="tile-t"><?php the_title(); ?></h3>     ← заголовок: the_title
+    <p class="tile-x"><?php the_excerpt(); ?></p>     ← анонс: the_excerpt
   </a>
 
-  Если обложки нет — вместо .card-shot выводится <div class="card-stub">.
-  Если заголовка нет — <h3> не выводится, остаются рубрика и дата.
+  Рубрика в главной карточке — get_the_category()[0]->name.
+  Нет обложки → вместо <img> выводится <div class="stub">.
+  Нет анонса → <p class="tile-x"> не выводится, остаётся только заголовок.
   Пока карточки собираются скриптом из v2/data/news.json (выгрузка REST API).
 -->
 
-<!-- 1. главная новость -->
+<!-- 1. заголовок и фильтры -->
+<section class="head">
+  <div class="wrap">
+    <h1>Новости</h1>
+    <div class="filters" id="filters" role="group" aria-label="Фильтр по рубрикам"></div>
+  </div>
+</section>
+
 <section class="sec">
   <div class="wrap">
-    <span class="kicker">Новости</span>
+    <!-- 2. главная новость -->
     <div id="lead" class="loading">Загружаем новости…</div>
-  </div>
-</section>
 
-<!-- 2. лента -->
-<section class="sec" style="padding-top:0">
-  <div class="wrap">
-    <div class="strip-head">
-      <h2 class="h-l">Ещё новости</h2>
-    </div>
-
-    <div class="rowwrap">
-      <div class="row" id="row" tabindex="0" role="region" aria-label="Лента новостей"></div>
-    </div>
-
-    <div class="rowbar">
-      <div class="dots" id="dots" role="tablist" aria-label="Положение в ленте"></div>
-      <div class="arrows">
-        <button class="arrow" id="prev" type="button" aria-label="Предыдущие новости">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
-        </button>
-        <button class="arrow" id="next" type="button" aria-label="Следующие новости">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- 3. кнопка -->
-    <p style="margin:clamp(26px,3vw,40px) 0 0">
-      <a class="btn btn-main" href="#vse">Все новости <i>&#8594;</i></a>
-    </p>
-  </div>
-</section>
-
-<!-- 4. сетка всех новостей -->
-<section class="sec sec-light" id="vse">
-  <div class="wrap">
-    <span class="kicker">Архив</span>
-    <h2 class="h-l" style="margin-top:12px">Все новости</h2>
-
-    <div class="filters" id="filters" role="group" aria-label="Фильтр по рубрикам"></div>
+    <!-- 3. сетка остальных -->
     <div class="grid" id="grid"></div>
+
+    <!-- 4. показать ещё -->
+    <div class="more" id="more" hidden>
+      <button type="button" id="moreBtn">Показать ещё</button>
+    </div>
   </div>
 </section>
 
@@ -96,6 +67,6 @@
   </div>
 </footer>
 
-<script src="news.js?v=1"></script>
+<script src="news.js?v=2"></script>
 </body>
 </html>
