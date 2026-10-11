@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -98,16 +98,66 @@
 <section class="sec sec-dark on-dark" id="etapy">
   <div class="wrap">
     <span class="kicker rise">Этапы</span>
-    <h2 class="h-l rise" style="margin-top:14px">Этапы стройки</h2>
-    <p class="lead rise d1" style="margin-top:18px;max-width:56ch">Состав и стоимость этапов — <span class="tbd">уточнить</span></p>
+    <h2 class="h-l rise" style="margin-top:14px">Проект и два этапа закрыты, третий — в работе</h2>
 
-    <div class="steps">
-      <div class="step rise"><span class="step-n">01</span><span class="step-t"><span class="tbd">уточнить</span></span><span class="step-s"><span class="tbd">уточнить</span></span></div>
-      <div class="step rise"><span class="step-n">02</span><span class="step-t"><span class="tbd">уточнить</span></span><span class="step-s"><span class="tbd">уточнить</span></span></div>
-      <div class="step rise d1"><span class="step-n">03</span><span class="step-t"><span class="tbd">уточнить</span></span><span class="step-s"><span class="tbd">уточнить</span></span></div>
-      <div class="step rise d1"><span class="step-n">04</span><span class="step-t"><span class="tbd">уточнить</span></span><span class="step-s"><span class="tbd">уточнить</span></span></div>
-      <div class="step rise d2"><span class="step-n">05</span><span class="step-t"><span class="tbd">уточнить</span></span><span class="step-s"><span class="tbd">уточнить</span></span></div>
-      <div class="step rise d2"><span class="step-n">06</span><span class="step-t"><span class="tbd">уточнить</span></span><span class="step-s"><span class="tbd">уточнить</span></span></div>
+    <div class="dw" id="dw">
+      <!-- ВРЕМЕННЫЙ ЭСКИЗ. Пропорции сняты на глаз с рендера мечети.
+           Заменить на чертёж фасада, когда проектировщик его передаст. -->
+      <figure class="dw-sheet" style="margin:0">
+      <svg viewBox="0 0 400 430" role="img" aria-label="Схема фасада мечети с уровнем собранных средств">
+        <defs>
+          <!-- архитектурная штриховка 45° по границе собранного -->
+          <pattern id="dwHatchPat" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#8E6B12" stroke-width="1.1"/>
+          </pattern>
+          <!-- силуэт здания: по нему обрезаются и заливка, и штриховка -->
+          <clipPath id="dwBody">
+            <path d="M44 128h26v274H44z M70 118h-32l16-20z
+                     M112 402V246h176v156z
+                     M120 246v-26h40v26z M248 246v-26h40v26z
+                     M176 220v-32h48v32z
+                     M224 188c0 0 24-22 24-44 0-26-22-44-48-44s-48 18-48 44c0 22 24 44 24 44z
+                     M96 402h208v8H96z"/>
+          </clipPath>
+          <!-- поднимающийся прямоугольник: его верх и есть уровень собранного -->
+          <clipPath id="dwClip"><rect id="dwFill" x="0" y="0" width="400" height="430"/></clipPath>
+        </defs>
+
+        <!-- контур: тонкие серые линии, как на чертеже -->
+        <g fill="none" stroke="#8A8A8A" stroke-width="1" stroke-linejoin="round">
+          <path d="M44 128h26v274H44z"/>
+          <path d="M70 118h-32l16-20z"/>
+          <path d="M44 168h26M44 196h26"/>
+          <path d="M112 402V246h176v156z"/>
+          <path d="M120 246v-26h40v26M248 246v-26h40v26"/>
+          <path d="M176 220v-32h48v32"/>
+          <path d="M224 188c0 0 24-22 24-44 0-26-22-44-48-44s-48 18-48 44c0 22 24 44 24 44"/>
+          <path d="M200 100v-16"/>
+          <path d="M96 402h208v8H96z"/>
+          <!-- стрельчатые окна -->
+          <path d="M136 402v-54c0-9 6-15 14-15s14 6 14 15v54"/>
+          <path d="M186 402v-54c0-9 6-15 14-15s14 6 14 15v54"/>
+          <path d="M236 402v-54c0-9 6-15 14-15s14 6 14 15v54"/>
+          <path d="M50 236v-18c0-4 2-6 5-6s5 2 5 6v18"/>
+        </g>
+
+        <!-- собранная часть: золото по тому же силуэту -->
+        <g clip-path="url(#dwBody)">
+          <g clip-path="url(#dwClip)">
+            <rect x="0" y="0" width="400" height="430" fill="#B98F22" fill-opacity=".42"/>
+            <rect id="dwHatch" x="0" y="0" width="400" height="430" fill="url(#dwHatchPat)" opacity="0"/>
+          </g>
+        </g>
+
+        <!-- линия уровня -->
+        <g clip-path="url(#dwBody)">
+          <line id="dwLine" x1="0" y1="0" x2="400" y2="0" stroke="#8E6B12" stroke-width="1.6" opacity="0"/>
+        </g>
+      </svg>
+        <figcaption class="dw-cap">Схема фасада · временный эскиз · заливка — собранная часть</figcaption>
+      </figure>
+
+      <div class="dw-marks" id="dwMarks"></div>
     </div>
   </div>
 </section>
@@ -216,5 +266,73 @@
 
 <!-- номер меняем при правке app.js, иначе браузер отдаст старый файл из кэша -->
 <script src="app.js?v=2"></script>
+<script>
+// Этапы: уровень заливки и выноски берутся из v2/data/stages.json.
+// Чтобы поменять процент — правится одна цифра в json, тут ничего не трогается.
+(function () {
+  var box = document.getElementById('dw');
+  var marks = document.getElementById('dwMarks');
+  if (!box || !marks) return;
+
+  var TOP = 84, BOTTOM = 410;            // верх минарета и низ стилобата в координатах svg
+  var H = BOTTOM - TOP;
+
+  function levelY(pct) { return BOTTOM - H * (Math.max(0, Math.min(100, pct)) / 100); }
+
+  fetch('data/stages.json').then(function (r) { return r.json(); }).then(function (d) {
+    var pct = +d.percent || 0;
+    var y = levelY(pct);
+
+    var fill = document.getElementById('dwFill');
+    // прямоугольник ростом во весь кадр; поднимаем его так, чтобы верх встал на уровень
+    // двигаем сам атрибут y: CSS-трансформации внутри clipPath
+    // браузеры применяют неодинаково, а атрибут работает везде
+    var hatch = document.getElementById('dwHatch');
+    function put(v) { fill.setAttribute('y', v); hatch.setAttribute('y', v); }
+    var slowMo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    box.__raise = function () {
+      if (slowMo) { put(y); return; }
+      var t0 = null, dur = 1600, done = false;
+      function fin() { if (!done) { done = true; put(y); } }
+      function step(t) {
+        if (done) return;
+        if (t0 === null) t0 = t;
+        var k = Math.min((t - t0) / dur, 1);
+        if (k < 1) { put(430 - (430 - y) * (1 - Math.pow(1 - k, 3))); requestAnimationFrame(step); }
+        else fin();
+      }
+      put(430);
+      requestAnimationFrame(step);
+      setTimeout(fin, dur + 600);     // в фоновой вкладке кадры не идут
+    };
+    var line = document.getElementById('dwLine');
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+
+    marks.innerHTML = (d.stages || []).map(function (st, i) {
+      var cls = st.state === 'закрыт' ? 'done' : (st.state === 'идёт' ? 'live' : 'next');
+      return '<div class="dw-mark ' + cls + '" style="transition-delay:' + (0.75 + i * 0.12) + 's">' +
+        '<span class="dw-lead"></span>' +
+        '<span><span class="dw-l">' + st.label + '</span>' +
+        '<span class="dw-s">' + st.sum + '<b class="dw-st">' + st.state + '</b></span></span></div>';
+    }).join('');
+
+    show();
+  }).catch(function () { marks.innerHTML = '<p class="note">Данные этапов не загрузились.</p>'; });
+
+  function show() {
+    var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slow || !('IntersectionObserver' in window)) { box.classList.add('seen'); if (box.__raise) box.__raise(); return; }
+    var io = new IntersectionObserver(function (rows) {
+      rows.forEach(function (r) {
+        if (!r.isIntersecting) return;
+        box.classList.add('seen');
+        if (box.__raise) box.__raise();
+        io.unobserve(r.target);
+      });
+    }, { threshold: .25 });
+    io.observe(box);
+  }
+})();
+</script>
 </body>
 </html>
