@@ -333,6 +333,101 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 @media (max-width:680px){
   .feed-grid{grid-template-columns:1fr}
 }
+
+/* ── лента новостей: крупные карточки с фото ──────────────────── */
+.nf{background:var(--srf);padding:72px 0 100px}
+.nf-kicker{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+.nf h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
+  font-size:clamp(28px,3.6vw,48px);line-height:1.1;color:var(--tx);margin:12px 0 0}
+
+/* общий вид карточки с фото */
+.nf-card{position:relative;display:block;overflow:hidden;border-radius:18px;background:#11203a;
+  color:#FFFDF8;text-decoration:none;isolation:isolate}
+.nf-shot{position:absolute;inset:0;z-index:1;overflow:hidden}
+.nf-shot img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.nf-card:hover .nf-shot img,.nf-card:focus-visible .nf-shot img{transform:scale(1.03)}
+.nf-veil{position:absolute;inset:0;z-index:2;
+  background:linear-gradient(to bottom,rgba(10,18,30,0) 34%,rgba(10,18,30,.56) 66%,rgba(12,22,38,.93) 100%)}
+.nf-in{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;
+  height:100%;padding:clamp(18px,2.4vw,32px)}
+.nf-cat{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#E2C169}
+.nf-t{margin:10px 0 0;font-weight:700;letter-spacing:-.01em;line-height:1.2;color:#FFFDF8;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nf-d{margin-top:10px;font-size:12.5px;color:rgba(255,253,248,.72)}
+.nf-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* нет обложки — не серый прямоугольник, а знак на тёмно-синем */
+.nf-stub{position:absolute;inset:0;z-index:1;background:
+  radial-gradient(circle at 50% 40%,rgba(185,143,34,.22),transparent 62%),
+  linear-gradient(160deg,#13243C,#0B1726)}
+.nf-stub::after{content:"";position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  width:min(140px,42%);aspect-ratio:1;border:1px solid rgba(226,193,105,.42);border-radius:50%;
+  background:
+    linear-gradient(to right,transparent calc(50% - .5px),rgba(226,193,105,.42) calc(50% - .5px),rgba(226,193,105,.42) calc(50% + .5px),transparent calc(50% + .5px)),
+    linear-gradient(to bottom,transparent calc(50% - .5px),rgba(226,193,105,.42) calc(50% - .5px),rgba(226,193,105,.42) calc(50% + .5px),transparent calc(50% + .5px))}
+
+/* главная новость */
+.nf-lead{height:min(70vh,640px);min-height:360px;margin-top:26px}
+.nf-lead .nf-t{font-size:clamp(21px,3vw,42px);max-width:22ch}
+.nf-lead .nf-in{padding:clamp(22px,3vw,44px)}
+
+/* лента */
+.nf-rowwrap{margin-top:clamp(20px,2.6vw,30px)}
+.nf-row{display:grid;grid-auto-flow:column;gap:clamp(14px,1.8vw,24px);
+  /* на компьютере видно две карточки и край третьей — ясно, что ряд листается */
+  grid-auto-columns:calc((100% - 2 * clamp(14px,1.8vw,24px)) / 2.35);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.nf-row::-webkit-scrollbar{display:none}
+.nf-row > .nf-card{scroll-snap-align:start;height:clamp(290px,34vw,400px)}
+.nf-row .nf-t{font-size:clamp(17px,1.6vw,22px)}
+@media (max-width:760px){.nf-row{grid-auto-columns:86%}}
+
+.nf-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}
+.nf-dots{display:flex;gap:7px;flex-wrap:wrap}
+.nf-dot{width:7px;height:7px;border-radius:50%;background:var(--brd);border:0;padding:0;cursor:pointer;
+  transition:background .25s ease,width .25s ease}
+.nf-dot.on{width:20px;border-radius:999px;background:var(--gold)}
+.nf-arrows{display:flex;gap:10px}
+.nf-arr{width:46px;height:46px;border-radius:50%;border:1px solid var(--brd);background:transparent;
+  color:var(--tx);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
+.nf-arr:hover:not(:disabled){border-color:var(--gold);background:rgba(185,143,34,.1)}
+.nf-arr:disabled{opacity:.32;cursor:default}
+.nf-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.nf-arr svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* сетка и фильтр */
+.nf-filters{display:flex;flex-wrap:wrap;gap:9px;margin-top:clamp(20px,2.6vw,30px)}
+.nf-filter{padding:11px 19px;border-radius:999px;border:1px solid var(--brd);background:transparent;
+  color:var(--tx);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.11em;
+  text-transform:uppercase;cursor:pointer;transition:border-color .2s ease,background .2s ease,color .2s ease}
+.nf-filter:hover{border-color:var(--gold)}
+.nf-filter.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.nf-filter:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.nf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,34px);margin-top:clamp(26px,3vw,40px)}
+@media (max-width:980px){.nf-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.nf-grid{grid-template-columns:1fr}}
+.nf-tile{display:block;color:var(--tx);text-decoration:none}
+.nf-tile-shot{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--pnl)}
+.nf-tile-shot img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.nf-tile:hover .nf-tile-shot img,.nf-tile:focus-visible .nf-tile-shot img{transform:scale(1.03)}
+.nf-meta{margin-top:13px;display:flex;flex-wrap:wrap;gap:5px 12px;align-items:baseline;
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.nf-meta .d{color:var(--mut)}
+.nf-meta .c{color:var(--gold)}
+.nf-tile-t{margin-top:8px;font-size:clamp(16px,1.3vw,19px);font-weight:600;line-height:1.35;color:var(--tx);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nf-tile:hover .nf-tile-t{color:var(--gold)}
+.nf-tile:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:14px}
+.nf-tile.off{display:none}
+.nf-load{padding:50px 0;text-align:center;color:var(--mut);font-size:14px}
+
+@media (prefers-reduced-motion:reduce){
+  .nf-shot img,.nf-tile-shot img{transition:none}
+  .nf-card:hover .nf-shot img,.nf-tile:hover .nf-tile-shot img{transform:none}
+}
 </style>
 </head>
 <body>
@@ -471,89 +566,33 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
     <div class="wrap">
       <h1>Новости</h1>
-      <div class="filters">
-        <a class="active" href="novosti.html">Все</a>
-        <a href="novosti.html">ДУМ ДВ</a>
-        <a href="novosti.html">ЦДУМ</a>
-        <a href="novosti.html">Строительство</a>
-        <a href="novosti.html">Образование</a>
-        <a href="novosti.html">Община</a>
-      </div>
     </div>
   </section>
 
-  <section class="feed" id="news">
+  <section class="nf" id="news">
     <div class="wrap">
-      <p class="notice">Демонстрационные заголовки. Реальные новости подставляются из архива ДУМ ДВ.</p>
-      <div class="feed-grid">
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-1.svg" alt="Фото хода строительства — монолит третьего этажа" loading="lazy"></div>
-          <div class="card-date">12 августа 2026 · ДУМ ДВ</div>
-          <h3 class="card-title">Завершены работы по монолиту третьего этажа</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-2.svg" alt="Фото с субботника на площадке" loading="lazy"></div>
-          <div class="card-date">5 августа 2026 · Община</div>
-          <h3 class="card-title">Прихожане провели субботник на территории будущей мечети</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-3.svg" alt="Фото занятия в медресе" loading="lazy"></div>
-          <div class="card-date">29 июля 2026 · Образование</div>
-          <h3 class="card-title">Открыт набор в летние группы медресе</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-4.svg" alt="Фото пятничной проповеди в молитвенном зале" loading="lazy"></div>
-          <div class="card-date">22 июля 2026 · ДУМ ДВ</div>
-          <h3 class="card-title">Пятничная проповедь была посвящена честности в делах</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-5.svg" alt="Фото передачи продуктовых наборов" loading="lazy"></div>
-          <div class="card-date">14 июля 2026 · Община</div>
-          <h3 class="card-title">Продуктовые наборы переданы нуждающимся семьям</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-6.svg" alt="Фото встречи в администрации" loading="lazy"></div>
-          <div class="card-date">3 июля 2026 · ДУМ ДВ</div>
-          <h3 class="card-title">Состоялась встреча с представителями городской администрации</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-1.svg" alt="Фото кладки наружных стен" loading="lazy"></div>
-          <div class="card-date">24 июня 2026 · Строительство</div>
-          <h3 class="card-title">На площадке приступили к кладке наружных стен</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-2.svg" alt="Фото делегации на совещании" loading="lazy"></div>
-          <div class="card-date">12 июня 2026 · ЦДУМ</div>
-          <h3 class="card-title">Делегация управления приняла участие в совещании ЦДУМ России</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-3.svg" alt="Фото праздничного намаза на Курбан-байрам" loading="lazy"></div>
-          <div class="card-date">27 мая 2026 · Община</div>
-          <h3 class="card-title">Курбан-байрам отметили праздничным намазом</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-4.svg" alt="Фото выпускного занятия воскресной школы" loading="lazy"></div>
-          <div class="card-date">8 мая 2026 · Образование</div>
-          <h3 class="card-title">Завершился учебный год в воскресной школе</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-5.svg" alt="Фото праздничного намаза на Ураза-байрам" loading="lazy"></div>
-          <div class="card-date">20 марта 2026 · Община</div>
-          <h3 class="card-title">Ураза-байрам завершил месяц Рамадан</h3>
-        </a>
-        <a class="card" href="#">
-          <div class="card-photo"><img src="img/mosque-6.svg" alt="Фото ифтара в мечети" loading="lazy"></div>
-          <div class="card-date">2 марта 2026 · Община</div>
-          <h3 class="card-title">В Рамадан при мечети ежедневно проходят ифтары и таравих-намаз</h3>
-        </a>
+      <span class="nf-kicker">Последнее</span>
+      <div id="nfLead" class="nf-load">Загружаем новости…</div>
+
+      <h2 style="margin-top:clamp(44px,5vw,70px)">Ещё новости</h2>
+      <div class="nf-rowwrap">
+        <div class="nf-row" id="nfRow" tabindex="0" role="region" aria-label="Лента новостей"></div>
       </div>
-      <nav class="pager">
-        <a href="novosti.html">Первая</a>
-        <a class="now" href="novosti.html">1</a>
-        <a href="novosti.html">2</a>
-        <a href="novosti.html">3</a>
-        <a href="novosti.html">Последняя</a>
-      </nav>
+      <div class="nf-bar">
+        <div class="nf-dots" id="nfDots" role="tablist" aria-label="Положение в ленте"></div>
+        <div class="nf-arrows">
+          <button class="nf-arr" id="nfPrev" type="button" aria-label="Предыдущие новости">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+          </button>
+          <button class="nf-arr" id="nfNext" type="button" aria-label="Следующие новости">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <h2 style="margin-top:clamp(52px,6vw,86px)">Все новости</h2>
+      <div class="nf-filters" id="nfFilters" role="group" aria-label="Фильтр по рубрикам"></div>
+      <div class="nf-grid" id="nfGrid"></div>
     </div>
   </section>
 
@@ -751,6 +790,151 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+/* Новости: данные из data/news.json — выгрузка REST API dumdv.ru.
+   Карусель без библиотек: CSS scroll-snap плюс немного скрипта.
+
+   ШАБЛОН КАРТОЧКИ для переноса в тему WordPress:
+     <a class="nf-card" href="<?php the_permalink(); ?>">
+       <div class="nf-shot"><?php the_post_thumbnail('large', ['loading'=>'lazy']); ?></div>
+       <div class="nf-veil"></div>
+       <div class="nf-in">
+         <span class="nf-cat"><?php echo get_the_category()[0]->name; ?></span>
+         <h3 class="nf-t"><?php the_title(); ?></h3>
+         <time class="nf-d" datetime="<?php echo get_the_date('c'); ?>"><?php echo get_the_date('j F Y'); ?></time>
+       </div>
+     </a>
+   Нет обложки — вместо .nf-shot выводится <div class="nf-stub">.
+   Нет заголовка — <h3> не выводится, остаются рубрика и дата. */
+(function () {
+  var lead = document.getElementById('nfLead');
+  var row = document.getElementById('nfRow');
+  var dotsBox = document.getElementById('nfDots');
+  var grid = document.getElementById('nfGrid');
+  var filters = document.getElementById('nfFilters');
+  var prev = document.getElementById('nfPrev');
+  var next = document.getElementById('nfNext');
+  if (!lead || !row || !grid) return;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function shot(p, sizes) {
+    if (!p.cover800 && !p.cover1600) return '<div class="nf-stub" aria-hidden="true"></div>';
+    var big = p.cover1600 || p.cover800, small = p.cover800 || p.cover1600;
+    return '<div class="nf-shot"><img src="' + esc(small) + '" srcset="' + esc(small) +
+      ' 800w, ' + esc(big) + ' 1600w" sizes="' + sizes +
+      '" loading="lazy" decoding="async" alt="' + esc(p.title) + '"></div>';
+  }
+  function card(p, cls, sizes) {
+    var o = ['<a class="nf-card ' + cls + '" href="' + esc(p.link) + '" target="_blank" rel="noopener">'];
+    o.push(shot(p, sizes), '<div class="nf-veil"></div><div class="nf-in">');
+    if (p.category) o.push('<span class="nf-cat">' + esc(p.category) + '</span>');
+    if (p.title) o.push('<h3 class="nf-t">' + esc(p.title) + '</h3>');
+    if (p.dateHuman) o.push('<time class="nf-d" datetime="' + esc(p.date) + '">' + esc(p.dateHuman) + '</time>');
+    o.push('</div></a>');
+    return o.join('');
+  }
+  function tile(p) {
+    var o = ['<a class="nf-tile" href="' + esc(p.link) + '" target="_blank" rel="noopener" data-cat="' +
+      esc(p.category) + '"><div class="nf-tile-shot">'];
+    o.push(p.cover800 || p.cover1600
+      ? '<img src="' + esc(p.cover800 || p.cover1600) + '" srcset="' + esc(p.cover800 || p.cover1600) +
+        ' 800w, ' + esc(p.cover1600 || p.cover800) + ' 1600w" sizes="(max-width:640px) 92vw,(max-width:980px) 46vw,31vw"' +
+        ' loading="lazy" decoding="async" alt="' + esc(p.title) + '">'
+      : '<div class="nf-stub" aria-hidden="true"></div>');
+    o.push('</div><div class="nf-meta">');
+    if (p.dateHuman) o.push('<span class="d">' + esc(p.dateHuman) + '</span>');
+    if (p.category) o.push('<span class="c">' + esc(p.category) + '</span>');
+    o.push('</div>');
+    if (p.title) o.push('<div class="nf-tile-t">' + esc(p.title) + '</div>');
+    o.push('</a>');
+    return o.join('');
+  }
+
+  fetch('data/news.json').then(function (r) { return r.json(); }).then(function (data) {
+    var posts = (data.posts || []).slice();
+    if (!posts.length) { lead.textContent = 'Новостей пока нет.'; return; }
+
+    lead.className = '';
+    lead.innerHTML = card(posts[0], 'nf-lead', '100vw');
+    row.innerHTML = posts.slice(1).map(function (p) {
+      return card(p, '', '(max-width:760px) 86vw, 42vw');
+    }).join('');
+    grid.innerHTML = posts.map(tile).join('');
+
+    var cats = [];
+    posts.forEach(function (p) { if (p.category && cats.indexOf(p.category) < 0) cats.push(p.category); });
+    filters.innerHTML = ['<button class="nf-filter on" type="button" data-cat="">Все</button>']
+      .concat(cats.map(function (c) {
+        return '<button class="nf-filter" type="button" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+      })).join('');
+    filters.addEventListener('click', function (e) {
+      var b = e.target.closest('button.nf-filter');
+      if (!b) return;
+      var pick = b.getAttribute('data-cat');
+      [].forEach.call(filters.querySelectorAll('.nf-filter'), function (x) { x.classList.toggle('on', x === b); });
+      [].forEach.call(grid.querySelectorAll('.nf-tile'), function (t) {
+        t.classList.toggle('off', !!pick && t.getAttribute('data-cat') !== pick);
+      });
+    });
+
+    setupRow();
+  }).catch(function () { lead.textContent = 'Не удалось загрузить новости.'; });
+
+  function setupRow() {
+    var cards = [].slice.call(row.children);
+    if (!cards.length) return;
+    function step() {
+      var a = cards[0].getBoundingClientRect();
+      var b = cards[1] ? cards[1].getBoundingClientRect() : null;
+      return b ? (b.left - a.left) : a.width;
+    }
+    function maxScroll() { return row.scrollWidth - row.clientWidth; }
+
+    dotsBox.innerHTML = cards.map(function (c, i) {
+      return '<button class="nf-dot" type="button" role="tab" aria-label="Новость ' + (i + 1) +
+        '" data-i="' + i + '"></button>';
+    }).join('');
+    var dots = [].slice.call(dotsBox.children);
+
+    function sync() {
+      var x = row.scrollLeft, s = step() || 1;
+      var i = Math.min(Math.round(x / s), dots.length - 1);
+      dots.forEach(function (d, n) {
+        d.classList.toggle('on', n === i);
+        d.setAttribute('aria-selected', n === i ? 'true' : 'false');
+      });
+      prev.disabled = x <= 2;
+      next.disabled = x >= maxScroll() - 2;
+    }
+    function slide(dir) { row.scrollBy({ left: dir * step(), behavior: 'smooth' }); }
+
+    prev.addEventListener('click', function () { slide(-1); });
+    next.addEventListener('click', function () { slide(1); });
+    dotsBox.addEventListener('click', function (e) {
+      var d = e.target.closest('.nf-dot');
+      if (d) row.scrollTo({ left: (+d.getAttribute('data-i')) * step(), behavior: 'smooth' });
+    });
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); slide(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); slide(-1); }
+    });
+    // колесо переводим в горизонталь только пока ряд не доехал до края,
+    // иначе страница перестанет листаться над этим блоком
+    row.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      var x = row.scrollLeft;
+      if ((e.deltaY < 0 && x <= 0) || (e.deltaY > 0 && x >= maxScroll() - 1)) return;
+      e.preventDefault();
+      row.scrollLeft = x + e.deltaY;
+    }, { passive: false });
+    row.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
 })();
 </script>
 </body>
