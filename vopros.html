@@ -138,9 +138,11 @@ img{max-width:100%}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%;opacity:var(--heroimg);filter:saturate(.62) contrast(.92)}
 .hero-veil{position:absolute;inset:0;background:var(--veil)}
 .sky{display:none;position:absolute;inset:0;pointer-events:none}
-.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 70px 18px rgba(243,230,192,.16)}
-.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:twinkle 3.4s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+/* мягкий свет от луны по небу */
+.sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
+.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
+.star{position:absolute;width:4.5px;height:4.5px;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px rgba(255,255,255,.7);animation:twinkle 3.4s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
 .hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
 .hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
 .hero p{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.5;max-width:34ch;color:var(--mut);margin:32px 0 38px}
@@ -294,7 +296,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 }
 
 /* страница «Вопрос имаму» */
-.page-head{padding:120px 0 46px}
+.page-head{position:relative;overflow:hidden;padding:120px 0 46px}
+.page-head .wrap{position:relative}
 .page-head h1{font-size:clamp(48px,7vw,92px);line-height:1.03;letter-spacing:.01em;color:var(--tx)}
 .page-head .lead{margin-top:26px}
 
@@ -314,6 +317,16 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 </head>
 <body>
 <input type="checkbox" id="night">
+<script>
+(function () {
+  var n = document.getElementById('night');
+  if (!n) return;
+  try { if (localStorage.getItem('dumdv-theme') === 'night') n.checked = true; } catch (e) {}
+  n.addEventListener('change', function () {
+    try { localStorage.setItem('dumdv-theme', n.checked ? 'night' : 'day'); } catch (e) {}
+  });
+})();
+</script>
 <div class="page">
 
   <div class="strip">
@@ -414,6 +427,21 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
 
   <section class="page-head" id="top">
+    <div class="sky" aria-hidden="true">
+      <div class="moon"></div>
+      <div class="star" style="left:8%;top:14%"></div>
+      <div class="star" style="left:17%;top:30%;animation-delay:0.6s"></div>
+      <div class="star" style="left:25%;top:9%;animation-delay:1.2s"></div>
+      <div class="star" style="left:33%;top:24%;animation-delay:0.3s"></div>
+      <div class="star" style="left:41%;top:38%;animation-delay:1.6s"></div>
+      <div class="star" style="left:49%;top:12%;animation-delay:0.9s"></div>
+      <div class="star" style="left:57%;top:28%;animation-delay:2.1s"></div>
+      <div class="star" style="left:64%;top:19%;animation-delay:0.45s"></div>
+      <div class="star" style="left:72%;top:35%;animation-delay:1.35s"></div>
+      <div class="star" style="left:80%;top:11%;animation-delay:1.8s"></div>
+      <div class="star" style="left:88%;top:27%;animation-delay:0.15s"></div>
+      <div class="star" style="left:94%;top:17%;animation-delay:2.4s"></div>
+    </div>
     <div class="wrap">
       <span class="kicker">Обращения</span>
       <h1>Вопрос имаму</h1>
