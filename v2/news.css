@@ -1,0 +1,116 @@
+/* v2 — страница новостей. Светлая палитра сайта: кремовый фон, тёмный текст, золото. */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:"Golos Text",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  font-variant-numeric:lining-nums tabular-nums;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+:root{
+  --cream:#FFFDF8;--sand:#F6EFE1;--navy:#0E1C2F;
+  --gold:#B98F22;--gold-l:#E2C169;--gold-d:#87680F;
+  --ink:#1A1C21;--mut:#6B6862;--line:rgba(26,28,33,.12);
+}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+
+/* ── шапка ─────────────────────────────────────────────────────── */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px clamp(20px,4vw,48px);border-bottom:1px solid var(--line)}
+.top a{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--mut)}
+.top a:hover{color:var(--ink)}
+.top .brand{color:var(--ink)}
+
+/* ── 1. заголовок и фильтры ────────────────────────────────────── */
+.head{padding:clamp(48px,7vw,96px) 0 clamp(26px,3.4vw,42px);text-align:center}
+.head h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0;
+  font-size:clamp(44px,8vw,104px);line-height:1;letter-spacing:.01em;color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:clamp(24px,3vw,38px)}
+.filter{padding:12px 22px;border-radius:999px;border:1px solid var(--line);background:transparent;
+  color:var(--ink);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;cursor:pointer;
+  transition:border-color .2s ease,background .2s ease,color .2s ease}
+.filter:hover{border-color:var(--gold)}
+.filter.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.filter:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ── общее для обложек ─────────────────────────────────────────── */
+.shot{position:relative;overflow:hidden;border-radius:16px;background:var(--sand);aspect-ratio:16/10}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+a:hover .shot img,a:focus-visible .shot img{transform:scale(1.03)}
+
+/* нет обложки — тёмно-синий фон с тонким золотым орнаментом, не серый блок */
+.stub{position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 46%,rgba(185,143,34,.2),transparent 64%),
+  linear-gradient(160deg,#13243C,#0B1726)}
+.stub::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);
+  width:min(118px,38%);aspect-ratio:1;border:1px solid rgba(226,193,105,.45);
+  background:
+    radial-gradient(circle at 50% 50%,transparent 46%,rgba(226,193,105,.3) 46.5%,transparent 52%),
+    linear-gradient(to right,transparent calc(50% - .5px),rgba(226,193,105,.3) calc(50% - .5px),rgba(226,193,105,.3) calc(50% + .5px),transparent calc(50% + .5px)),
+    linear-gradient(to bottom,transparent calc(50% - .5px),rgba(226,193,105,.3) calc(50% - .5px),rgba(226,193,105,.3) calc(50% + .5px),transparent calc(50% + .5px))}
+
+/* ── 2. главная новость ────────────────────────────────────────── */
+.lead{display:grid;grid-template-columns:60fr 40fr;gap:clamp(24px,3.4vw,52px);align-items:center;
+  padding-bottom:clamp(40px,5vw,72px);border-bottom:1px solid var(--line)}
+@media (max-width:860px){.lead{grid-template-columns:1fr;gap:22px}}
+.lead-d{display:block;font-size:13px;color:var(--mut)}
+.lead-c{display:inline-block;margin-top:12px;font-size:10.5px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+.lead-t{margin:14px 0 0;font-size:clamp(23px,2.6vw,32px);font-weight:700;line-height:1.24;
+  letter-spacing:-.01em;color:var(--ink)}
+.lead-x{margin:16px 0 0;color:var(--mut);font-size:15.5px;line-height:1.65;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* кнопка со стрельчатой аркой: внешний слой — золото, внутренний — фон,
+   при наведении внутренний заливается золотом */
+.arch{display:inline-block;margin-top:clamp(20px,2.4vw,30px);background:var(--gold);padding:1.5px;
+  /* стрельчатая арка: вершина по центру, бока сходятся плавной кривой */
+  --arch:polygon(50% 0,62% 4%,74% 12%,86% 25%,95% 38%,100% 52%,100% 100%,0 100%,0 52%,5% 38%,14% 25%,26% 12%,38% 4%);
+  clip-path:var(--arch);transition:background .25s ease}
+.arch-in{display:flex;align-items:center;justify-content:center;gap:11px;min-width:196px;
+  padding:40px 34px 19px;background:var(--cream);color:var(--gold-d);clip-path:var(--arch);
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  transition:background .25s ease,color .25s ease}
+.arch:hover .arch-in{background:var(--gold);color:#fff}
+.arch:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+/* ── 3. сетка ──────────────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(32px,3.4vw,48px);
+  margin-top:clamp(40px,5vw,72px)}
+@media (max-width:980px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.tile{display:block}
+.tile-d{margin-top:16px;font-size:12.5px;color:var(--mut)}
+.tile-t{margin-top:8px;font-size:clamp(17px,1.4vw,20px);font-weight:700;line-height:1.3;
+  letter-spacing:-.005em;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tile:hover .tile-t{color:var(--gold-d)}
+.tile-x{margin-top:9px;font-size:14.5px;line-height:1.6;color:var(--mut);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tile.off{display:none}
+.tile:focus-visible{outline:2px solid var(--gold);outline-offset:5px;border-radius:16px}
+
+/* ── 4. показать ещё ───────────────────────────────────────────── */
+.more{display:flex;justify-content:center;margin-top:clamp(40px,5vw,68px)}
+.more button{padding:17px 34px;border-radius:999px;border:1px solid var(--gold);background:transparent;
+  color:var(--gold-d);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;cursor:pointer;transition:background .25s ease,color .25s ease}
+.more button:hover{background:var(--gold);color:#fff}
+.more button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.more.done{display:none}
+
+.sec{padding:0 0 clamp(60px,7vw,110px)}
+.foot{border-top:1px solid var(--line);padding:clamp(28px,3.4vw,44px) 0;font-size:12.5px;color:var(--mut)}
+.foot a{color:var(--gold-d);border-bottom:1px solid rgba(185,143,34,.35)}
+.loading{padding:60px 0;text-align:center;color:var(--mut)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .shot img{transition:none}
+  a:hover .shot img{transform:none}
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новости — Духовное управление мусульман Дальнего Востока (тестовая версия)</title>
+<meta name="description" content="Новости Духовного управления мусульман Дальнего Востока.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="news.css?v=2">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="stroitelstvo.html">ДУМ ДВ · тестовая версия</a>
+  <a href="stroitelstvo.html">Строительство &#8594;</a>
+</header>
+
+<!--
+  ШАБЛОН КАРТОЧКИ — при переносе в тему WordPress поля подставляются так:
+
+  <a class="tile" href="<?php the_permalink(); ?>">
+    <div class="shot">
+      <?php the_post_thumbnail('large', ['loading' => 'lazy',
+            'alt' => get_the_title()]); ?>            ← обложка: the_post_thumbnail
+    </div>
+    <time class="tile-d" datetime="<?php echo get_the_date('c'); ?>">
+      <?php echo get_the_date('j F Y'); ?></time>     ← дата: get_the_date
+    <h3 class="tile-t"><?php the_title(); ?></h3>     ← заголовок: the_title
+    <p class="tile-x"><?php the_excerpt(); ?></p>     ← анонс: the_excerpt
+  </a>
+
+  Рубрика в главной карточке — get_the_category()[0]->name.
+  Нет обложки → вместо <img> выводится <div class="stub">.
+  Нет анонса → <p class="tile-x"> не выводится, остаётся только заголовок.
+  Пока карточки собираются скриптом из v2/data/news.json (выгрузка REST API).
+-->
+
+<!-- 1. заголовок и фильтры -->
+<section class="head">
+  <div class="wrap">
+    <h1>Новости</h1>
+    <div class="filters" id="filters" role="group" aria-label="Фильтр по рубрикам"></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <!-- 2. главная новость -->
+    <div id="lead" class="loading">Загружаем новости…</div>
+
+    <!-- 3. сетка остальных -->
+    <div class="grid" id="grid"></div>
+
+    <!-- 4. показать ещё -->
+    <div class="more" id="more" hidden>
+      <button type="button" id="moreBtn">Показать ещё</button>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    Тестовая версия страницы. Новости загружены с dumdv.ru через публичный REST API WordPress.
+    <a href="stroitelstvo.html">Строительство</a>
+  </div>
+</footer>
+
+<script src="news.js?v=2"></script>
+</body>
+</html>

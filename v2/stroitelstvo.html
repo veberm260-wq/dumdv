@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Соборная мечеть Хабаровска — строительство (тестовая версия)</title>
+<meta name="description" content="Строительство соборной мечети Хабаровска — первой на Дальнем Востоке.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+<!-- ── 1. первый экран ─────────────────────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-shot">
+    <img src="../img/mechet-render.jpg" alt="Проект соборной мечети Хабаровска">
+  </div>
+  <div class="hero-veil"></div>
+
+  <div class="hero-in wrap">
+    <h1 class="h-xl">Соборная мечеть Хабаровска</h1>
+    <p class="hero-sub">Первая на Дальнем Востоке</p>
+
+    <div class="hero-btns">
+      <a class="btn btn-main" href="#pomoch">Помочь стройке <i>→</i></a>
+      <a class="btn btn-ghost" href="#otchety">Отчёты <i>→</i></a>
+    </div>
+
+    <div class="figs">
+      <div class="fig" data-to="27.8" data-dec="1">
+        <div class="fig-v"><span class="n">0,0</span><small>м</small></div>
+        <div class="fig-k">Высота</div>
+      </div>
+      <div class="fig" data-to="5" data-dec="0">
+        <div class="fig-v"><span class="n">0</span></div>
+        <div class="fig-k">Минаретов</div>
+      </div>
+      <div class="fig" data-to="5771" data-dec="0" data-group="no">
+        <div class="fig-v"><span class="n">0</span><small>м²</small></div>
+        <div class="fig-k">Участок</div>
+      </div>
+      <div class="fig" data-to="53.9" data-dec="1">
+        <div class="fig-v"><span class="n">0,0</span><small>%</small></div>
+        <div class="fig-k">Собрано</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2. липкая полоса якорей ─────────────────────────────────── -->
+<nav class="rail" aria-label="Разделы страницы">
+  <div class="rail-in">
+    <a href="#proekt">Проект</a>
+    <a href="#etapy">Этапы</a>
+    <a href="#segodnya">Стройка сегодня</a>
+    <a href="#pomoch">Как помочь</a>
+    <a href="#otchety">Отчёты</a>
+  </div>
+</nav>
+
+<!-- ── 3. светлый блок: проект ─────────────────────────────────── -->
+<section class="sec sec-light" id="proekt">
+  <div class="wrap">
+    <div class="split">
+      <div class="rise">
+        <span class="kicker">Проект</span>
+        <h2 class="h-l" style="margin-top:14px">Первая соборная мечеть<br>на Дальнем Востоке</h2>
+      </div>
+      <div class="rise d1">
+        <p class="lead">Высота здания 27,8 метра, пять минаретов, участок 5771 м². На сегодня собрано 53,9 % от суммы сбора.</p>
+        <p class="lead" style="margin-top:16px">Описание проекта, архитектурное решение и вместимость — <span class="tbd">уточнить</span></p>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card rise">
+        <div class="card-y">2022</div>
+        <div class="card-t">Разрешение получено</div>
+        <p class="card-n">Текст вехи — <span class="tbd">уточнить</span></p>
+      </div>
+      <div class="card rise d1">
+        <div class="card-y">2024</div>
+        <div class="card-t">Начало стройки</div>
+        <p class="card-n">Текст вехи — <span class="tbd">уточнить</span></p>
+      </div>
+      <div class="card rise d2">
+        <div class="card-y"><span class="tbd">уточнить</span></div>
+        <div class="card-t">Закрытые этапы</div>
+        <p class="card-n">Сколько этапов закрыто и когда — <span class="tbd">уточнить</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. тёмный: этапы ────────────────────────────────────────── -->
+<section class="sec sec-dark on-dark" id="etapy">
+  <div class="wrap">
+    <span class="kicker rise">Этапы</span>
+    <h2 class="h-l rise" style="margin-top:14px">Проект и два этапа закрыты, третий — в работе</h2>
+
+    <div class="dw" id="dw">
+      <!-- ВРЕМЕННЫЙ ЭСКИЗ. Пропорции сняты на глаз с рендера мечети.
+           Заменить на чертёж фасада, когда проектировщик его передаст. -->
+      <figure class="dw-sheet" style="margin:0">
+      <svg viewBox="0 0 400 430" role="img" aria-label="Схема фасада мечети с уровнем собранных средств">
+        <defs>
+          <!-- архитектурная штриховка 45° по границе собранного -->
+          <pattern id="dwHatchPat" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#8E6B12" stroke-width="1.1"/>
+          </pattern>
+          <!-- силуэт здания: по нему обрезаются и заливка, и штриховка -->
+          <clipPath id="dwBody">
+            <path d="M44 128h26v274H44z M70 118h-32l16-20z
+                     M112 402V246h176v156z
+                     M120 246v-26h40v26z M248 246v-26h40v26z
+                     M176 220v-32h48v32z
+                     M224 188c0 0 24-22 24-44 0-26-22-44-48-44s-48 18-48 44c0 22 24 44 24 44z
+                     M96 402h208v8H96z"/>
+          </clipPath>
+          <!-- поднимающийся прямоугольник: его верх и есть уровень собранного -->
+          <clipPath id="dwClip"><rect id="dwFill" x="0" y="0" width="400" height="430"/></clipPath>
+        </defs>
+
+        <!-- контур: тонкие серые линии, как на чертеже -->
+        <g fill="none" stroke="#8A8A8A" stroke-width="1" stroke-linejoin="round">
+          <path d="M44 128h26v274H44z"/>
+          <path d="M70 118h-32l16-20z"/>
+          <path d="M44 168h26M44 196h26"/>
+          <path d="M112 402V246h176v156z"/>
+          <path d="M120 246v-26h40v26M248 246v-26h40v26"/>
+          <path d="M176 220v-32h48v32"/>
+          <path d="M224 188c0 0 24-22 24-44 0-26-22-44-48-44s-48 18-48 44c0 22 24 44 24 44"/>
+          <path d="M200 100v-16"/>
+          <path d="M96 402h208v8H96z"/>
+          <!-- стрельчатые окна -->
+          <path d="M136 402v-54c0-9 6-15 14-15s14 6 14 15v54"/>
+          <path d="M186 402v-54c0-9 6-15 14-15s14 6 14 15v54"/>
+          <path d="M236 402v-54c0-9 6-15 14-15s14 6 14 15v54"/>
+          <path d="M50 236v-18c0-4 2-6 5-6s5 2 5 6v18"/>
+        </g>
+
+        <!-- собранная часть: золото по тому же силуэту -->
+        <g clip-path="url(#dwBody)">
+          <g clip-path="url(#dwClip)">
+            <rect x="0" y="0" width="400" height="430" fill="#B98F22" fill-opacity=".42"/>
+            <rect id="dwHatch" x="0" y="0" width="400" height="430" fill="url(#dwHatchPat)" opacity="0"/>
+          </g>
+        </g>
+
+        <!-- линия уровня -->
+        <g clip-path="url(#dwBody)">
+          <line id="dwLine" x1="0" y1="0" x2="400" y2="0" stroke="#8E6B12" stroke-width="1.6" opacity="0"/>
+        </g>
+      </svg>
+        <figcaption class="dw-cap">Схема фасада · временный эскиз · заливка — собранная часть</figcaption>
+      </figure>
+
+      <div class="dw-marks" id="dwMarks"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. светлый: стройка сегодня ─────────────────────────────── -->
+<section class="sec sec-sand" id="segodnya">
+  <div class="wrap">
+    <div class="split">
+      <div class="rise">
+        <span class="kicker">Стройка сегодня</span>
+        <h2 class="h-l" style="margin-top:14px">Фото с площадки</h2>
+      </div>
+      <div class="rise d1">
+        <p class="lead">Снимки с площадки, дата съёмки и подписи — <span class="tbd">уточнить</span></p>
+      </div>
+    </div>
+
+    <div class="shots">
+      <figure class="shot rise" style="margin:0"><span class="tbd">уточнить</span><span class="note">Фото с площадки</span></figure>
+      <figure class="shot rise d1" style="margin:0"><span class="tbd">уточнить</span><span class="note">Фото с площадки</span></figure>
+      <figure class="shot rise d2" style="margin:0"><span class="tbd">уточнить</span><span class="note">Фото с площадки</span></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ── 6. тёмный: карта ────────────────────────────────────────── -->
+<section class="sec sec-dark on-dark" id="karta">
+  <div class="wrap">
+    <span class="kicker rise">География</span>
+    <h2 class="h-l rise" style="margin-top:14px">Кто строит мечеть</h2>
+    <p class="lead rise d1" style="margin-top:18px;max-width:58ch">Чем темнее регион, тем больше оттуда пришло за всё время сбора.</p>
+
+    <div class="map-box rise d1" id="mapBox"><p class="map-load">Загружаем карту…</p></div>
+    <div class="legend rise d2">
+      <span><i style="background:#F2DC9B"></i>до 1 тыс.</span>
+      <span><i style="background:#E2C169"></i>1–10 тыс.</span>
+      <span><i style="background:#D5AB47"></i>10–100 тыс.</span>
+      <span><i style="background:#B98F22"></i>100 тыс. – 1 млн</span>
+      <span><i style="background:#87680F"></i>больше 1 млн</span>
+      <span><i style="background:#E7E3DB"></i>нет данных</span>
+    </div>
+
+    <div class="tops rise d2" id="tops"></div>
+    <p class="note rise d3" style="margin-top:16px" id="mapNote"></p>
+  </div>
+</section>
+
+<!-- ── 7. пожертвование ────────────────────────────────────────── -->
+<section class="sec give on-dark" id="pomoch">
+  <div class="wrap">
+    <span class="kicker rise">Как помочь</span>
+    <h2 class="h-l rise" style="margin-top:14px">Помочь стройке</h2>
+
+    <div class="give-card rise d1">
+      <span class="demo">Демонстрация — платежи не проводятся</span>
+
+      <div class="field">
+        <div class="field-k">Сумма пожертвования</div>
+        <div class="sums">
+          <button class="sum" type="button" aria-pressed="false">500 ₽</button>
+          <button class="sum on" type="button" aria-pressed="true">1 000 ₽</button>
+          <button class="sum" type="button" aria-pressed="false">5 000 ₽</button>
+          <button class="sum" type="button" aria-pressed="false">10 000 ₽</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-k">Как часто</div>
+        <div class="whens">
+          <button class="when on" type="button" aria-pressed="true">Каждую пятницу</button>
+          <button class="when" type="button" aria-pressed="false">Ежемесячно</button>
+          <button class="when" type="button" aria-pressed="false">Один раз</button>
+        </div>
+      </div>
+
+      <button class="btn btn-main" type="button">Пожертвовать <i>→</i></button>
+      <p class="note" style="margin-top:14px">Способы оплаты и реквизиты — <span class="tbd">уточнить</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 8. отчёты ───────────────────────────────────────────────── -->
+<section class="sec sec-light" id="otchety">
+  <div class="wrap">
+    <div class="split">
+      <div class="rise">
+        <span class="kicker">Отчёты</span>
+        <h2 class="h-l" style="margin-top:14px">Отчёты по сбору</h2>
+      </div>
+      <div class="rise d1">
+        <p class="lead">Состав отчётов, периодичность и ссылки на документы — <span class="tbd">уточнить</span></p>
+        <a class="btn btn-line" href="#top" style="margin-top:22px">Наверх <i>↑</i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Тестовая версия страницы. Ветка v2, в основной сайт не слита.</span>
+    <span><a href="../stroitelstvo.html">Открыть текущую версию</a></span>
+  </div>
+</footer>
+
+<a class="btn btn-main pin" href="#pomoch">Пожертвовать <i>→</i></a>
+
+<!-- номер меняем при правке app.js, иначе браузер отдаст старый файл из кэша -->
+<script src="app.js?v=2"></script>
+<script>
+// Этапы: уровень заливки и выноски берутся из v2/data/stages.json.
+// Чтобы поменять процент — правится одна цифра в json, тут ничего не трогается.
+(function () {
+  var box = document.getElementById('dw');
+  var marks = document.getElementById('dwMarks');
+  if (!box || !marks) return;
+
+  var TOP = 84, BOTTOM = 410;            // верх минарета и низ стилобата в координатах svg
+  var H = BOTTOM - TOP;
+
+  function levelY(pct) { return BOTTOM - H * (Math.max(0, Math.min(100, pct)) / 100); }
+
+  fetch('data/stages.json').then(function (r) { return r.json(); }).then(function (d) {
+    var pct = +d.percent || 0;
+    var y = levelY(pct);
+
+    var fill = document.getElementById('dwFill');
+    // прямоугольник ростом во весь кадр; поднимаем его так, чтобы верх встал на уровень
+    // двигаем сам атрибут y: CSS-трансформации внутри clipPath
+    // браузеры применяют неодинаково, а атрибут работает везде
+    var hatch = document.getElementById('dwHatch');
+    function put(v) { fill.setAttribute('y', v); hatch.setAttribute('y', v); }
+    var slowMo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    box.__raise = function () {
+      if (slowMo) { put(y); return; }
+      var t0 = null, dur = 1600, done = false;
+      function fin() { if (!done) { done = true; put(y); } }
+      function step(t) {
+        if (done) return;
+        if (t0 === null) t0 = t;
+        var k = Math.min((t - t0) / dur, 1);
+        if (k < 1) { put(430 - (430 - y) * (1 - Math.pow(1 - k, 3))); requestAnimationFrame(step); }
+        else fin();
+      }
+      put(430);
+      requestAnimationFrame(step);
+      setTimeout(fin, dur + 600);     // в фоновой вкладке кадры не идут
+    };
+    var line = document.getElementById('dwLine');
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+
+    marks.innerHTML = (d.stages || []).map(function (st, i) {
+      var cls = st.state === 'закрыт' ? 'done' : (st.state === 'идёт' ? 'live' : 'next');
+      return '<div class="dw-mark ' + cls + '" style="transition-delay:' + (0.75 + i * 0.12) + 's">' +
+        '<span class="dw-lead"></span>' +
+        '<span><span class="dw-l">' + st.label + '</span>' +
+        '<span class="dw-s">' + st.sum + '<b class="dw-st">' + st.state + '</b></span></span></div>';
+    }).join('');
+
+    show();
+  }).catch(function () { marks.innerHTML = '<p class="note">Данные этапов не загрузились.</p>'; });
+
+  function show() {
+    var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slow || !('IntersectionObserver' in window)) { box.classList.add('seen'); if (box.__raise) box.__raise(); return; }
+    var io = new IntersectionObserver(function (rows) {
+      rows.forEach(function (r) {
+        if (!r.isIntersecting) return;
+        box.classList.add('seen');
+        if (box.__raise) box.__raise();
+        io.unobserve(r.target);
+      });
+    }, { threshold: .25 });
+    io.observe(box);
+  }
+})();
+</script>
+</body>
+</html>
