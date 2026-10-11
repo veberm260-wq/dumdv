@@ -177,7 +177,9 @@ a{color:inherit}
 
 /* ── закреплённая кнопка ───────────────────────────────────────── */
 .pin{position:fixed;right:clamp(14px,2.2vw,26px);bottom:clamp(14px,2.2vw,26px);z-index:40;
-  box-shadow:0 10px 34px rgba(14,28,47,.3)}
+  box-shadow:0 10px 34px rgba(14,28,47,.3);transition:opacity .3s ease,transform .3s ease}
+/* у самой формы и в подвале кнопка не нужна: она там дублирует и перекрывает */
+.pin.hide{opacity:0;transform:translateY(16px);pointer-events:none}
 @media (max-width:520px){
   /* на узком экране кнопка во всю ширину, поэтому освобождаем под неё место,
      иначе она накрывает цифры первого экрана и конец страницы */

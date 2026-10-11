@@ -93,6 +93,28 @@
   pick('.sum');
   pick('.when');
 
+  /* ── закреплённая кнопка прячется у формы и в подвале ────────── */
+  (function () {
+    var pin = document.querySelector('.pin');
+    if (!pin) return;
+    var zones = [document.getElementById('pomoch'), document.querySelector('.foot')]
+      .filter(Boolean);
+    if (!zones.length) return;
+    // обычная проверка на прокрутке: наблюдатель тут не нужен,
+    // а считается это по положению, а не по кадрам отрисовки
+    function sync() {
+      var h = window.innerHeight;
+      var near = zones.some(function (z) {
+        var r = z.getBoundingClientRect();
+        return r.top < h * 0.82 && r.bottom > 0;
+      });
+      pin.classList.toggle('hide', near);
+    }
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+  })();
+
   /* ── карта регионов: берём готовые файлы версии 2.0 ──────────── */
   var mapBox = document.getElementById('mapBox');
   var tops = document.getElementById('tops');
