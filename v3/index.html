@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Первая соборная мечеть Дальнего Востока — версия 3.0</title>
+<meta name="description" content="Строительство первой соборной мечети Дальнего Востока в Хабаровске.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+/* прокрутка мягко примагничивается к секциям: иначе экран останавливается
+   посреди блока и слово-маркер срезается фиксированной шапкой */
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{
+  margin:0;background:#0E0F12;color:#F2EEE6;
+  font-family:"Golos Text",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  font-variant-numeric:lining-nums tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+:root{
+  --sand:#E8DCC8;
+  --gold:#B98F22;--gold-light:#E2C169;
+  --ink:#15161A;--ink-deep:#0E0F12;
+  --mut:rgba(242,238,230,.74);
+}
+
+/* ── каркас секции ─────────────────────────────────────────────── */
+.scene{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding:0 0 clamp(36px,6vw,80px);scroll-snap-align:start}
+.inner{position:relative;z-index:3;width:100%;max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+
+/* слово-маркер в углу, как на референсе */
+.marker{position:absolute;top:clamp(84px,9vw,120px);left:clamp(20px,4vw,56px);z-index:3;margin:0;
+  font-size:clamp(30px,5.6vw,80px);font-weight:700;line-height:.95;letter-spacing:.1em;
+  text-transform:uppercase;color:#fff;text-shadow:0 2px 40px rgba(0,0,0,.35)}
+.marker.on-sand{color:#1A1C21;text-shadow:none}
+
+/* ── шапка ─────────────────────────────────────────────────────── */
+.top{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:18px clamp(20px,4vw,56px);
+  background:linear-gradient(to bottom,rgba(14,15,18,.72),rgba(14,15,18,0));
+  transition:background .3s ease}
+.top-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#fff}
+.top-nav{display:flex;gap:clamp(14px,2vw,30px)}
+.top-nav a{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.72);transition:color .2s ease}
+.top-nav a:hover{color:#fff}
+@media (max-width:720px){.top-nav{display:none}}
+
+/* ── 1. герой ──────────────────────────────────────────────────── */
+.hero-shot{position:absolute;inset:0;z-index:1}
+.hero-shot img{width:100%;height:100%;object-fit:cover;object-position:58% 50%}
+.hero-shade{position:absolute;inset:0;z-index:2;
+  /* к низу затемняем сильно и заранее: контент белый, а небо на рендере светлое */
+  background:linear-gradient(to bottom,rgba(10,12,16,.5) 0%,rgba(10,12,16,.1) 24%,rgba(10,12,16,.34) 46%,rgba(10,12,16,.72) 68%,rgba(10,12,16,.93) 100%)}
+.hero-line{font-size:clamp(26px,3.6vw,52px);font-weight:600;line-height:1.14;letter-spacing:-.01em;margin:0;max-width:17ch}
+.hero-sub{margin:18px 0 0;max-width:46ch;font-size:15px;line-height:1.65;color:var(--mut)}
+.hero-foot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;margin-top:clamp(26px,4vw,44px)}
+.scroll-hint{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none}
+.scroll-hint i{display:block;width:1px;height:34px;background:linear-gradient(to bottom,rgba(255,255,255,.7),transparent);animation:drip 2.4s ease-in-out infinite}
+@keyframes drip{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* ── цифры ─────────────────────────────────────────────────────── */
+.scene-sand{background:var(--sand);color:#1A1C21}
+.scene-ink{background:var(--ink)}
+/* верхний отступ освобождает полосу под слово-маркер, иначе текст лезет под него */
+.scene-mid{justify-content:center;padding-top:clamp(160px,17vw,215px)}
+
+.huge{font-size:clamp(44px,9vw,136px);font-weight:700;line-height:.94;letter-spacing:-.035em;margin:0}
+.huge .cur{font-size:.42em;font-weight:600;letter-spacing:0;margin-left:.12em;vertical-align:.14em}
+.of{margin:16px 0 0;font-size:clamp(14px,1.5vw,18px);color:rgba(26,28,33,.6)}
+.scene-ink .of{color:var(--mut)}
+
+.rail{position:relative;height:3px;margin:clamp(30px,4vw,46px) 0 0;background:rgba(26,28,33,.14);overflow:hidden}
+.scene-ink .rail{background:rgba(242,238,230,.16)}
+.rail span{position:absolute;inset:0 auto 0 0;width:0;background:var(--gold);transition:width 1.6s cubic-bezier(.22,1,.36,1)}
+.is-seen .rail span{width:var(--pct)}
+.rail-marks{display:flex;justify-content:space-between;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(26,28,33,.5)}
+.scene-ink .rail-marks{color:var(--mut)}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(22px,3vw,40px);margin-top:clamp(38px,5vw,64px)}
+.col-k{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.col-v{font-size:clamp(22px,2.6vw,34px);font-weight:700;line-height:1.1;margin-top:10px;letter-spacing:-.02em}
+.col-n{margin-top:8px;font-size:13.5px;line-height:1.5;color:rgba(26,28,33,.58)}
+.scene-ink .col-n{color:var(--mut)}
+
+/* ── этапы ─────────────────────────────────────────────────────── */
+.steps{margin-top:clamp(34px,4vw,54px);border-top:1px solid rgba(242,238,230,.14)}
+.step{display:grid;grid-template-columns:62px 1fr auto;gap:clamp(14px,2.5vw,34px);align-items:baseline;
+  padding:clamp(16px,2vw,24px) 0;border-bottom:1px solid rgba(242,238,230,.14)}
+.step-n{font-size:12px;font-weight:700;letter-spacing:.14em;color:rgba(242,238,230,.38)}
+.step-t{font-size:clamp(17px,2vw,25px);font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.step-s{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;color:var(--mut)}
+.step.done .step-n,.step.done .step-s{color:var(--gold-light)}
+.step.live{background:linear-gradient(90deg,rgba(185,143,34,.14),transparent 62%);
+  margin:0 calc(-1 * clamp(10px,2vw,22px));padding-left:clamp(10px,2vw,22px);padding-right:clamp(10px,2vw,22px)}
+.step.live .step-t{color:#fff}
+.step.live .step-s{color:var(--gold-light)}
+
+/* ── география ─────────────────────────────────────────────────── */
+.geo-rows{margin-top:clamp(30px,4vw,48px);display:grid;gap:1px;background:rgba(26,28,33,.12)}
+.geo-row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(12px,2vw,26px);align-items:baseline;background:var(--sand);padding:clamp(14px,1.8vw,20px) 0}
+.geo-i{font-size:12px;font-weight:700;color:var(--gold)}
+.geo-name{font-size:clamp(16px,1.8vw,21px);font-weight:600;letter-spacing:-.01em}
+.geo-people{display:block;margin-top:4px;font-size:12.5px;font-weight:400;color:rgba(26,28,33,.55)}
+.geo-sum{font-size:clamp(17px,2vw,24px);font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+
+/* ── участие ───────────────────────────────────────────────────── */
+.cta{display:inline-flex;align-items:center;gap:14px;margin-top:clamp(30px,4vw,44px);
+  padding:19px 26px 19px 34px;border-radius:999px;background:var(--gold);color:#fff;
+  font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  transition:background .25s ease,transform .25s ease}
+.cta:hover{background:#9C7718;transform:translateY(-2px)}
+.cta i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.4px solid rgba(255,255,255,.55);font-style:normal;font-size:13px}
+.fine{margin:18px 0 0;font-size:12.5px;line-height:1.6;color:var(--mut);max-width:52ch}
+.scene-sand .fine{color:rgba(26,28,33,.55)}
+
+/* ── подвал ────────────────────────────────────────────────────── */
+.foot{padding:clamp(40px,6vw,72px) clamp(20px,4vw,56px);border-top:1px solid rgba(242,238,230,.12)}
+.foot-in{max-width:1320px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;
+  font-size:12.5px;color:var(--mut)}
+.foot-in a{color:var(--gold-light);text-decoration:none;border-bottom:1px solid rgba(226,193,105,.3);padding-bottom:2px}
+.foot-in a:hover{color:#fff;border-color:#fff}
+
+/* ── появление при прокрутке ───────────────────────────────────── */
+.rise{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.22,1,.36,1)}
+.is-seen .rise,.rise.is-seen{opacity:1;transform:none}
+.rise.d1{transition-delay:.08s}.rise.d2{transition-delay:.16s}.rise.d3{transition-delay:.24s}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise{opacity:1;transform:none;transition:none}
+  .rail span{transition:none}
+  .scroll-hint i{animation:none}
+}
+@media (max-width:640px){
+  .step{grid-template-columns:40px 1fr;row-gap:6px}
+  .step-s{grid-column:2}
+  .geo-row{grid-template-columns:auto 1fr;row-gap:6px}
+  .geo-sum{grid-column:2}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <a class="top-brand" href="#start">ДУМ ДВ</a>
+  <nav class="top-nav">
+    <a href="#sbor">Сбор</a>
+    <a href="#etapy">Этапы</a>
+    <a href="#geo">География</a>
+    <a href="#uchastie">Участие</a>
+  </nav>
+</header>
+
+<!-- 1. герой -->
+<section class="scene" id="start">
+  <div class="hero-shot"><img src="../img/mechet-render.jpg" alt="Проект первой соборной мечети Дальнего Востока в Хабаровске"></div>
+  <div class="hero-shade"></div>
+  <p class="marker">Мечеть</p>
+  <div class="inner">
+    <h1 class="hero-line rise">Первая соборная мечеть Дальнего Востока</h1>
+    <p class="hero-sub rise d1">Хабаровск. Участок выделен, разрешение получено, монолит выходит на фасадные работы. Единственный проект такого масштаба на Дальнем Востоке с полным пакетом документов.</p>
+    <div class="hero-foot">
+      <a class="cta rise d2" href="#uchastie">Внести свой вклад <i>→</i></a>
+      <a class="scroll-hint rise d3" href="#sbor">Листайте <i></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. сбор -->
+<section class="scene scene-sand scene-mid" id="sbor">
+  <p class="marker on-sand">Сбор</p>
+  <div class="inner">
+    <p class="col-k rise">Собрано на сегодня</p>
+    <p class="huge rise d1">208 910 589<span class="cur">₽</span></p>
+    <p class="of rise d1">из 426 350 000 ₽ — полной стоимости всех шести этапов</p>
+
+    <div class="rail rise d2" style="--pct:49%"><span></span></div>
+    <div class="rail-marks rise d2"><span>49% пути пройдено</span><span>Осталось 217 439 411 ₽</span></div>
+
+    <div class="cols">
+      <div class="rise d1">
+        <div class="col-k">Цель на месяц</div>
+        <div class="col-v">3 671 746 ₽</div>
+        <div class="col-n">из 15 000 000 ₽</div>
+      </div>
+      <div class="rise d2">
+        <div class="col-k">Этапов закрыто</div>
+        <div class="col-v">3 из 6</div>
+        <div class="col-n">Проект, фундамент, несущие конструкции</div>
+      </div>
+      <div class="rise d3">
+        <div class="col-k">Регионов участвует</div>
+        <div class="col-v">64</div>
+        <div class="col-n">По жертвователям, указавшим регион</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. этапы -->
+<section class="scene scene-ink scene-mid" id="etapy">
+  <p class="marker">Этапы</p>
+  <div class="inner">
+    <p class="col-k rise">Шесть этапов снизу вверх</p>
+    <div class="steps">
+      <div class="step done rise"><span class="step-n">01</span><span class="step-t">Проектная документация</span><span class="step-s">10 000 000 ₽ · закрыт</span></div>
+      <div class="step done rise"><span class="step-n">02</span><span class="step-t">Свайное поле и фундамент</span><span class="step-s">75 350 000 ₽ · закрыт</span></div>
+      <div class="step done rise"><span class="step-n">03</span><span class="step-t">Несущие конструкции</span><span class="step-s">99 000 000 ₽ · закрыт</span></div>
+      <div class="step live rise d1"><span class="step-n">04</span><span class="step-t">Монолит и фасад</span><span class="step-s">24 560 589 из 252 000 000 ₽</span></div>
+      <div class="step rise d2"><span class="step-n">05</span><span class="step-t">Купол, минарет, кровля</span><span class="step-s">сумма — по смете</span></div>
+      <div class="step rise d3"><span class="step-n">06</span><span class="step-t">Инженерные системы и благоустройство</span><span class="step-s">сумма — по смете</span></div>
+    </div>
+    <p class="fine rise d3">Каждый этап закрывается полностью, прежде чем начинается следующий. Суммы предварительные, уточняются по смете.</p>
+  </div>
+</section>
+
+<!-- 4. география -->
+<section class="scene scene-sand scene-mid" id="geo">
+  <p class="marker on-sand">Страна</p>
+  <div class="inner">
+    <p class="col-k rise">Мечеть строит не один город</p>
+    <div class="geo-rows">
+      <div class="geo-row rise"><span class="geo-i">01</span><span class="geo-name">Хабаровский край<span class="geo-people">742 человека</span></span><span class="geo-sum">50 687 733 ₽</span></div>
+      <div class="geo-row rise d1"><span class="geo-i">02</span><span class="geo-name">Москва<span class="geo-people">436 человек</span></span><span class="geo-sum">39 656 948 ₽</span></div>
+      <div class="geo-row rise d2"><span class="geo-i">03</span><span class="geo-name">Республика Татарстан<span class="geo-people">1572 человека</span></span><span class="geo-sum">18 917 564 ₽</span></div>
+      <div class="geo-row rise d3"><span class="geo-i">04</span><span class="geo-name">Республика Башкортостан<span class="geo-people">623 человека</span></span><span class="geo-sum">1 917 219 ₽</span></div>
+    </div>
+    <p class="fine rise d3">Данные за всё время сбора, по жертвователям, указавшим регион. Всего участвует 64 региона — карта со всеми на странице строительства версии 2.0.</p>
+  </div>
+</section>
+
+<!-- 5. участие -->
+<section class="scene scene-ink scene-mid" id="uchastie">
+  <p class="marker">Участие</p>
+  <div class="inner">
+    <p class="hero-line rise">Садака джария — награда, которая не прерывается</p>
+    <p class="hero-sub rise d1">Даже небольшое пожертвование, сделанное с искренним намерением, остаётся с человеком и после его ухода. Этот путь мы пройдём только вместе.</p>
+    <a class="cta rise d2" href="../index.html#donate">Перейти к форме сбора <i>→</i></a>
+    <p class="fine rise d3">Способы оплаты и реквизиты подключаются платёжным сервисом на основной версии сайта.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <span>Духовное управление мусульман Дальнего Востока в составе ЦДУМ России · Хабаровск</span>
+    <span>Версия 3.0 — черновик облика. <a href="../index.html">Открыть версию 2.0</a></span>
+  </div>
+</footer>
+
+<script>
+// появление блоков при прокрутке; без наблюдателя всё просто видно
+(function () {
+  var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.scene, .rise');
+  if (slow || !('IntersectionObserver' in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('is-seen');
+    return;
+  }
+  var io = new IntersectionObserver(function (rows) {
+    rows.forEach(function (r) {
+      if (r.isIntersecting) { r.target.classList.add('is-seen'); io.unobserve(r.target); }
+    });
+  }, { threshold: .18, rootMargin: '0px 0px -8% 0px' });
+  for (var j = 0; j < items.length; j++) io.observe(items[j]);
+})();
+
+// шапка затемняется, когда ушли с первого экрана
+(function () {
+  var top = document.getElementById('top');
+  function onScroll() {
+    top.style.background = window.scrollY > window.innerHeight * .6
+      ? 'rgba(14,15,18,.86)'
+      : 'linear-gradient(to bottom,rgba(14,15,18,.72),rgba(14,15,18,0))';
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+</body>
+</html>
