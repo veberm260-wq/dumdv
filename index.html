@@ -425,6 +425,65 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .give-dot:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 .give-dot span{display:block;padding:0 12px}
 @media (max-width:560px){.give-dot{width:94px;height:94px;font-size:9px}}
+
+/* ── карусель новостей на главной ──────────────────────────────── */
+.nr{position:relative;margin-top:clamp(22px,3vw,34px)}
+.nr-row{display:grid;grid-auto-flow:column;gap:clamp(16px,2vw,28px);
+  grid-auto-columns:calc((100% - 2 * clamp(16px,2vw,28px)) / 3);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.nr-row::-webkit-scrollbar{display:none}
+@media (max-width:980px){.nr-row{grid-auto-columns:calc((100% - clamp(16px,2vw,28px)) / 2)}}
+@media (max-width:640px){.nr-row{grid-auto-columns:84%}}
+.nr-card{scroll-snap-align:start;display:block;text-decoration:none;color:var(--tx);min-width:0}
+.nr-shot{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--pnl)}
+.nr-shot img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.nr-card:hover .nr-shot img,.nr-card:focus-visible .nr-shot img{transform:scale(1.03)}
+.nr-stub{position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 44%,rgba(185,143,34,.22),transparent 64%),
+  linear-gradient(160deg,#13243C,#0B1726)}
+.nr-d{margin-top:14px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.nr-t{margin-top:8px;font-size:clamp(17px,1.4vw,21px);line-height:1.3;color:var(--tx);font-weight:600;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nr-card:hover .nr-t{color:var(--gold)}
+.nr-card:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:14px}
+.nr-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px}
+.nr-dots{display:flex;gap:7px;flex-wrap:wrap}
+.nr-dot{width:7px;height:7px;border-radius:50%;background:var(--brd);border:0;padding:0;cursor:pointer;
+  transition:background .25s ease,width .25s ease}
+.nr-dot.on{width:20px;border-radius:999px;background:var(--gold)}
+.nr-arrows{display:flex;gap:10px}
+.nr-arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--brd);background:transparent;
+  color:var(--tx);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
+.nr-arr:hover:not(:disabled){border-color:var(--gold);background:rgba(185,143,34,.1)}
+.nr-arr:disabled{opacity:.32;cursor:default}
+.nr-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.nr-arr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── правый блок героя: о стройке и кнопка-арка ────────────────── */
+.hero-ask{min-width:0}
+.hero-ask h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
+  font-size:clamp(27px,3.1vw,44px);line-height:1.12;color:var(--tx);margin:12px 0 0;max-width:15ch}
+.hero-ask p{font-size:15.5px;line-height:1.7;color:var(--mut);margin:16px 0 0;max-width:40ch}
+/* кнопка в форме стрельчатой арки: внешний слой — золото, внутренний — фон */
+.arch{display:inline-block;margin-top:clamp(20px,2.6vw,32px);background:var(--gold);padding:1.5px;
+  --a:polygon(50% 0,62% 4%,74% 12%,86% 25%,95% 38%,100% 52%,100% 100%,0 100%,0 52%,5% 38%,14% 25%,26% 12%,38% 4%);
+  clip-path:var(--a);transition:background .25s ease}
+.arch-in{display:flex;align-items:center;justify-content:center;gap:11px;min-width:208px;
+  padding:42px 34px 20px;background:var(--pg);color:var(--gold);clip-path:var(--a);
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  transition:background .25s ease,color .25s ease}
+.arch:hover .arch-in{background:var(--gold);color:#fff}
+.arch:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+/* кадр трансляции: пока статичный вид площадки */
+.live-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.live-grid{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(8,14,24,.3),rgba(8,14,24,0) 36%,rgba(8,14,24,.55)),
+    repeating-linear-gradient(to bottom,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
+.live-tag{position:absolute;left:12px;bottom:12px;padding:5px 10px;border-radius:7px;
+  background:rgba(10,16,26,.66);color:rgba(255,255,255,.86);
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -658,24 +717,24 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
     <div class="hero-in">
       <div class="hero-grid">
-        <div>
+        <div class="hero-ask">
+          <span class="kicker">Строительство</span>
+          <h2>Первая соборная мечеть Дальнего Востока</h2>
           <p>Участок выделен, разрешение получено, монолит выходит на фасадные работы. Единственный проект такого масштаба на Дальнем Востоке с полным пакетом документов.</p>
-          <div class="btns">
-            <a class="btn btn-ghost" href="stroitelstvo.html">Ход строительства</a>
-          </div>
           <p class="hero-local" id="heroLocal"></p>
+          <a class="arch" href="stroitelstvo.html"><span class="arch-in">Подробнее <i aria-hidden="true">&#8594;</i></span></a>
         </div>
 
         <div class="live">
           <div class="live-k">Прямая трансляция</div>
-          <!-- тот же плеер, что на domvrayu.ru: трансляция с площадки -->
+          <!-- Имитация: реального потока со стройплощадки пока нет.
+               Когда появится, сюда ставится iframe или video вместо .live-still. -->
           <div class="live-frame">
-            <iframe src="https://vk.com/video_ext.php?oid=-77270182&amp;id=456239327&amp;hash=c1c723b8475fef43"
-                    title="Ход строительства мечети в прямом эфире"
-                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                    allowfullscreen loading="lazy"></iframe>
+            <img class="live-still" src="img/mechet-render.jpg" alt="Вид на строящуюся соборную мечеть Хабаровска">
+            <span class="live-grid" aria-hidden="true"></span>
+            <span class="live-tag">Камера 1 · площадка</span>
           </div>
-          <p class="live-n">Ход строительства мечети в прямом эфире</p>
+          <p class="live-n">Ход строительства мечети. Трансляция подключается &#8212; пока виден проектный вид площадки.</p>
         </div>
       </div>
     </div>
@@ -687,37 +746,19 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <h2>Новости</h2>
         <a class="more" href="novosti.html">Все новости</a>
       </div>
-      <div class="news-grid">
-        <a class="news-card" href="novosti.html">
-          <div class="news-photo"><img src="img/mosque-1.svg" alt="" loading="lazy"></div>
-          <div class="news-date">12 августа 2026</div>
-          <h3 class="news-title">Завершены работы по монолиту третьего этажа</h3>
-        </a>
-        <a class="news-card" href="novosti.html">
-          <div class="news-photo"><img src="img/mosque-2.svg" alt="" loading="lazy"></div>
-          <div class="news-date">5 августа 2026</div>
-          <h3 class="news-title">Прихожане провели субботник на территории будущей мечети</h3>
-        </a>
-        <a class="news-card" href="novosti.html">
-          <div class="news-photo"><img src="img/mosque-3.svg" alt="" loading="lazy"></div>
-          <div class="news-date">29 июля 2026</div>
-          <h3 class="news-title">Открыт набор в летние группы медресе</h3>
-        </a>
-        <a class="news-card" href="novosti.html">
-          <div class="news-photo"><img src="img/mosque-4.svg" alt="" loading="lazy"></div>
-          <div class="news-date">22 июля 2026</div>
-          <h3 class="news-title">Пятничная проповедь была посвящена честности в делах</h3>
-        </a>
-        <a class="news-card" href="novosti.html">
-          <div class="news-photo"><img src="img/mosque-5.svg" alt="" loading="lazy"></div>
-          <div class="news-date">14 июля 2026</div>
-          <h3 class="news-title">Продуктовые наборы переданы нуждающимся семьям</h3>
-        </a>
-        <a class="news-card" href="novosti.html">
-          <div class="news-photo"><img src="img/mosque-6.svg" alt="" loading="lazy"></div>
-          <div class="news-date">3 июля 2026</div>
-          <h3 class="news-title">Состоялась встреча с представителями городской администрации</h3>
-        </a>
+      <div class="nr">
+        <div class="nr-row" id="nrRow" tabindex="0" role="region" aria-label="Лента новостей"></div>
+      </div>
+      <div class="nr-bar">
+        <div class="nr-dots" id="nrDots"></div>
+        <div class="nr-arrows">
+          <button class="nr-arr" id="nrPrev" type="button" aria-label="Предыдущие новости">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+          </button>
+          <button class="nr-arr" id="nrNext" type="button" aria-label="Следующие новости">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -933,6 +974,75 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+// Карусель новостей на главной: те же данные, что в разделе новостей.
+(function () {
+  var row = document.getElementById('nrRow');
+  var dotsBox = document.getElementById('nrDots');
+  var prev = document.getElementById('nrPrev');
+  var next = document.getElementById('nrNext');
+  if (!row) return;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  fetch('data/news.json').then(function (r) { return r.json(); }).then(function (d) {
+    var posts = (d.posts || []).slice(0, 9);
+    if (!posts.length) return;
+
+    row.innerHTML = posts.map(function (p) {
+      var img = p.cover800 || p.cover1600;
+      return '<a class="nr-card" href="' + esc(p.link) + '" target="_blank" rel="noopener">' +
+        '<div class="nr-shot">' +
+        (img ? '<img src="' + esc(img) + '" srcset="' + esc(img) + ' 800w, ' +
+               esc(p.cover1600 || img) + ' 1600w" sizes="(max-width:640px) 84vw,(max-width:980px) 46vw,31vw"' +
+               ' loading="lazy" decoding="async" alt="' + esc(p.title) + '">'
+             : '<div class="nr-stub" aria-hidden="true"></div>') +
+        '</div>' +
+        (p.dateHuman ? '<div class="nr-d">' + esc(p.dateHuman) + '</div>' : '') +
+        (p.title ? '<div class="nr-t">' + esc(p.title) + '</div>' : '') +
+        '</a>';
+    }).join('');
+
+    var cards = [].slice.call(row.children);
+    function step() {
+      var a = cards[0].getBoundingClientRect();
+      var b = cards[1] ? cards[1].getBoundingClientRect() : null;
+      return b ? (b.left - a.left) : a.width;
+    }
+    function maxScroll() { return row.scrollWidth - row.clientWidth; }
+
+    dotsBox.innerHTML = cards.map(function (c, i) {
+      return '<button class="nr-dot" type="button" aria-label="Новость ' + (i + 1) + '" data-i="' + i + '"></button>';
+    }).join('');
+    var dots = [].slice.call(dotsBox.children);
+
+    function sync() {
+      var x = row.scrollLeft, st = step() || 1;
+      var i = Math.min(Math.round(x / st), dots.length - 1);
+      dots.forEach(function (d, n) { d.classList.toggle('on', n === i); });
+      prev.disabled = x <= 2;
+      next.disabled = x >= maxScroll() - 2;
+    }
+    function slide(dir) { row.scrollBy({ left: dir * step(), behavior: 'smooth' }); }
+
+    prev.addEventListener('click', function () { slide(-1); });
+    next.addEventListener('click', function () { slide(1); });
+    dotsBox.addEventListener('click', function (e) {
+      var d = e.target.closest('.nr-dot');
+      if (d) row.scrollTo({ left: (+d.getAttribute('data-i')) * step(), behavior: 'smooth' });
+    });
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); slide(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); slide(-1); }
+    });
+    row.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }).catch(function () {});
 })();
 </script>
 </body>
