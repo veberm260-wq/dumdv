@@ -167,7 +167,7 @@ html.is-hero-night .hero-night{opacity:1}
 .star::after{width:1.5px;height:26px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
 @keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
 .hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:56px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:56px;align-items:center}
 .hero .panel{box-shadow:0 18px 44px rgba(32,30,29,.14)}
 #night:checked ~ .page .hero .panel{box-shadow:0 18px 44px rgba(0,0,0,.4)}
 .hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
@@ -399,6 +399,32 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .methods{grid-template-columns:1fr}
   .pay-mode{grid-template-columns:1fr}
 }
+
+/* окно прямой трансляции вместо панели платежей */
+/* в разметке окно идёт вторым, а показать его надо слева */
+.live{min-width:0;order:-1}
+.live-k{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:9px}
+.live-k::before{content:"";width:8px;height:8px;border-radius:50%;background:#d8443a;
+  box-shadow:0 0 0 0 rgba(216,68,58,.6);animation:livePulse 2s ease-out infinite}
+@keyframes livePulse{70%{box-shadow:0 0 0 9px rgba(216,68,58,0)}100%{box-shadow:0 0 0 0 rgba(216,68,58,0)}}
+.live-frame{position:relative;margin-top:12px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;
+  background:#0d1420;border:1px solid var(--brd);box-shadow:0 18px 44px rgba(32,30,29,.16)}
+#night:checked ~ .page .live-frame{box-shadow:0 18px 44px rgba(0,0,0,.4)}
+.live-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.live-n{margin-top:12px;font-size:13px;line-height:1.55;color:var(--mut)}
+
+/* круглая кнопка пожертвования: ведёт на сайт сбора «Дом в раю» */
+.give-dot{position:fixed;right:clamp(16px,2.4vw,30px);bottom:clamp(16px,2.4vw,30px);z-index:60;
+  width:112px;height:112px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  background:var(--gold);color:#fff;text-decoration:none;
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;line-height:1.35;
+  box-shadow:0 14px 36px rgba(185,143,34,.42);
+  transition:transform .25s ease,background .25s ease}
+.give-dot:hover{background:#9C7718;color:#fff;transform:translateY(-3px) scale(1.03)}
+.give-dot:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.give-dot span{display:block;padding:0 12px}
+@media (max-width:560px){.give-dot{width:94px;height:94px;font-size:9px}}
 </style>
 </head>
 <body>
@@ -633,7 +659,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <div class="hero-in">
       <div class="hero-grid">
         <div>
-          <h1>Первая соборная мечеть Дальнего Востока</h1>
           <p>Участок выделен, разрешение получено, монолит выходит на фасадные работы. Единственный проект такого масштаба на Дальнем Востоке с полным пакетом документов.</p>
           <div class="btns">
             <a class="btn btn-ghost" href="stroitelstvo.html">Ход строительства</a>
@@ -641,92 +666,17 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <p class="hero-local" id="heroLocal"></p>
         </div>
 
-        <aside class="panel" id="donate">
-          <div class="panel-row">
-            <div>
-              <div class="panel-label">Осталось</div>
-              <div class="panel-num">217 439 411 ₽</div>
-            </div>
-            <div style="text-align:right">
-              <div class="panel-label">К сбору</div>
-              <div class="panel-num">426 350 000 ₽</div>
-            </div>
+        <div class="live">
+          <div class="live-k">Прямая трансляция</div>
+          <!-- тот же плеер, что на domvrayu.ru: трансляция с площадки -->
+          <div class="live-frame">
+            <iframe src="https://vk.com/video_ext.php?oid=-77270182&amp;id=456239327&amp;hash=c1c723b8475fef43"
+                    title="Ход строительства мечети в прямом эфире"
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                    allowfullscreen loading="lazy"></iframe>
           </div>
-          <div class="track"><div class="bar" style="width:49%"><span class="bar-tag">49%</span></div></div>
-          <div class="meta-row"><span>Собрано от общей суммы</span><span>Этапы 1–3</span></div>
-
-          <div class="goal">
-            <div class="panel-row"><span class="goal-chip">Цель на месяц</span><span class="goal-pct">24%</span></div>
-            <div class="track"><div class="bar" style="width:24%"></div></div>
-            <div class="panel-row" style="margin-top:16px">
-              <div><div class="fine" style="margin:0">Собрали</div><div class="panel-num panel-num-sm">3 671 746 ₽</div></div>
-              <div style="text-align:right"><div class="fine" style="margin:0">Необходимо</div><div class="panel-num panel-num-sm">15 000 000 ₽</div></div>
-            </div>
-          </div>
-
-          <div class="field-name" id="field-name">
-            <div class="panel-label">Ваше имя</div>
-            <input class="sum-input name-input" type="text" placeholder="Как вас записать" aria-label="Ваше имя">
-          </div>
-          <label class="check"><input type="checkbox" id="anon"><span>Анонимное пожертвование</span></label>
-
-          <div class="panel-label" style="margin-top:20px">Сумма пожертвования</div>
-          <input class="sum-input" type="text" inputmode="numeric" value="1 000" aria-label="Сумма пожертвования">
-
-          <div class="pay-mode">
-            <button class="mode mode-auto on" type="button">Автоплатёж<span class="mode-badge">♥ 202</span></button>
-            <button class="mode mode-once" type="button">Единоразовое</button>
-          </div>
-          <div class="period" id="period">
-            <label class="check"><input type="radio" name="period" checked><span>Еженедельно</span></label>
-            <label class="check"><input type="radio" name="period"><span>Ежемесячно</span></label>
-          </div>
-
-          <div class="pay-tabs">
-            <button class="ptab on" type="button">Онлайн оплата</button>
-            <button class="ptab" type="button">Расчётный счёт</button>
-          </div>
-
-          <div class="methods">
-            <button class="method on" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" fill="none" stroke="#4a4540" stroke-width="1.8"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z" fill="#4a4540"/></svg>
-              </span>СБП (QR-код)
-            </button>
-            <button class="method" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="none" stroke="#4a4540" stroke-width="1.8"/><path d="M2 10h20" stroke="#4a4540" stroke-width="1.8"/></svg>
-              </span>Картой онлайн
-            </button>
-            <button class="method" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" fill="none" stroke="#21A038" stroke-width="1.9"/><path d="M7.6 12.2l3.1 3 5.9-5.8" fill="none" stroke="#21A038" stroke-width="2.1" stroke-linecap="round"/></svg>
-              </span>SberPay
-            </button>
-            <button class="method" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#FFDD2D"/><path d="M7.4 8.2h9.2v2.5h-3.3v6.1h-2.6v-6.1H7.4z" fill="#333"/></svg>
-              </span>T-Pay
-            </button>
-            <button class="method method-wide" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 48 24" aria-hidden="true">
-                  <rect x="1" y="3" width="46" height="18" rx="3.5" fill="#fff" stroke="#d9d2c2"/>
-                  <path d="M8.4 9.1h3.1l1.5 4.1 1.5-4.1h3.1v6.4h-2v-4.2l-1.6 4.2h-2l-1.6-4.2v4.2h-2z" fill="#0F754E"/>
-                  <path d="M18.6 9.1h2.1v3.6l2.4-3.6h2.2v6.4h-2.1v-3.6l-2.4 3.6h-2.2z" fill="#0F754E"/>
-                  <path d="M26.6 9.1h4.1c1.4 0 2.3.8 2.3 2.1 0 1.3-.9 2.1-2.3 2.1h-2v2.2h-2.1zm2.1 1.6v1.1h1.5c.4 0 .6-.2.6-.55 0-.36-.2-.55-.6-.55z" fill="#0F754E"/>
-                  <path d="M34.6 15.5c2.6 0 4.4-1.3 5.2-3.6h-2.4c-.5 1-1.4 1.6-2.8 1.6z" fill="#0F754E"/>
-                  <path d="M40.1 11.2c.1-.5.15-1 .15-1.5V8.3h-2.1v1.4c0 .55-.05 1-.15 1.5z" fill="#4FAD50"/>
-                </svg>
-              </span>МИР
-            </button>
-          </div>
-
-          <label class="check check-consent"><input type="checkbox" checked><span>Я даю согласие на <a href="#contacts">обработку персональных данных</a> и условия оплаты</span></label>
-
-          <a class="btn btn-primary" href="#contacts">Внести свой вклад<span class="arrow">→</span></a>
-          <div class="fine">Способы оплаты и реквизиты для перевода подключаются платёжным сервисом. Сейчас форма показана для демонстрации и платежи не проводит.</div>
-        </aside>
+          <p class="live-n">Ход строительства мечети в прямом эфире</p>
+        </div>
       </div>
     </div>
   </section>
@@ -882,6 +832,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       </div>
     </div>
   </footer>
+  <a class="give-dot" href="https://domvrayu.ru" target="_blank" rel="noopener"
+     aria-label="Пожертвовать на сайте «Дом в раю»"><span>Пожертвовать</span></a>
 </div>
 
 <script>
@@ -972,35 +924,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   window.addEventListener('resize', syncHero);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHero);
 
-  // форма пожертвования: анонимность прячет имя, кнопки переключаются
-  var anon = document.getElementById('anon');
-  var fieldName = document.getElementById('field-name');
-  if (anon && fieldName) {
-    var syncAnon = function () { fieldName.classList.toggle('hidden', anon.checked); };
-    anon.addEventListener('change', syncAnon);
-    syncAnon();
-  }
-  var pick = function (sel, cls) {
-    var items = document.querySelectorAll(sel);
-    for (var i = 0; i < items.length; i++) {
-      items[i].addEventListener('click', function () {
-        for (var j = 0; j < items.length; j++) items[j].classList.remove(cls);
-        this.classList.add(cls);
-      });
-    }
-  };
-  pick('.amount', 'on');
-  pick('.method', 'on');
-  pick('.ptab', 'on');
-  var modes = document.querySelectorAll('.mode');
-  var period = document.getElementById('period');
-  for (var mi = 0; mi < modes.length; mi++) {
-    modes[mi].addEventListener('click', function () {
-      for (var mj = 0; mj < modes.length; mj++) modes[mj].classList.remove('on');
-      this.classList.add('on');
-      if (period) period.style.display = this.classList.contains('mode-auto') ? '' : 'none';
-    });
-  }
   var hdr = document.getElementById('hdr');
   var hero = document.getElementById('top');
   function onScroll() {
