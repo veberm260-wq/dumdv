@@ -458,6 +458,59 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .geo-zoom button{width:36px;height:36px;font-size:18px}
   .geo-zoom button:last-child{font-size:15px}
 }
+
+/* верх страницы: первый экран, полоса якорей, блок «Проект» */
+.bh{position:relative;min-height:86svh;display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;color:#FFFDF8}
+.bh-shot{position:absolute;inset:0;z-index:1;overflow:hidden}
+.bh-shot img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;
+  transform:scale(1.005);animation:bhCreep 11s cubic-bezier(.26,.6,.3,1) forwards}
+@keyframes bhCreep{to{transform:scale(1.085)}}
+.bh-veil{position:absolute;inset:0;z-index:2;
+  background:linear-gradient(to bottom,rgba(10,18,30,.46) 0%,rgba(10,18,30,.1) 26%,
+    rgba(10,18,30,.34) 50%,rgba(10,18,30,.74) 76%,rgba(14,28,47,.94) 100%)}
+.bh-in{position:relative;z-index:3;padding:clamp(28px,4vw,52px);width:100%}
+.bh h1{font-size:clamp(34px,5.4vw,74px);line-height:1.04;color:#FFFDF8;margin:0;max-width:16ch}
+.bh-sub{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(18px,2.2vw,28px);
+  line-height:1.25;color:rgba(255,253,248,.84);margin:10px 0 0}
+.bh-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,3vw,32px)}
+.bh-btns .btn-ghost{border-color:rgba(255,253,248,.42);color:#FFFDF8}
+.bh-btns .btn-ghost:hover{border-color:#FFFDF8;background:rgba(255,253,248,.1)}
+
+.bh-figs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,26px);
+  margin-top:clamp(26px,3.6vw,44px);padding-top:clamp(18px,2.4vw,26px);
+  border-top:1px solid rgba(255,253,248,.22)}
+.bh-v{font-size:clamp(22px,3.2vw,42px);font-weight:700;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:lining-nums tabular-nums}
+.bh-v small{font-size:.42em;font-weight:600;margin-left:.2em}
+.bh-k{margin-top:7px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,253,248,.68)}
+@media (max-width:680px){.bh-figs{grid-template-columns:1fr 1fr;row-gap:20px}}
+
+.bh-rail{position:sticky;top:0;z-index:40;background:var(--srf);
+  border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.bh-rail-in{max-width:1240px;margin:0 auto;padding:0 clamp(12px,2vw,28px);
+  display:flex;gap:clamp(14px,2.4vw,32px);overflow-x:auto;scrollbar-width:none}
+.bh-rail-in::-webkit-scrollbar{display:none}
+.bh-rail a{flex:none;padding:15px 2px;font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;text-decoration:none;color:var(--mut);
+  border-bottom:2px solid transparent;transition:color .2s ease,border-color .2s ease}
+.bh-rail a:hover,.bh-rail a.on{color:var(--tx);border-bottom-color:var(--gold)}
+
+.bh-proekt{padding:clamp(54px,6.5vw,92px) 0 clamp(10px,2vw,20px)}
+.bh-split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,64px);align-items:start}
+@media (max-width:860px){.bh-split{grid-template-columns:1fr;gap:20px}}
+.bh-proekt h2{font-size:clamp(28px,4vw,54px);line-height:1.08;color:var(--tx);margin:12px 0 0}
+.bh-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,24px);margin-top:clamp(34px,4.4vw,58px)}
+@media (max-width:860px){.bh-cards{grid-template-columns:1fr}}
+.bh-card{background:var(--srf);border:1px solid var(--brd);border-radius:18px;padding:clamp(20px,2.4vw,30px)}
+.bh-y{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(32px,3.8vw,50px);line-height:1;
+  color:var(--gold);font-variant-numeric:lining-nums tabular-nums}
+.bh-t{font-size:15.5px;font-weight:600;margin-top:10px;color:var(--tx)}
+
+@media (prefers-reduced-motion:reduce){
+  .bh-shot img{animation:none;transform:none}
+}
 </style>
 </head>
 <body>
@@ -579,7 +632,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   </header>
 
 
-  <section class="page-head" id="top">
+  <section class="bh" id="top">
+    <div class="bh-shot"><img src="img/mechet-render.jpg" alt="Проект соборной мечети Хабаровска"></div>
+    <div class="bh-veil"></div>
     <div class="sky" aria-hidden="true">
       <div class="moon"></div>
       <div class="star" style="left:8%;top:14%"></div>
@@ -595,15 +650,73 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <div class="star" style="left:88%;top:27%;animation-delay:0.15s"></div>
       <div class="star" style="left:94%;top:17%;animation-delay:2.4s"></div>
     </div>
+
+    <div class="bh-in">
+      <h1>Соборная мечеть Хабаровска</h1>
+      <p class="bh-sub">Первая на Дальнем Востоке</p>
+
+      <div class="bh-btns">
+        <a class="btn btn-primary" href="#donate">Помочь стройке<span class="arrow">&#8594;</span></a>
+        <a class="btn btn-ghost" href="#etapy">Этапы стройки<span class="arrow">&#8594;</span></a>
+      </div>
+
+      <div class="bh-figs">
+        <div data-to="27.8" data-dec="1">
+          <div class="bh-v"><span class="n">0,0</span><small>м</small></div>
+          <div class="bh-k">Высота</div>
+        </div>
+        <div data-to="5" data-dec="0">
+          <div class="bh-v"><span class="n">0</span></div>
+          <div class="bh-k">Минаретов</div>
+        </div>
+        <div data-to="5771" data-dec="0" data-group="no">
+          <div class="bh-v"><span class="n">0</span><small>м&#178;</small></div>
+          <div class="bh-k">Участок</div>
+        </div>
+        <div data-to="53.9" data-dec="1">
+          <div class="bh-v"><span class="n">0,0</span><small>%</small></div>
+          <div class="bh-k">Собрано</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="bh-rail" aria-label="Разделы страницы">
+    <div class="bh-rail-in">
+      <a href="#proekt">Проект</a>
+      <a href="#sbor">Сбор</a>
+      <a href="#etapy">Этапы</a>
+      <a href="#geografiya">География</a>
+    </div>
+  </nav>
+
+  <section class="bh-proekt" id="proekt">
     <div class="wrap">
-      <span class="kicker">Строительство · Хабаровск</span>
-      <h1>Первая соборная мечеть Дальнего Востока</h1>
-      <p class="lead">Участок выделен, разрешение на строительство получено, монолит выходит на фасадные работы. Это единственный проект такого масштаба на Дальнем Востоке с полным пакетом разрешительных документов.</p>
-      <p class="lead">Проект разбит на шесть этапов. Каждый этап закрывается полностью, прежде чем начинается следующий: так община видит, за что именно собираются средства, и получает отчёт по каждому закрытому этапу.</p>
-      <figure class="build-shot">
-        <img src="img/mechet-render.jpg" alt="Проект первой соборной мечети Дальнего Востока в Хабаровске">
-        <figcaption>Проектное решение первой соборной мечети Дальнего Востока, Хабаровск</figcaption>
-      </figure>
+      <div class="bh-split">
+        <div>
+          <span class="kicker">Проект</span>
+          <h2>Первая соборная мечеть<br>на Дальнем Востоке</h2>
+        </div>
+        <div>
+          <p class="lead">Высота здания 27,8 метра, пять минаретов, участок 5771 м&#178;. Участок выделен, разрешение на строительство получено, монолит выходит на фасадные работы.</p>
+          <p class="lead" style="margin-top:16px">Проект разбит на шесть этапов. Каждый этап закрывается полностью, прежде чем начинается следующий: так община видит, за что именно собираются средства, и получает отчёт по каждому закрытому этапу.</p>
+        </div>
+      </div>
+
+      <div class="bh-cards">
+        <div class="bh-card">
+          <div class="bh-y">2022</div>
+          <div class="bh-t">Разрешение получено</div>
+        </div>
+        <div class="bh-card">
+          <div class="bh-y">2024</div>
+          <div class="bh-t">Начало стройки</div>
+        </div>
+        <div class="bh-card">
+          <div class="bh-y">3 из 6</div>
+          <div class="bh-t">Этапов закрыто</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1471,6 +1584,72 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     fail('Не удалось загрузить данные карты.');
     noteEl.textContent = '';
   });
+})();
+
+// цифры первого экрана набегают от нуля
+(function () {
+  var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var figs = document.querySelectorAll('.bh-figs [data-to]');
+  if (!figs.length) return;
+
+  function ruNum(v, dec, group) {
+    var s = v.toFixed(dec).replace('.', ',');
+    return group ? s.replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') : s;
+  }
+  function run(el) {
+    var to = parseFloat(el.getAttribute('data-to'));
+    var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+    var group = el.getAttribute('data-group') !== 'no';
+    var slot = el.querySelector('.n');
+    function put(v) { slot.textContent = ruNum(v, dec, group); }
+    if (slow) { put(to); return; }
+    var dur = 1500, t0 = null, done = false;
+    function finish() { if (!done) { done = true; put(to); } }
+    function step(t) {
+      if (done) return;
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      if (p < 1) { put(to * (1 - Math.pow(1 - p, 3))); requestAnimationFrame(step); }
+      else finish();
+    }
+    requestAnimationFrame(step);
+    // в фоновой вкладке кадры не идут и цифры застыли бы на нуле
+    setTimeout(finish, dur + 500);
+  }
+  for (var i = 0; i < figs.length; i++) run(figs[i]);
+})();
+
+// подсветка текущего раздела в липкой полосе
+(function () {
+  var links = [].slice.call(document.querySelectorAll('.bh-rail a'));
+  if (!links.length) return;
+  // полоса липнет под шапку сайта: её высота меняется с шириной окна,
+  // поэтому считаем отступ, а не задаём константой
+  var rail = document.querySelector('.bh-rail');
+  var hdr = document.querySelector('.hdr');
+  function fit() {
+    if (!rail || !hdr) return;
+    // шапка липкая: считаем её положение в прилипшем виде, а не текущее,
+    // иначе в начале страницы отступ выходит вдвое больше нужного
+    var stick = parseFloat(getComputedStyle(hdr).top) || 0;
+    var h = hdr.getBoundingClientRect().height;
+    rail.style.top = Math.max(0, Math.round(stick + h + 4)) + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  var zones = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function sync() {
+    var best = -1, mid = window.innerHeight * 0.4;
+    zones.forEach(function (z, n) {
+      if (!z) return;
+      if (z.getBoundingClientRect().top <= mid) best = n;
+    });
+    links.forEach(function (a, n) { a.classList.toggle('on', n === best); });
+  }
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
 })();
 </script>
 </body>
