@@ -498,6 +498,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .bh-rail a:hover,.bh-rail a.on{color:var(--tx);border-bottom-color:var(--gold)}
 
 .bh-proekt{padding:clamp(54px,6.5vw,92px) 0 clamp(10px,2vw,20px)}
+/* якоря: над разделом висят шапка и полоса, иначе клик прячет его верх */
+#proekt,#etapy,#geografiya{scroll-margin-top:clamp(150px,18vw,170px)}
 .bh-split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,64px);align-items:start}
 @media (max-width:860px){.bh-split{grid-template-columns:1fr;gap:20px}}
 .bh-proekt h2{font-size:clamp(28px,4vw,54px);line-height:1.08;color:var(--tx);margin:12px 0 0}
@@ -656,7 +658,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <p class="bh-sub">Первая на Дальнем Востоке</p>
 
       <div class="bh-btns">
-        <a class="btn btn-primary" href="#donate">Помочь стройке<span class="arrow">&#8594;</span></a>
+        <a class="btn btn-primary" href="index.html#donate">Помочь стройке<span class="arrow">&#8594;</span></a>
         <a class="btn btn-ghost" href="#etapy">Этапы стройки<span class="arrow">&#8594;</span></a>
       </div>
 
@@ -684,7 +686,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   <nav class="bh-rail" aria-label="Разделы страницы">
     <div class="bh-rail-in">
       <a href="#proekt">Проект</a>
-      <a href="#sbor">Сбор</a>
       <a href="#etapy">Этапы</a>
       <a href="#geografiya">География</a>
     </div>
@@ -720,112 +721,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
   </section>
 
-  <section class="money" id="sbor">
-    <div class="wrap">
-      <div class="money-grid">
-        <div>
-          <span class="kicker">Сбор средств</span>
-          <h2>Собрано 208 910 589 ₽ из 426 350 000 ₽</h2>
-          <p class="lead">Сумма закрывает этапы 1–3 полностью и частично четвёртый. Осталось собрать 217 439 411 ₽. Цель на текущий месяц — 15 000 000 ₽, из них собрано 3 671 746 ₽, это 24% месячного плана.</p>
-          <div class="facts">
-            <div class="fact"><div class="fact-k">Собрано</div><div class="fact-v">208 910 589 ₽</div></div>
-            <div class="fact"><div class="fact-k">Осталось</div><div class="fact-v">217 439 411 ₽</div></div>
-            <div class="fact"><div class="fact-k">Закрыто этапов</div><div class="fact-v">3 из 6</div></div>
-            <div class="fact"><div class="fact-k">Идёт сейчас</div><div class="fact-v">Этап 4 — монолит и фасад</div></div>
-            <div class="fact"><div class="fact-k">Площадь</div><div class="fact-v">Уточняется по проекту</div></div>
-            <div class="fact"><div class="fact-k">Отчётность</div><div class="fact-v">По каждому закрытому этапу</div></div>
-          </div>
-        </div>
-
-        <aside class="panel" id="donate">
-          <div class="panel-row">
-            <div>
-              <div class="panel-label">Осталось</div>
-              <div class="panel-num">217 439 411 ₽</div>
-            </div>
-            <div style="text-align:right">
-              <div class="panel-label">К сбору</div>
-              <div class="panel-num">426 350 000 ₽</div>
-            </div>
-          </div>
-          <div class="track"><div class="bar" style="width:49%"><span class="bar-tag">49%</span></div></div>
-          <div class="meta-row"><span>Собрано от общей суммы</span><span>Этапы 1–3</span></div>
-
-          <div class="goal">
-            <div class="panel-row"><span class="goal-chip">Цель на месяц</span><span class="goal-pct">24%</span></div>
-            <div class="track"><div class="bar" style="width:24%"></div></div>
-            <div class="panel-row" style="margin-top:16px">
-              <div><div class="fine" style="margin:0">Собрали</div><div class="panel-num panel-num-sm">3 671 746 ₽</div></div>
-              <div style="text-align:right"><div class="fine" style="margin:0">Необходимо</div><div class="panel-num panel-num-sm">15 000 000 ₽</div></div>
-            </div>
-          </div>
-
-          <div class="field-name" id="field-name">
-            <div class="panel-label">Ваше имя</div>
-            <input class="sum-input name-input" type="text" placeholder="Как вас записать" aria-label="Ваше имя">
-          </div>
-          <label class="check"><input type="checkbox" id="anon"><span>Анонимное пожертвование</span></label>
-
-          <div class="panel-label" style="margin-top:20px">Сумма пожертвования</div>
-          <input class="sum-input" type="text" inputmode="numeric" value="1 000" aria-label="Сумма пожертвования">
-
-          <div class="pay-mode">
-            <button class="mode mode-auto on" type="button">Автоплатёж<span class="mode-badge">♥ 202</span></button>
-            <button class="mode mode-once" type="button">Единоразовое</button>
-          </div>
-          <div class="period" id="period">
-            <label class="check"><input type="radio" name="period" checked><span>Еженедельно</span></label>
-            <label class="check"><input type="radio" name="period"><span>Ежемесячно</span></label>
-          </div>
-
-          <div class="pay-tabs">
-            <button class="ptab on" type="button">Онлайн оплата</button>
-            <button class="ptab" type="button">Расчётный счёт</button>
-          </div>
-
-          <div class="methods">
-            <button class="method on" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" fill="none" stroke="#4a4540" stroke-width="1.8"/><path d="M14 14h3v3h-3zM18 18h3v3h-3z" fill="#4a4540"/></svg>
-              </span>СБП (QR-код)
-            </button>
-            <button class="method" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="none" stroke="#4a4540" stroke-width="1.8"/><path d="M2 10h20" stroke="#4a4540" stroke-width="1.8"/></svg>
-              </span>Картой онлайн
-            </button>
-            <button class="method" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" fill="none" stroke="#21A038" stroke-width="1.9"/><path d="M7.6 12.2l3.1 3 5.9-5.8" fill="none" stroke="#21A038" stroke-width="2.1" stroke-linecap="round"/></svg>
-              </span>SberPay
-            </button>
-            <button class="method" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="#FFDD2D"/><path d="M7.4 8.2h9.2v2.5h-3.3v6.1h-2.6v-6.1H7.4z" fill="#333"/></svg>
-              </span>T-Pay
-            </button>
-            <button class="method method-wide" type="button">
-              <span class="mi">
-                <svg viewBox="0 0 48 24" aria-hidden="true">
-                  <rect x="1" y="3" width="46" height="18" rx="3.5" fill="#fff" stroke="#d9d2c2"/>
-                  <path d="M8.4 9.1h3.1l1.5 4.1 1.5-4.1h3.1v6.4h-2v-4.2l-1.6 4.2h-2l-1.6-4.2v4.2h-2z" fill="#0F754E"/>
-                  <path d="M18.6 9.1h2.1v3.6l2.4-3.6h2.2v6.4h-2.1v-3.6l-2.4 3.6h-2.2z" fill="#0F754E"/>
-                  <path d="M26.6 9.1h4.1c1.4 0 2.3.8 2.3 2.1 0 1.3-.9 2.1-2.3 2.1h-2v2.2h-2.1zm2.1 1.6v1.1h1.5c.4 0 .6-.2.6-.55 0-.36-.2-.55-.6-.55z" fill="#0F754E"/>
-                  <path d="M34.6 15.5c2.6 0 4.4-1.3 5.2-3.6h-2.4c-.5 1-1.4 1.6-2.8 1.6z" fill="#0F754E"/>
-                  <path d="M40.1 11.2c.1-.5.15-1 .15-1.5V8.3h-2.1v1.4c0 .55-.05 1-.15 1.5z" fill="#4FAD50"/>
-                </svg>
-              </span>МИР
-            </button>
-          </div>
-
-          <label class="check check-consent"><input type="checkbox" checked><span>Я даю согласие на <a href="index.html#contacts">обработку персональных данных</a> и условия оплаты</span></label>
-
-          <a class="btn btn-primary" href="index.html#contacts">Внести свой вклад<span class="arrow">→</span></a>
-          <div class="fine">Способы оплаты и реквизиты для перевода подключаются платёжным сервисом. Сейчас форма показана для демонстрации и платежи не проводит.</div>
-        </aside>
-      </div>
-    </div>
-  </section>
 
   <section class="plan" id="etapy">
     <div class="wrap">
@@ -1123,35 +1018,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   window.addEventListener('resize', syncHero);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHero);
 
-  // форма пожертвования: анонимность прячет имя, кнопки переключаются
-  var anon = document.getElementById('anon');
-  var fieldName = document.getElementById('field-name');
-  if (anon && fieldName) {
-    var syncAnon = function () { fieldName.classList.toggle('hidden', anon.checked); };
-    anon.addEventListener('change', syncAnon);
-    syncAnon();
-  }
-  var pick = function (sel, cls) {
-    var items = document.querySelectorAll(sel);
-    for (var i = 0; i < items.length; i++) {
-      items[i].addEventListener('click', function () {
-        for (var j = 0; j < items.length; j++) items[j].classList.remove(cls);
-        this.classList.add(cls);
-      });
-    }
-  };
-  pick('.amount', 'on');
-  pick('.method', 'on');
-  pick('.ptab', 'on');
-  var modes = document.querySelectorAll('.mode');
-  var period = document.getElementById('period');
-  for (var mi = 0; mi < modes.length; mi++) {
-    modes[mi].addEventListener('click', function () {
-      for (var mj = 0; mj < modes.length; mj++) modes[mj].classList.remove('on');
-      this.classList.add('on');
-      if (period) period.style.display = this.classList.contains('mode-auto') ? '' : 'none';
-    });
-  }
   var hdr = document.getElementById('hdr');
   function onScroll() {
     if (window.scrollY > 40) hdr.classList.add('stuck');
