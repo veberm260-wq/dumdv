@@ -141,7 +141,11 @@ img{max-width:100%}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
 .moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
-.star{position:absolute;width:4.5px;height:4.5px;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px rgba(255,255,255,.7);animation:twinkle 3.4s ease-in-out infinite}
+.star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.5);animation:twinkle 3.4s ease-in-out infinite}
+/* крестообразные лучи от звезды вместо круглого зарева */
+.star::before,.star::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.star::before{width:26px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
+.star::after{width:1.5px;height:26px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
 @keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
 .hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
 .hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
@@ -335,13 +339,23 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 <body>
 <input type="checkbox" id="night">
 <script>
+// Тема держится между страницами. Пишем и в localStorage, и в куку:
+// в приватном окне localStorage молча недоступен, и выбор бы терялся.
 (function () {
   var n = document.getElementById('night');
   if (!n) return;
-  try { if (localStorage.getItem('dumdv-theme') === 'night') n.checked = true; } catch (e) {}
-  n.addEventListener('change', function () {
-    try { localStorage.setItem('dumdv-theme', n.checked ? 'night' : 'day'); } catch (e) {}
-  });
+  var KEY = 'dumdv-theme';
+  function load() {
+    try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
+    var m = /(?:^|;\s*)dumdv-theme=(night|day)/.exec(document.cookie || '');
+    return m ? m[1] : null;
+  }
+  function save(v) {
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+    try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
+  }
+  if (load() === 'night') n.checked = true;
+  n.addEventListener('change', function () { save(n.checked ? 'night' : 'day'); });
 })();
 </script>
 <div class="page">
