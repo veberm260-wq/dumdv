@@ -43,12 +43,22 @@ img{max-width:100%}
 .strip-in{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:16px 28px;max-width:1240px;margin:0 auto}
 .strip-left{margin-right:auto;display:flex;flex-direction:column;gap:11px}
 .strip-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx)}
+.date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx);font-variant-numeric:lining-nums}
 /* джума и ссылка на расписание — единым блоком слева */
 .jumua{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;border-radius:999px;background:var(--pnl);border:1px solid rgba(185,143,34,.28)}
 #night:checked ~ .page .jumua{background:rgba(255,255,255,.07)}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold)}
+.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--gold)}
+/* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
+.clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
+.clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
+#night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
+#night:checked ~ .page .clock{background:#161a23}
+.clock-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.clock-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--tx)}
+/* двоеточие мигает раз в секунду — видно, что время живое */
+.clock-v .sep{font-style:normal;animation:tick 1s step-end infinite}
+@keyframes tick{0%,49%{opacity:1}50%,100%{opacity:.25}}
 .strip-link{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none}
 .strip-link .arr{display:inline-grid;place-items:center;width:20px;height:20px;flex:none;border-radius:50%;border:1px solid var(--brd);transition:background .2s ease,border-color .2s ease}
 .strip-link .arr svg{display:block;width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:1.8}
@@ -66,7 +76,7 @@ img{max-width:100%}
 #night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
 #night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
 .prayer-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
-.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.01em;color:var(--tx)}
+.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;letter-spacing:.01em;color:var(--tx)}
 @media (max-width:900px){
   .strip-in{gap:18px}
   .prayer{min-width:0;padding:8px 10px}
@@ -103,7 +113,7 @@ img{max-width:100%}
 .hdr.stuck .hdr-link.active-link::after{bottom:-16px}
 #night:checked ~ .page .hdr-link.active-link::after{background:#E2C169}
 #night:checked ~ .page .hdr-link{color:#f3ecdd}
-.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:lining-nums tabular-nums}
 .dots{display:inline-flex;align-items:center;gap:4px}
 .dots i{width:5px;height:5px;border-radius:50%;background:#43340D;display:block}
 #night:checked ~ .page .dots i{background:#f3ecdd}
@@ -172,7 +182,7 @@ img{max-width:100%}
 .goal .track{margin-top:10px;height:10px}
 .goal .bar{background:var(--goldsoft)}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.amount{border:1px solid var(--brd);border-radius:999px;padding:7px 4px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
+.amount{border:1px solid var(--brd);border-radius:999px;padding:7px 4px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:15px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums}
 .amount.on{background:var(--gold);border-color:var(--gold);color:#fff}
 .panel .btn{width:100%;justify-content:center;margin-top:20px;padding:18px}
 .fine{font-size:12px;line-height:1.6;color:var(--mut);margin-top:14px}
@@ -188,8 +198,8 @@ img{max-width:100%}
 .stage.active .status{color:var(--gold)}
 .stage-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx)}
 .stage-money-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
-.stage-money .sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums}
-.stage-money .pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--mut);font-variant-numeric:tabular-nums}
+.stage-money .sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums}
+.stage-money .pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--mut);font-variant-numeric:lining-nums tabular-nums}
 .stage.active .pct{color:var(--gold)}
 .stage.done .bar{background:var(--goldsoft)}
 .stage.next .bar{background:transparent}
@@ -235,6 +245,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 @media (prefers-reduced-motion:reduce){
   .social:hover::after{animation:none;opacity:.35;background-position:50% 0}
   .social:hover{transform:none}
+  .clock-v .sep{animation:none}
 }
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
 .legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
@@ -337,7 +348,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .check input{width:15px;height:15px;flex:none;margin:1px 0 0;accent-color:#B98F22;cursor:pointer}
 .check-consent{font-size:10.5px;color:var(--mut);margin-top:11px}
 .check-week{margin-top:10px}
-.sum-input{width:100%;margin-top:7px;padding:10px 12px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-variant-numeric:tabular-nums}
+.sum-input{width:100%;margin-top:7px;padding:10px 12px;border:1px solid var(--brd);border-radius:11px;background:var(--srf);color:var(--tx);font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-variant-numeric:lining-nums tabular-nums}
 .sum-input:focus{outline:none;border-color:#B98F22}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
 .amount{cursor:pointer;background:var(--srf);transition:background .2s ease,border-color .2s ease,color .2s ease}
@@ -393,7 +404,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .geo-tip{position:absolute;left:0;top:0;z-index:4;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(5px);transition:opacity .14s ease,transform .14s ease;background:var(--tx);color:var(--pg);font-size:12.5px;line-height:1.45;padding:8px 11px;border-radius:9px;max-width:230px;box-shadow:0 10px 26px rgba(0,0,0,.24)}
 .geo-tip.on{opacity:1;visibility:visible;transform:translateY(0)}
 .geo-tip b{display:block;font-weight:600;font-size:13px;margin-bottom:2px}
-.geo-tip .v{font-variant-numeric:tabular-nums}
+.geo-tip .v{font-variant-numeric:lining-nums tabular-nums}
 
 .geo-plot{position:relative;min-width:0}
 .geo-canvas svg{touch-action:pan-y}
@@ -408,7 +419,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .geo-pin{position:absolute;display:flex;align-items:center;gap:5px;transform:translateY(-50%)}
 .geo-pin.to-left{flex-direction:row-reverse}
 .geo-pin i{width:7px;height:7px;flex:none;border-radius:50%;background:#87680F;box-shadow:0 0 0 2px var(--srf)}
-.geo-pin b{font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-weight:600;line-height:1;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--tx);background:var(--srf);border:1px solid var(--brd);border-radius:999px;padding:3px 8px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.geo-pin b{font-family:"Cormorant Garamond",Georgia,serif;font-size:13px;font-weight:600;line-height:1;white-space:nowrap;font-variant-numeric:lining-nums tabular-nums;color:var(--tx);background:var(--srf);border:1px solid var(--brd);border-radius:999px;padding:3px 8px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
 
 .geo-legend{display:flex;flex-wrap:wrap;align-items:center;gap:7px 14px;margin-top:14px;font-size:11px;color:var(--mut)}
 .geo-step{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
@@ -422,7 +433,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .geo-swatch{width:10px;height:10px;border-radius:3px;align-self:center;background:var(--geo-blank)}
 .geo-name{font-size:14px;line-height:1.35;color:var(--tx);min-width:0}
 .geo-donors{display:block;font-size:11.5px;color:var(--mut);margin-top:3px}
-.geo-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;font-weight:600;color:var(--tx);font-variant-numeric:tabular-nums;white-space:nowrap}
+.geo-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 .geo-note{margin-top:26px}
 
 @media (max-width:1080px){
@@ -452,6 +463,16 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
           <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
+          <span class="clocks" id="clocks">
+            <span class="clock" title="Время в Москве">
+              <span class="clock-k">Мск</span>
+              <span class="clock-v"><span data-h>--</span><i class="sep">:</i><span data-m>--</span></span>
+            </span>
+            <span class="clock" title="Время в Хабаровске">
+              <span class="clock-k">Хбр</span>
+              <span class="clock-v"><span data-h>--</span><i class="sep">:</i><span data-m>--</span></span>
+            </span>
+          </span>
           <a class="strip-link" href="namaz.html">Полное расписание<span class="arr"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9M7 2.5 10.5 6 7 9.5"/></svg></span></a>
         </div>
       </div>
@@ -844,6 +865,43 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 </div>
 
 <script>
+// живые часы: Москва и Хабаровск
+(function () {
+  var box = document.getElementById('clocks');
+  if (!box) return;
+  var zones = ['Europe/Moscow', 'Asia/Vladivostok'];   // Хабаровск — UTC+10
+  var slots = [];
+  var cells = box.querySelectorAll('.clock-v');
+  for (var i = 0; i < cells.length; i++) {
+    slots.push({
+      tz: zones[i],
+      h: cells[i].querySelector('[data-h]'),
+      m: cells[i].querySelector('[data-m]'),
+      was: ''
+    });
+  }
+  function part(tz, now) {
+    try {
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(now);
+    } catch (e) { return ''; }
+  }
+  function tick() {
+    var now = new Date();
+    for (var i = 0; i < slots.length; i++) {
+      var s = slots[i], v = part(s.tz, now);
+      if (!v || v === s.was) continue;        // пишем только когда минута сменилась
+      s.was = v;
+      var hm = v.split(':');
+      s.h.textContent = hm[0];
+      s.m.textContent = hm[1];
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
 (function () {
   var today = document.getElementById('today');
   var hijriEl = document.getElementById('hijri');
