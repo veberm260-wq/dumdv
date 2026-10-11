@@ -15,25 +15,92 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0
 a{color:#8a6f2e}
 a:hover{color:#6f5822}
 img{max-width:100%}
-#night,#fsmenu{position:absolute;opacity:0;pointer-events:none}
+#season,#fsmenu{position:absolute;opacity:0;pointer-events:none}
 
 .page{
-  --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
-  --brd:rgba(32,30,29,.14);--gold:#8a6f2e;--goldsoft:#c8a94f;--track:#e9dcc0;
-  --strip:#ffffff;--heroimg:.5;
-  --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
+  /* ОСЕНЬ — тёплый кремовый лист, охра, каштановый текст */
+  --pg:#FAF2E4;--srf:#FFFBF3;--pnl:#F4E7D2;--tx:#2A2018;--mut:#6B5847;
+  --brd:rgba(42,32,24,.15);--gold:#9A6B22;--goldsoft:#CE9A45;--track:#E7D5B6;
+  --strip:#FFFBF3;--heroimg:1;
+  --veil:linear-gradient(100deg,rgba(250,242,228,.96) 0%,rgba(250,242,228,.85) 34%,rgba(250,242,228,.3) 64%,rgba(250,242,228,0) 100%);
   background:var(--pg);color:var(--tx)
 }
-#night:checked ~ .page{
-  --pg:#12141c;--srf:#191d28;--pnl:#161a23;--tx:#f3ecdd;--mut:rgba(243,236,221,.72);
-  --brd:rgba(243,236,221,.18);--gold:#d9b45c;--goldsoft:#e9d08a;--track:rgba(243,236,221,.16);
-  --strip:#191d28;--heroimg:.3;
-  --veil:linear-gradient(100deg,rgba(18,20,28,.95) 0%,rgba(18,20,28,.82) 34%,rgba(18,20,28,.42) 64%,rgba(18,20,28,.2) 100%)
+#season:checked ~ .page{
+  /* ЗИМА — снежный свет, лёд в панелях, холодное золото */
+  --pg:#EDF3FA;--srf:#FFFFFF;--pnl:#E2ECF6;--tx:#152436;--mut:#53647C;
+  --brd:rgba(21,36,54,.14);--gold:#7C6B35;--goldsoft:#BCA765;--track:#D6E3EF;
+  --strip:#FFFFFF;--heroimg:.95;
+  --veil:linear-gradient(100deg,rgba(237,243,250,.96) 0%,rgba(237,243,250,.86) 34%,rgba(237,243,250,.32) 64%,rgba(237,243,250,0) 100%)
 }
-#night:checked ~ .page .sky{display:block}
-#night:checked ~ .page .theme-day{display:none}
-.theme-night{display:none}
-#night:checked ~ .page .theme-night{display:inline}
+/* полоса намазов: осенью тёплая, зимой с ледяным отливом */
+#season:not(:checked) ~ .page .strip{background:linear-gradient(180deg,#FFFBF3,#FAEFDC)}
+/* зимой воздух над страницей холоднее */
+
+/* ── небо: осенью летят листья, зимой идёт снег ────────────────── */
+.sky{display:block}
+.moon{display:none}
+/* луна возвращается, когда в Хабаровске ночь */
+html.is-hero-dark #season ~ .page .moon{display:block}
+
+/* ОСЕНЬ: лист кружится, пока падает */
+#season:not(:checked) ~ .page .star{
+  width:10px;height:10px;border-radius:66% 0 66% 0;background:#BE761F;
+  box-shadow:0 1px 3px rgba(62,36,10,.22);animation:leafFall 15s linear infinite}
+#season:not(:checked) ~ .page .star::before,
+#season:not(:checked) ~ .page .star::after{display:none}
+#season:not(:checked) ~ .page .star:nth-child(3n){background:#A5451A;width:8px;height:8px;animation-duration:19s}
+#season:not(:checked) ~ .page .star:nth-child(4n){background:#8E6A1C;width:12px;height:12px;animation-duration:12s}
+#season:not(:checked) ~ .page .star:nth-child(5n){background:#C9A139;animation-duration:22s}
+#season:not(:checked) ~ .page .sky::after{
+  background:radial-gradient(circle at 76% 18%,rgba(226,160,60,.18),rgba(226,160,60,.06) 42%,transparent 70%)}
+@keyframes leafFall{
+  0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0}
+  9%{opacity:.92}
+  40%{transform:translateY(14vh) translateX(30px) rotate(150deg)}
+  70%{transform:translateY(36vh) translateX(-16px) rotate(290deg)}
+  88%{opacity:.78}
+  100%{transform:translateY(64vh) translateX(18px) rotate(430deg);opacity:0}
+}
+
+/* ЗИМА: снежинка с голубым контуром — видна и на снимке, и на светлом фоне */
+#season:checked ~ .page .star{
+  width:8px;height:8px;background:#fff;animation:snowFall 14s linear infinite;
+  box-shadow:0 0 0 1.5px rgba(108,158,208,.6),0 2px 6px rgba(28,56,96,.28)}
+#season:checked ~ .page .star::before{width:30px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(126,176,222,.85) 50%,transparent)}
+#season:checked ~ .page .star::after{width:2px;height:30px;
+  background:linear-gradient(180deg,transparent,rgba(126,176,222,.85) 50%,transparent)}
+#season:checked ~ .page .star:nth-child(3n){animation-duration:18s;width:6px;height:6px}
+#season:checked ~ .page .star:nth-child(4n){animation-duration:11s;width:11px;height:11px}
+#season:checked ~ .page .star:nth-child(5n){animation-duration:23s}
+#season:checked ~ .page .sky::after{
+  background:radial-gradient(circle at 74% 16%,rgba(206,228,250,.34),rgba(206,228,250,.1) 44%,transparent 72%)}
+@keyframes snowFall{
+  0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0}
+  10%{opacity:.95}
+  45%{transform:translateY(18vh) translateX(26px)}
+  75%{transform:translateY(40vh) translateX(-14px)}
+  88%{opacity:.8}
+  100%{transform:translateY(64vh) translateX(16px) rotate(90deg);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){.sky .star{animation:none;opacity:.75}}
+
+/* иконка переключателя: лист или снежинка */
+#season:checked ~ .page .theme-autumn{display:none}
+.theme-winter{display:none}
+#season:checked ~ .page .theme-winter{display:inline}
+
+/* зимой тёплое золото обводок уходит в холодную сталь */
+#season:checked ~ .page .hdr-in{background:rgba(255,255,255,.88);border-color:rgba(86,124,166,.22)}
+#season:checked ~ .page .hdr.stuck .hdr-in{box-shadow:0 14px 34px rgba(24,44,70,.14)}
+#season:checked ~ .page .fs{background:#F6FAFF}
+#season:checked ~ .page .jumua,
+#season:checked ~ .page .prayers,
+#season:checked ~ .page .theme-toggle{border-color:rgba(86,124,166,.3)}
+#season:checked ~ .page .clocks{background:rgba(86,124,166,.3);border-color:rgba(86,124,166,.3)}
+#season:checked ~ .page .prayer.is-next{border-color:rgba(124,107,53,.45);box-shadow:0 3px 12px rgba(40,70,110,.12)}
+#season:checked ~ .page .dots i{background:#2C3F56}
+#season:checked ~ .page .theme-toggle:hover{border-color:#5E86AE;color:#2F5A80}
 
 .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
 .kicker{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
@@ -46,14 +113,11 @@ img{max-width:100%}
 .date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx);font-variant-numeric:lining-nums}
 /* джума и ссылка на расписание — единым блоком слева */
 .jumua{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;border-radius:999px;background:var(--pnl);border:1px solid rgba(185,143,34,.28)}
-#night:checked ~ .page .jumua{background:rgba(255,255,255,.07)}
 .jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--gold)}
 /* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
 .clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
 .clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
-#night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
-#night:checked ~ .page .clock{background:#161a23}
 .clock-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
 .clock-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--tx)}
 /* двоеточие мигает раз в секунду — видно, что время живое */
@@ -67,14 +131,11 @@ img{max-width:100%}
 .strip-link:hover .arr svg{stroke:#fff}
 /* времена намазов */
 .prayers{display:flex;gap:4px;flex-wrap:wrap;align-items:stretch;padding:4px;border-radius:16px;background:var(--pnl);border:1px solid rgba(185,143,34,.2)}
-#night:checked ~ .page .prayers{background:rgba(255,255,255,.05)}
 .prayer{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:78px;padding:9px 14px;border-radius:12px;border:1px solid transparent;transition:background .25s ease,border-color .25s ease}
 .prayer + .prayer::before{content:"";position:absolute;left:-2px;top:22%;bottom:22%;width:1px;background:var(--brd)}
 .prayer.is-next{background:var(--srf);border-color:rgba(185,143,34,.5);box-shadow:0 3px 12px rgba(185,143,34,.16)}
 .prayer.is-next::before,.prayer.is-next + .prayer::before{opacity:0}
 .prayer.is-next .prayer-k,.prayer.is-next .prayer-v{color:#87680F}
-#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
-#night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
 .prayer-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
 .prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;letter-spacing:.01em;color:var(--tx)}
 @media (max-width:900px){
@@ -86,10 +147,8 @@ img{max-width:100%}
 /* шапка */
 .hdr{position:sticky;top:18px;z-index:50;padding:0 28px;transition:top .25s ease,padding .25s ease}
 .hdr-in{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:nowrap;white-space:nowrap;padding:16px 20px;background:rgba(255,253,247,.86);backdrop-filter:blur(10px);border:1px solid rgba(185,143,34,.18);transition:background .25s ease,box-shadow .25s ease,padding .25s ease,max-width .25s ease}
-#night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
 .hdr.stuck{top:12px}
 .hdr.stuck .hdr-in{background:#fff;box-shadow:0 14px 34px rgba(32,30,29,.14)}
-#night:checked ~ .page .hdr.stuck .hdr-in{background:#191d28}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;margin-right:auto;flex:none}
 .brand-badge{width:48px;height:48px;flex:none;border-radius:50%;background:var(--pnl);border:1.5px solid #B98F22;display:grid;place-items:center}
 .mark{width:30px;height:30px;fill:#B98F22}
@@ -99,24 +158,18 @@ img{max-width:100%}
 .hdr-nav{display:flex;align-items:center;gap:13px;flex-wrap:nowrap;align-self:stretch}
 .hdr-nav a{position:relative;display:flex;align-items:center;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8a7f6a;text-decoration:none}
 .hdr-nav a:hover{color:#43340D}
-#night:checked ~ .page .hdr-nav a{color:rgba(243,236,221,.62)}
-#night:checked ~ .page .hdr-nav a:hover,#night:checked ~ .page .hdr-nav a.active{color:#f3ecdd}
 .hdr-nav a.active{color:#201e1d}
 .hdr-nav a.active::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
 .hdr.stuck .hdr-nav a.active::after{bottom:-16px}
-#night:checked ~ .page .hdr-nav a.active::after{background:#E2C169}
 .hdr-right{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;flex:none}
 .hdr-link{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#43340D;text-decoration:none;cursor:pointer}
 .hdr-link:hover{color:#87680F}
 .hdr-link.active-link{color:#201e1d;position:relative}
 .hdr-link.active-link::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
 .hdr.stuck .hdr-link.active-link::after{bottom:-16px}
-#night:checked ~ .page .hdr-link.active-link::after{background:#E2C169}
-#night:checked ~ .page .hdr-link{color:#f3ecdd}
 .badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:lining-nums tabular-nums}
 .dots{display:inline-flex;align-items:center;gap:4px}
 .dots i{width:5px;height:5px;border-radius:50%;background:#43340D;display:block}
-#night:checked ~ .page .dots i{background:#f3ecdd}
 .dots.close i:first-child{transform:rotate(45deg)}
 .hdr-cta{padding:12px 14px 12px 18px;font-size:10.5px;letter-spacing:.08em;background:#B98F22}
 .hdr-cta .arrow{width:22px;height:22px;font-size:12px}
@@ -124,7 +177,6 @@ img{max-width:100%}
 
 /* полноэкранное меню */
 .fs{display:none;position:fixed;inset:0;z-index:60;background:#FFFDF7;overflow:auto}
-#night:checked ~ .page .fs{background:#12141c}
 #fsmenu:checked ~ .page .fs{display:block}
 .fs-in{max-width:1240px;margin:0 auto;padding:34px 28px 80px}
 .fs-top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:34px;border-bottom:1px solid var(--brd)}
@@ -137,7 +189,7 @@ img{max-width:100%}
 .hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%;opacity:var(--heroimg);filter:saturate(.62) contrast(.92)}
 .hero-veil{position:absolute;inset:0;background:var(--veil)}
-.sky{display:none;position:absolute;inset:0;pointer-events:none}
+.sky{position:absolute;inset:0;pointer-events:none}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
 .moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
@@ -262,12 +314,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .theme-toggle:hover{border-color:#B98F22;color:#87680F}
 .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* светлая тема — луна (нажать, чтобы стемнело), тёмная — солнце */
-.theme-toggle .theme-day{display:block}
-.theme-toggle .theme-night{display:none}
-#night:checked ~ .page .theme-toggle .theme-day{display:none}
-#night:checked ~ .page .theme-toggle .theme-night{display:block}
-#night:checked ~ .page .theme-toggle{background:rgba(255,255,255,.07);border-color:rgba(226,193,105,.32)}
-#night:checked ~ .page .theme-toggle:hover{border-color:#E2C169;color:#E2C169}
+.theme-toggle .theme-autumn{display:block}
+.theme-toggle .theme-winter{display:none}
+#season:checked ~ .page .theme-toggle .theme-autumn{display:none}
+#season:checked ~ .page .theme-toggle .theme-winter{display:block}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* шапка: одна строка на десктопе, на узких экранах разделы переносятся под логотип */
@@ -341,25 +391,25 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 </style>
 </head>
 <body>
-<input type="checkbox" id="night">
+<input type="checkbox" id="season">
 <script>
 // Тема держится между страницами. Пишем и в localStorage, и в куку:
 // в приватном окне localStorage молча недоступен, и выбор бы терялся.
 (function () {
-  var n = document.getElementById('night');
+  var n = document.getElementById('season');
   if (!n) return;
   var KEY = 'dumdv-theme';
   function load() {
     try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
-    var m = /(?:^|;\s*)dumdv-theme=(night|day)/.exec(document.cookie || '');
+    var m = /(?:^|;\s*)dumdv-theme=(winter|autumn)/.exec(document.cookie || '');
     return m ? m[1] : null;
   }
   function save(v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
     try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
   }
-  if (load() === 'night') n.checked = true;
-  n.addEventListener('change', function () { save(n.checked ? 'night' : 'day'); });
+  if (load() === 'winter') n.checked = true;
+  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'autumn'); });
 })();
 </script>
 <div class="page">
@@ -391,10 +441,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
-      <label class="theme-toggle" for="night" title="Переключить тему">
-        <span class="vh">Переключить тему</span>
-        <svg class="theme-day" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.2A8.6 8.6 0 1 1 10.8 3.5a6.8 6.8 0 0 0 9.7 9.7z"/></svg>
-        <svg class="theme-night" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M4.3 4.3l1.5 1.5M18.2 18.2l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.3 19.7l1.5-1.5M18.2 5.8l1.5-1.5"/></svg>
+      <label class="theme-toggle" for="season" title="Осень или зима">
+        <span class="vh">Сменить время года</span>
+        <svg class="theme-autumn" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-7.5"/><path d="M12 13.5c0-4.6 3.1-8.5 8-9.5.6 4.4-1.1 8.3-4.6 9.9-1.1.5-2.3.5-3.4-.4z"/><path d="M12 16.5c-.5-3.4-2.7-6-6.1-6.7-.4 3.2.9 6 3.5 7.1.9.4 1.8.3 2.6-.4z"/></svg>
+        <svg class="theme-winter" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2 3.8 16.8"/><path d="M12 6.2 9.8 4.3M12 6.2l2.2-1.9M12 17.8l-2.2 1.9M12 17.8l2.2 1.9"/><path d="m6.9 9.1-2.8-.4M6.9 9.1 5.6 6.6M17.1 14.9l2.8.4M17.1 14.9l1.3 2.5"/><path d="m6.9 14.9-1.3 2.5M6.9 14.9l-2.8.4M17.1 9.1l1.3-2.5M17.1 9.1l2.8-.4"/></svg>
       </label>
     </div>
   </div>
@@ -462,18 +512,32 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   <section class="page-head" id="top">
     <div class="sky" aria-hidden="true">
       <div class="moon"></div>
-      <div class="star" style="left:8%;top:14%"></div>
-      <div class="star" style="left:17%;top:30%;animation-delay:0.6s"></div>
-      <div class="star" style="left:25%;top:9%;animation-delay:1.2s"></div>
-      <div class="star" style="left:33%;top:24%;animation-delay:0.3s"></div>
-      <div class="star" style="left:41%;top:38%;animation-delay:1.6s"></div>
-      <div class="star" style="left:49%;top:12%;animation-delay:0.9s"></div>
-      <div class="star" style="left:57%;top:28%;animation-delay:2.1s"></div>
-      <div class="star" style="left:64%;top:19%;animation-delay:0.45s"></div>
-      <div class="star" style="left:72%;top:35%;animation-delay:1.35s"></div>
-      <div class="star" style="left:80%;top:11%;animation-delay:1.8s"></div>
-      <div class="star" style="left:88%;top:27%;animation-delay:0.15s"></div>
-      <div class="star" style="left:94%;top:17%;animation-delay:2.4s"></div>
+      <div class="star" style="left:1.5%;top:10.3%;animation-delay:-14.3s"></div>
+      <div class="star" style="left:4.5%;top:26.5%;animation-delay:-8.0s"></div>
+      <div class="star" style="left:8.3%;top:25.3%;animation-delay:-0.8s"></div>
+      <div class="star" style="left:13.3%;top:6.9%;animation-delay:-2.0s"></div>
+      <div class="star" style="left:17.1%;top:38.7%;animation-delay:-2.7s"></div>
+      <div class="star" style="left:20.3%;top:30.4%;animation-delay:-20.8s"></div>
+      <div class="star" style="left:25.3%;top:20.7%;animation-delay:-21.5s"></div>
+      <div class="star" style="left:27.4%;top:40.1%;animation-delay:-6.4s"></div>
+      <div class="star" style="left:31.6%;top:8.9%;animation-delay:-6.8s"></div>
+      <div class="star" style="left:37.6%;top:11.6%;animation-delay:-12.8s"></div>
+      <div class="star" style="left:40.8%;top:19.6%;animation-delay:-12.1s"></div>
+      <div class="star" style="left:42.8%;top:6.5%;animation-delay:-4.5s"></div>
+      <div class="star" style="left:48.7%;top:22.0%;animation-delay:-6.9s"></div>
+      <div class="star" style="left:52.2%;top:23.0%;animation-delay:-6.6s"></div>
+      <div class="star" style="left:56.7%;top:33.4%;animation-delay:-5.4s"></div>
+      <div class="star" style="left:59.8%;top:26.1%;animation-delay:-19.3s"></div>
+      <div class="star" style="left:64.2%;top:16.1%;animation-delay:-21.6s"></div>
+      <div class="star" style="left:66.1%;top:21.6%;animation-delay:-16.7s"></div>
+      <div class="star" style="left:70.0%;top:24.5%;animation-delay:-0.9s"></div>
+      <div class="star" style="left:75.5%;top:36.1%;animation-delay:-12.6s"></div>
+      <div class="star" style="left:80.0%;top:17.2%;animation-delay:-15.3s"></div>
+      <div class="star" style="left:82.9%;top:28.4%;animation-delay:-10.0s"></div>
+      <div class="star" style="left:87.6%;top:43.7%;animation-delay:-10.4s"></div>
+      <div class="star" style="left:90.8%;top:6.5%;animation-delay:-15.4s"></div>
+      <div class="star" style="left:94.6%;top:45.7%;animation-delay:-18.1s"></div>
+      <div class="star" style="left:97.0%;top:20.2%;animation-delay:-14.7s"></div>
     </div>
     <div class="wrap">
       <span class="kicker">Об организации</span>
@@ -705,7 +769,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     try {
       var parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(now);
       var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parseInt(parts[i].value, 10); return 0; };
-      return get('day') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
+      return get('autumn') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
     } catch (e) { return ''; }
   }
   // секунды от полуночи по Хабаровску
