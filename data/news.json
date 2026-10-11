@@ -1,0 +1,138 @@
+{
+ "source": "https://dumdv.ru/wp-json/wp/v2/posts",
+ "fetched": "2026-10-11",
+ "posts": [
+  {
+   "id": 6003,
+   "title": "В единстве и служении: встреча муфтия с имамами Хабаровска",
+   "date": "2026-09-22T09:32:31",
+   "dateHuman": "22 сентября 2026",
+   "category": "Новости ЦДУМ",
+   "link": "https://dumdv.ru/novosti-cdum/6003/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/09/img_1117.jpeg",
+   "cover1600": "img/news/6003-1600.webp",
+   "cover800": "img/news/6003-800.webp"
+  },
+  {
+   "id": 5994,
+   "title": "Служители ДУМ ДВ приняли участие в голосовании!",
+   "date": "2026-09-20T09:56:28",
+   "dateHuman": "20 сентября 2026",
+   "category": "Новости ЦДУМ",
+   "link": "https://dumdv.ru/novosti-cdum/sluzhiteli-dum-dv-prinjali-uchastie-v-golosovanii/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/09/130c6791-7b4b-4588-9c12-2a59cdea9881-scaled.jpeg",
+   "cover1600": "img/news/5994-1600.webp",
+   "cover800": "img/news/5994-800.webp"
+  },
+  {
+   "id": 5991,
+   "title": "Мусульмане за будущее нашей Родины!",
+   "date": "2026-09-19T12:03:13",
+   "dateHuman": "19 сентября 2026",
+   "category": "Новости ЦДУМ",
+   "link": "https://dumdv.ru/novosti-cdum/5991/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/09/musulmane-za-budushhee-rodiny-oblozhka.jpg",
+   "cover1600": "img/news/5991-1600.webp",
+   "cover800": "img/news/5991-800.webp"
+  },
+  {
+   "id": 5989,
+   "title": "С ответственностью за настоящее и будущее",
+   "date": "2026-09-18T12:17:55",
+   "dateHuman": "18 сентября 2026",
+   "category": "Новости ЦДУМ",
+   "link": "https://dumdv.ru/novosti-cdum/5989/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/09/muftij-golosovanie-2026-09-oblozhka.jpg",
+   "cover1600": "img/news/5989-1600.webp",
+   "cover800": "img/news/5989-800.webp"
+  },
+  {
+   "id": 5986,
+   "title": "Встреча представителей Восточного военного округа со служителями ДУМ Дальнего Востока",
+   "date": "2026-09-17T13:57:16",
+   "dateHuman": "17 сентября 2026",
+   "category": "Новости ЦДУМ",
+   "link": "https://dumdv.ru/novosti-cdum/5986/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/img_0872.jpeg",
+   "cover1600": "img/news/5986-1600.webp",
+   "cover800": "img/news/5986-800.webp"
+  },
+  {
+   "id": 5967,
+   "title": "Лекция в воинской части",
+   "date": "2026-09-16T11:32:44",
+   "dateHuman": "16 сентября 2026",
+   "category": "Новости ЦДУМ",
+   "link": "https://dumdv.ru/novosti-cdum/5967/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/img_0320-scaled.jpeg",
+   "cover1600": "img/news/5967-1600.webp",
+   "cover800": "img/news/5967-800.webp"
+  },
+  {
+   "id": 5946,
+   "title": "Представитель ДУМ ДВ и его семья — победители «Семьи года – 2026»",
+   "date": "2026-08-24T11:48:24",
+   "dateHuman": "24 августа 2026",
+   "category": "Новости ДУМДВ",
+   "link": "https://dumdv.ru/novosti-cdum/predstavitel-dum-dv-i-ego-semja-pobediteli-semi-goda-2026/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/221499_x922.jpg",
+   "cover1600": "img/news/5946-1600.webp",
+   "cover800": "img/news/5946-800.webp"
+  },
+  {
+   "id": 5940,
+   "title": "Имам ДУМ ДВ провёл беседу с военнослужащими в Бабстово",
+   "date": "2026-08-19T09:42:33",
+   "dateHuman": "19 августа 2026",
+   "category": "Новости ДУМДВ",
+   "link": "https://dumdv.ru/novosti-dumdv/imam-dum-dv-provjol-besedu-s-voennosluzhashhimi-v-babstovo/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/img-20260723-wa0155.jpg",
+   "cover1600": "img/news/5940-1600.webp",
+   "cover800": "img/news/5940-800.webp"
+  },
+  {
+   "id": 5934,
+   "title": "Представитель ДУМ ДВ посетил исправительную колонию в селе Будукан и провёл встречу с осуждёнными",
+   "date": "2026-08-18T15:06:30",
+   "dateHuman": "18 августа 2026",
+   "category": "Новости ДУМДВ",
+   "link": "https://dumdv.ru/novosti-dumdv/predstavitel-dum-dv-posetil-ispravitelnuju-koloniju-v-sele-budukan-i-provjol-vstrechu-s-osuzhdjonnymi/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/img-20260622-wa00801.jpg",
+   "cover1600": "img/news/5934-1600.webp",
+   "cover800": "img/news/5934-800.webp"
+  },
+  {
+   "id": 5925,
+   "title": "Мусульмане Хабаровска провели субботник на Матвеевском кладбище",
+   "date": "2026-08-12T13:40:06",
+   "dateHuman": "12 августа 2026",
+   "category": "Новости ДУМДВ",
+   "link": "https://dumdv.ru/novosti-dumdv/musulmane-habarovska-proveli-subbotnik-na-matveevskom-kladbishhe/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/collage_20260812_202824.jpg",
+   "cover1600": "img/news/5925-1600.webp",
+   "cover800": "img/news/5925-800.webp"
+  },
+  {
+   "id": 5918,
+   "title": "Муфтий Москвы Ильдар хазрат Аляутдинов провёл лекцию в мечети Южно-Сахалинска",
+   "date": "2026-08-05T10:00:05",
+   "dateHuman": "5 августа 2026",
+   "category": "Новости ДУМДВ",
+   "link": "https://dumdv.ru/novosti-dumdv/muftij-moskvy-ildar-hazrat-aljautdinov-provjol-lekciju-v-mecheti-juzhno-sahalinska/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/08/img-20260728-wa0247-scaled.jpg",
+   "cover1600": "img/news/5918-1600.webp",
+   "cover800": "img/news/5918-800.webp"
+  },
+  {
+   "id": 5910,
+   "title": "Муфтий Москвы провёл лекцию в молельном доме «Махалля Южная» города Хабаровска",
+   "date": "2026-07-31T09:35:10",
+   "dateHuman": "31 июля 2026",
+   "category": "Новости ДУМДВ",
+   "link": "https://dumdv.ru/novosti-dumdv/muftij-moskvy-provjol-lekciju-v-molelnom-dome-mahallja-juzhnaja-goroda-habarovska/",
+   "cover": "https://dumdv.ru/wp-content/uploads/2026/07/img_20260731_160952.jpg",
+   "cover1600": "img/news/5910-1600.webp",
+   "cover800": "img/news/5910-800.webp"
+  }
+ ]
+}
