@@ -484,6 +484,76 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .live-tag{position:absolute;left:12px;bottom:12px;padding:5px 10px;border-radius:7px;
   background:rgba(10,16,26,.66);color:rgba(255,255,255,.86);
   font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* ── события: крупные карточки с автопрокруткой ────────────────── */
+.ev{background:var(--pg);padding:clamp(56px,7vw,100px) 0 clamp(40px,5vw,70px)}
+.ev-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:18px}
+.ev-head h2{font-size:clamp(30px,4vw,52px);line-height:1.1;color:var(--tx);margin:10px 0 0}
+.ev-row{display:grid;grid-auto-flow:column;gap:clamp(16px,2vw,28px);margin-top:clamp(26px,3.4vw,42px);
+  /* две карточки целиком и край третьей — видно, что ряд листается */
+  grid-auto-columns:calc((100% - 1.35 * clamp(16px,2vw,28px)) / 2.18);
+  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.ev-row::-webkit-scrollbar{display:none}
+@media (max-width:860px){.ev-row{grid-auto-columns:88%}}
+
+.ev-card{position:relative;scroll-snap-align:start;display:block;text-decoration:none;
+  min-height:clamp(380px,46vw,560px);border-radius:4px;overflow:hidden;background:#10192a;color:#fff;
+  isolation:isolate}
+.ev-shot{position:absolute;inset:0;z-index:1;overflow:hidden}
+.ev-shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.ev-card:hover .ev-shot img,.ev-card:focus-visible .ev-shot img{transform:scale(1.03)}
+/* события без фото: не серый блок, а тёмный фон с золотым орнаментом */
+.ev-stub{position:absolute;inset:0;z-index:1;background:
+  radial-gradient(circle at 50% 38%,rgba(185,143,34,.24),transparent 62%),
+  linear-gradient(160deg,#16294a,#0B1726)}
+.ev-stub::after{content:"";position:absolute;left:50%;top:34%;transform:translate(-50%,-50%) rotate(45deg);
+  width:min(150px,34%);aspect-ratio:1;border:1px solid rgba(226,193,105,.4);
+  background:
+    radial-gradient(circle at 50% 50%,transparent 44%,rgba(226,193,105,.28) 44.5%,transparent 51%),
+    linear-gradient(to right,transparent calc(50% - .5px),rgba(226,193,105,.28) calc(50% - .5px),rgba(226,193,105,.28) calc(50% + .5px),transparent calc(50% + .5px)),
+    linear-gradient(to bottom,transparent calc(50% - .5px),rgba(226,193,105,.28) calc(50% - .5px),rgba(226,193,105,.28) calc(50% + .5px),transparent calc(50% + .5px))}
+.ev-veil{position:absolute;inset:0;z-index:2;
+  background:linear-gradient(to bottom,rgba(8,14,26,.2) 0%,rgba(8,14,26,0) 38%,rgba(8,14,26,.72) 72%,rgba(8,14,26,.94) 100%)}
+.ev-in{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:inherit;height:100%;padding:clamp(22px,2.8vw,42px)}
+.ev-k{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#E2C169}
+.ev-t{margin:12px 0 0;font-family:"Golos Text",system-ui,sans-serif;
+  font-size:clamp(23px,2.7vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.01em;
+  text-transform:uppercase;color:#fff}
+.ev-x{margin:14px 0 0;max-width:46ch;font-size:15px;line-height:1.65;color:rgba(255,255,255,.84)}
+.ev-more{display:inline-flex;align-items:center;gap:10px;margin-top:20px;
+  font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#E2C169}
+.ev-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.ev-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:22px}
+.ev-dots{display:flex;align-items:center;gap:12px}
+/* кружок-таймер: обводка добегает круг за время показа карточки */
+.ev-dot{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.ev-dot i{display:block;width:6px;height:6px;border-radius:50%;background:var(--brd);
+  grid-area:1/1;transition:background .25s ease}
+.ev-dot.on i{background:var(--gold)}
+.ev-dot svg{grid-area:1/1;width:22px;height:22px;transform:rotate(-90deg);opacity:0}
+.ev-dot.on svg{opacity:1}
+.ev-dot svg circle{fill:none;stroke:var(--gold);stroke-width:1.6;
+  stroke-dasharray:59;stroke-dashoffset:59}
+.ev-dot.on.run svg circle{animation:evTick var(--dur,7s) linear forwards}
+@keyframes evTick{to{stroke-dashoffset:0}}
+.ev-dot:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:50%}
+
+.ev-arrows{display:flex;gap:10px}
+.ev-arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--brd);background:transparent;
+  color:var(--tx);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
+.ev-arr:hover:not(:disabled){border-color:var(--gold);background:rgba(185,143,34,.1)}
+.ev-arr:disabled{opacity:.32;cursor:default}
+.ev-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.ev-arr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+@media (prefers-reduced-motion:reduce){
+  .ev-shot img{transition:none}
+  .ev-card:hover .ev-shot img{transform:none}
+  .ev-dot.on.run svg circle{animation:none;stroke-dashoffset:0}
+}
 </style>
 </head>
 <body>
@@ -725,16 +795,30 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <a class="arch" href="stroitelstvo.html"><span class="arch-in">Подробнее <i aria-hidden="true">&#8594;</i></span></a>
         </div>
 
-        <div class="live">
-          <div class="live-k">Прямая трансляция</div>
-          <!-- Имитация: реального потока со стройплощадки пока нет.
-               Когда появится, сюда ставится iframe или video вместо .live-still. -->
-          <div class="live-frame">
-            <img class="live-still" src="img/mechet-render.jpg" alt="Вид на строящуюся соборную мечеть Хабаровска">
-            <span class="live-grid" aria-hidden="true"></span>
-            <span class="live-tag">Камера 1 · площадка</span>
-          </div>
-          <p class="live-n">Ход строительства мечети. Трансляция подключается &#8212; пока виден проектный вид площадки.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ev" id="sobytiya">
+    <div class="wrap">
+      <div class="ev-head">
+        <div>
+          <span class="kicker">События</span>
+          <h2>Что происходит</h2>
+        </div>
+      </div>
+
+      <div class="ev-row" id="evRow" tabindex="0" role="region" aria-label="Лента событий"></div>
+
+      <div class="ev-bar">
+        <div class="ev-dots" id="evDots"></div>
+        <div class="ev-arrows">
+          <button class="ev-arr" id="evPrev" type="button" aria-label="Предыдущее событие">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+          </button>
+          <button class="ev-arr" id="evNext" type="button" aria-label="Следующее событие">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -763,18 +847,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     </div>
   </section>
 
-  <section class="ask" id="ask">
-    <div class="wrap">
-      <div class="ask-in">
-        <div>
-          <span class="kicker">Обращения</span>
-          <h2>Вопрос имаму</h2>
-          <p>Вопросы по вероучению, обрядам, никаху и семейным делам рассматривает имам-мухтасиб муфтията. Ответ придёт на указанную почту.</p>
-        </div>
-        <a class="btn btn-primary" href="vopros.html">Задать вопрос<span class="arrow">→</span></a>
-      </div>
-    </div>
-  </section>
 
   <footer id="contacts">
     <div class="foot">
@@ -873,8 +945,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       </div>
     </div>
   </footer>
-  <a class="give-dot" href="https://domvrayu.ru" target="_blank" rel="noopener"
-     aria-label="Пожертвовать на сайте «Дом в раю»"><span>Пожертвовать</span></a>
 </div>
 
 <script>
@@ -1042,6 +1112,107 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     row.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
     sync();
+  }).catch(function () {});
+})();
+
+// События: крупные карточки, сами листаются; кружок у точки — таймер показа.
+(function () {
+  var row = document.getElementById('evRow');
+  var dotsBox = document.getElementById('evDots');
+  var prev = document.getElementById('evPrev');
+  var next = document.getElementById('evNext');
+  if (!row) return;
+
+  var HOLD = 7000;                                  // сколько держится карточка
+  var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  fetch('data/events.json').then(function (r) { return r.json(); }).then(function (d) {
+    var list = d.events || [];
+    if (!list.length) return;
+
+    row.innerHTML = list.map(function (e) {
+      var tag = e.link ? 'a' : 'div';
+      var href = e.link ? ' href="' + esc(e.link) + '"' : '';
+      return '<' + tag + ' class="ev-card"' + href + '>' +
+        (e.cover
+          ? '<div class="ev-shot"><img src="' + esc(e.cover) + '" loading="lazy" decoding="async" alt="' + esc(e.title) + '"></div>'
+          : '<div class="ev-stub" aria-hidden="true"></div>') +
+        '<div class="ev-veil"></div><div class="ev-in">' +
+        (e.kicker ? '<span class="ev-k">' + esc(e.kicker) + '</span>' : '') +
+        (e.title ? '<h3 class="ev-t">' + esc(e.title) + '</h3>' : '') +
+        (e.text ? '<p class="ev-x">' + esc(e.text) + '</p>' : '') +
+        (e.link && e.linkText ? '<span class="ev-more">' + esc(e.linkText) + ' &#8594;</span>' : '') +
+        '</div></' + tag + '>';
+    }).join('');
+
+    var cards = [].slice.call(row.children);
+    dotsBox.innerHTML = cards.map(function (c, i) {
+      return '<button class="ev-dot" type="button" aria-label="Событие ' + (i + 1) + '" data-i="' + i + '">' +
+        '<i></i><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9.4"/></svg></button>';
+    }).join('');
+    var dots = [].slice.call(dotsBox.children);
+    dots.forEach(function (d) { d.style.setProperty('--dur', (HOLD / 1000) + 's'); });
+
+    function step() {
+      var a = cards[0].getBoundingClientRect();
+      var b = cards[1] ? cards[1].getBoundingClientRect() : null;
+      return b ? (b.left - a.left) : a.width;
+    }
+    function maxScroll() { return row.scrollWidth - row.clientWidth; }
+    function index() { return Math.min(Math.round(row.scrollLeft / (step() || 1)), cards.length - 1); }
+
+    function mark(i) {
+      dots.forEach(function (d, n) {
+        d.classList.toggle('on', n === i);
+        d.classList.remove('run');
+        if (n === i) { void d.offsetWidth; d.classList.add('run'); }  // перезапуск таймера
+      });
+      prev.disabled = row.scrollLeft <= 2;
+      next.disabled = row.scrollLeft >= maxScroll() - 2;
+    }
+
+    var timer = null, paused = false;
+    function go(i) {
+      var max = cards.length - 1;
+      if (i > max) i = 0;
+      if (i < 0) i = max;
+      row.scrollTo({ left: i * step(), behavior: 'smooth' });
+    }
+    function plan() {
+      clearTimeout(timer);
+      if (slow || paused || cards.length < 2) return;
+      timer = setTimeout(function () { go(index() + 1); }, HOLD);
+    }
+
+    row.addEventListener('scroll', function () { mark(index()); plan(); }, { passive: true });
+    window.addEventListener('resize', function () { mark(index()); });
+
+    // при наведении и фокусе прокрутка замирает, чтобы не уезжала из-под курсора
+    ['mouseenter', 'focusin'].forEach(function (ev) {
+      row.addEventListener(ev, function () { paused = true; clearTimeout(timer); });
+    });
+    ['mouseleave', 'focusout'].forEach(function (ev) {
+      row.addEventListener(ev, function () { paused = false; plan(); });
+    });
+
+    prev.addEventListener('click', function () { go(index() - 1); });
+    next.addEventListener('click', function () { go(index() + 1); });
+    dotsBox.addEventListener('click', function (e) {
+      var d = e.target.closest('.ev-dot');
+      if (d) go(+d.getAttribute('data-i'));
+    });
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(index() + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index() - 1); }
+    });
+
+    mark(0);
+    plan();
   }).catch(function () {});
 })();
 </script>
