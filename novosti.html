@@ -18,11 +18,10 @@ img{max-width:100%}
 #season,#fsmenu{position:absolute;opacity:0;pointer-events:none}
 
 .page{
-  /* ОСЕНЬ — тёплый кремовый лист, охра, каштановый текст */
-  --pg:#FAF2E4;--srf:#FFFBF3;--pnl:#F4E7D2;--tx:#2A2018;--mut:#6B5847;
-  --brd:rgba(42,32,24,.15);--gold:#9A6B22;--goldsoft:#CE9A45;--track:#E7D5B6;
-  --strip:#FFFBF3;--heroimg:1;
-  --veil:linear-gradient(100deg,rgba(250,242,228,.96) 0%,rgba(250,242,228,.85) 34%,rgba(250,242,228,.3) 64%,rgba(250,242,228,0) 100%);
+  --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
+  --brd:rgba(32,30,29,.14);--gold:#8a6f2e;--goldsoft:#c8a94f;--track:#e9dcc0;
+  --strip:#ffffff;--heroimg:1;
+  --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
   background:var(--pg);color:var(--tx)
 }
 #season:checked ~ .page{
@@ -32,37 +31,16 @@ img{max-width:100%}
   --strip:#FFFFFF;--heroimg:.95;
   --veil:linear-gradient(100deg,rgba(237,243,250,.96) 0%,rgba(237,243,250,.86) 34%,rgba(237,243,250,.32) 64%,rgba(237,243,250,0) 100%)
 }
-/* полоса намазов: осенью тёплая, зимой с ледяным отливом */
-#season:not(:checked) ~ .page .strip{background:linear-gradient(180deg,#FFFBF3,#FAEFDC)}
-/* зимой воздух над страницей холоднее */
+#season:checked ~ .page .strip{background:linear-gradient(180deg,#FFFFFF,#F0F6FC)}
+#season:checked ~ .page .hero-img{filter:saturate(.78) brightness(1.04)}
 
-/* ── небо: осенью летят листья, зимой идёт снег ────────────────── */
-.sky{display:block}
+/* ── небо: снег идёт только в зимней теме ──────────────────────── */
+.sky{display:none}
 .moon{display:none}
+#season:checked ~ .page .sky{display:block}
 /* луна возвращается, когда в Хабаровске ночь */
 html.is-hero-dark #season ~ .page .moon{display:block}
 
-/* ОСЕНЬ: лист кружится, пока падает */
-#season:not(:checked) ~ .page .star{
-  width:10px;height:10px;border-radius:66% 0 66% 0;background:#BE761F;
-  box-shadow:0 1px 3px rgba(62,36,10,.22);animation:leafFall 15s linear infinite}
-#season:not(:checked) ~ .page .star::before,
-#season:not(:checked) ~ .page .star::after{display:none}
-#season:not(:checked) ~ .page .star:nth-child(3n){background:#A5451A;width:8px;height:8px;animation-duration:19s}
-#season:not(:checked) ~ .page .star:nth-child(4n){background:#8E6A1C;width:12px;height:12px;animation-duration:12s}
-#season:not(:checked) ~ .page .star:nth-child(5n){background:#C9A139;animation-duration:22s}
-#season:not(:checked) ~ .page .sky::after{
-  background:radial-gradient(circle at 76% 18%,rgba(226,160,60,.18),rgba(226,160,60,.06) 42%,transparent 70%)}
-@keyframes leafFall{
-  0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0}
-  9%{opacity:.92}
-  40%{transform:translateY(14vh) translateX(30px) rotate(150deg)}
-  70%{transform:translateY(36vh) translateX(-16px) rotate(290deg)}
-  88%{opacity:.78}
-  100%{transform:translateY(64vh) translateX(18px) rotate(430deg);opacity:0}
-}
-
-/* ЗИМА: снежинка с голубым контуром — видна и на снимке, и на светлом фоне */
 #season:checked ~ .page .star{
   width:8px;height:8px;background:#fff;animation:snowFall 14s linear infinite;
   box-shadow:0 0 0 1.5px rgba(108,158,208,.6),0 2px 6px rgba(28,56,96,.28)}
@@ -85,8 +63,8 @@ html.is-hero-dark #season ~ .page .moon{display:block}
 }
 @media (prefers-reduced-motion:reduce){.sky .star{animation:none;opacity:.75}}
 
-/* иконка переключателя: лист или снежинка */
-#season:checked ~ .page .theme-autumn{display:none}
+/* иконка переключателя: солнце или снежинка */
+#season:checked ~ .page .theme-plain{display:none}
 .theme-winter{display:none}
 #season:checked ~ .page .theme-winter{display:inline}
 
@@ -314,9 +292,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .theme-toggle:hover{border-color:#B98F22;color:#87680F}
 .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* светлая тема — луна (нажать, чтобы стемнело), тёмная — солнце */
-.theme-toggle .theme-autumn{display:block}
+.theme-toggle .theme-plain{display:block}
 .theme-toggle .theme-winter{display:none}
-#season:checked ~ .page .theme-toggle .theme-autumn{display:none}
+#season:checked ~ .page .theme-toggle .theme-plain{display:none}
 #season:checked ~ .page .theme-toggle .theme-winter{display:block}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
@@ -490,7 +468,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   var KEY = 'dumdv-theme';
   function load() {
     try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
-    var m = /(?:^|;\s*)dumdv-theme=(winter|autumn)/.exec(document.cookie || '');
+    var m = /(?:^|;\s*)dumdv-theme=(winter|plain)/.exec(document.cookie || '');
     return m ? m[1] : null;
   }
   function save(v) {
@@ -498,7 +476,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
   }
   if (load() === 'winter') n.checked = true;
-  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'autumn'); });
+  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'plain'); });
 })();
 </script>
 <div class="page">
@@ -530,9 +508,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
-      <label class="theme-toggle" for="season" title="Осень или зима">
-        <span class="vh">Сменить время года</span>
-        <svg class="theme-autumn" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-7.5"/><path d="M12 13.5c0-4.6 3.1-8.5 8-9.5.6 4.4-1.1 8.3-4.6 9.9-1.1.5-2.3.5-3.4-.4z"/><path d="M12 16.5c-.5-3.4-2.7-6-6.1-6.7-.4 3.2.9 6 3.5 7.1.9.4 1.8.3 2.6-.4z"/></svg>
+      <label class="theme-toggle" for="season" title="Зимняя тема">
+        <span class="vh">Включить зимнюю тему</span>
+        <svg class="theme-plain" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M18.6 5.4l-1.9 1.9M7.3 16.7l-1.9 1.9"/></svg>
         <svg class="theme-winter" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2 3.8 16.8"/><path d="M12 6.2 9.8 4.3M12 6.2l2.2-1.9M12 17.8l-2.2 1.9M12 17.8l2.2 1.9"/><path d="m6.9 9.1-2.8-.4M6.9 9.1 5.6 6.6M17.1 14.9l2.8.4M17.1 14.9l1.3 2.5"/><path d="m6.9 14.9-1.3 2.5M6.9 14.9l-2.8.4M17.1 9.1l1.3-2.5M17.1 9.1l2.8-.4"/></svg>
       </label>
     </div>
@@ -592,6 +570,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a href="dumdv.html">ДУМ ДВ</a>
         <a href="mecheti.html">Мечети</a>
         <a href="namaz.html">Время намаза</a>
+        <a class="active" href="novosti.html">Новости</a>
         <a href="stroitelstvo.html">Строительство</a>
       </nav>
     </div>
@@ -804,7 +783,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     try {
       var parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(now);
       var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parseInt(parts[i].value, 10); return 0; };
-      return get('autumn') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
+      return get('day') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
     } catch (e) { return ''; }
   }
   // секунды от полуночи по Хабаровску

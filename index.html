@@ -18,11 +18,10 @@ img{max-width:100%}
 #season,#fsmenu{position:absolute;opacity:0;pointer-events:none}
 
 .page{
-  /* ОСЕНЬ — тёплый кремовый лист, охра, каштановый текст */
-  --pg:#FAF2E4;--srf:#FFFBF3;--pnl:#F4E7D2;--tx:#2A2018;--mut:#6B5847;
-  --brd:rgba(42,32,24,.15);--gold:#9A6B22;--goldsoft:#CE9A45;--track:#E7D5B6;
-  --strip:#FFFBF3;--heroimg:1;
-  --veil:linear-gradient(100deg,rgba(250,242,228,.96) 0%,rgba(250,242,228,.85) 34%,rgba(250,242,228,.3) 64%,rgba(250,242,228,0) 100%);
+  --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
+  --brd:rgba(32,30,29,.14);--gold:#8a6f2e;--goldsoft:#c8a94f;--track:#e9dcc0;
+  --strip:#ffffff;--heroimg:1;
+  --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
   background:var(--pg);color:var(--tx)
 }
 #season:checked ~ .page{
@@ -32,37 +31,16 @@ img{max-width:100%}
   --strip:#FFFFFF;--heroimg:.95;
   --veil:linear-gradient(100deg,rgba(237,243,250,.96) 0%,rgba(237,243,250,.86) 34%,rgba(237,243,250,.32) 64%,rgba(237,243,250,0) 100%)
 }
-/* полоса намазов: осенью тёплая, зимой с ледяным отливом */
-#season:not(:checked) ~ .page .strip{background:linear-gradient(180deg,#FFFBF3,#FAEFDC)}
-/* зимой воздух над страницей холоднее */
+#season:checked ~ .page .strip{background:linear-gradient(180deg,#FFFFFF,#F0F6FC)}
+#season:checked ~ .page .hero-img{filter:saturate(.78) brightness(1.04)}
 
-/* ── небо: осенью летят листья, зимой идёт снег ────────────────── */
-.sky{display:block}
+/* ── небо: снег идёт только в зимней теме ──────────────────────── */
+.sky{display:none}
 .moon{display:none}
+#season:checked ~ .page .sky{display:block}
 /* луна возвращается, когда в Хабаровске ночь */
 html.is-hero-dark #season ~ .page .moon{display:block}
 
-/* ОСЕНЬ: лист кружится, пока падает */
-#season:not(:checked) ~ .page .star{
-  width:10px;height:10px;border-radius:66% 0 66% 0;background:#BE761F;
-  box-shadow:0 1px 3px rgba(62,36,10,.22);animation:leafFall 15s linear infinite}
-#season:not(:checked) ~ .page .star::before,
-#season:not(:checked) ~ .page .star::after{display:none}
-#season:not(:checked) ~ .page .star:nth-child(3n){background:#A5451A;width:8px;height:8px;animation-duration:19s}
-#season:not(:checked) ~ .page .star:nth-child(4n){background:#8E6A1C;width:12px;height:12px;animation-duration:12s}
-#season:not(:checked) ~ .page .star:nth-child(5n){background:#C9A139;animation-duration:22s}
-#season:not(:checked) ~ .page .sky::after{
-  background:radial-gradient(circle at 76% 18%,rgba(226,160,60,.18),rgba(226,160,60,.06) 42%,transparent 70%)}
-@keyframes leafFall{
-  0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0}
-  9%{opacity:.92}
-  40%{transform:translateY(14vh) translateX(30px) rotate(150deg)}
-  70%{transform:translateY(36vh) translateX(-16px) rotate(290deg)}
-  88%{opacity:.78}
-  100%{transform:translateY(64vh) translateX(18px) rotate(430deg);opacity:0}
-}
-
-/* ЗИМА: снежинка с голубым контуром — видна и на снимке, и на светлом фоне */
 #season:checked ~ .page .star{
   width:8px;height:8px;background:#fff;animation:snowFall 14s linear infinite;
   box-shadow:0 0 0 1.5px rgba(108,158,208,.6),0 2px 6px rgba(28,56,96,.28)}
@@ -85,8 +63,8 @@ html.is-hero-dark #season ~ .page .moon{display:block}
 }
 @media (prefers-reduced-motion:reduce){.sky .star{animation:none;opacity:.75}}
 
-/* иконка переключателя: лист или снежинка */
-#season:checked ~ .page .theme-autumn{display:none}
+/* иконка переключателя: солнце или снежинка */
+#season:checked ~ .page .theme-plain{display:none}
 .theme-winter{display:none}
 #season:checked ~ .page .theme-winter{display:inline}
 
@@ -204,10 +182,6 @@ html.is-hero-dark .hero-night{opacity:1}
 .hero-night-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:inherit}
 .hero-night:not(.has-img) .hero-night-img{display:none}
 .hero-night.has-img .hero-night-tint,.hero-night.has-img .hero-stars{display:none}
-/* подпись под кнопкой: который час в Хабаровске и в Москве.
-   Селектор с .hero — иначе правило .hero p перебивает кегль */
-.hero .hero-local{margin:26px 0 0;max-width:40ch;font-family:"Golos Text",system-ui,sans-serif;font-size:13px;line-height:1.5;color:var(--mut);font-variant-numeric:lining-nums tabular-nums}
-.hero-veil{position:absolute;inset:0;background:var(--veil)}
 .sky{position:absolute;inset:0;pointer-events:none}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
@@ -218,8 +192,6 @@ html.is-hero-dark .hero-night{opacity:1}
 .star::before{width:26px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
 .star::after{width:1.5px;height:26px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
 @keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
-.hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:56px;align-items:center}
 .hero .panel{box-shadow:0 18px 44px rgba(32,30,29,.14)}
 .hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
 .hero p{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.5;max-width:34ch;color:var(--mut);margin:32px 0 38px}
@@ -230,6 +202,30 @@ html.is-hero-dark .hero-night{opacity:1}
 .btn-ghost{border:1px solid var(--brd);color:var(--gold);padding:17px 28px}
 .btn-ghost:hover{background:var(--pnl)}
 .arrow{width:26px;height:26px;border:1.5px solid rgba(255,255,255,.6);border-radius:50%;display:grid;place-items:center;font-size:13px}
+
+/* первый экран: светлый текст на затемнённом рендере, цифры по низу */
+.hero{min-height:86svh;display:flex;flex-direction:column;justify-content:flex-end;color:#FFFDF8}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(to bottom,
+  rgba(10,18,30,.46) 0%,rgba(10,18,30,.1) 26%,rgba(10,18,30,.34) 50%,
+  rgba(10,18,30,.74) 76%,rgba(14,28,47,.94) 100%)}
+.hero-in{position:relative;width:100%;max-width:1240px;margin:0 auto;
+  padding:clamp(104px,12vw,170px) clamp(20px,3vw,52px) clamp(26px,3.4vw,44px)}
+.hero h1{font-size:clamp(34px,5.4vw,74px);line-height:1.04;letter-spacing:.01em;
+  text-transform:none;max-width:16ch;color:#FFFDF8;margin:0}
+.hero .hero-sub{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(18px,2.2vw,28px);
+  line-height:1.25;color:rgba(255,253,248,.84);margin:10px 0 0;max-width:none}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,3vw,32px)}
+.hero-btns .btn-ghost{border-color:rgba(255,253,248,.42);color:#FFFDF8}
+.hero-btns .btn-ghost:hover{border-color:#FFFDF8;background:rgba(255,253,248,.1)}
+.hero-figs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,26px);
+  margin-top:clamp(26px,3.6vw,44px);padding-top:clamp(18px,2.4vw,26px);
+  border-top:1px solid rgba(255,253,248,.22)}
+.hero-v{font-size:clamp(22px,3.2vw,42px);font-weight:700;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:lining-nums tabular-nums}
+.hero-v small{font-size:.42em;font-weight:600;margin-left:.2em}
+.hero-k{margin-top:7px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,253,248,.68)}
+@media (max-width:680px){.hero-figs{grid-template-columns:1fr 1fr;row-gap:20px}}
 
 /* о нас */
 .about{background:var(--srf);padding:100px 0}
@@ -343,9 +339,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .theme-toggle:hover{border-color:#B98F22;color:#87680F}
 .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* светлая тема — луна (нажать, чтобы стемнело), тёмная — солнце */
-.theme-toggle .theme-autumn{display:block}
+.theme-toggle .theme-plain{display:block}
 .theme-toggle .theme-winter{display:none}
-#season:checked ~ .page .theme-toggle .theme-autumn{display:none}
+#season:checked ~ .page .theme-toggle .theme-plain{display:none}
 #season:checked ~ .page .theme-toggle .theme-winter{display:block}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
@@ -371,8 +367,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .goal{padding:16px}
 }
 @media (max-width:1080px){
-  .hero-grid{grid-template-columns:1fr;gap:44px}
-  .hero-in{padding:180px 28px 90px}
   .build-grid,.about-grid{grid-template-columns:1fr}
   .stage{grid-template-columns:80px 1fr}
   .stage-money{grid-column:1 / -1}
@@ -507,22 +501,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .nr-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .nr-arr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── правый блок героя: о стройке и кнопка-арка ────────────────── */
-.hero-ask{min-width:0}
-.hero-ask h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;
-  font-size:clamp(27px,3.1vw,44px);line-height:1.12;color:var(--tx);margin:12px 0 0;max-width:15ch}
-.hero-ask p{font-size:15.5px;line-height:1.7;color:var(--mut);margin:16px 0 0;max-width:40ch}
-/* кнопка в форме стрельчатой арки: внешний слой — золото, внутренний — фон */
-.arch{display:inline-block;margin-top:clamp(20px,2.6vw,32px);background:var(--gold);padding:1.5px;
-  --a:polygon(50% 0,62% 4%,74% 12%,86% 25%,95% 38%,100% 52%,100% 100%,0 100%,0 52%,5% 38%,14% 25%,26% 12%,38% 4%);
-  clip-path:var(--a);transition:background .25s ease}
-.arch-in{display:flex;align-items:center;justify-content:center;gap:11px;min-width:208px;
-  padding:42px 34px 20px;background:var(--pg);color:var(--gold);clip-path:var(--a);
-  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  transition:background .25s ease,color .25s ease}
-.arch:hover .arch-in{background:var(--gold);color:#fff}
-.arch:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-
 /* кадр трансляции: пока статичный вид площадки */
 .live-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .live-grid{position:absolute;inset:0;pointer-events:none;
@@ -614,7 +592,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   var KEY = 'dumdv-theme';
   function load() {
     try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
-    var m = /(?:^|;\s*)dumdv-theme=(winter|autumn)/.exec(document.cookie || '');
+    var m = /(?:^|;\s*)dumdv-theme=(winter|plain)/.exec(document.cookie || '');
     return m ? m[1] : null;
   }
   function save(v) {
@@ -622,7 +600,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
   }
   if (load() === 'winter') n.checked = true;
-  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'autumn'); });
+  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'plain'); });
 })();
 </script>
 <div class="page">
@@ -654,9 +632,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
       </div>
-      <label class="theme-toggle" for="season" title="Осень или зима">
-        <span class="vh">Сменить время года</span>
-        <svg class="theme-autumn" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-7.5"/><path d="M12 13.5c0-4.6 3.1-8.5 8-9.5.6 4.4-1.1 8.3-4.6 9.9-1.1.5-2.3.5-3.4-.4z"/><path d="M12 16.5c-.5-3.4-2.7-6-6.1-6.7-.4 3.2.9 6 3.5 7.1.9.4 1.8.3 2.6-.4z"/></svg>
+      <label class="theme-toggle" for="season" title="Зимняя тема">
+        <span class="vh">Включить зимнюю тему</span>
+        <svg class="theme-plain" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M18.6 5.4l-1.9 1.9M7.3 16.7l-1.9 1.9"/></svg>
         <svg class="theme-winter" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2 3.8 16.8"/><path d="M12 6.2 9.8 4.3M12 6.2l2.2-1.9M12 17.8l-2.2 1.9M12 17.8l2.2 1.9"/><path d="m6.9 9.1-2.8-.4M6.9 9.1 5.6 6.6M17.1 14.9l2.8.4M17.1 14.9l1.3 2.5"/><path d="m6.9 14.9-1.3 2.5M6.9 14.9l-2.8.4M17.1 9.1l1.3-2.5M17.1 9.1l2.8-.4"/></svg>
       </label>
     </div>
@@ -716,6 +694,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a href="dumdv.html">ДУМ ДВ</a>
         <a href="mecheti.html">Мечети</a>
         <a href="namaz.html">Время намаза</a>
+        <a href="novosti.html">Новости</a>
         <a href="stroitelstvo.html">Строительство</a>
       </nav>
     </div>
@@ -749,7 +728,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   forced = forced ? forced[1] : null;
 
   function nightNow() {
-    if (forced) return forced === 'winter';
+    if (forced) return forced === 'night';
     var m = khbMinutes();
     return m >= MAGRIB || m < SUNRISE;   // интервал переваливает через полночь
   }
@@ -847,15 +826,31 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <div class="star" style="left:97.0%;top:20.2%;animation-delay:-14.7s"></div>
     </div>
     <div class="hero-in">
-      <div class="hero-grid">
-        <div class="hero-ask">
-          <span class="kicker">Строительство</span>
-          <h2>Первая соборная мечеть Дальнего Востока</h2>
-          <p>Участок выделен, разрешение получено, монолит выходит на фасадные работы. Единственный проект такого масштаба на Дальнем Востоке с полным пакетом документов.</p>
-          <p class="hero-local" id="heroLocal"></p>
-          <a class="arch" href="stroitelstvo.html"><span class="arch-in">Подробнее <i aria-hidden="true">&#8594;</i></span></a>
-        </div>
+      <h1>Соборная мечеть Хабаровска</h1>
+      <p class="hero-sub">Первая на Дальнем Востоке</p>
 
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="https://domvrayu.ru" target="_blank" rel="noopener">Помочь стройке<span class="arrow">&#8594;</span></a>
+        <a class="btn btn-ghost" href="stroitelstvo.html#etapy">Этапы стройки<span class="arrow">&#8594;</span></a>
+      </div>
+
+      <div class="hero-figs">
+        <div data-to="27.8" data-dec="1">
+          <div class="hero-v"><span class="n">0,0</span><small>м</small></div>
+          <div class="hero-k">Высота</div>
+        </div>
+        <div data-to="5" data-dec="0">
+          <div class="hero-v"><span class="n">0</span></div>
+          <div class="hero-k">Минаретов</div>
+        </div>
+        <div data-to="5771" data-dec="0" data-group="no">
+          <div class="hero-v"><span class="n">0</span><small>м&#178;</small></div>
+          <div class="hero-k">Участок</div>
+        </div>
+        <div data-to="53.9" data-dec="1">
+          <div class="hero-v"><span class="n">0,0</span><small>%</small></div>
+          <div class="hero-k">Собрано</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1054,7 +1049,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     try {
       var parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(now);
       var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parseInt(parts[i].value, 10); return 0; };
-      return get('autumn') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
+      return get('day') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
     } catch (e) { return ''; }
   }
   // секунды от полуночи по Хабаровску
@@ -1275,6 +1270,64 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     mark(0);
     plan();
   }).catch(function () {});
+})();
+
+// цифры первого экрана набегают от нуля
+(function () {
+  var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var figs = document.querySelectorAll('.hero-figs [data-to]');
+  if (!figs.length) return;
+
+  function ruNum(v, dec, group) {
+    var s = v.toFixed(dec).replace('.', ',');
+    return group ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : s;
+  }
+  function run(el) {
+    var to = parseFloat(el.getAttribute('data-to'));
+    var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+    var group = el.getAttribute('data-group') !== 'no';
+    var slot = el.querySelector('.n');
+    function put(v) { slot.textContent = ruNum(v, dec, group); }
+    if (slow) { put(to); return; }
+    var dur = 1500, t0 = null, done = false;
+    function finish() { if (!done) { done = true; put(to); } }
+    function step(t) {
+      if (done) return;
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      if (p < 1) { put(to * (1 - Math.pow(1 - p, 3))); requestAnimationFrame(step); }
+      else finish();
+    }
+    requestAnimationFrame(step);
+    // в фоновой вкладке кадры не идут и цифры застыли бы на нуле
+    setTimeout(finish, dur + 500);
+  }
+  for (var i = 0; i < figs.length; i++) run(figs[i]);
+})();
+
+// первый экран заканчивается ровно у нижней кромки окна: над ним ещё полоса
+// намазов, и при фиксированных 86svh подписи под цифрами уезжали за край
+(function () {
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  var inn = hero.querySelector('.hero-in');
+  function fit() {
+    hero.style.minHeight = '';
+    if (inn) inn.style.paddingTop = '';
+    var top = hero.getBoundingClientRect().top + window.pageYOffset;
+    var room = window.innerHeight - top;
+    if (room < 420) return;
+    // контент выше окна — поджимаем верхний отступ, но не вплотную к шапке
+    var over = hero.offsetHeight - room;
+    if (over > 0 && inn) {
+      var pad = parseFloat(getComputedStyle(inn).paddingTop) - over;
+      inn.style.paddingTop = Math.max(88, pad) + 'px';
+    }
+    hero.style.minHeight = room + 'px';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
 })();
 </script>
 </body>
