@@ -484,6 +484,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   gap:clamp(18px,2.2vw,30px) clamp(16px,2vw,28px)}
 @media (max-width:980px){.nr-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.nr-row{grid-template-columns:1fr}}
+.nr-item{min-width:0}
 .nr-card{display:block;text-decoration:none;color:var(--tx);min-width:0}
 .nr-shot{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--pnl)}
 .nr-shot img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
@@ -583,6 +584,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .ev-glow{display:none}
 }
 </style>
+<link rel="stylesheet" href="assets/reactions.css">
 </head>
 <body>
 <input type="checkbox" id="night">
@@ -1096,7 +1098,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
     row.innerHTML = posts.map(function (p) {
       var img = p.cover800 || p.cover1600;
-      return '<a class="nr-card" href="' + esc(p.link) + '" target="_blank" rel="noopener">' +
+      var id = p.link || p.title || '';
+      return '<div class="nr-item">' +
+        '<a class="nr-card" href="' + esc(p.link) + '" target="_blank" rel="noopener">' +
         '<div class="nr-shot">' +
         (img ? '<img src="' + esc(img) + '" srcset="' + esc(img) + ' 800w, ' +
                esc(p.cover1600 || img) + ' 1600w" sizes="(max-width:640px) 92vw,(max-width:980px) 46vw,31vw"' +
@@ -1105,8 +1109,11 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         '</div>' +
         (p.dateHuman ? '<div class="nr-d">' + esc(p.dateHuman) + '</div>' : '') +
         (p.title ? '<div class="nr-t">' + esc(p.title) + '</div>' : '') +
-        '</a>';
+        '</a>' +
+        '<div class="rx" data-rx="' + esc(id) + '"></div></div>';
     }).join('');
+
+    if (window.rxMount) window.rxMount(row);
   }).catch(function () { /* раздел новостей остаётся доступен по ссылке */ });
 })();
 
@@ -1222,5 +1229,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   window.addEventListener('load', fit);
 })();
 </script>
+<script src="assets/reactions.js"></script>
 </body>
 </html>
