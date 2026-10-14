@@ -15,7 +15,7 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0
 a{color:#8a6f2e}
 a:hover{color:#6f5822}
 img{max-width:100%}
-#season,#fsmenu{position:absolute;opacity:0;pointer-events:none}
+#night,#fsmenu{position:absolute;opacity:0;pointer-events:none}
 
 .page{
   --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
@@ -24,61 +24,57 @@ img{max-width:100%}
   --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
   background:var(--pg);color:var(--tx)
 }
-#season:checked ~ .page{
-  /* ЗИМА — снежный свет, лёд в панелях, холодное золото */
-  --pg:#EDF3FA;--srf:#FFFFFF;--pnl:#E2ECF6;--tx:#152436;--mut:#53647C;
-  --brd:rgba(21,36,54,.14);--gold:#7C6B35;--goldsoft:#BCA765;--track:#D6E3EF;
-  --strip:#FFFFFF;--heroimg:.95;
-  --veil:linear-gradient(100deg,rgba(237,243,250,.96) 0%,rgba(237,243,250,.86) 34%,rgba(237,243,250,.32) 64%,rgba(237,243,250,0) 100%)
+#night:checked ~ .page{
+  /* НОЧЬ — глубокая синева, тёплое золото, снимок остаётся читаемым */
+  --pg:#0E1626;--srf:#17203200;--srf:#172032;--pnl:#131B2B;--tx:#F4EEDE;--mut:rgba(244,238,222,.74);
+  --brd:rgba(244,238,222,.2);--gold:#E2C169;--goldsoft:#F0DCA3;--track:rgba(244,238,222,.18);
+  --strip:#172032;--heroimg:.72;
+  --veil:linear-gradient(100deg,rgba(14,22,38,.95) 0%,rgba(14,22,38,.82) 34%,rgba(14,22,38,.42) 64%,rgba(14,22,38,.18) 100%)
 }
-#season:checked ~ .page .strip{background:linear-gradient(180deg,#FFFFFF,#F0F6FC)}
-#season:checked ~ .page .hero-img{filter:saturate(.78) brightness(1.04)}
+/* небо со звёздами: ночью по выбору темы и ночью по хабаровскому времени */
+#night:checked ~ .page .sky{display:block}
+html.is-hero-night .sky{display:block}
+#night:checked ~ .page .theme-day{display:none}
+.theme-night{display:none}
+#night:checked ~ .page .theme-night{display:inline}
+#night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
+#night:checked ~ .page .clock{background:#161a23}
+#night:checked ~ .page .prayers{background:rgba(255,255,255,.05)}
+#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
+#night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
+#night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
+#night:checked ~ .page .hdr.stuck .hdr-in{background:#191d28}
+#night:checked ~ .page .hdr-nav a{color:rgba(243,236,221,.62)}
+#night:checked ~ .page .hdr-nav a:hover,#night:checked ~ .page .hdr-nav a.active{color:#f3ecdd}
+#night:checked ~ .page .hdr-nav a.active::after{background:#E2C169}
+#night:checked ~ .page .hdr-link.active-link::after{background:#E2C169}
+#night:checked ~ .page .hdr-link{color:#f3ecdd}
+#night:checked ~ .page .dots i{background:#f3ecdd}
+#night:checked ~ .page .fs{background:#12141c}
+#night:checked ~ .page .theme-toggle{background:rgba(255,255,255,.07);border-color:rgba(226,193,105,.32)}
+#night:checked ~ .page .theme-toggle:hover{border-color:#E2C169;color:#E2C169}
 
-/* ── небо: снег идёт только в зимней теме ──────────────────────── */
-.sky{display:none}
-.moon{display:none}
-#season:checked ~ .page .sky{display:block}
-/* луна возвращается, когда в Хабаровске ночь */
-html.is-hero-dark #season ~ .page .moon{display:block}
+/* ночью мечеть стоит в звёздном свете, а не в темноте */
+.sky::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 52% 46% at 62% 56%,rgba(232,214,166,.22),rgba(226,193,105,.08) 46%,transparent 72%),
+             radial-gradient(ellipse 70% 40% at 50% 0%,rgba(188,214,255,.16),transparent 70%)}
+.sky::after{background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.3),rgba(243,230,192,.12) 40%,transparent 70%)}
+.moon{box-shadow:inset -24px -8px 0 0 #f7ecd0,0 0 150px 46px rgba(243,230,192,.42)}
+.star{width:5px;height:5px;background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.75)}
+.star::before{width:34px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,252,240,.92) 50%,transparent)}
+.star::after{width:2px;height:34px;
+  background:linear-gradient(180deg,transparent,rgba(255,252,240,.92) 50%,transparent)}
+.star:nth-child(3n){width:4px;height:4px}
+.star:nth-child(4n){width:7px;height:7px}
+.star:nth-child(4n)::before{width:46px}
+.star:nth-child(4n)::after{height:46px}
+@keyframes twinkle{0%,100%{opacity:.55}50%{opacity:1}}
+/* ночной снимок: тёмный, но мечеть читается */
+.hero-night-tint{background:linear-gradient(to bottom,rgba(8,13,30,.72) 0%,rgba(10,16,34,.6) 34%,
+  rgba(14,21,40,.5) 66%,rgba(17,25,44,.62) 100%)}
 
-#season:checked ~ .page .star{
-  width:8px;height:8px;background:#fff;animation:snowFall 14s linear infinite;
-  box-shadow:0 0 0 1.5px rgba(108,158,208,.6),0 2px 6px rgba(28,56,96,.28)}
-#season:checked ~ .page .star::before{width:30px;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(126,176,222,.85) 50%,transparent)}
-#season:checked ~ .page .star::after{width:2px;height:30px;
-  background:linear-gradient(180deg,transparent,rgba(126,176,222,.85) 50%,transparent)}
-#season:checked ~ .page .star:nth-child(3n){animation-duration:18s;width:6px;height:6px}
-#season:checked ~ .page .star:nth-child(4n){animation-duration:11s;width:11px;height:11px}
-#season:checked ~ .page .star:nth-child(5n){animation-duration:23s}
-#season:checked ~ .page .sky::after{
-  background:radial-gradient(circle at 74% 16%,rgba(206,228,250,.34),rgba(206,228,250,.1) 44%,transparent 72%)}
-@keyframes snowFall{
-  0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0}
-  10%{opacity:.95}
-  45%{transform:translateY(18vh) translateX(26px)}
-  75%{transform:translateY(40vh) translateX(-14px)}
-  88%{opacity:.8}
-  100%{transform:translateY(64vh) translateX(16px) rotate(90deg);opacity:0}
-}
-@media (prefers-reduced-motion:reduce){.sky .star{animation:none;opacity:.75}}
 
-/* иконка переключателя: солнце или снежинка */
-#season:checked ~ .page .theme-plain{display:none}
-.theme-winter{display:none}
-#season:checked ~ .page .theme-winter{display:inline}
-
-/* зимой тёплое золото обводок уходит в холодную сталь */
-#season:checked ~ .page .hdr-in{background:rgba(255,255,255,.88);border-color:rgba(86,124,166,.22)}
-#season:checked ~ .page .hdr.stuck .hdr-in{box-shadow:0 14px 34px rgba(24,44,70,.14)}
-#season:checked ~ .page .fs{background:#F6FAFF}
-#season:checked ~ .page .jumua,
-#season:checked ~ .page .prayers,
-#season:checked ~ .page .theme-toggle{border-color:rgba(86,124,166,.3)}
-#season:checked ~ .page .clocks{background:rgba(86,124,166,.3);border-color:rgba(86,124,166,.3)}
-#season:checked ~ .page .prayer.is-next{border-color:rgba(124,107,53,.45);box-shadow:0 3px 12px rgba(40,70,110,.12)}
-#season:checked ~ .page .dots i{background:#2C3F56}
-#season:checked ~ .page .theme-toggle:hover{border-color:#5E86AE;color:#2F5A80}
 
 .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
 .kicker{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
@@ -89,10 +85,6 @@ html.is-hero-dark #season ~ .page .moon{display:block}
 .strip-left{margin-right:auto;display:flex;flex-direction:column;gap:11px}
 .strip-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx);font-variant-numeric:lining-nums}
-/* джума и ссылка на расписание — единым блоком слева */
-.jumua{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;border-radius:999px;background:var(--pnl);border:1px solid rgba(185,143,34,.28)}
-.jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--gold)}
 /* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
 .clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
 .clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
@@ -167,7 +159,7 @@ html.is-hero-dark #season ~ .page .moon{display:block}
 .hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%;opacity:var(--heroimg);filter:saturate(.62) contrast(.92)}
 .hero-veil{position:absolute;inset:0;background:var(--veil)}
-.sky{position:absolute;inset:0;pointer-events:none}
+.sky{display:none;position:absolute;inset:0;pointer-events:none}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
 .moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
@@ -292,10 +284,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .theme-toggle:hover{border-color:#B98F22;color:#87680F}
 .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* светлая тема — луна (нажать, чтобы стемнело), тёмная — солнце */
-.theme-toggle .theme-plain{display:block}
-.theme-toggle .theme-winter{display:none}
-#season:checked ~ .page .theme-toggle .theme-plain{display:none}
-#season:checked ~ .page .theme-toggle .theme-winter{display:block}
+.theme-toggle .theme-day{display:block}
+.theme-toggle .theme-night{display:none}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* шапка: одна строка на десктопе, на узких экранах разделы переносятся под логотип */
@@ -365,25 +355,25 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 </style>
 </head>
 <body>
-<input type="checkbox" id="season">
+<input type="checkbox" id="night">
 <script>
 // Тема держится между страницами. Пишем и в localStorage, и в куку:
 // в приватном окне localStorage молча недоступен, и выбор бы терялся.
 (function () {
-  var n = document.getElementById('season');
+  var n = document.getElementById('night');
   if (!n) return;
   var KEY = 'dumdv-theme';
   function load() {
     try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
-    var m = /(?:^|;\s*)dumdv-theme=(winter|plain)/.exec(document.cookie || '');
+    var m = /(?:^|;\s*)dumdv-theme=(night|day)/.exec(document.cookie || '');
     return m ? m[1] : null;
   }
   function save(v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
     try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
   }
-  if (load() === 'winter') n.checked = true;
-  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'plain'); });
+  if (load() === 'night') n.checked = true;
+  n.addEventListener('change', function () { save(n.checked ? 'night' : 'day'); });
 })();
 </script>
 <div class="page">
@@ -393,7 +383,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <div class="strip-left">
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
-          <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
           <span class="clocks" id="clocks">
             <span class="clock" title="Время в Москве">
               <span class="clock-k">Мск</span>
@@ -414,11 +403,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="16:25" data-gen="асра"><span class="prayer-k">Аср</span><span class="prayer-v">16:25</span></div>
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
+        <div class="prayer prayer-jumua"><span class="prayer-k">Джума</span><span class="prayer-v">13:30</span></div>
       </div>
-      <label class="theme-toggle" for="season" title="Зимняя тема">
-        <span class="vh">Включить зимнюю тему</span>
-        <svg class="theme-plain" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M18.6 5.4l-1.9 1.9M7.3 16.7l-1.9 1.9"/></svg>
-        <svg class="theme-winter" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2 3.8 16.8"/><path d="M12 6.2 9.8 4.3M12 6.2l2.2-1.9M12 17.8l-2.2 1.9M12 17.8l2.2 1.9"/><path d="m6.9 9.1-2.8-.4M6.9 9.1 5.6 6.6M17.1 14.9l2.8.4M17.1 14.9l1.3 2.5"/><path d="m6.9 14.9-1.3 2.5M6.9 14.9l-2.8.4M17.1 9.1l1.3-2.5M17.1 9.1l2.8-.4"/></svg>
+      <label class="theme-toggle" for="night" title="Переключить тему">
+        <span class="vh">Переключить тему</span>
+        <svg class="theme-day" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.2A8.6 8.6 0 1 1 10.8 3.5a6.8 6.8 0 0 0 9.7 9.7z"/></svg>
+        <svg class="theme-night" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M4.3 4.3l1.5 1.5M18.2 18.2l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.3 19.7l1.5-1.5M18.2 5.8l1.5-1.5"/></svg>
       </label>
     </div>
   </div>
@@ -857,12 +847,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     var cur = khbSeconds(now), chosen = null;
     for (var i = 0; i < slots.length; i++) {
       slots[i].classList.remove('is-next');
-      if (slots[i].getAttribute('data-sun')) continue;
+      if (slots[i].getAttribute('data-sun') || !slots[i].getAttribute('data-t')) continue;
       var hm = slots[i].getAttribute('data-t').split(':');
       var sec = parseInt(hm[0], 10) * 3600 + parseInt(hm[1], 10) * 60;
       if (!chosen && sec > cur) chosen = slots[i];
     }
-    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun')) { chosen = slots[j]; break; } } }
+    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun') && slots[j].getAttribute('data-t')) { chosen = slots[j]; break; } } }
     if (chosen) chosen.classList.add('is-next');
   }
   function tick() {

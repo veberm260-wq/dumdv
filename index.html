@@ -15,7 +15,7 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0
 a{color:#8a6f2e}
 a:hover{color:#6f5822}
 img{max-width:100%}
-#season,#fsmenu{position:absolute;opacity:0;pointer-events:none}
+#night,#fsmenu{position:absolute;opacity:0;pointer-events:none}
 
 .page{
   --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
@@ -24,61 +24,59 @@ img{max-width:100%}
   --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
   background:var(--pg);color:var(--tx)
 }
-#season:checked ~ .page{
-  /* ЗИМА — снежный свет, лёд в панелях, холодное золото */
-  --pg:#EDF3FA;--srf:#FFFFFF;--pnl:#E2ECF6;--tx:#152436;--mut:#53647C;
-  --brd:rgba(21,36,54,.14);--gold:#7C6B35;--goldsoft:#BCA765;--track:#D6E3EF;
-  --strip:#FFFFFF;--heroimg:.95;
-  --veil:linear-gradient(100deg,rgba(237,243,250,.96) 0%,rgba(237,243,250,.86) 34%,rgba(237,243,250,.32) 64%,rgba(237,243,250,0) 100%)
+#night:checked ~ .page{
+  /* НОЧЬ — глубокая синева, тёплое золото, снимок остаётся читаемым */
+  --pg:#0E1626;--srf:#17203200;--srf:#172032;--pnl:#131B2B;--tx:#F4EEDE;--mut:rgba(244,238,222,.74);
+  --brd:rgba(244,238,222,.2);--gold:#E2C169;--goldsoft:#F0DCA3;--track:rgba(244,238,222,.18);
+  --strip:#172032;--heroimg:.72;
+  --veil:linear-gradient(100deg,rgba(14,22,38,.95) 0%,rgba(14,22,38,.82) 34%,rgba(14,22,38,.42) 64%,rgba(14,22,38,.18) 100%)
 }
-#season:checked ~ .page .strip{background:linear-gradient(180deg,#FFFFFF,#F0F6FC)}
-#season:checked ~ .page .hero-img{filter:saturate(.78) brightness(1.04)}
+/* небо со звёздами: ночью по выбору темы и ночью по хабаровскому времени */
+#night:checked ~ .page .sky{display:block}
+html.is-hero-night .sky{display:block}
+#night:checked ~ .page .theme-day{display:none}
+.theme-night{display:none}
+#night:checked ~ .page .theme-night{display:inline}
+#night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
+#night:checked ~ .page .clock{background:#161a23}
+#night:checked ~ .page .prayers{background:rgba(255,255,255,.05)}
+#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
+#night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
+#night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
+#night:checked ~ .page .hdr.stuck .hdr-in{background:#191d28}
+#night:checked ~ .page .hdr-nav a{color:rgba(243,236,221,.62)}
+#night:checked ~ .page .hdr-nav a:hover,#night:checked ~ .page .hdr-nav a.active{color:#f3ecdd}
+#night:checked ~ .page .hdr-nav a.active::after{background:#E2C169}
+#night:checked ~ .page .hdr-link{color:#f3ecdd}
+#night:checked ~ .page .dots i{background:#f3ecdd}
+#night:checked ~ .page .fs{background:#12141c}
+#night:checked ~ .page .hero .panel{box-shadow:0 18px 44px rgba(0,0,0,.4)}
+#night:checked ~ .page .news-title{color:#E2C169}
+#night:checked ~ .page .theme-toggle{background:rgba(255,255,255,.07);border-color:rgba(226,193,105,.32)}
+#night:checked ~ .page .theme-toggle:hover{border-color:#E2C169;color:#E2C169}
+#night:checked ~ .page .live-frame{box-shadow:0 18px 44px rgba(0,0,0,.4)}
 
-/* ── небо: снег идёт только в зимней теме ──────────────────────── */
-.sky{display:none}
-.moon{display:none}
-#season:checked ~ .page .sky{display:block}
-/* луна возвращается, когда в Хабаровске ночь */
-html.is-hero-dark #season ~ .page .moon{display:block}
+/* ночью мечеть стоит в звёздном свете, а не в темноте */
+.sky::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 52% 46% at 62% 56%,rgba(232,214,166,.22),rgba(226,193,105,.08) 46%,transparent 72%),
+             radial-gradient(ellipse 70% 40% at 50% 0%,rgba(188,214,255,.16),transparent 70%)}
+.sky::after{background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.3),rgba(243,230,192,.12) 40%,transparent 70%)}
+.moon{box-shadow:inset -24px -8px 0 0 #f7ecd0,0 0 150px 46px rgba(243,230,192,.42)}
+.star{width:5px;height:5px;background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.75)}
+.star::before{width:34px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,252,240,.92) 50%,transparent)}
+.star::after{width:2px;height:34px;
+  background:linear-gradient(180deg,transparent,rgba(255,252,240,.92) 50%,transparent)}
+.star:nth-child(3n){width:4px;height:4px}
+.star:nth-child(4n){width:7px;height:7px}
+.star:nth-child(4n)::before{width:46px}
+.star:nth-child(4n)::after{height:46px}
+@keyframes twinkle{0%,100%{opacity:.55}50%{opacity:1}}
+/* ночной снимок: тёмный, но мечеть читается */
+.hero-night-tint{background:linear-gradient(to bottom,rgba(8,13,30,.72) 0%,rgba(10,16,34,.6) 34%,
+  rgba(14,21,40,.5) 66%,rgba(17,25,44,.62) 100%)}
 
-#season:checked ~ .page .star{
-  width:8px;height:8px;background:#fff;animation:snowFall 14s linear infinite;
-  box-shadow:0 0 0 1.5px rgba(108,158,208,.6),0 2px 6px rgba(28,56,96,.28)}
-#season:checked ~ .page .star::before{width:30px;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(126,176,222,.85) 50%,transparent)}
-#season:checked ~ .page .star::after{width:2px;height:30px;
-  background:linear-gradient(180deg,transparent,rgba(126,176,222,.85) 50%,transparent)}
-#season:checked ~ .page .star:nth-child(3n){animation-duration:18s;width:6px;height:6px}
-#season:checked ~ .page .star:nth-child(4n){animation-duration:11s;width:11px;height:11px}
-#season:checked ~ .page .star:nth-child(5n){animation-duration:23s}
-#season:checked ~ .page .sky::after{
-  background:radial-gradient(circle at 74% 16%,rgba(206,228,250,.34),rgba(206,228,250,.1) 44%,transparent 72%)}
-@keyframes snowFall{
-  0%{transform:translateY(-18vh) translateX(0) rotate(0deg);opacity:0}
-  10%{opacity:.95}
-  45%{transform:translateY(18vh) translateX(26px)}
-  75%{transform:translateY(40vh) translateX(-14px)}
-  88%{opacity:.8}
-  100%{transform:translateY(64vh) translateX(16px) rotate(90deg);opacity:0}
-}
-@media (prefers-reduced-motion:reduce){.sky .star{animation:none;opacity:.75}}
 
-/* иконка переключателя: солнце или снежинка */
-#season:checked ~ .page .theme-plain{display:none}
-.theme-winter{display:none}
-#season:checked ~ .page .theme-winter{display:inline}
-
-/* зимой тёплое золото обводок уходит в холодную сталь */
-#season:checked ~ .page .hdr-in{background:rgba(255,255,255,.88);border-color:rgba(86,124,166,.22)}
-#season:checked ~ .page .hdr.stuck .hdr-in{box-shadow:0 14px 34px rgba(24,44,70,.14)}
-#season:checked ~ .page .fs{background:#F6FAFF}
-#season:checked ~ .page .jumua,
-#season:checked ~ .page .prayers,
-#season:checked ~ .page .theme-toggle{border-color:rgba(86,124,166,.3)}
-#season:checked ~ .page .clocks{background:rgba(86,124,166,.3);border-color:rgba(86,124,166,.3)}
-#season:checked ~ .page .prayer.is-next{border-color:rgba(124,107,53,.45);box-shadow:0 3px 12px rgba(40,70,110,.12)}
-#season:checked ~ .page .dots i{background:#2C3F56}
-#season:checked ~ .page .theme-toggle:hover{border-color:#5E86AE;color:#2F5A80}
 
 .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
 .kicker{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
@@ -89,10 +87,6 @@ html.is-hero-dark #season ~ .page .moon{display:block}
 .strip-left{margin-right:auto;display:flex;flex-direction:column;gap:11px}
 .strip-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx);font-variant-numeric:lining-nums}
-/* джума и ссылка на расписание — единым блоком слева */
-.jumua{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;border-radius:999px;background:var(--pnl);border:1px solid rgba(185,143,34,.28)}
-.jumua-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
-.jumua-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--gold)}
 /* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
 .clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
 .clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
@@ -163,12 +157,15 @@ html.is-hero-dark #season ~ .page .moon{display:block}
 /* герой */
 .hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 50%;opacity:var(--heroimg)}
+/* медленный наезд на рендер — как на странице стройки */
+.hero-img,.hero-night-img{animation:heroCreep 11s cubic-bezier(.26,.6,.3,1) forwards}
+@keyframes heroCreep{from{transform:scale(1.005)}to{transform:scale(1.085)}}
 /* «Окно в Хабаровск»: баннер темнеет от магриба до восхода по времени
    Хабаровска. Слой лежит ПОД вуалью — слева вуаль его перекрывает, и
    тёмный текст на светлом остаётся читаемым, а справа видно ночь.
    Тема сайта тут ни при чём, страница всегда светлая. */
 .hero-night{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 2s ease}
-html.is-hero-dark .hero-night{opacity:1}
+html.is-hero-night .hero-night{opacity:1}
 /* Временно. Заменить на ночной рендер: assets/hero-night.webp —
    как только файл появится, скрипт добавит .has-img и имитация погаснет. */
 .hero-night-tint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,13,30,.88) 0%,rgba(10,16,34,.8) 34%,rgba(14,21,40,.66) 66%,rgba(17,25,44,.54) 100%)}
@@ -182,7 +179,7 @@ html.is-hero-dark .hero-night{opacity:1}
 .hero-night-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:inherit}
 .hero-night:not(.has-img) .hero-night-img{display:none}
 .hero-night.has-img .hero-night-tint,.hero-night.has-img .hero-stars{display:none}
-.sky{position:absolute;inset:0;pointer-events:none}
+.sky{display:none;position:absolute;inset:0;pointer-events:none}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
 .moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
@@ -330,6 +327,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .social:hover{transform:none}
   .clock-v .sep{animation:none}
   .hero-night{transition:none}
+  .hero-img,.hero-night-img{animation:none;transform:none}
 }
 .legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
 .legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
@@ -339,10 +337,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .theme-toggle:hover{border-color:#B98F22;color:#87680F}
 .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 /* светлая тема — луна (нажать, чтобы стемнело), тёмная — солнце */
-.theme-toggle .theme-plain{display:block}
-.theme-toggle .theme-winter{display:none}
-#season:checked ~ .page .theme-toggle .theme-plain{display:none}
-#season:checked ~ .page .theme-toggle .theme-winter{display:block}
+.theme-toggle .theme-day{display:block}
+.theme-toggle .theme-night{display:none}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* шапка: одна строка на десктопе, на узких экранах разделы переносятся под логотип */
@@ -467,15 +463,13 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .give-dot span{display:block;padding:0 12px}
 @media (max-width:560px){.give-dot{width:94px;height:94px;font-size:9px}}
 
-/* ── карусель новостей на главной ──────────────────────────────── */
+/* ── новости на главной: девять карточек сеткой ────────────────── */
 .nr{position:relative;margin-top:clamp(22px,3vw,34px)}
-.nr-row{display:grid;grid-auto-flow:column;gap:clamp(16px,2vw,28px);
-  grid-auto-columns:calc((100% - 2 * clamp(16px,2vw,28px)) / 3);
-  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
-.nr-row::-webkit-scrollbar{display:none}
-@media (max-width:980px){.nr-row{grid-auto-columns:calc((100% - clamp(16px,2vw,28px)) / 2)}}
-@media (max-width:640px){.nr-row{grid-auto-columns:84%}}
-.nr-card{scroll-snap-align:start;display:block;text-decoration:none;color:var(--tx);min-width:0}
+.nr-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(18px,2.2vw,30px) clamp(16px,2vw,28px)}
+@media (max-width:980px){.nr-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.nr-row{grid-template-columns:1fr}}
+.nr-card{display:block;text-decoration:none;color:var(--tx);min-width:0}
 .nr-shot{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--pnl)}
 .nr-shot img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
 .nr-card:hover .nr-shot img,.nr-card:focus-visible .nr-shot img{transform:scale(1.03)}
@@ -487,19 +481,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .nr-card:hover .nr-t{color:var(--gold)}
 .nr-card:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:14px}
-.nr-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px}
-.nr-dots{display:flex;gap:7px;flex-wrap:wrap}
-.nr-dot{width:7px;height:7px;border-radius:50%;background:var(--brd);border:0;padding:0;cursor:pointer;
-  transition:background .25s ease,width .25s ease}
-.nr-dot.on{width:20px;border-radius:999px;background:var(--gold)}
-.nr-arrows{display:flex;gap:10px}
-.nr-arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--brd);background:transparent;
-  color:var(--tx);cursor:pointer;display:grid;place-items:center;
-  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
-.nr-arr:hover:not(:disabled){border-color:var(--gold);background:rgba(185,143,34,.1)}
-.nr-arr:disabled{opacity:.32;cursor:default}
-.nr-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.nr-arr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* кадр трансляции: пока статичный вид площадки */
 .live-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -550,6 +531,18 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#E2C169}
 .ev-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
+/* то, что идёт прямо сейчас, выделено рамкой и живой точкой */
+.ev-card.ev-live{box-shadow:inset 0 0 0 2px rgba(226,193,105,.85),0 16px 40px rgba(8,14,26,.28)}
+.ev-k{display:inline-flex;align-items:center;gap:9px}
+.ev-pulse{width:8px;height:8px;border-radius:50%;background:#E2C169;flex:none;
+  box-shadow:0 0 0 0 rgba(226,193,105,.65);animation:evPulse 2.2s ease-out infinite}
+@keyframes evPulse{
+  0%{box-shadow:0 0 0 0 rgba(226,193,105,.6)}
+  70%{box-shadow:0 0 0 9px rgba(226,193,105,0)}
+  100%{box-shadow:0 0 0 0 rgba(226,193,105,0)}
+}
+@media (prefers-reduced-motion:reduce){.ev-pulse{animation:none}}
+
 .ev-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:22px}
 .ev-dots{display:flex;align-items:center;gap:12px}
 /* кружок-таймер: обводка добегает круг за время показа карточки */
@@ -582,25 +575,25 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 </style>
 </head>
 <body>
-<input type="checkbox" id="season">
+<input type="checkbox" id="night">
 <script>
 // Тема держится между страницами. Пишем и в localStorage, и в куку:
 // в приватном окне localStorage молча недоступен, и выбор бы терялся.
 (function () {
-  var n = document.getElementById('season');
+  var n = document.getElementById('night');
   if (!n) return;
   var KEY = 'dumdv-theme';
   function load() {
     try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
-    var m = /(?:^|;\s*)dumdv-theme=(winter|plain)/.exec(document.cookie || '');
+    var m = /(?:^|;\s*)dumdv-theme=(night|day)/.exec(document.cookie || '');
     return m ? m[1] : null;
   }
   function save(v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
     try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
   }
-  if (load() === 'winter') n.checked = true;
-  n.addEventListener('change', function () { save(n.checked ? 'winter' : 'plain'); });
+  if (load() === 'night') n.checked = true;
+  n.addEventListener('change', function () { save(n.checked ? 'night' : 'day'); });
 })();
 </script>
 <div class="page">
@@ -610,7 +603,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       <div class="strip-left">
         <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
         <div class="strip-row">
-          <span class="jumua"><span class="jumua-k">Джума</span><span class="jumua-v">13:30</span></span>
           <span class="clocks" id="clocks">
             <span class="clock" title="Время в Москве">
               <span class="clock-k">Мск</span>
@@ -631,11 +623,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div class="prayer" data-t="16:25" data-gen="асра"><span class="prayer-k">Аср</span><span class="prayer-v">16:25</span></div>
         <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
         <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
+        <div class="prayer prayer-jumua"><span class="prayer-k">Джума</span><span class="prayer-v">13:30</span></div>
       </div>
-      <label class="theme-toggle" for="season" title="Зимняя тема">
-        <span class="vh">Включить зимнюю тему</span>
-        <svg class="theme-plain" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.6M12 18.8v2.6M2.6 12h2.6M18.8 12h2.6M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M18.6 5.4l-1.9 1.9M7.3 16.7l-1.9 1.9"/></svg>
-        <svg class="theme-winter" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2 3.8 16.8"/><path d="M12 6.2 9.8 4.3M12 6.2l2.2-1.9M12 17.8l-2.2 1.9M12 17.8l2.2 1.9"/><path d="m6.9 9.1-2.8-.4M6.9 9.1 5.6 6.6M17.1 14.9l2.8.4M17.1 14.9l1.3 2.5"/><path d="m6.9 14.9-1.3 2.5M6.9 14.9l-2.8.4M17.1 9.1l1.3-2.5M17.1 9.1l2.8-.4"/></svg>
+      <label class="theme-toggle" for="night" title="Переключить тему">
+        <span class="vh">Переключить тему</span>
+        <svg class="theme-day" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.2A8.6 8.6 0 1 1 10.8 3.5a6.8 6.8 0 0 0 9.7 9.7z"/></svg>
+        <svg class="theme-night" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M4.3 4.3l1.5 1.5M18.2 18.2l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.3 19.7l1.5-1.5M18.2 5.8l1.5-1.5"/></svg>
       </label>
     </div>
   </div>
@@ -734,7 +727,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }
 
   var state = nightNow();
-  root.classList.toggle('is-hero-dark', state);
+  root.classList.toggle('is-hero-night', state);
 
   // ночной рендер подгружаем лениво — только когда ночь реально наступила,
   // чтобы днём не ходить за файлом, которого пока нет
@@ -775,7 +768,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     var next = nightNow();
     if (next !== state) {
       state = next;
-      root.classList.toggle('is-hero-dark', state);   // затухание задаёт CSS
+      root.classList.toggle('is-hero-night', state);   // затухание задаёт CSS
     }
     paint();
   }
@@ -887,18 +880,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a class="more" href="novosti.html">Все новости</a>
       </div>
       <div class="nr">
-        <div class="nr-row" id="nrRow" tabindex="0" role="region" aria-label="Лента новостей"></div>
+        <div class="nr-row" id="nrRow"></div>
       </div>
-      <div class="nr-bar">
-        <div class="nr-dots" id="nrDots"></div>
-        <div class="nr-arrows">
-          <button class="nr-arr" id="nrPrev" type="button" aria-label="Предыдущие новости">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
-          </button>
-          <button class="nr-arr" id="nrNext" type="button" aria-label="Следующие новости">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </button>
-        </div>
       </div>
     </div>
   </section>
@@ -1064,12 +1047,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     var cur = khbSeconds(now), chosen = null;
     for (var i = 0; i < slots.length; i++) {
       slots[i].classList.remove('is-next');
-      if (slots[i].getAttribute('data-sun')) continue;
+      if (slots[i].getAttribute('data-sun') || !slots[i].getAttribute('data-t')) continue;
       var hm = slots[i].getAttribute('data-t').split(':');
       var sec = parseInt(hm[0], 10) * 3600 + parseInt(hm[1], 10) * 60;
       if (!chosen && sec > cur) chosen = slots[i];
     }
-    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun')) { chosen = slots[j]; break; } } }
+    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun') && slots[j].getAttribute('data-t')) { chosen = slots[j]; break; } } }
     if (chosen) chosen.classList.add('is-next');
   }
   function tick() {
@@ -1102,12 +1085,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
-// Карусель новостей на главной: те же данные, что в разделе новостей.
+// Новости на главной: те же данные, что в разделе новостей.
 (function () {
   var row = document.getElementById('nrRow');
-  var dotsBox = document.getElementById('nrDots');
-  var prev = document.getElementById('nrPrev');
-  var next = document.getElementById('nrNext');
   if (!row) return;
 
   function esc(s) {
@@ -1115,7 +1095,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  fetch('data/news.json').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('data/news.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
     var posts = (d.posts || []).slice(0, 9);
     if (!posts.length) return;
 
@@ -1124,7 +1104,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       return '<a class="nr-card" href="' + esc(p.link) + '" target="_blank" rel="noopener">' +
         '<div class="nr-shot">' +
         (img ? '<img src="' + esc(img) + '" srcset="' + esc(img) + ' 800w, ' +
-               esc(p.cover1600 || img) + ' 1600w" sizes="(max-width:640px) 84vw,(max-width:980px) 46vw,31vw"' +
+               esc(p.cover1600 || img) + ' 1600w" sizes="(max-width:640px) 92vw,(max-width:980px) 46vw,31vw"' +
                ' loading="lazy" decoding="async" alt="' + esc(p.title) + '">'
              : '<div class="nr-stub" aria-hidden="true"></div>') +
         '</div>' +
@@ -1132,43 +1112,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         (p.title ? '<div class="nr-t">' + esc(p.title) + '</div>' : '') +
         '</a>';
     }).join('');
-
-    var cards = [].slice.call(row.children);
-    function step() {
-      var a = cards[0].getBoundingClientRect();
-      var b = cards[1] ? cards[1].getBoundingClientRect() : null;
-      return b ? (b.left - a.left) : a.width;
-    }
-    function maxScroll() { return row.scrollWidth - row.clientWidth; }
-
-    dotsBox.innerHTML = cards.map(function (c, i) {
-      return '<button class="nr-dot" type="button" aria-label="Новость ' + (i + 1) + '" data-i="' + i + '"></button>';
-    }).join('');
-    var dots = [].slice.call(dotsBox.children);
-
-    function sync() {
-      var x = row.scrollLeft, st = step() || 1;
-      var i = Math.min(Math.round(x / st), dots.length - 1);
-      dots.forEach(function (d, n) { d.classList.toggle('on', n === i); });
-      prev.disabled = x <= 2;
-      next.disabled = x >= maxScroll() - 2;
-    }
-    function slide(dir) { row.scrollBy({ left: dir * step(), behavior: 'smooth' }); }
-
-    prev.addEventListener('click', function () { slide(-1); });
-    next.addEventListener('click', function () { slide(1); });
-    dotsBox.addEventListener('click', function (e) {
-      var d = e.target.closest('.nr-dot');
-      if (d) row.scrollTo({ left: (+d.getAttribute('data-i')) * step(), behavior: 'smooth' });
-    });
-    row.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); slide(1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); slide(-1); }
-    });
-    row.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync);
-    sync();
-  }).catch(function () {});
+  }).catch(function () { /* раздел новостей остаётся доступен по ссылке */ });
 })();
 
 // События: крупные карточки, сами листаются; кружок у точки — таймер показа.
@@ -1187,19 +1131,20 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  fetch('data/events.json').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('data/events.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
     var list = d.events || [];
     if (!list.length) return;
 
     row.innerHTML = list.map(function (e) {
       var tag = e.link ? 'a' : 'div';
       var href = e.link ? ' href="' + esc(e.link) + '"' : '';
-      return '<' + tag + ' class="ev-card"' + href + '>' +
+      return '<' + tag + ' class="ev-card' + (e.live ? ' ev-live' : '') + '"' + href + '>' +
         (e.cover
           ? '<div class="ev-shot"><img src="' + esc(e.cover) + '" loading="lazy" decoding="async" alt="' + esc(e.title) + '"></div>'
           : '<div class="ev-stub" aria-hidden="true"></div>') +
         '<div class="ev-veil"></div><div class="ev-in">' +
-        (e.kicker ? '<span class="ev-k">' + esc(e.kicker) + '</span>' : '') +
+        (e.kicker ? '<span class="ev-k">' + (e.live ? '<i class="ev-pulse" aria-hidden="true"></i>' : '') +
+          esc(e.kicker) + '</span>' : '') +
         (e.title ? '<h3 class="ev-t">' + esc(e.title) + '</h3>' : '') +
         (e.text ? '<p class="ev-x">' + esc(e.text) + '</p>' : '') +
         (e.link && e.linkText ? '<span class="ev-more">' + esc(e.linkText) + ' &#8594;</span>' : '') +
