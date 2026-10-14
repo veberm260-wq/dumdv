@@ -28,7 +28,7 @@ img{max-width:100%}
   /* НОЧЬ — глубокая синева, тёплое золото, снимок остаётся читаемым */
   --pg:#0E1626;--srf:#17203200;--srf:#172032;--pnl:#131B2B;--tx:#F4EEDE;--mut:rgba(244,238,222,.74);
   --brd:rgba(244,238,222,.2);--gold:#E2C169;--goldsoft:#F0DCA3;--track:rgba(244,238,222,.18);
-  --strip:#172032;--heroimg:.72;
+  --strip:#172032;--heroimg:1;
   --veil:linear-gradient(100deg,rgba(14,22,38,.95) 0%,rgba(14,22,38,.82) 34%,rgba(14,22,38,.42) 64%,rgba(14,22,38,.18) 100%)
 }
 /* небо со звёздами: ночью по выбору темы и ночью по хабаровскому времени */
@@ -56,25 +56,6 @@ html.is-hero-night .sky{display:block}
 #night:checked ~ .page .city.on{background:#E2C169;color:#201e1d}
 #night:checked ~ .page .sched-table tr.fri td{color:#E2C169}
 
-/* ночью мечеть стоит в звёздном свете, а не в темноте */
-.sky::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 52% 46% at 62% 56%,rgba(232,214,166,.22),rgba(226,193,105,.08) 46%,transparent 72%),
-             radial-gradient(ellipse 70% 40% at 50% 0%,rgba(188,214,255,.16),transparent 70%)}
-.sky::after{background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.3),rgba(243,230,192,.12) 40%,transparent 70%)}
-.moon{box-shadow:inset -24px -8px 0 0 #f7ecd0,0 0 150px 46px rgba(243,230,192,.42)}
-.star{width:5px;height:5px;background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.75)}
-.star::before{width:34px;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(255,252,240,.92) 50%,transparent)}
-.star::after{width:2px;height:34px;
-  background:linear-gradient(180deg,transparent,rgba(255,252,240,.92) 50%,transparent)}
-.star:nth-child(3n){width:4px;height:4px}
-.star:nth-child(4n){width:7px;height:7px}
-.star:nth-child(4n)::before{width:46px}
-.star:nth-child(4n)::after{height:46px}
-@keyframes twinkle{0%,100%{opacity:.55}50%{opacity:1}}
-/* ночной снимок: тёмный, но мечеть читается */
-.hero-night-tint{background:linear-gradient(to bottom,rgba(8,13,30,.72) 0%,rgba(10,16,34,.6) 34%,
-  rgba(14,21,40,.5) 66%,rgba(17,25,44,.62) 100%)}
 
 
 
@@ -171,6 +152,38 @@ html.is-hero-night .sky{display:block}
 .star::before{width:26px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
 .star::after{width:1.5px;height:26px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
 @keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
+/* ночью мечеть стоит в лунном свете — без солнечных бликов */
+.sky::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 54% 48% at 62% 56%,rgba(154,186,232,.18),transparent 72%),
+             radial-gradient(ellipse 62% 38% at 78% 6%,rgba(176,203,246,.2),transparent 74%)}
+.sky::after{background:radial-gradient(circle at 76% 22%,rgba(206,222,250,.26),rgba(206,222,250,.1) 42%,transparent 72%)}
+.moon{box-shadow:inset -24px -8px 0 0 #eef2fb,0 0 130px 40px rgba(205,221,248,.34)}
+/* звёзды мелкие и мерцают вразнобой */
+.star{width:3px;height:3px;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);
+  animation:twinkle 3.1s ease-in-out infinite}
+.star::before{width:18px;height:1.2px;
+  background:linear-gradient(90deg,transparent,rgba(238,245,255,.8) 50%,transparent)}
+.star::after{width:1.2px;height:18px;
+  background:linear-gradient(180deg,transparent,rgba(238,245,255,.8) 50%,transparent)}
+.star:nth-child(3n){width:2px;height:2px;animation-duration:2.3s}
+.star:nth-child(3n)::before{width:13px}
+.star:nth-child(3n)::after{height:13px}
+.star:nth-child(4n){width:4px;height:4px;animation-duration:4.4s}
+.star:nth-child(4n)::before{width:24px}
+.star:nth-child(4n)::after{height:24px}
+.star:nth-child(5n){animation-duration:5.2s}
+@keyframes twinkle{0%,100%{opacity:.28}50%{opacity:1}}
+
+/* ночной снимок: гасим дневной свет и уводим кадр в синеву */
+#night:checked ~ .page .hero,#night:checked ~ .page .bh{background:#070C18}
+#night:checked ~ .page .hero-img,
+#night:checked ~ .page .bh-shot img{filter:brightness(.44) contrast(1.08) saturate(.52)}
+#night:checked ~ .page .hero-veil{background:linear-gradient(to bottom,
+  rgba(7,13,26,.5) 0%,rgba(7,13,26,.28) 30%,rgba(7,13,26,.5) 62%,rgba(8,15,30,.88) 100%)}
+#night:checked ~ .page .bh-veil{background:linear-gradient(to bottom,
+  rgba(7,13,26,.52) 0%,rgba(7,13,26,.3) 28%,rgba(7,13,26,.5) 58%,rgba(8,15,30,.9) 100%)}
+.hero-night-tint{background:linear-gradient(to bottom,rgba(8,13,30,.72) 0%,rgba(10,16,34,.6) 34%,
+  rgba(14,21,40,.5) 66%,rgba(17,25,44,.62) 100%)}
 .hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
 .hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
 .hero p{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.5;max-width:34ch;color:var(--mut);margin:32px 0 38px}
