@@ -175,8 +175,7 @@ html.is-hero-night .sky{display:block}
 
 /* ночной снимок: гасим дневной свет и уводим кадр в синеву */
 #night:checked ~ .page .hero,#night:checked ~ .page .bh{background:#070C18}
-#night:checked ~ .page .hero-img,
-#night:checked ~ .page .bh-shot img{filter:brightness(.44) contrast(1.08) saturate(.52)}
+#night:checked ~ .page .hero-img{filter:brightness(.44) contrast(1.08) saturate(.52)}
 #night:checked ~ .page .hero-veil{background:linear-gradient(to bottom,
   rgba(7,13,26,.5) 0%,rgba(7,13,26,.28) 30%,rgba(7,13,26,.5) 62%,rgba(8,15,30,.88) 100%)}
 #night:checked ~ .page .bh-veil{background:linear-gradient(to bottom,
@@ -490,33 +489,36 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   .geo-zoom button:last-child{font-size:15px}
 }
 
-/* верх страницы: первый экран, полоса якорей, блок «Проект» */
-.bh{position:relative;min-height:86svh;display:flex;flex-direction:column;justify-content:flex-end;
-  overflow:hidden;color:#FFFDF8}
-.bh-shot{position:absolute;inset:0;z-index:1;overflow:hidden}
-.bh-shot img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;
-  transform:scale(1.005);animation:bhCreep 11s cubic-bezier(.26,.6,.3,1) forwards}
-@keyframes bhCreep{to{transform:scale(1.085)}}
-.bh-veil{position:absolute;inset:0;z-index:2;
-  background:linear-gradient(to bottom,rgba(10,18,30,.46) 0%,rgba(10,18,30,.1) 26%,
-    rgba(10,18,30,.34) 50%,rgba(10,18,30,.74) 76%,rgba(14,28,47,.94) 100%)}
-.bh-in{position:relative;z-index:3;padding:clamp(28px,4vw,52px);width:100%}
-.bh h1{font-size:clamp(34px,5.4vw,74px);line-height:1.04;color:#FFFDF8;margin:0;max-width:16ch}
-.bh-sub{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(18px,2.2vw,28px);
-  line-height:1.25;color:rgba(255,253,248,.84);margin:10px 0 0}
-.bh-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,3vw,32px)}
-.bh-btns .btn-ghost{border-color:rgba(255,253,248,.42);color:#FFFDF8}
-.bh-btns .btn-ghost:hover{border-color:#FFFDF8;background:rgba(255,253,248,.1)}
+/* верх страницы: счёт сбора вместо рендера */
+.ch{background:var(--pnl);padding:clamp(96px,11vw,150px) 0 clamp(40px,5vw,64px);border-bottom:1px solid var(--brd)}
+.ch h1{font-size:clamp(36px,5.4vw,76px);line-height:1.04;color:var(--tx);margin:12px 0 0}
+.ch-lead{max-width:62ch;margin:22px 0 0;font-size:16.5px;line-height:1.75;color:var(--mut)}
+.ch-lead b{color:var(--tx);font-weight:600}
+.ch-dim{color:var(--mut)}
 
-.bh-figs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,26px);
-  margin-top:clamp(26px,3.6vw,44px);padding-top:clamp(18px,2.4vw,26px);
-  border-top:1px solid rgba(255,253,248,.22)}
-.bh-v{font-size:clamp(22px,3.2vw,42px);font-weight:700;line-height:1;letter-spacing:-.02em;
+.ch-money{margin-top:clamp(28px,3.4vw,44px);background:var(--srf);border:1px solid var(--brd);
+  border-radius:18px;padding:clamp(20px,2.6vw,32px)}
+.ch-bar{height:8px;border-radius:999px;background:var(--track);overflow:hidden}
+.ch-bar span{display:block;height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--goldsoft),var(--gold));
+  transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.ch-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px);
+  margin-top:clamp(18px,2.2vw,26px)}
+@media (max-width:860px){.ch-row{grid-template-columns:1fr 1fr;row-gap:22px}}
+@media (max-width:460px){.ch-row{grid-template-columns:1fr}}
+.ch-v{font-size:clamp(22px,2.6vw,34px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--tx);
   font-variant-numeric:lining-nums tabular-nums}
-.bh-v small{font-size:.42em;font-weight:600;margin-left:.2em}
-.bh-k{margin-top:7px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,253,248,.68)}
-@media (max-width:680px){.bh-figs{grid-template-columns:1fr 1fr;row-gap:20px}}
+.ch-v small{font-size:.44em;font-weight:600;margin-left:.22em;color:var(--gold)}
+.ch-k{margin-top:8px;font-size:11px;line-height:1.45;color:var(--mut)}
+.ch-upd{margin:clamp(16px,2vw,22px) 0 0;font-size:12.5px;color:var(--mut)}
+.ch-upd a{color:var(--gold)}
+.ch-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,2.6vw,32px)}
+.ch-btns .arrow{border-color:rgba(255,255,255,.6)}
+.ch-btns .btn-ghost .arrow{border-color:var(--brd)}
+
+/* якоря: над разделом висит шапка, иначе клик прячет его верх */
+#proekt,#etapy,#geografiya{scroll-margin-top:clamp(96px,12vw,118px)}
+@media (prefers-reduced-motion:reduce){.ch-bar span{transition:none}}
 
 
 .bh-proekt{padding:clamp(54px,6.5vw,92px) 0 clamp(10px,2vw,20px)}
@@ -533,7 +535,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .bh-t{font-size:15.5px;font-weight:600;margin-top:10px;color:var(--tx)}
 
 @media (prefers-reduced-motion:reduce){
-  .bh-shot img{animation:none;transform:none}
 }
 </style>
 </head>
@@ -658,65 +659,43 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   </header>
 
 
-  <section class="bh" id="top">
-    <div class="bh-shot"><img src="img/mechet-render.jpg" alt="Проект соборной мечети Хабаровска"></div>
-    <div class="bh-veil"></div>
-    <div class="sky" aria-hidden="true">
-      <div class="moon"></div>
-      <div class="star" style="left:1.5%;top:10.3%;animation-delay:-14.3s"></div>
-      <div class="star" style="left:4.5%;top:26.5%;animation-delay:-8.0s"></div>
-      <div class="star" style="left:8.3%;top:25.3%;animation-delay:-0.8s"></div>
-      <div class="star" style="left:13.3%;top:6.9%;animation-delay:-2.0s"></div>
-      <div class="star" style="left:17.1%;top:38.7%;animation-delay:-2.7s"></div>
-      <div class="star" style="left:20.3%;top:30.4%;animation-delay:-20.8s"></div>
-      <div class="star" style="left:25.3%;top:20.7%;animation-delay:-21.5s"></div>
-      <div class="star" style="left:27.4%;top:40.1%;animation-delay:-6.4s"></div>
-      <div class="star" style="left:31.6%;top:8.9%;animation-delay:-6.8s"></div>
-      <div class="star" style="left:37.6%;top:11.6%;animation-delay:-12.8s"></div>
-      <div class="star" style="left:40.8%;top:19.6%;animation-delay:-12.1s"></div>
-      <div class="star" style="left:42.8%;top:6.5%;animation-delay:-4.5s"></div>
-      <div class="star" style="left:48.7%;top:22.0%;animation-delay:-6.9s"></div>
-      <div class="star" style="left:52.2%;top:23.0%;animation-delay:-6.6s"></div>
-      <div class="star" style="left:56.7%;top:33.4%;animation-delay:-5.4s"></div>
-      <div class="star" style="left:59.8%;top:26.1%;animation-delay:-19.3s"></div>
-      <div class="star" style="left:64.2%;top:16.1%;animation-delay:-21.6s"></div>
-      <div class="star" style="left:66.1%;top:21.6%;animation-delay:-16.7s"></div>
-      <div class="star" style="left:70.0%;top:24.5%;animation-delay:-0.9s"></div>
-      <div class="star" style="left:75.5%;top:36.1%;animation-delay:-12.6s"></div>
-      <div class="star" style="left:80.0%;top:17.2%;animation-delay:-15.3s"></div>
-      <div class="star" style="left:82.9%;top:28.4%;animation-delay:-10.0s"></div>
-      <div class="star" style="left:87.6%;top:43.7%;animation-delay:-10.4s"></div>
-      <div class="star" style="left:90.8%;top:6.5%;animation-delay:-15.4s"></div>
-      <div class="star" style="left:94.6%;top:45.7%;animation-delay:-18.1s"></div>
-      <div class="star" style="left:97.0%;top:20.2%;animation-delay:-14.7s"></div>
-    </div>
-
-    <div class="bh-in">
+  <section class="ch" id="top">
+    <div class="wrap">
+      <span class="kicker">Строительство</span>
       <h1>Соборная мечеть Хабаровска</h1>
-      <p class="bh-sub">Первая на Дальнем Востоке</p>
+      <p class="ch-lead">Первая соборная мечеть в современной истории города и самая большая на Дальнем
+        Востоке. Единственный проект такого масштаба в округе, полностью обеспеченный разрешительной
+        и проектной документацией. Работы разбиты на шесть этапов, общая стоимость —
+        <b id="chTotal">около 700 млн ₽</b> <span class="ch-dim" id="chTotalNote">(оценка 2024 года)</span>.</p>
 
-      <div class="bh-btns">
-        <a class="btn btn-primary" href="https://domvrayu.ru" target="_blank" rel="noopener">Помочь стройке<span class="arrow">&#8594;</span></a>
-        <a class="btn btn-ghost" href="#etapy">Этапы стройки<span class="arrow">&#8594;</span></a>
+      <!-- Цифры ниже запасные: живые берутся из data/stroika.json, туда же пишется дата среза. -->
+      <div class="ch-money">
+        <div class="ch-bar"><span id="chBar" style="width:55.3%"></span></div>
+        <div class="ch-row">
+          <div class="ch-cell">
+            <div class="ch-v" id="chPct">55,3<small>%</small></div>
+            <div class="ch-k">Собрано по трём этапам</div>
+          </div>
+          <div class="ch-cell">
+            <div class="ch-v" id="chLeft">190 437 785<small>₽</small></div>
+            <div class="ch-k">Осталось собрать</div>
+          </div>
+          <div class="ch-cell">
+            <div class="ch-v" id="chGoal">426 350 000<small>₽</small></div>
+            <div class="ch-k">Сумма трёх этапов</div>
+          </div>
+          <div class="ch-cell">
+            <div class="ch-v" id="chMonth">6 460 093<small>₽</small></div>
+            <div class="ch-k">Собрано в этом месяце из <span id="chMonthGoal">15 000 000</span> ₽</div>
+          </div>
+        </div>
+        <p class="ch-upd">Данные сбора — с <a href="https://domvrayu.ru" target="_blank" rel="noopener">domvrayu.ru</a>,
+          <span id="chUpd">на 15 октября 2026</span>.</p>
       </div>
 
-      <div class="bh-figs">
-        <div data-to="27.8" data-dec="1">
-          <div class="bh-v"><span class="n">0,0</span><small>м</small></div>
-          <div class="bh-k">Высота</div>
-        </div>
-        <div data-to="5" data-dec="0">
-          <div class="bh-v"><span class="n">0</span></div>
-          <div class="bh-k">Минаретов</div>
-        </div>
-        <div data-to="5771" data-dec="0" data-group="no">
-          <div class="bh-v"><span class="n">0</span><small>м&#178;</small></div>
-          <div class="bh-k">Участок</div>
-        </div>
-        <div data-to="53.9" data-dec="1">
-          <div class="bh-v"><span class="n">0,0</span><small>%</small></div>
-          <div class="bh-k">Собрано</div>
-        </div>
+      <div class="ch-btns">
+        <a class="btn btn-primary" href="https://domvrayu.ru" target="_blank" rel="noopener">Помочь стройке<span class="arrow">&#8594;</span></a>
+        <a class="btn btn-ghost" href="#etapy">Этапы стройки<span class="arrow">&#8594;</span></a>
       </div>
     </div>
   </section>
@@ -732,6 +711,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <div>
           <p class="lead">Высота здания 27,8 метра, пять минаретов, участок 5771 м&#178;. Участок выделен, разрешение на строительство получено, монолит выходит на фасадные работы.</p>
           <p class="lead" style="margin-top:16px">Проект разбит на шесть этапов. Каждый этап закрывается полностью, прежде чем начинается следующий: так община видит, за что именно собираются средства, и получает отчёт по каждому закрытому этапу.</p>
+          <p class="lead" style="margin-top:16px">Сейчас идёт сбор на второй и третий этапы: завершается
+            монолитная часть и начинаются фасадные работы. Средства идут на несущие конструкции,
+            подготовку фасада и ключевые элементы инженерных систем.</p>
         </div>
       </div>
 
@@ -780,8 +762,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
           <div class="stage-num"><span class="num">04</span><span class="status">Идёт сейчас</span></div>
           <div class="stage-title">Монолит и фасад</div>
           <div class="stage-money">
-            <div class="stage-money-row"><span class="sum">24 560 589 из 252 000 000 ₽</span><span class="pct">9,7%</span></div>
-            <div class="track"><div class="bar" style="width:9.7%"></div></div>
+            <div class="stage-money-row"><span class="sum">51 562 215 из 252 000 000 ₽</span><span class="pct">20,5%</span></div>
+            <div class="track"><div class="bar" style="width:20.5%"></div></div>
           </div>
         </div>
         <div class="stage done">
@@ -906,6 +888,12 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
               <path d="M24 8.5c8.6 0 15.5 7 15.5 15.5S32.6 39.5 24 39.5c-2.5 0-4.9-.6-7-1.7l-4.6 1.5c-1 .3-1.9-.6-1.6-1.6l1.5-4.4A15.4 15.4 0 0 1 8.5 24C8.5 15.5 15.4 8.5 24 8.5z" fill="#fff"/>
               <circle cx="24" cy="23.6" r="8" fill="url(#mx)"/>
             </svg>
+          </a>
+          <a class="social" href="https://vk.com/dumdv" target="_blank" rel="noopener" aria-label="ВКонтакте" style="background:#0077FF">
+            <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12.8 17.2c-5.3 0-8.5-3.7-8.6-9.8h2.7c.1 4.5 2.1 6.4 3.6 6.8V7.4h2.5v3.9c1.5-.2 3.1-1.9 3.6-3.9h2.5c-.4 2.4-2.1 4.1-3.3 4.8 1.2.6 3.1 2.1 3.8 5h-2.8c-.6-1.8-2-3.2-3.8-3.4v3.4h-.2z"/></svg>
+          </a>
+          <a class="social" href="https://wa.me/79659308564" target="_blank" rel="noopener" aria-label="WhatsApp" style="background:#25D366">
+            <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2.8a9.1 9.1 0 0 0-7.8 13.8L3 21.2l4.7-1.2A9.1 9.1 0 1 0 12 2.8zm0 1.9a7.2 7.2 0 0 1 0 14.4c-1.3 0-2.5-.3-3.5-.9l-.3-.2-2.5.6.7-2.4-.2-.3a7.2 7.2 0 0 1 5.8-11.2zm-3.3 3.6c-.2 0-.4 0-.6.3-.2.3-.8.8-.8 1.9s.8 2.2.9 2.3c.1.2 1.5 2.4 3.8 3.3 1.9.7 2.3.6 2.7.5.4 0 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1l-.5-.3-1.3-.6c-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.3-1.7-.1-.2 0-.3.1-.4l.4-.4.2-.4v-.4l-.6-1.5c-.2-.4-.3-.3-.5-.3h-.4z"/></svg>
           </a>
           <a class="social" href="https://www.youtube.com/@domvrayu" target="_blank" rel="noopener" aria-label="YouTube" style="background:#fff;border:1px solid rgba(32,30,29,.14)">
             <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M28.4 10.2c-.3-1.4-1.3-2.4-2.6-2.6C23.4 7.2 19.8 7 16 7s-7.4.2-9.8.6c-1.3.2-2.3 1.2-2.6 2.6C3.2 12 3 13.8 3 16s.2 4 .6 5.8c.3 1.4 1.3 2.4 2.6 2.6 2.4.4 6 .6 9.8.6s7.4-.2 9.8-.6c1.3-.2 2.3-1.2 2.6-2.6.4-1.8.6-3.6.6-5.8s-.2-4-.6-5.8z" fill="#ED1D24"/><path d="M13.2 20.6V11.4L21.4 16z" fill="#fff"/></svg>
@@ -1483,39 +1471,37 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   });
 })();
 
-// цифры первого экрана набегают от нуля
+
+
+// Счёт сбора на первом экране. Цифры снимаются с domvrayu.ru вручную
+// и лежат в data/stroika.json вместе с датой среза — в вёрстке ничего не правится.
 (function () {
-  var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var figs = document.querySelectorAll('.bh-figs [data-to]');
-  if (!figs.length) return;
+  var bar = document.getElementById('chBar');
+  if (!bar) return;
+  var MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 
-  function ruNum(v, dec, group) {
-    var s = v.toFixed(dec).replace('.', ',');
-    return group ? s.replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') : s;
-  }
-  function run(el) {
-    var to = parseFloat(el.getAttribute('data-to'));
-    var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
-    var group = el.getAttribute('data-group') !== 'no';
-    var slot = el.querySelector('.n');
-    function put(v) { slot.textContent = ruNum(v, dec, group); }
-    if (slow) { put(to); return; }
-    var dur = 1500, t0 = null, done = false;
-    function finish() { if (!done) { done = true; put(to); } }
-    function step(t) {
-      if (done) return;
-      if (t0 === null) t0 = t;
-      var p = Math.min((t - t0) / dur, 1);
-      if (p < 1) { put(to * (1 - Math.pow(1 - p, 3))); requestAnimationFrame(step); }
-      else finish();
+  function money(v) { return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0'); }
+  function put(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
+
+  fetch('data/stroika.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
+    if (d.percent != null) {
+      bar.style.width = d.percent + '%';
+      put('chPct', String(d.percent).replace('.', ',') + '<small>%</small>');
     }
-    requestAnimationFrame(step);
-    // в фоновой вкладке кадры не идут и цифры застыли бы на нуле
-    setTimeout(finish, dur + 500);
-  }
-  for (var i = 0; i < figs.length; i++) run(figs[i]);
+    if (d.left != null) put('chLeft', money(d.left) + '<small>₽</small>');
+    if (d.goal != null) put('chGoal', money(d.goal) + '<small>₽</small>');
+    if (d.month) {
+      put('chMonth', money(d.month.collected) + '<small>₽</small>');
+      put('chMonthGoal', money(d.month.goal));
+    }
+    if (d.totalText) put('chTotal', d.totalText);
+    if (d.totalNote) put('chTotalNote', '(' + d.totalNote + ')');
+    if (d.updated) {
+      var p = d.updated.split('-');
+      put('chUpd', 'на ' + (+p[2]) + ' ' + MONTHS[+p[1] - 1] + ' ' + p[0]);
+    }
+  }).catch(function () { /* остаются значения из разметки */ });
 })();
-
 </script>
 </body>
 </html>
