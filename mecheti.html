@@ -143,7 +143,17 @@ html.is-hero-night .sky{display:block}
 .sky{display:none;position:absolute;inset:0;pointer-events:none}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
-.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
+.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 64%,rgba(188,198,220,.34),transparent 30%),
+    radial-gradient(circle at 56% 28%,rgba(188,198,220,.28),transparent 22%),
+    radial-gradient(circle at 44% 46%,rgba(196,206,226,.24),transparent 17%),
+    radial-gradient(circle at 24% 34%,rgba(255,255,255,.5),transparent 46%),
+    linear-gradient(148deg,#FFFDF4 0%,#F4F0E2 58%,#E4E2D6 100%);
+  /* серп: вырезаем смещённый круг, край остаётся мягким */
+  -webkit-mask:radial-gradient(circle at 78% 24%,transparent 0 46%,#000 47.5%);
+  mask:radial-gradient(circle at 78% 24%,transparent 0 46%,#000 47.5%);
+  filter:drop-shadow(0 0 26px rgba(228,238,255,.6)) drop-shadow(0 0 70px rgba(188,212,255,.38))}
 .star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.5);animation:twinkle 3.4s ease-in-out infinite}
 /* крестообразные лучи от звезды вместо круглого зарева */
 .star::before,.star::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
@@ -155,7 +165,6 @@ html.is-hero-night .sky{display:block}
   background:radial-gradient(ellipse 54% 48% at 62% 56%,rgba(154,186,232,.18),transparent 72%),
              radial-gradient(ellipse 62% 38% at 78% 6%,rgba(176,203,246,.2),transparent 74%)}
 .sky::after{background:radial-gradient(circle at 76% 22%,rgba(206,222,250,.26),rgba(206,222,250,.1) 42%,transparent 72%)}
-.moon{box-shadow:inset -24px -8px 0 0 #eef2fb,0 0 130px 40px rgba(205,221,248,.34)}
 /* звёзды мелкие и мерцают вразнобой */
 .star{width:3px;height:3px;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);
   animation:twinkle 3.1s ease-in-out infinite}

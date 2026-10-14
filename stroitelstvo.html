@@ -144,7 +144,17 @@ html.is-hero-night .sky{display:block}
 .sky{display:none;position:absolute;inset:0;pointer-events:none}
 /* мягкий свет от луны по небу */
 .sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
-.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
+.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 64%,rgba(188,198,220,.34),transparent 30%),
+    radial-gradient(circle at 56% 28%,rgba(188,198,220,.28),transparent 22%),
+    radial-gradient(circle at 44% 46%,rgba(196,206,226,.24),transparent 17%),
+    radial-gradient(circle at 24% 34%,rgba(255,255,255,.5),transparent 46%),
+    linear-gradient(148deg,#FFFDF4 0%,#F4F0E2 58%,#E4E2D6 100%);
+  /* серп: вырезаем смещённый круг, край остаётся мягким */
+  -webkit-mask:radial-gradient(circle at 78% 24%,transparent 0 46%,#000 47.5%);
+  mask:radial-gradient(circle at 78% 24%,transparent 0 46%,#000 47.5%);
+  filter:drop-shadow(0 0 26px rgba(228,238,255,.6)) drop-shadow(0 0 70px rgba(188,212,255,.38))}
 .star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.5);animation:twinkle 3.4s ease-in-out infinite}
 /* крестообразные лучи от звезды вместо круглого зарева */
 .star::before,.star::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
@@ -156,7 +166,6 @@ html.is-hero-night .sky{display:block}
   background:radial-gradient(ellipse 54% 48% at 62% 56%,rgba(154,186,232,.18),transparent 72%),
              radial-gradient(ellipse 62% 38% at 78% 6%,rgba(176,203,246,.2),transparent 74%)}
 .sky::after{background:radial-gradient(circle at 76% 22%,rgba(206,222,250,.26),rgba(206,222,250,.1) 42%,transparent 72%)}
-.moon{box-shadow:inset -24px -8px 0 0 #eef2fb,0 0 130px 40px rgba(205,221,248,.34)}
 /* звёзды мелкие и мерцают вразнобой */
 .star{width:3px;height:3px;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);
   animation:twinkle 3.1s ease-in-out infinite}
@@ -230,6 +239,8 @@ html.is-hero-night .sky{display:block}
 
 .stages{margin-top:72px;display:flex;flex-direction:column;gap:12px}
 .stage{display:grid;grid-template-columns:96px 1fr 300px;gap:28px;align-items:center;background:var(--srf);border:1px solid var(--brd);border-left:5px solid var(--brd);border-radius:4px;padding:24px 28px}
+.stage.work{border-color:rgba(185,143,34,.34)}
+.stage.work .status{color:var(--gold)}
 .stage.active{border-color:var(--gold);border-left-color:var(--gold);background:rgba(200,169,79,.12)}
 .stage-num{display:flex;flex-direction:column;gap:6px}
 .stage-num .num{font-family:"Cormorant Garamond",Georgia,serif;font-size:38px;line-height:1;color:var(--mut)}
@@ -738,7 +749,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   <section class="plan" id="etapy">
     <div class="wrap">
       <span class="kicker">Этапы</span>
-      <h2>Шесть этапов. Три из них уже закрыты.</h2>
+      <h2>Шесть этапов. Три закрыты, на стройке идёт пятый.</h2>
       <p class="plan-sub">Этапы идут снизу вверх — так же, как растёт здание: внизу проект и фундамент, наверху купол и благоустройство. Текущий этап выделен.</p>
 
       <div class="stages">
@@ -750,16 +761,16 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
             <div class="track"><div class="bar" style="width:0%"></div></div>
           </div>
         </div>
-        <div class="stage next">
-          <div class="stage-num"><span class="num">05</span><span class="status">Впереди</span></div>
+        <div class="stage work">
+          <div class="stage-num"><span class="num">05</span><span class="status">Работы идут</span></div>
           <div class="stage-title">Купол, минарет, кровля</div>
           <div class="stage-money">
-            <div class="stage-money-row"><span class="sum">сумма — по смете</span><span class="pct">—</span></div>
+            <div class="stage-money-row"><span class="sum">работы начались, сбор пока на этапе 04</span><span class="pct">—</span></div>
             <div class="track"><div class="bar" style="width:0%"></div></div>
           </div>
         </div>
         <div class="stage active">
-          <div class="stage-num"><span class="num">04</span><span class="status">Идёт сейчас</span></div>
+          <div class="stage-num"><span class="num">04</span><span class="status">Идёт сбор</span></div>
           <div class="stage-title">Монолит и фасад</div>
           <div class="stage-money">
             <div class="stage-money-row"><span class="sum">51 562 215 из 252 000 000 ₽</span><span class="pct">20,5%</span></div>
