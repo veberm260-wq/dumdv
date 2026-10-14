@@ -1,43 +1,40 @@
-/* Реакции под новостями.
+/* Реакции под новостями — компактные пилюли, как в мессенджерах.
    Пока счётчики живут в браузере читателя: разметка и поведение готовы,
    общими числа станут, когда появится сервер. */
-.rx{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.rx{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 
-.rx-btn{--c:var(--gold);--cs:rgba(185,143,34,.12);
-  display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;
-  border:1px solid var(--brd);background:transparent;cursor:pointer;
+.rx-btn{--c:var(--gold);--cs:rgba(185,143,34,.16);
+  display:inline-flex;align-items:center;gap:6px;padding:4px 11px 4px 8px;
+  border-radius:999px;border:1px solid transparent;background:var(--pnl);cursor:pointer;
   font-family:inherit;font-size:13px;font-weight:600;line-height:1;color:var(--mut);
   font-variant-numeric:lining-nums tabular-nums;
-  transition:color .2s ease,border-color .2s ease,background .2s ease,transform .2s ease}
-/* эмодзи приглушены, пока отметка не поставлена */
-.rx-ic{font-size:21px;line-height:1;flex:none;
-  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
-  filter:saturate(.45) opacity(.72);transition:filter .2s ease,transform .2s ease}
-.rx-btn:hover{color:var(--c);border-color:var(--c);transform:translateY(-1px)}
-.rx-btn:hover .rx-ic{filter:none}
-.rx-btn.on{color:var(--c);border-color:var(--c);background:var(--cs)}
-.rx-btn.on .rx-ic{filter:none;transform:scale(1.06)}
-.rx-btn:focus-visible{outline:2px solid var(--c);outline-offset:2px}
-.rx-btn.pop{animation:rxPop .4s cubic-bezier(.3,1.4,.5,1)}
+  transition:background .18s ease,color .18s ease,border-color .18s ease}
+/* эмодзи всегда в полном цвете, ничего не гасим */
+.rx-ic{font-size:19px;line-height:22px;flex:none;
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 .rx-n{min-width:8px;text-align:left}
 
-/* у каждой реакции свой цвет подсветки */
-.rx-heart{--c:#D2534E;--cs:rgba(210,83,78,.13)}
-.rx-moon{--c:#4C72C4;--cs:rgba(76,114,196,.13)}
-.rx-mosque{--c:#B98F22;--cs:rgba(185,143,34,.14)}
-.rx-dua{--c:#2F9464;--cs:rgba(47,148,100,.13)}
+.rx-btn:hover{background:var(--track)}
+.rx-btn.on{background:var(--cs);border-color:var(--c);color:var(--c)}
+.rx-btn:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.rx-btn.pop .rx-ic{animation:rxPop .42s cubic-bezier(.3,1.5,.5,1)}
+
+/* цвет подсветки у каждой реакции свой */
+.rx-heart{--c:#D2534E;--cs:rgba(210,83,78,.16)}
+.rx-moon{--c:#4C72C4;--cs:rgba(76,114,196,.16)}
+.rx-mosque{--c:#A8801B;--cs:rgba(185,143,34,.18)}
+.rx-dua{--c:#2F9464;--cs:rgba(47,148,100,.16)}
 
 @keyframes rxPop{
   0%{transform:scale(1)}
-  45%{transform:scale(1.14)}
+  40%{transform:scale(1.28)}
   100%{transform:scale(1)}
 }
 @media (max-width:420px){
   .rx{gap:5px}
-  .rx-btn{padding:6px 10px;gap:6px}
-  .rx-ic{font-size:19px}
+  .rx-btn{padding:4px 10px 4px 7px;gap:5px;font-size:12.5px}
 }
 @media (prefers-reduced-motion:reduce){
-  .rx-btn,.rx-btn:hover{transition:none;transform:none}
-  .rx-btn.pop{animation:none}
+  .rx-btn{transition:none}
+  .rx-btn.pop .rx-ic{animation:none}
 }
