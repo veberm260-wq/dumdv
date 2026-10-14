@@ -294,10 +294,11 @@ html.is-hero-night .hero-night{opacity:1}
 /* новости */
 .news{background:var(--srf);padding:110px 0 120px}
 .head-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin:0 0 64px}
-.head-row h2{font-size:clamp(32px,4vw,52px);line-height:1.1;color:var(--tx)}
+.head-row h2{font-family:"Golos Text",system-ui,sans-serif;font-weight:700;
+  font-size:clamp(34px,5.4vw,72px);line-height:1;letter-spacing:-.03em;text-transform:uppercase;color:var(--tx)}
 .more{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--gold);border-bottom:1px solid var(--goldsoft);padding-bottom:3px}
 /* новости — воздушная сетка в духе Montfort: тонкий заголовок, сноска-дата, ссылка без засечек */
-.news .head-row h2{font-size:clamp(38px,4.6vw,60px);font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.news .head-row h2{color:var(--tx)}
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:72px 44px}
 .news-card{display:block;text-decoration:none;color:inherit}
 .news-photo{aspect-ratio:3/2;border-radius:4px;background:var(--pnl);border:1px solid var(--brd);display:grid;place-items:center;overflow:hidden;transition:filter .3s ease}
@@ -508,7 +509,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 /* ── события: ряд карточек покомпактнее ────────────────────────── */
 .ev{background:var(--pg);padding:clamp(56px,7vw,100px) 0 clamp(40px,5vw,70px)}
 .ev-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:18px}
-.ev-head h2{font-size:clamp(30px,4vw,52px);line-height:1.1;color:var(--tx);margin:10px 0 0}
+.ev-head h2{font-family:"Golos Text",system-ui,sans-serif;font-weight:700;
+  font-size:clamp(34px,5.4vw,72px);line-height:1;letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--tx);margin:12px 0 0}
 .ev-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
   gap:clamp(16px,2vw,26px);margin-top:clamp(26px,3.4vw,42px)}
 @media (max-width:980px){.ev-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
