@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Прямая трансляция — Духовное управление мусульман Дальнего Востока</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Golos Text",system-ui,sans-serif;font-size:16px;background:#fbf6ec}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;margin:0}
+a{color:#8a6f2e}
+a:hover{color:#6f5822}
+img{max-width:100%}
+#night,#fsmenu{position:absolute;opacity:0;pointer-events:none}
+
+.page{
+  --pg:#fbf6ec;--srf:#ffffff;--pnl:#f7efdf;--tx:#201e1d;--mut:#4a4540;
+  --brd:rgba(32,30,29,.14);--gold:#8a6f2e;--goldsoft:#c8a94f;--track:#e9dcc0;
+  --strip:#ffffff;--heroimg:1;
+  --veil:linear-gradient(100deg,rgba(251,246,236,.96) 0%,rgba(251,246,236,.84) 34%,rgba(251,246,236,.28) 64%,rgba(251,246,236,0) 100%);
+  background:var(--pg);color:var(--tx)
+}
+#night:checked ~ .page{
+  /* НОЧЬ — глубокая синева, тёплое золото, снимок остаётся читаемым */
+  --pg:#0E1626;--srf:#17203200;--srf:#172032;--pnl:#131B2B;--tx:#F4EEDE;--mut:rgba(244,238,222,.74);
+  --brd:rgba(244,238,222,.2);--gold:#E2C169;--goldsoft:#F0DCA3;--track:rgba(244,238,222,.18);
+  --strip:#172032;--heroimg:1;
+  --veil:linear-gradient(100deg,rgba(14,22,38,.95) 0%,rgba(14,22,38,.82) 34%,rgba(14,22,38,.42) 64%,rgba(14,22,38,.18) 100%)
+}
+/* небо со звёздами: ночью по выбору темы и ночью по хабаровскому времени */
+#night:checked ~ .page .sky{display:block}
+html.is-hero-night .sky{display:block}
+#night:checked ~ .page .theme-day{display:none}
+.theme-night{display:none}
+#night:checked ~ .page .theme-night{display:inline}
+#night:checked ~ .page .clocks{background:rgba(255,255,255,.14);border-color:rgba(226,193,105,.3)}
+#night:checked ~ .page .clock{background:#161a23}
+#night:checked ~ .page .prayers{background:rgba(255,255,255,.05)}
+#night:checked ~ .page .prayer.is-next{background:rgba(226,193,105,.16);border-color:rgba(226,193,105,.5)}
+#night:checked ~ .page .prayer.is-next .prayer-k,#night:checked ~ .page .prayer.is-next .prayer-v{color:#E2C169}
+#night:checked ~ .page .hdr-in{background:rgba(25,29,40,.86);border-color:rgba(226,193,105,.22)}
+#night:checked ~ .page .hdr.stuck .hdr-in{background:#191d28}
+#night:checked ~ .page .hdr-nav a{color:rgba(243,236,221,.62)}
+#night:checked ~ .page .hdr-nav a:hover,#night:checked ~ .page .hdr-nav a.active{color:#f3ecdd}
+#night:checked ~ .page .hdr-nav a.active::after{background:#E2C169}
+#night:checked ~ .page .hdr-link.active-link::after{background:#E2C169}
+#night:checked ~ .page .hdr-link{color:#f3ecdd}
+#night:checked ~ .page .dots i{background:#f3ecdd}
+#night:checked ~ .page .fs{background:#12141c}
+#night:checked ~ .page .theme-toggle{background:rgba(255,255,255,.07);border-color:rgba(226,193,105,.32)}
+#night:checked ~ .page .theme-toggle:hover{border-color:#E2C169;color:#E2C169}
+#night:checked ~ .page .card-title{color:#E2C169}
+
+
+
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
+
+/* строка намазов — единственный светло-зелёный элемент */
+.strip{background:var(--strip);border-bottom:1px solid var(--brd)}
+.strip-in{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:16px 28px;max-width:1240px;margin:0 auto}
+.strip-left{margin-right:auto;display:flex;flex-direction:column;gap:11px}
+.strip-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.date{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;color:var(--tx);font-variant-numeric:lining-nums}
+/* часы: Москва и Хабаровск, одной сдвоенной плашкой в стиле джумы */
+.clocks{display:inline-flex;align-items:stretch;gap:1px;border-radius:999px;overflow:hidden;background:rgba(185,143,34,.28);border:1px solid rgba(185,143,34,.28)}
+.clock{display:inline-flex;align-items:baseline;gap:9px;padding:5px 14px;background:var(--pnl)}
+.clock-k{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+.clock-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;color:var(--tx)}
+/* двоеточие мигает раз в секунду — видно, что время живое */
+.clock-v .sep{font-style:normal;animation:tick 1s step-end infinite}
+@keyframes tick{0%,49%{opacity:1}50%,100%{opacity:.25}}
+.strip-link{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--tx);text-decoration:none}
+.strip-link .arr{display:inline-grid;place-items:center;width:20px;height:20px;flex:none;border-radius:50%;border:1px solid var(--brd);transition:background .2s ease,border-color .2s ease}
+.strip-link .arr svg{display:block;width:9px;height:9px;fill:none;stroke:currentColor;stroke-width:1.8}
+.strip-link:hover{color:var(--gold)}
+.strip-link:hover .arr{background:var(--gold);border-color:var(--gold);color:#fff}
+.strip-link:hover .arr svg{stroke:#fff}
+/* времена намазов */
+.prayers{display:flex;gap:4px;flex-wrap:wrap;align-items:stretch;padding:4px;border-radius:16px;background:var(--pnl);border:1px solid rgba(185,143,34,.2)}
+.prayer{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-width:78px;padding:9px 14px;border-radius:12px;border:1px solid transparent;transition:background .25s ease,border-color .25s ease}
+.prayer + .prayer::before{content:"";position:absolute;left:-2px;top:22%;bottom:22%;width:1px;background:var(--brd)}
+.prayer.is-next{background:var(--srf);border-color:rgba(185,143,34,.5);box-shadow:0 3px 12px rgba(185,143,34,.16)}
+.prayer.is-next::before,.prayer.is-next + .prayer::before{opacity:0}
+.prayer.is-next .prayer-k,.prayer.is-next .prayer-v{color:#87680F}
+.prayer-k{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
+.prayer-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;font-weight:600;line-height:1;font-variant-numeric:lining-nums tabular-nums;letter-spacing:.01em;color:var(--tx)}
+@media (max-width:900px){
+  .strip-in{gap:18px}
+  .prayer{min-width:0;padding:8px 10px}
+  .prayer-v{font-size:21px}
+}
+
+/* шапка */
+.hdr{position:sticky;top:18px;z-index:50;padding:0 28px;transition:top .25s ease,padding .25s ease}
+.hdr-in{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:nowrap;white-space:nowrap;padding:16px 20px;background:rgba(255,253,247,.86);backdrop-filter:blur(10px);border:1px solid rgba(185,143,34,.18);transition:background .25s ease,box-shadow .25s ease,padding .25s ease,max-width .25s ease}
+.hdr.stuck{top:12px}
+.hdr.stuck .hdr-in{background:#fff;box-shadow:0 14px 34px rgba(32,30,29,.14)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;margin-right:auto;flex:none}
+.brand-badge{width:48px;height:48px;flex:none;border-radius:50%;background:var(--pnl);border:1.5px solid #B98F22;display:grid;place-items:center}
+.mark{width:30px;height:30px;fill:#B98F22}
+.mark .cut{fill:var(--pnl)}
+.brand-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:#87680F;line-height:1}
+.brand-sub{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-top:4px;display:block}
+.hdr-nav{display:flex;align-items:center;gap:13px;flex-wrap:nowrap;align-self:stretch}
+.hdr-nav a{position:relative;display:flex;align-items:center;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#8a7f6a;text-decoration:none}
+.hdr-nav a:hover{color:#43340D}
+.hdr-nav a.active{color:#201e1d}
+.hdr-nav a.active::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
+.hdr.stuck .hdr-nav a.active::after{bottom:-16px}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;flex:none}
+.hdr-link{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#43340D;text-decoration:none;cursor:pointer}
+.hdr-link:hover{color:#87680F}
+.hdr-link.active-link{color:#201e1d;position:relative}
+.hdr-link.active-link::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-20px;height:2px;background:#87680F}
+.hdr.stuck .hdr-link.active-link::after{bottom:-16px}
+.badge{width:24px;height:24px;border-radius:50%;background:#E2C169;color:#43340D;font-family:"Cormorant Garamond",Georgia,serif;font-size:14px;font-weight:600;display:grid;place-items:center;font-variant-numeric:lining-nums tabular-nums}
+.dots{display:inline-flex;align-items:center;gap:4px}
+.dots i{width:5px;height:5px;border-radius:50%;background:#43340D;display:block}
+.dots.close i:first-child{transform:rotate(45deg)}
+.hdr-cta{padding:12px 14px 12px 18px;font-size:10.5px;letter-spacing:.08em;background:#B98F22}
+.hdr-cta .arrow{width:22px;height:22px;font-size:12px}
+.hdr-cta:hover{background:#87680F;color:#fff}
+
+/* полноэкранное меню */
+.fs{display:none;position:fixed;inset:0;z-index:60;background:#FFFDF7;overflow:auto}
+#fsmenu:checked ~ .page .fs{display:block}
+.fs-in{max-width:1240px;margin:0 auto;padding:34px 28px 80px}
+.fs-top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:34px;border-bottom:1px solid var(--brd)}
+.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:56px}
+.fs-col h4{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B98F22;margin:0 0 22px}
+.fs-col a{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;line-height:1.35;color:var(--tx);text-decoration:none}
+.fs-col a:hover{color:#87680F}
+
+/* герой */
+.hero{position:relative;overflow:hidden;background:var(--pg);margin-top:-108px}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 40%;opacity:var(--heroimg);filter:saturate(.62) contrast(.92)}
+.hero-veil{position:absolute;inset:0;background:var(--veil)}
+.sky{display:none;position:absolute;inset:0;pointer-events:none}
+/* мягкий свет от луны по небу */
+.sky::after{content:"";position:absolute;right:0;top:0;width:min(680px,72%);height:min(540px,62%);pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(243,230,192,.22),rgba(243,230,192,.08) 40%,transparent 68%)}
+.moon{position:absolute;right:120px;top:70px;width:96px;height:96px;border-radius:50%;box-shadow:inset -24px -8px 0 0 #f3e6c0,0 0 120px 38px rgba(243,230,192,.3)}
+.star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px 1px rgba(255,255,255,.5);animation:twinkle 3.4s ease-in-out infinite}
+/* крестообразные лучи от звезды вместо круглого зарева */
+.star::before,.star::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.star::before{width:26px;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
+.star::after{width:1.5px;height:26px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.75) 50%,transparent)}
+@keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
+/* ночью мечеть стоит в лунном свете — без солнечных бликов */
+.sky::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 54% 48% at 62% 56%,rgba(154,186,232,.18),transparent 72%),
+             radial-gradient(ellipse 62% 38% at 78% 6%,rgba(176,203,246,.2),transparent 74%)}
+.sky::after{background:radial-gradient(circle at 76% 22%,rgba(206,222,250,.26),rgba(206,222,250,.1) 42%,transparent 72%)}
+.moon{box-shadow:inset -24px -8px 0 0 #eef2fb,0 0 130px 40px rgba(205,221,248,.34)}
+/* звёзды мелкие и мерцают вразнобой */
+.star{width:3px;height:3px;background:#fff;box-shadow:0 0 5px 1px rgba(255,255,255,.6);
+  animation:twinkle 3.1s ease-in-out infinite}
+.star::before{width:18px;height:1.2px;
+  background:linear-gradient(90deg,transparent,rgba(238,245,255,.8) 50%,transparent)}
+.star::after{width:1.2px;height:18px;
+  background:linear-gradient(180deg,transparent,rgba(238,245,255,.8) 50%,transparent)}
+.star:nth-child(3n){width:2px;height:2px;animation-duration:2.3s}
+.star:nth-child(3n)::before{width:13px}
+.star:nth-child(3n)::after{height:13px}
+.star:nth-child(4n){width:4px;height:4px;animation-duration:4.4s}
+.star:nth-child(4n)::before{width:24px}
+.star:nth-child(4n)::after{height:24px}
+.star:nth-child(5n){animation-duration:5.2s}
+@keyframes twinkle{0%,100%{opacity:.28}50%{opacity:1}}
+
+/* ночной снимок: гасим дневной свет и уводим кадр в синеву */
+#night:checked ~ .page .hero,#night:checked ~ .page .bh{background:#070C18}
+#night:checked ~ .page .hero-img,
+#night:checked ~ .page .bh-shot img{filter:brightness(.44) contrast(1.08) saturate(.52)}
+#night:checked ~ .page .hero-veil{background:linear-gradient(to bottom,
+  rgba(7,13,26,.5) 0%,rgba(7,13,26,.28) 30%,rgba(7,13,26,.5) 62%,rgba(8,15,30,.88) 100%)}
+#night:checked ~ .page .bh-veil{background:linear-gradient(to bottom,
+  rgba(7,13,26,.52) 0%,rgba(7,13,26,.3) 28%,rgba(7,13,26,.5) 58%,rgba(8,15,30,.9) 100%)}
+.hero-night-tint{background:linear-gradient(to bottom,rgba(8,13,30,.72) 0%,rgba(10,16,34,.6) 34%,
+  rgba(14,21,40,.5) 66%,rgba(17,25,44,.62) 100%)}
+.hero-in{position:relative;padding:210px 28px 122px;max-width:1240px;margin:0 auto}
+.hero h1{font-size:clamp(44px,7vw,92px);line-height:1.03;letter-spacing:.02em;text-transform:uppercase;max-width:12ch;color:var(--tx)}
+.hero p{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.5;max-width:34ch;color:var(--mut);margin:32px 0 38px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:17px 22px 17px 30px;font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none}
+.btn-primary{background:var(--gold);color:#fff}
+.btn-primary:hover{opacity:.88;color:#fff}
+.btn-ghost{border:1px solid var(--brd);color:var(--gold);padding:17px 28px}
+.btn-ghost:hover{background:var(--pnl)}
+.arrow{width:26px;height:26px;border:1.5px solid rgba(255,255,255,.6);border-radius:50%;display:grid;place-items:center;font-size:13px}
+
+/* о нас */
+.about{background:var(--srf);padding:100px 0}
+.about h2{font-size:clamp(32px,4vw,48px);line-height:1.12;color:var(--tx);margin:16px 0 22px;max-width:22ch}
+.about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start}
+.about .lead{margin-bottom:16px}
+.about-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd)}
+.fact{background:var(--srf);padding:24px 22px}
+.fact-k{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.fact-v{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;line-height:1.3;color:var(--tx);margin-top:8px}
+
+/* стройка */
+.build{background:var(--pnl);padding:100px 0 92px}
+.build-grid{display:grid;grid-template-columns:1.15fr 420px;gap:64px;align-items:start;margin-top:20px}
+.build h2{font-size:clamp(34px,4vw,54px);line-height:1.12;color:var(--tx);margin-bottom:22px}
+.lead{font-size:17px;line-height:1.75;color:var(--mut);max-width:52ch;margin:0}
+.big-sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(40px,5vw,64px);line-height:1;color:var(--gold);margin-top:40px}
+.sub{font-size:14px;color:var(--mut);margin-top:10px}
+.rule{height:1px;background:var(--brd);margin:28px 0 20px;max-width:56ch}
+.panel{background:var(--srf);border:1px solid var(--brd);border-radius:6px;padding:28px}
+.panel-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-end}
+.panel-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.panel-num{font-family:"Cormorant Garamond",Georgia,serif;font-size:30px;line-height:1.1;margin-top:4px;color:var(--tx)}
+.track{height:10px;border-radius:999px;background:var(--track);overflow:hidden}
+.bar{height:100%;background:var(--gold)}
+.panel .track{height:12px;margin-top:16px}
+.meta-row{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-top:8px}
+.goal{background:var(--pnl);border-radius:6px;padding:20px;margin-top:20px}
+.goal .track{margin-top:10px;height:10px}
+.goal .bar{background:var(--goldsoft)}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.amount{border:1px solid var(--brd);border-radius:999px;padding:9px 4px;text-align:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums}
+.amount.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.panel .btn{width:100%;justify-content:center;margin-top:20px;padding:18px}
+.fine{font-size:12px;line-height:1.6;color:var(--mut);margin-top:14px}
+
+.stages{margin-top:72px;display:flex;flex-direction:column;gap:12px}
+.stage{display:grid;grid-template-columns:96px 1fr 300px;gap:28px;align-items:center;background:var(--srf);border:1px solid var(--brd);border-left:5px solid var(--brd);border-radius:4px;padding:24px 28px}
+.stage.active{border-color:var(--gold);border-left-color:var(--gold);background:rgba(200,169,79,.12)}
+.stage-num{display:flex;flex-direction:column;gap:6px}
+.stage-num .num{font-family:"Cormorant Garamond",Georgia,serif;font-size:38px;line-height:1;color:var(--mut)}
+.stage.done .num{color:var(--tx)}
+.stage.active .num{color:var(--gold)}
+.stage-num .status{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.stage.active .status{color:var(--gold)}
+.stage-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.25;color:var(--tx)}
+.stage-money-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.stage-money .sum{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;font-weight:600;color:var(--tx);font-variant-numeric:lining-nums tabular-nums}
+.stage-money .pct{font-family:"Cormorant Garamond",Georgia,serif;font-size:17px;font-weight:600;color:var(--mut);font-variant-numeric:lining-nums tabular-nums}
+.stage.active .pct{color:var(--gold)}
+.stage.done .bar{background:var(--goldsoft)}
+.stage.next .bar{background:transparent}
+
+/* новости */
+.news{background:var(--srf);padding:100px 0}
+.head-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin:16px 0 40px}
+.head-row h2{font-size:clamp(32px,4vw,52px);line-height:1.1;color:var(--tx)}
+.more{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--gold);border-bottom:1px solid var(--goldsoft);padding-bottom:3px}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.news-photo{aspect-ratio:4/3;border:1px solid var(--brd);border-radius:3px;background:var(--pnl);display:grid;place-items:center;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mut)}
+.news-date{font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:16px}
+.news-title{font-size:24px;line-height:1.3;margin-top:8px;color:var(--tx)}
+
+/* приходы */
+.regions{background:var(--pg);padding:100px 0}
+.regions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--brd)}
+.region{background:var(--pg);padding:30px 26px;min-width:0}
+.region-name{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;line-height:1.2;color:var(--tx)}
+.region-note{font-size:14px;line-height:1.6;color:var(--mut);margin-top:10px}
+
+/* вопрос имаму */
+.ask{background:var(--pg);padding:0 0 96px}
+.ask-in{border-top:1px solid var(--brd);padding-top:56px;display:flex;align-items:center;justify-content:space-between;gap:56px;flex-wrap:wrap}
+.ask h2{font-size:clamp(32px,4vw,52px);line-height:1.12;margin:16px 0 14px;color:var(--tx)}
+.ask p{font-size:17px;line-height:1.7;color:var(--mut);margin:0;max-width:56ch}
+
+/* подвал */
+footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:56px;padding:72px 28px 30px;max-width:1240px;margin:0 auto}
+.foot-brand{display:flex;align-items:center;gap:14px}
+.foot-badge{width:52px;height:52px;border-radius:50%;background:var(--pnl);border:1.5px solid var(--gold);display:grid;place-items:center}
+.foot-badge .mark{width:32px;height:32px}
+.foot-col h4{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+.foot-col a,.foot-col span{display:block;font-size:15px;line-height:1.6;color:var(--tx);text-decoration:none;margin-bottom:10px}
+.foot-note{font-size:12.5px;color:var(--mut);line-height:1.6}
+.socials{display:flex;gap:12px;margin-top:16px}
+.social{position:relative;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.social::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.75) 50%,transparent 70%);background-size:280% 100%;background-position:130% 0}
+.social:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(32,30,29,.22)}
+.social:hover::after{opacity:1;animation:sheen 1.1s ease-in-out infinite}
+@keyframes sheen{0%{background-position:130% 0}100%{background-position:-130% 0}}
+@media (prefers-reduced-motion:reduce){
+  .social:hover::after{animation:none;opacity:.35;background-position:50% 0}
+  .social:hover{transform:none}
+  .clock-v .sep{animation:none}
+}
+.legal{max-width:1240px;margin:0 auto;padding:0 28px 34px}
+.legal-in{border-top:1px solid var(--brd);padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;line-height:1.6;color:var(--mut)}
+
+.theme-btn{font-size:12px;color:var(--gold);cursor:pointer;border-bottom:1px solid var(--brd);padding-bottom:2px}
+.theme-btn:hover{color:var(--tx)}
+.theme-toggle{display:inline-grid;place-items:center;width:38px;height:38px;flex:none;cursor:pointer;border-radius:50%;background:var(--pnl);border:1px solid rgba(185,143,34,.28);color:var(--gold);transition:background .2s ease,border-color .2s ease,color .2s ease}
+.theme-toggle:hover{border-color:#B98F22;color:#87680F}
+.theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* светлая тема — луна (нажать, чтобы стемнело), тёмная — солнце */
+.theme-toggle .theme-day{display:block}
+.theme-toggle .theme-night{display:none}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* шапка: одна строка на десктопе, на узких экранах разделы переносятся под логотип */
+@media (max-width:700px){
+  .hdr{padding:0 12px}
+  .hdr-in{flex-wrap:wrap;white-space:normal;justify-content:center;gap:10px;padding:12px 14px}
+  .brand{margin-right:0}
+  .brand-sub{display:none}
+  .hdr-nav{width:100%;justify-content:center;align-self:auto;gap:18px;flex-wrap:wrap}
+  .hdr-nav a{font-size:10.5px}
+  .hdr-nav a.active::after,.hdr.stuck .hdr-nav a.active::after{bottom:-5px}
+}
+@media (max-width:420px){
+  .brand-badge{width:40px;height:40px}
+  .mark{width:26px;height:26px}
+  .brand-name{font-size:15px;letter-spacing:.08em}
+  .hdr-nav{gap:14px}
+}
+@media (max-width:1080px){
+  .build-grid,.about-grid{grid-template-columns:1fr}
+  .stage{grid-template-columns:80px 1fr}
+  .stage-money{grid-column:1 / -1}
+  .news-grid{grid-template-columns:1fr}
+  .regions-grid{grid-template-columns:1fr 1fr}
+  .foot{grid-template-columns:1fr}
+  .moon{right:40px;top:40px;width:70px;height:70px}
+}
+@media (max-width:680px){
+  .regions-grid{grid-template-columns:1fr}
+}
+
+/* страница новостей */
+.page-head{position:relative;overflow:hidden;padding:120px 0 64px}
+.page-head .wrap{position:relative}
+.page-head h1{font-size:clamp(38px,5.2vw,74px);line-height:1.02;letter-spacing:.01em;color:var(--tx)}
+.filters{display:flex;gap:28px;flex-wrap:wrap;margin-top:56px;padding-bottom:2px}
+.filters a{position:relative;font-size:12.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:10px}
+.filters a:hover{color:#43340D}
+.filters a.active{color:var(--tx)}
+.filters a.active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
+.notice{margin:0 0 40px;padding:12px 16px;border:1px dashed var(--brd);border-radius:2px;font-size:12.5px;color:var(--mut);background:var(--pnl)}
+/* лента новостей — та же воздушная сетка, что и на главной */
+.feed{background:var(--srf);padding:80px 0 110px}
+.feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:72px 44px}
+.card{display:block;text-decoration:none;color:inherit}
+.card-photo{aspect-ratio:3/2;border:1px solid var(--brd);border-radius:4px;background:var(--pnl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;overflow:hidden;transition:filter .3s ease}
+.card:hover .card-photo{filter:brightness(1.04)}
+.card-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.slot-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);opacity:.75}
+.slot-hint{font-size:12.5px;line-height:1.5;color:var(--mut);max-width:26ch;opacity:.75}
+.card-date{font-size:12.5px;font-weight:400;letter-spacing:.01em;text-transform:none;color:var(--mut);margin-top:26px}
+.card-title{font-family:"Golos Text",system-ui,sans-serif;font-size:19px;font-weight:400;line-height:1.55;letter-spacing:.005em;color:#87680F;margin-top:12px;transition:color .2s ease;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card:hover .card-title{color:var(--tx)}
+.pager{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:76px}
+.pager a{position:relative;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8a7f6a;text-decoration:none;padding-bottom:6px}
+.pager a:hover{color:#43340D}
+.pager a.now{color:var(--tx)}
+.pager a.now::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#87680F}
+@media (max-width:1080px){
+  .feed-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  .feed-grid{grid-template-columns:1fr}
+}
+
+/* ── прямая трансляция ─────────────────────────────────────────── */
+.lv{background:var(--srf);padding:60px 0 100px}
+.lv-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);
+  gap:clamp(22px,3vw,44px);align-items:start}
+@media (max-width:980px){.lv-grid{grid-template-columns:1fr}}
+
+.lv-frame{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;
+  background:#0B1726;border:1px solid var(--brd)}
+.lv-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.lv-still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:brightness(.52) saturate(.7)}
+.lv-over{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  gap:10px;padding:clamp(18px,2.4vw,32px);color:#fff;
+  background:linear-gradient(to bottom,rgba(8,14,26,.3) 0%,rgba(8,14,26,.08) 38%,rgba(8,14,26,.86) 100%)}
+.lv-state{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;
+  padding:7px 14px;border-radius:999px;background:rgba(8,14,26,.6);
+  border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(6px);
+  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.lv-state i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.6);flex:none}
+.lv-state.on i{background:#E2C169;box-shadow:0 0 0 0 rgba(226,193,105,.65);
+  animation:lvPulse 2.2s ease-out infinite}
+@keyframes lvPulse{
+  0%{box-shadow:0 0 0 0 rgba(226,193,105,.6)}
+  70%{box-shadow:0 0 0 9px rgba(226,193,105,0)}
+  100%{box-shadow:0 0 0 0 rgba(226,193,105,0)}
+}
+.lv-note{margin:0;max-width:52ch;font-size:14px;line-height:1.6;color:rgba(255,255,255,.88)}
+
+.lv-side{display:flex;flex-direction:column;gap:clamp(14px,1.8vw,20px)}
+.lv-box{background:var(--pnl);border:1px solid var(--brd);border-radius:16px;
+  padding:clamp(18px,2.2vw,26px)}
+.lv-box h3{font-family:"Golos Text",system-ui,sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--gold);margin:0}
+.lv-when{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.lv-when li{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  padding-bottom:12px;border-bottom:1px solid var(--brd)}
+.lv-when li:last-child{padding-bottom:0;border-bottom:0}
+.lv-when b{font-weight:600;font-size:15px;color:var(--tx)}
+.lv-when span{font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;color:var(--gold);
+  font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.lv-when em{display:block;font-style:normal;font-size:13px;color:var(--mut);margin-top:3px}
+.lv-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.lv-link{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:999px;
+  border:1px solid var(--brd);text-decoration:none;color:var(--tx);
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  transition:border-color .2s ease,background .2s ease,color .2s ease}
+.lv-link:hover{border-color:var(--gold);background:rgba(185,143,34,.1);color:var(--gold)}
+.lv-link svg{width:16px;height:16px;fill:currentColor}
+.lv-hint{margin:14px 0 0;font-size:13px;line-height:1.65;color:var(--mut)}
+@media (prefers-reduced-motion:reduce){.lv-state.on i{animation:none}}
+</style>
+</head>
+<body>
+<input type="checkbox" id="night">
+<script>
+// Тема держится между страницами. Пишем и в localStorage, и в куку:
+// в приватном окне localStorage молча недоступен, и выбор бы терялся.
+(function () {
+  var n = document.getElementById('night');
+  if (!n) return;
+  var KEY = 'dumdv-theme';
+  function load() {
+    try { var v = localStorage.getItem(KEY); if (v) return v; } catch (e) {}
+    var m = /(?:^|;\s*)dumdv-theme=(night|day)/.exec(document.cookie || '');
+    return m ? m[1] : null;
+  }
+  function save(v) {
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+    try { document.cookie = KEY + '=' + v + ';path=/;max-age=31536000;samesite=lax'; } catch (e) {}
+  }
+  if (load() === 'night') n.checked = true;
+  n.addEventListener('change', function () { save(n.checked ? 'night' : 'day'); });
+})();
+</script>
+<div class="page">
+
+  <div class="strip">
+    <div class="strip-in">
+      <div class="strip-left">
+        <span class="date"><span id="today">Дата</span> · <span id="hijri">—</span></span>
+        <div class="strip-row">
+          <span class="clocks" id="clocks">
+            <span class="clock" title="Время в Москве">
+              <span class="clock-k">Мск</span>
+              <span class="clock-v"><span data-h>--</span><i class="sep">:</i><span data-m>--</span></span>
+            </span>
+            <span class="clock" title="Время в Хабаровске">
+              <span class="clock-k">Хбр</span>
+              <span class="clock-v"><span data-h>--</span><i class="sep">:</i><span data-m>--</span></span>
+            </span>
+          </span>
+          <a class="strip-link" href="namaz.html">Полное расписание<span class="arr"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 6h9M7 2.5 10.5 6 7 9.5"/></svg></span></a>
+        </div>
+      </div>
+      <div class="prayers">
+        <div class="prayer" data-t="03:10" data-gen="фаджра"><span class="prayer-k">Фаджр</span><span class="prayer-v">03:10</span></div>
+        <div class="prayer" data-t="05:25" data-sun="1"><span class="prayer-k">Восход</span><span class="prayer-v">05:25</span></div>
+        <div class="prayer" data-t="12:38" data-gen="зухра"><span class="prayer-k">Зухр</span><span class="prayer-v">12:38</span></div>
+        <div class="prayer" data-t="16:25" data-gen="асра"><span class="prayer-k">Аср</span><span class="prayer-v">16:25</span></div>
+        <div class="prayer" data-t="19:46" data-gen="магриба"><span class="prayer-k">Магриб</span><span class="prayer-v">19:46</span></div>
+        <div class="prayer" data-t="21:33" data-gen="иши"><span class="prayer-k">Иша</span><span class="prayer-v">21:33</span></div>
+        <div class="prayer prayer-jumua"><span class="prayer-k">Джума</span><span class="prayer-v">13:30</span></div>
+      </div>
+      <label class="theme-toggle" for="night" title="Переключить тему">
+        <span class="vh">Переключить тему</span>
+        <svg class="theme-day" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 13.2A8.6 8.6 0 1 1 10.8 3.5a6.8 6.8 0 0 0 9.7 9.7z"/></svg>
+        <svg class="theme-night" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.1M12 19.3v2.1M4.3 4.3l1.5 1.5M18.2 18.2l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.3 19.7l1.5-1.5M18.2 5.8l1.5-1.5"/></svg>
+      </label>
+    </div>
+  </div>
+
+  <header class="hdr" id="hdr">
+    <div class="hdr-in">
+      <a class="brand" href="index.html">
+        <span class="brand-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+  <defs>
+    <clipPath id="mkIn1"><circle cx="50" cy="50" r="44.6"/></clipPath>
+    <g id="mkStar1">
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4"/>
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4" transform="rotate(45 50 3.45)"/>
+    </g>
+  </defs>
+
+  <circle cx="50" cy="50" r="48.8" fill="none" stroke="#B98F22" stroke-width="1.3"/>
+  <circle cx="50" cy="50" r="44.6" fill="none" stroke="#B98F22" stroke-width="1.3"/>
+
+  <g fill="#B98F22">
+    <use href="#mkStar1"/>
+    <use href="#mkStar1" transform="rotate(45 50 50)"/>
+    <use href="#mkStar1" transform="rotate(90 50 50)"/>
+    <use href="#mkStar1" transform="rotate(135 50 50)"/>
+    <use href="#mkStar1" transform="rotate(180 50 50)"/>
+    <use href="#mkStar1" transform="rotate(225 50 50)"/>
+    <use href="#mkStar1" transform="rotate(270 50 50)"/>
+    <use href="#mkStar1" transform="rotate(315 50 50)"/>
+  </g>
+
+  <g clip-path="url(#mkIn1)" transform="translate(50 52) scale(1.15) translate(-50 -52)">
+    <g fill="#B98F22">
+      <path d="M72.6 39.5h5.6v34h-5.6z"/>
+      <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
+      <rect x="71.8" y="43.6" width="7.2" height="1.6"/>
+      <path d="M50 27.4c9.1 5.2 13.9 11.3 13.9 17.9 0 5.7-6.2 9.5-13.9 9.5s-13.9-3.8-13.9-9.5c0-6.6 4.8-12.7 13.9-17.9z"/>
+      <path d="M49.3 20.4a3.6 3.6 0 0 1 0 6.6 2.6 2.6 0 0 0 0-6.6z"/>
+      <path d="M30.4 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
+      <path d="M69.6 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
+      <path d="M24.5 54.2h51v19.3h-51z"/>
+      <path d="M19 73.5h62v4.4H19z"/>
+    </g>
+    <g class="cut">
+      <path d="M44.4 73.5V63.8a5.6 5.6 0 0 1 11.2 0v9.7z"/>
+      <path d="M31.6 62.6a2.7 2.7 0 0 1 5.4 0v7.4h-5.4z"/>
+      <path d="M63 62.6a2.7 2.7 0 0 1 5.4 0v7.4H63z"/>
+    </g>
+  </g>
+</svg></span>
+        <span>
+          <span class="brand-name">Духовное управление</span>
+          <span class="brand-sub">мусульман Дальнего Востока · Хабаровск</span>
+        </span>
+      </a>
+      <nav class="hdr-nav">
+        <a href="dumdv.html">ДУМ ДВ</a>
+        <a href="mecheti.html">Мечети</a>
+        <a href="namaz.html">Время намаза</a>
+        <a href="novosti.html">Новости</a>
+        <a class="active" href="translyaciya.html">Прямая трансляция</a>
+        <a href="stroitelstvo.html">Строительство</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-head" id="top">
+    <div class="sky" aria-hidden="true">
+      <div class="moon"></div>
+      <div class="star" style="left:1.5%;top:10.3%;animation-delay:-14.3s"></div>
+      <div class="star" style="left:4.5%;top:26.5%;animation-delay:-8.0s"></div>
+      <div class="star" style="left:8.3%;top:25.3%;animation-delay:-0.8s"></div>
+      <div class="star" style="left:13.3%;top:6.9%;animation-delay:-2.0s"></div>
+      <div class="star" style="left:17.1%;top:38.7%;animation-delay:-2.7s"></div>
+      <div class="star" style="left:20.3%;top:30.4%;animation-delay:-20.8s"></div>
+      <div class="star" style="left:25.3%;top:20.7%;animation-delay:-21.5s"></div>
+      <div class="star" style="left:27.4%;top:40.1%;animation-delay:-6.4s"></div>
+      <div class="star" style="left:31.6%;top:8.9%;animation-delay:-6.8s"></div>
+      <div class="star" style="left:37.6%;top:11.6%;animation-delay:-12.8s"></div>
+      <div class="star" style="left:40.8%;top:19.6%;animation-delay:-12.1s"></div>
+      <div class="star" style="left:42.8%;top:6.5%;animation-delay:-4.5s"></div>
+      <div class="star" style="left:48.7%;top:22.0%;animation-delay:-6.9s"></div>
+      <div class="star" style="left:52.2%;top:23.0%;animation-delay:-6.6s"></div>
+      <div class="star" style="left:56.7%;top:33.4%;animation-delay:-5.4s"></div>
+      <div class="star" style="left:59.8%;top:26.1%;animation-delay:-19.3s"></div>
+      <div class="star" style="left:64.2%;top:16.1%;animation-delay:-21.6s"></div>
+      <div class="star" style="left:66.1%;top:21.6%;animation-delay:-16.7s"></div>
+      <div class="star" style="left:70.0%;top:24.5%;animation-delay:-0.9s"></div>
+      <div class="star" style="left:75.5%;top:36.1%;animation-delay:-12.6s"></div>
+      <div class="star" style="left:80.0%;top:17.2%;animation-delay:-15.3s"></div>
+      <div class="star" style="left:82.9%;top:28.4%;animation-delay:-10.0s"></div>
+      <div class="star" style="left:87.6%;top:43.7%;animation-delay:-10.4s"></div>
+      <div class="star" style="left:90.8%;top:6.5%;animation-delay:-15.4s"></div>
+      <div class="star" style="left:94.6%;top:45.7%;animation-delay:-18.1s"></div>
+      <div class="star" style="left:97.0%;top:20.2%;animation-delay:-14.7s"></div>
+    </div>
+    <div class="wrap">
+      <h1>Прямая трансляция</h1>
+    </div>
+  </section>
+
+  <section class="lv" id="efir">
+    <div class="wrap">
+      <div class="lv-grid">
+        <!-- Когда появится поток: впишите его адрес в data/live.json → "embed".
+             Подойдёт ссылка вида https://www.youtube.com/embed/<id>.
+             Пока поле пустое, в окне стоит кадр площадки и честная подпись. -->
+        <div class="lv-frame" id="lvFrame">
+          <img class="lv-still" src="img/mechet-render.jpg" alt="Проект соборной мечети Хабаровска" decoding="async">
+          <div class="lv-over">
+            <span class="lv-state" id="lvState"><i aria-hidden="true"></i><span>Эфира нет</span></span>
+            <p class="lv-note" id="lvNote">Трансляция не идёт. Здесь показан проектный вид площадки — как только эфир включат, в этом окне появится прямой поток.</p>
+          </div>
+        </div>
+
+        <div class="lv-side">
+          <div class="lv-box">
+            <h3>Когда бывает эфир</h3>
+            <ul class="lv-when" id="lvWhen"></ul>
+          </div>
+          <div class="lv-box">
+            <h3>Где ещё смотреть</h3>
+            <div class="lv-links">
+              <a class="lv-link" href="https://www.youtube.com/@domvrayu" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.5 2.5 0 0 0-1.8 1.8A26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg>
+                YouTube
+              </a>
+              <a class="lv-link" href="https://t.me/domvrayu_mechet" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 4.3 2.9 11.4c-.9.3-.9 1.6 0 1.9l4.7 1.5 1.8 5.5c.2.7 1.1.9 1.6.3l2.6-2.9 4.8 3.5c.6.4 1.4.1 1.6-.6l3-14.6c.2-.8-.6-1.5-1.3-1.2zM9.6 14.1l9-5.6-7.3 6.9-.3 3.6-1.4-4.9z"/></svg>
+                Телеграм
+              </a>
+            </div>
+            <p class="lv-hint" id="lvHint">Запись прошедших эфиров и объявления о ближайших — на этих каналах.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacts">
+    <div class="foot">
+      <div>
+        <div class="foot-brand">
+          <span class="foot-badge"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+  <defs>
+    <clipPath id="mkIn2"><circle cx="50" cy="50" r="44.6"/></clipPath>
+    <g id="mkStar2">
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4"/>
+      <rect x="47.55" y="1" width="4.9" height="4.9" rx=".4" transform="rotate(45 50 3.45)"/>
+    </g>
+  </defs>
+
+  <circle cx="50" cy="50" r="48.8" fill="none" stroke="#B98F22" stroke-width="1.3"/>
+  <circle cx="50" cy="50" r="44.6" fill="none" stroke="#B98F22" stroke-width="1.3"/>
+
+  <g fill="#B98F22">
+    <use href="#mkStar2"/>
+    <use href="#mkStar2" transform="rotate(45 50 50)"/>
+    <use href="#mkStar2" transform="rotate(90 50 50)"/>
+    <use href="#mkStar2" transform="rotate(135 50 50)"/>
+    <use href="#mkStar2" transform="rotate(180 50 50)"/>
+    <use href="#mkStar2" transform="rotate(225 50 50)"/>
+    <use href="#mkStar2" transform="rotate(270 50 50)"/>
+    <use href="#mkStar2" transform="rotate(315 50 50)"/>
+  </g>
+
+  <g clip-path="url(#mkIn2)" transform="translate(50 52) scale(1.15) translate(-50 -52)">
+    <g fill="#B98F22">
+      <path d="M72.6 39.5h5.6v34h-5.6z"/>
+      <path d="M75.4 30.4c2.9 2.5 4.4 4.9 4.4 7.1h-8.8c0-2.2 1.5-4.6 4.4-7.1z"/>
+      <rect x="71.8" y="43.6" width="7.2" height="1.6"/>
+      <path d="M50 27.4c9.1 5.2 13.9 11.3 13.9 17.9 0 5.7-6.2 9.5-13.9 9.5s-13.9-3.8-13.9-9.5c0-6.6 4.8-12.7 13.9-17.9z"/>
+      <path d="M49.3 20.4a3.6 3.6 0 0 1 0 6.6 2.6 2.6 0 0 0 0-6.6z"/>
+      <path d="M30.4 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
+      <path d="M69.6 42.6c3.9 2.3 5.9 5.1 5.9 8.1 0 2.6-2.6 4.3-5.9 4.3s-5.9-1.7-5.9-4.3c0-3 2-5.8 5.9-8.1z"/>
+      <path d="M24.5 54.2h51v19.3h-51z"/>
+      <path d="M19 73.5h62v4.4H19z"/>
+    </g>
+    <g class="cut">
+      <path d="M44.4 73.5V63.8a5.6 5.6 0 0 1 11.2 0v9.7z"/>
+      <path d="M31.6 62.6a2.7 2.7 0 0 1 5.4 0v7.4h-5.4z"/>
+      <path d="M63 62.6a2.7 2.7 0 0 1 5.4 0v7.4H63z"/>
+    </g>
+  </g>
+</svg></span>
+          <span class="brand-name" style="font-size:19px;line-height:1.15">Духовное<br>управление</span>
+        </div>
+        <div class="foot-note" style="margin-top:18px">Централизованная религиозная организация в составе Центрального духовного управления мусульман России. Хабаровск.</div>
+        <div class="socials">
+          <a class="social" href="https://t.me/domvrayu_mechet" target="_blank" rel="noopener" aria-label="Telegram" style="background:#229ED9">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 4.2 3.7 10.6c-.9.3-.9 1.6.1 1.9l3.9 1.2 1.5 4.6c.3.8 1.3 1 1.8.3l2-2.4 3.9 2.9c.7.5 1.7.1 1.9-.7l2.7-12.6c.2-1-.8-1.8-1.8-1.6z" fill="#fff"/><path d="M8.1 14.2l8.4-6.1-6.4 7.1-.1 2.6z" fill="#cfeafc"/></svg>
+          </a>
+          <a class="social" href="novosti.html#contacts" aria-label="MAX">
+            <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
+              <defs><linearGradient id="mx" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#29b6f6"/><stop offset=".5" stop-color="#3b5bdb"/><stop offset="1" stop-color="#9c27d1"/></linearGradient></defs>
+              <rect width="48" height="48" rx="14" fill="url(#mx)"/>
+              <path d="M24 8.5c8.6 0 15.5 7 15.5 15.5S32.6 39.5 24 39.5c-2.5 0-4.9-.6-7-1.7l-4.6 1.5c-1 .3-1.9-.6-1.6-1.6l1.5-4.4A15.4 15.4 0 0 1 8.5 24C8.5 15.5 15.4 8.5 24 8.5z" fill="#fff"/>
+              <circle cx="24" cy="23.6" r="8" fill="url(#mx)"/>
+            </svg>
+          </a>
+          <a class="social" href="https://www.youtube.com/@domvrayu" target="_blank" rel="noopener" aria-label="YouTube" style="background:#fff;border:1px solid rgba(32,30,29,.14)">
+            <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M28.4 10.2c-.3-1.4-1.3-2.4-2.6-2.6C23.4 7.2 19.8 7 16 7s-7.4.2-9.8.6c-1.3.2-2.3 1.2-2.6 2.6C3.2 12 3 13.8 3 16s.2 4 .6 5.8c.3 1.4 1.3 2.4 2.6 2.6 2.4.4 6 .6 9.8.6s7.4-.2 9.8-.6c1.3-.2 2.3-1.2 2.6-2.6.4-1.8.6-3.6.6-5.8s-.2-4-.6-5.8z" fill="#ED1D24"/><path d="M13.2 20.6V11.4L21.4 16z" fill="#fff"/></svg>
+          </a>
+          <a class="social" href="https://rutube.ru/channel/45239569/" target="_blank" rel="noopener" aria-label="Rutube">
+            <svg width="46" height="46" viewBox="0 0 48 48" aria-hidden="true">
+              <rect width="48" height="48" rx="13" fill="#160C45"/>
+              <path d="M30 0h12a6 6 0 0 1 6 6v12A18 18 0 0 1 30 0z" fill="#EF1B4C"/>
+              <path fill="#fff" fill-rule="evenodd" d="M13.6 13h15c3.9 0 6.1 2.1 6.1 5.8v3.4c0 3.3-1.8 5.3-5.1 5.8L35.2 35h-6.9l-5.2-6.8H19.1V35h-5.5V13zm5.5 5.2v5h8.6c1.1 0 1.6-.4 1.6-1.4v-2.2c0-1-.5-1.4-1.6-1.4h-8.6z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Приёмная</h4>
+        <span>г. Хабаровск, ул. Быстринская, д. 3</span>
+        <a href="tel:+74212693372">+7 (4212) 69-33-72</a>
+        <a href="mailto:dumdv@yandex.ru">dumdv@yandex.ru</a>
+        <span>Часы приёма: 8:00 — 17:00</span>
+      </div>
+      <div class="foot-col">
+        <h4>Разделы</h4>
+        <a href="dumdv.html">О ДУМ ДВ</a>
+        <a href="namaz.html">Расписание намазов</a>
+        <a href="stroitelstvo.html">Ход строительства</a>
+        <a href="novosti.html">Новости</a>
+        <a href="mecheti.html">Мечети и приходы</a>
+        <a href="vopros.html">Вопрос имаму</a>
+      </div>
+    </div>
+    <div class="legal">
+      <div class="legal-in">
+        <span>Духовное управление мусульман Дальнего Востока в составе ЦДУМ России · Хабаровск</span>
+        <span>Реквизиты организации — подставить перед публикацией</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// живые часы: Москва и Хабаровск
+(function () {
+  var box = document.getElementById('clocks');
+  if (!box) return;
+  var zones = ['Europe/Moscow', 'Asia/Vladivostok'];   // Хабаровск — UTC+10
+  var slots = [];
+  var cells = box.querySelectorAll('.clock-v');
+  for (var i = 0; i < cells.length; i++) {
+    slots.push({
+      tz: zones[i],
+      h: cells[i].querySelector('[data-h]'),
+      m: cells[i].querySelector('[data-m]'),
+      was: ''
+    });
+  }
+  function part(tz, now) {
+    try {
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(now);
+    } catch (e) { return ''; }
+  }
+  function tick() {
+    var now = new Date();
+    for (var i = 0; i < slots.length; i++) {
+      var s = slots[i], v = part(s.tz, now);
+      if (!v || v === s.was) continue;        // пишем только когда минута сменилась
+      s.was = v;
+      var hm = v.split(':');
+      s.h.textContent = hm[0];
+      s.m.textContent = hm[1];
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+(function () {
+  var today = document.getElementById('today');
+  var hijriEl = document.getElementById('hijri');
+  var HIJRI_MONTHS = ['мухаррам', 'сафар', 'раби-уль-авваль', 'раби-уль-ахир', 'джумада-уль-уля', 'джумада-уль-ахира', 'раджаб', 'шаабан', 'рамадан', 'шавваль', 'зуль-каада', 'зуль-хиджа'];
+  function hijri(now) {
+    try {
+      var parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(now);
+      var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parseInt(parts[i].value, 10); return 0; };
+      return get('day') + ' ' + HIJRI_MONTHS[get('month') - 1] + ' ' + get('year');
+    } catch (e) { return ''; }
+  }
+  // секунды от полуночи по Хабаровску
+  function khbSeconds(now) {
+    var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Vladivostok', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).formatToParts(now);
+    var g = function (t) { for (var i = 0; i < p.length; i++) if (p[i].type === t) return parseInt(p[i].value, 10); return 0; };
+    return (g('hour') % 24) * 3600 + g('minute') * 60 + g('second');
+  }
+  var slots = [].slice.call(document.querySelectorAll('.prayer'));
+  function highlightNext(now) {
+    if (!slots.length) return;
+    var cur = khbSeconds(now), chosen = null;
+    for (var i = 0; i < slots.length; i++) {
+      slots[i].classList.remove('is-next');
+      if (slots[i].getAttribute('data-sun') || !slots[i].getAttribute('data-t')) continue;
+      var hm = slots[i].getAttribute('data-t').split(':');
+      var sec = parseInt(hm[0], 10) * 3600 + parseInt(hm[1], 10) * 60;
+      if (!chosen && sec > cur) chosen = slots[i];
+    }
+    if (!chosen) { for (var j = 0; j < slots.length; j++) { if (!slots[j].getAttribute('data-sun') && slots[j].getAttribute('data-t')) { chosen = slots[j]; break; } } }
+    if (chosen) chosen.classList.add('is-next');
+  }
+  function tick() {
+    var now = new Date();
+    today.textContent = new Intl.DateTimeFormat('ru-RU', { timeZone: 'Asia/Vladivostok', day: 'numeric', month: 'long', year: 'numeric' }).format(now).replace(' г.', '');
+    if (hijriEl) hijriEl.textContent = hijri(now);
+    highlightNext(now);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // герой подныривает ровно под карточку шапки, какой бы высоты она ни была
+  var heroEl = document.querySelector('.hero');
+  var hdrIn = document.querySelector('.hdr-in');
+  function syncHero() {
+    if (heroEl && hdrIn) heroEl.style.marginTop = (-hdrIn.offsetHeight) + 'px';
+  }
+  syncHero();
+  window.addEventListener('resize', syncHero);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncHero);
+
+  var hdr = document.getElementById('hdr');
+  function onScroll() {
+    if (window.scrollY > 40) hdr.classList.add('stuck');
+    else hdr.classList.remove('stuck');
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+/* Новости: данные из data/news.json — выгрузка REST API dumdv.ru.
+   Карусель без библиотек: CSS scroll-snap плюс немного скрипта.
+
+   ШАБЛОН КАРТОЧКИ для переноса в тему WordPress:
+     <a class="nf-card" href="<?php the_permalink(); ?>">
+       <div class="nf-shot"><?php the_post_thumbnail('large', ['loading'=>'lazy']); ?></div>
+       <div class="nf-veil"></div>
+       <div class="nf-in">
+         <span class="nf-cat"><?php echo get_the_category()[0]->name; ?></span>
+         <h3 class="nf-t"><?php the_title(); ?></h3>
+         <time class="nf-d" datetime="<?php echo get_the_date('c'); ?>"><?php echo get_the_date('j F Y'); ?></time>
+       </div>
+     </a>
+   Нет обложки — вместо .nf-shot выводится <div class="nf-stub">.
+   Нет заголовка — <h3> не выводится, остаются рубрика и дата. */
+// Прямая трансляция. Поток и расписание лежат в data/live.json —
+// там же текст, который виден, пока эфира нет. Ничего не выдумываем:
+// без адреса в "embed" окно честно показывает кадр площадки.
+(function () {
+  var frame = document.getElementById('lvFrame');
+  var state = document.getElementById('lvState');
+  var note = document.getElementById('lvNote');
+  var when = document.getElementById('lvWhen');
+  var hint = document.getElementById('lvHint');
+  if (!frame || !when) return;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  fetch('data/live.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
+    when.innerHTML = (d.schedule || []).map(function (x) {
+      return '<li><span style="order:2">' + esc(x.time) + '</span><b>' + esc(x.title) +
+        (x.note ? '<em>' + esc(x.note) + '</em>' : '') + '</b></li>';
+    }).join('');
+    if (d.hint) hint.textContent = d.hint;
+
+    if (d.embed) {
+      frame.innerHTML = '<iframe src="' + esc(d.embed) + '" title="Прямая трансляция" allowfullscreen ' +
+        'allow="accelerometer; autoplay; encrypted-media; picture-in-picture"></iframe>';
+      return;
+    }
+    if (d.offline) note.textContent = d.offline;
+    state.querySelector('span').textContent = d.stateText || 'Эфира нет';
+  }).catch(function () {
+    when.innerHTML = '<li><b>Расписание уточняется</b></li>';
+  });
+})();
+</script>
+</body>
+</html>

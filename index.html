@@ -504,49 +504,65 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   background:rgba(10,16,26,.66);color:rgba(255,255,255,.86);
   font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 
-/* ── события: крупные карточки с автопрокруткой ────────────────── */
+/* ── события: ряд карточек покомпактнее ────────────────────────── */
 .ev{background:var(--pg);padding:clamp(56px,7vw,100px) 0 clamp(40px,5vw,70px)}
 .ev-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:18px}
 .ev-head h2{font-size:clamp(30px,4vw,52px);line-height:1.1;color:var(--tx);margin:10px 0 0}
-.ev-row{display:grid;grid-auto-flow:column;gap:clamp(16px,2vw,28px);margin-top:clamp(26px,3.4vw,42px);
-  /* две карточки целиком и край третьей — видно, что ряд листается */
-  grid-auto-columns:calc((100% - 1.35 * clamp(16px,2vw,28px)) / 2.18);
-  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
-.ev-row::-webkit-scrollbar{display:none}
-@media (max-width:860px){.ev-row{grid-auto-columns:88%}}
+.ev-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(16px,2vw,26px);margin-top:clamp(26px,3.4vw,42px)}
+@media (max-width:980px){.ev-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ev-row{grid-template-columns:1fr}}
 
-.ev-card{position:relative;scroll-snap-align:start;display:block;text-decoration:none;
-  min-height:clamp(380px,46vw,560px);border-radius:4px;overflow:hidden;background:#10192a;color:#fff;
-  isolation:isolate}
+.ev-card{position:relative;display:block;text-decoration:none;isolation:isolate;
+  min-height:clamp(300px,27vw,380px);border-radius:16px;overflow:hidden;background:#10192a;color:#fff;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1),box-shadow .35s ease}
+.ev-card.seen{opacity:1;transform:none}
+.ev-card.seen:hover{transform:translateY(-6px);box-shadow:0 22px 46px rgba(8,14,26,.3)}
 .ev-shot{position:absolute;inset:0;z-index:1;overflow:hidden}
-.ev-shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
-.ev-card:hover .ev-shot img,.ev-card:focus-visible .ev-shot img{transform:scale(1.03)}
+.ev-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.ev-card:hover .ev-shot img,.ev-card:focus-visible .ev-shot img{transform:scale(1.06)}
 /* события без фото: не серый блок, а тёмный фон с золотым орнаментом */
 .ev-stub{position:absolute;inset:0;z-index:1;background:
   radial-gradient(circle at 50% 38%,rgba(185,143,34,.24),transparent 62%),
   linear-gradient(160deg,#16294a,#0B1726)}
 .ev-stub::after{content:"";position:absolute;left:50%;top:34%;transform:translate(-50%,-50%) rotate(45deg);
-  width:min(150px,34%);aspect-ratio:1;border:1px solid rgba(226,193,105,.4);
+  width:min(130px,34%);aspect-ratio:1;border:1px solid rgba(226,193,105,.4);
   background:
     radial-gradient(circle at 50% 50%,transparent 44%,rgba(226,193,105,.28) 44.5%,transparent 51%),
     linear-gradient(to right,transparent calc(50% - .5px),rgba(226,193,105,.28) calc(50% - .5px),rgba(226,193,105,.28) calc(50% + .5px),transparent calc(50% + .5px)),
     linear-gradient(to bottom,transparent calc(50% - .5px),rgba(226,193,105,.28) calc(50% - .5px),rgba(226,193,105,.28) calc(50% + .5px),transparent calc(50% + .5px))}
-.ev-veil{position:absolute;inset:0;z-index:2;
-  background:linear-gradient(to bottom,rgba(8,14,26,.2) 0%,rgba(8,14,26,0) 38%,rgba(8,14,26,.72) 72%,rgba(8,14,26,.94) 100%)}
+.ev-veil{position:absolute;inset:0;z-index:2;transition:background .35s ease;
+  background:linear-gradient(to bottom,rgba(8,14,26,.24) 0%,rgba(8,14,26,.02) 34%,rgba(8,14,26,.76) 70%,rgba(8,14,26,.95) 100%)}
+.ev-card:hover .ev-veil{background:linear-gradient(to bottom,rgba(8,14,26,.3) 0%,rgba(8,14,26,.08) 30%,rgba(8,14,26,.82) 68%,rgba(8,14,26,.97) 100%)}
+/* золотые уголки: собираются при наведении */
+.ev-corner{position:absolute;z-index:3;width:26px;height:26px;pointer-events:none;opacity:0;
+  transition:opacity .35s ease,width .35s ease,height .35s ease}
+.ev-corner.tl{left:14px;top:14px;border-left:1px solid rgba(226,193,105,.85);border-top:1px solid rgba(226,193,105,.85)}
+.ev-corner.br{right:14px;bottom:14px;border-right:1px solid rgba(226,193,105,.85);border-bottom:1px solid rgba(226,193,105,.85)}
+.ev-card:hover .ev-corner,.ev-card:focus-visible .ev-corner{opacity:1;width:40px;height:40px}
+
 .ev-in{position:relative;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;
-  min-height:inherit;height:100%;padding:clamp(22px,2.8vw,42px)}
-.ev-k{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#E2C169}
-.ev-t{margin:12px 0 0;font-family:"Golos Text",system-ui,sans-serif;
-  font-size:clamp(23px,2.7vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.01em;
+  min-height:inherit;height:100%;padding:clamp(18px,2vw,28px)}
+.ev-k{display:inline-flex;align-items:center;gap:9px;font-size:9.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:#E2C169}
+.ev-t{margin:10px 0 0;font-family:"Golos Text",system-ui,sans-serif;
+  font-size:clamp(19px,1.8vw,26px);font-weight:700;line-height:1.14;letter-spacing:-.01em;
   text-transform:uppercase;color:#fff}
-.ev-x{margin:14px 0 0;max-width:46ch;font-size:15px;line-height:1.65;color:rgba(255,255,255,.84)}
-.ev-more{display:inline-flex;align-items:center;gap:10px;margin-top:20px;
-  font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#E2C169}
+.ev-x{margin:10px 0 0;max-width:40ch;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.82);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ev-more{display:inline-flex;align-items:center;gap:9px;margin-top:14px;transition:gap .25s ease;
+  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#E2C169}
+.ev-card:hover .ev-more{gap:14px}
 .ev-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-/* то, что идёт прямо сейчас, выделено рамкой и живой точкой */
-.ev-card.ev-live{box-shadow:inset 0 0 0 2px rgba(226,193,105,.85),0 16px 40px rgba(8,14,26,.28)}
-.ev-k{display:inline-flex;align-items:center;gap:9px}
+/* то, что идёт прямо сейчас: золотая рамка, живая точка и блик по кромке */
+.ev-card.ev-live{box-shadow:inset 0 0 0 2px rgba(226,193,105,.85)}
+.ev-card.ev-live.seen:hover{box-shadow:inset 0 0 0 2px rgba(226,193,105,.95),0 22px 46px rgba(8,14,26,.32)}
+.ev-glow{position:absolute;z-index:4;left:0;top:0;height:2px;width:38%;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,240,196,.95),transparent);
+  animation:evSweep 3.6s ease-in-out infinite}
+@keyframes evSweep{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
 .ev-pulse{width:8px;height:8px;border-radius:50%;background:#E2C169;flex:none;
   box-shadow:0 0 0 0 rgba(226,193,105,.65);animation:evPulse 2.2s ease-out infinite}
 @keyframes evPulse{
@@ -554,36 +570,13 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   70%{box-shadow:0 0 0 9px rgba(226,193,105,0)}
   100%{box-shadow:0 0 0 0 rgba(226,193,105,0)}
 }
-@media (prefers-reduced-motion:reduce){.ev-pulse{animation:none}}
-
-.ev-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:22px}
-.ev-dots{display:flex;align-items:center;gap:12px}
-/* кружок-таймер: обводка добегает круг за время показа карточки */
-.ev-dot{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
-.ev-dot i{display:block;width:6px;height:6px;border-radius:50%;background:var(--brd);
-  grid-area:1/1;transition:background .25s ease}
-.ev-dot.on i{background:var(--gold)}
-.ev-dot svg{grid-area:1/1;width:22px;height:22px;transform:rotate(-90deg);opacity:0}
-.ev-dot.on svg{opacity:1}
-.ev-dot svg circle{fill:none;stroke:var(--gold);stroke-width:1.6;
-  stroke-dasharray:59;stroke-dashoffset:59}
-.ev-dot.on.run svg circle{animation:evTick var(--dur,7s) linear forwards}
-@keyframes evTick{to{stroke-dashoffset:0}}
-.ev-dot:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:50%}
-
-.ev-arrows{display:flex;gap:10px}
-.ev-arr{width:44px;height:44px;border-radius:50%;border:1px solid var(--brd);background:transparent;
-  color:var(--tx);cursor:pointer;display:grid;place-items:center;
-  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
-.ev-arr:hover:not(:disabled){border-color:var(--gold);background:rgba(185,143,34,.1)}
-.ev-arr:disabled{opacity:.32;cursor:default}
-.ev-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.ev-arr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 @media (prefers-reduced-motion:reduce){
-  .ev-shot img{transition:none}
-  .ev-card:hover .ev-shot img{transform:none}
-  .ev-dot.on.run svg circle{animation:none;stroke-dashoffset:0}
+  .ev-card{opacity:1;transform:none;transition:none}
+  .ev-card.seen:hover{transform:none}
+  .ev-shot img,.ev-card:hover .ev-shot img{transition:none;transform:none}
+  .ev-pulse{animation:none}
+  .ev-glow{display:none}
 }
 </style>
 </head>
@@ -701,6 +694,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         <a href="mecheti.html">Мечети</a>
         <a href="namaz.html">Время намаза</a>
         <a href="novosti.html">Новости</a>
+        <a href="translyaciya.html">Прямая трансляция</a>
         <a href="stroitelstvo.html">Строительство</a>
       </nav>
     </div>
@@ -870,19 +864,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         </div>
       </div>
 
-      <div class="ev-row" id="evRow" tabindex="0" role="region" aria-label="Лента событий"></div>
-
-      <div class="ev-bar">
-        <div class="ev-dots" id="evDots"></div>
-        <div class="ev-arrows">
-          <button class="ev-arr" id="evPrev" type="button" aria-label="Предыдущее событие">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
-          </button>
-          <button class="ev-arr" id="evNext" type="button" aria-label="Следующее событие">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
+      <div class="ev-row" id="evRow"></div>
+    </div>
     </div>
   </section>
 
@@ -1128,16 +1111,10 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
   }).catch(function () { /* раздел новостей остаётся доступен по ссылке */ });
 })();
 
-// События: крупные карточки, сами листаются; кружок у точки — таймер показа.
+// События: карточки из data/events.json, текущее помечено флагом live.
 (function () {
   var row = document.getElementById('evRow');
-  var dotsBox = document.getElementById('evDots');
-  var prev = document.getElementById('evPrev');
-  var next = document.getElementById('evNext');
   if (!row) return;
-
-  var HOLD = 7000;                                  // сколько держится карточка
-  var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -1155,7 +1132,11 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
         (e.cover
           ? '<div class="ev-shot"><img src="' + esc(e.cover) + '" loading="lazy" decoding="async" alt="' + esc(e.title) + '"></div>'
           : '<div class="ev-stub" aria-hidden="true"></div>') +
-        '<div class="ev-veil"></div><div class="ev-in">' +
+        '<div class="ev-veil"></div>' +
+        '<span class="ev-corner tl" aria-hidden="true"></span>' +
+        '<span class="ev-corner br" aria-hidden="true"></span>' +
+        (e.live ? '<span class="ev-glow" aria-hidden="true"></span>' : '') +
+        '<div class="ev-in">' +
         (e.kicker ? '<span class="ev-k">' + (e.live ? '<i class="ev-pulse" aria-hidden="true"></i>' : '') +
           esc(e.kicker) + '</span>' : '') +
         (e.title ? '<h3 class="ev-t">' + esc(e.title) + '</h3>' : '') +
@@ -1165,68 +1146,22 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     }).join('');
 
     var cards = [].slice.call(row.children);
-    dotsBox.innerHTML = cards.map(function (c, i) {
-      return '<button class="ev-dot" type="button" aria-label="Событие ' + (i + 1) + '" data-i="' + i + '">' +
-        '<i></i><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9.4"/></svg></button>';
-    }).join('');
-    var dots = [].slice.call(dotsBox.children);
-    dots.forEach(function (d) { d.style.setProperty('--dur', (HOLD / 1000) + 's'); });
-
-    function step() {
-      var a = cards[0].getBoundingClientRect();
-      var b = cards[1] ? cards[1].getBoundingClientRect() : null;
-      return b ? (b.left - a.left) : a.width;
+    var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slow || !('IntersectionObserver' in window)) {
+      cards.forEach(function (c) { c.classList.add('seen'); });
+      return;
     }
-    function maxScroll() { return row.scrollWidth - row.clientWidth; }
-    function index() { return Math.min(Math.round(row.scrollLeft / (step() || 1)), cards.length - 1); }
-
-    function mark(i) {
-      dots.forEach(function (d, n) {
-        d.classList.toggle('on', n === i);
-        d.classList.remove('run');
-        if (n === i) { void d.offsetWidth; d.classList.add('run'); }  // перезапуск таймера
+    var io = new IntersectionObserver(function (rows) {
+      rows.forEach(function (r) {
+        if (!r.isIntersecting) return;
+        r.target.style.transitionDelay = (cards.indexOf(r.target) * 0.09) + 's';
+        r.target.classList.add('seen');
+        io.unobserve(r.target);
       });
-      prev.disabled = row.scrollLeft <= 2;
-      next.disabled = row.scrollLeft >= maxScroll() - 2;
-    }
-
-    var timer = null, paused = false;
-    function go(i) {
-      var max = cards.length - 1;
-      if (i > max) i = 0;
-      if (i < 0) i = max;
-      row.scrollTo({ left: i * step(), behavior: 'smooth' });
-    }
-    function plan() {
-      clearTimeout(timer);
-      if (slow || paused || cards.length < 2) return;
-      timer = setTimeout(function () { go(index() + 1); }, HOLD);
-    }
-
-    row.addEventListener('scroll', function () { mark(index()); plan(); }, { passive: true });
-    window.addEventListener('resize', function () { mark(index()); });
-
-    // при наведении и фокусе прокрутка замирает, чтобы не уезжала из-под курсора
-    ['mouseenter', 'focusin'].forEach(function (ev) {
-      row.addEventListener(ev, function () { paused = true; clearTimeout(timer); });
-    });
-    ['mouseleave', 'focusout'].forEach(function (ev) {
-      row.addEventListener(ev, function () { paused = false; plan(); });
-    });
-
-    prev.addEventListener('click', function () { go(index() - 1); });
-    next.addEventListener('click', function () { go(index() + 1); });
-    dotsBox.addEventListener('click', function (e) {
-      var d = e.target.closest('.ev-dot');
-      if (d) go(+d.getAttribute('data-i'));
-    });
-    row.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(index() + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(index() - 1); }
-    });
-
-    mark(0);
-    plan();
+    }, { threshold: .2 });
+    cards.forEach(function (c) { io.observe(c); });
+    // если наблюдатель молчит (бывает в фоновой вкладке), показываем всё равно
+    setTimeout(function () { cards.forEach(function (c) { c.classList.add('seen'); }); }, 2500);
   }).catch(function () {});
 })();
 
