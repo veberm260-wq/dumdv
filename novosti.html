@@ -390,30 +390,7 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 .nf-lead .nf-t{font-size:clamp(21px,3vw,42px);max-width:22ch}
 .nf-lead .nf-in{padding:clamp(22px,3vw,44px)}
 
-/* лента */
-.nf-rowwrap{margin-top:clamp(20px,2.6vw,30px)}
-.nf-row{display:grid;grid-auto-flow:column;gap:clamp(14px,1.8vw,24px);
-  /* на компьютере видно две карточки и край третьей — ясно, что ряд листается */
-  grid-auto-columns:calc((100% - 2 * clamp(14px,1.8vw,24px)) / 2.35);
-  overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
-.nf-row::-webkit-scrollbar{display:none}
-.nf-row > .nf-card{scroll-snap-align:start;height:clamp(290px,34vw,400px)}
-.nf-row .nf-t{font-size:clamp(17px,1.6vw,22px)}
-@media (max-width:760px){.nf-row{grid-auto-columns:86%}}
 
-.nf-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}
-.nf-dots{display:flex;gap:7px;flex-wrap:wrap}
-.nf-dot{width:7px;height:7px;border-radius:50%;background:var(--brd);border:0;padding:0;cursor:pointer;
-  transition:background .25s ease,width .25s ease}
-.nf-dot.on{width:20px;border-radius:999px;background:var(--gold)}
-.nf-arrows{display:flex;gap:10px}
-.nf-arr{width:46px;height:46px;border-radius:50%;border:1px solid var(--brd);background:transparent;
-  color:var(--tx);cursor:pointer;display:grid;place-items:center;
-  transition:border-color .2s ease,background .2s ease,opacity .2s ease}
-.nf-arr:hover:not(:disabled){border-color:var(--gold);background:rgba(185,143,34,.1)}
-.nf-arr:disabled{opacity:.32;cursor:default}
-.nf-arr:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.nf-arr svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* сетка и фильтр */
 .nf-filters{display:flex;flex-wrap:wrap;gap:9px;margin-top:clamp(20px,2.6vw,30px)}
@@ -606,22 +583,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
     <div class="wrap">
       <span class="nf-kicker">Последнее</span>
       <div id="nfLead" class="nf-load">Загружаем новости…</div>
-
-      <h2 style="margin-top:clamp(44px,5vw,70px)">Ещё новости</h2>
-      <div class="nf-rowwrap">
-        <div class="nf-row" id="nfRow" tabindex="0" role="region" aria-label="Лента новостей"></div>
-      </div>
-      <div class="nf-bar">
-        <div class="nf-dots" id="nfDots" role="tablist" aria-label="Положение в ленте"></div>
-        <div class="nf-arrows">
-          <button class="nf-arr" id="nfPrev" type="button" aria-label="Предыдущие новости">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
-          </button>
-          <button class="nf-arr" id="nfNext" type="button" aria-label="Следующие новости">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
 
       <h2 style="margin-top:clamp(52px,6vw,86px)">Все новости</h2>
       <div class="nf-filters" id="nfFilters" role="group" aria-label="Фильтр по рубрикам"></div>
@@ -842,13 +803,9 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
    Нет заголовка — <h3> не выводится, остаются рубрика и дата. */
 (function () {
   var lead = document.getElementById('nfLead');
-  var row = document.getElementById('nfRow');
-  var dotsBox = document.getElementById('nfDots');
   var grid = document.getElementById('nfGrid');
   var filters = document.getElementById('nfFilters');
-  var prev = document.getElementById('nfPrev');
-  var next = document.getElementById('nfNext');
-  if (!lead || !row || !grid) return;
+  if (!lead || !grid) return;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -893,9 +850,6 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
 
     lead.className = '';
     lead.innerHTML = card(posts[0], 'nf-lead', '100vw');
-    row.innerHTML = posts.slice(1).map(function (p) {
-      return card(p, '', '(max-width:760px) 86vw, 42vw');
-    }).join('');
     grid.innerHTML = posts.map(tile).join('');
 
     var cats = [];
@@ -914,60 +868,8 @@ footer{background:var(--srf);border-top:1px solid var(--brd);color:var(--tx)}
       });
     });
 
-    setupRow();
   }).catch(function () { lead.textContent = 'Не удалось загрузить новости.'; });
 
-  function setupRow() {
-    var cards = [].slice.call(row.children);
-    if (!cards.length) return;
-    function step() {
-      var a = cards[0].getBoundingClientRect();
-      var b = cards[1] ? cards[1].getBoundingClientRect() : null;
-      return b ? (b.left - a.left) : a.width;
-    }
-    function maxScroll() { return row.scrollWidth - row.clientWidth; }
-
-    dotsBox.innerHTML = cards.map(function (c, i) {
-      return '<button class="nf-dot" type="button" role="tab" aria-label="Новость ' + (i + 1) +
-        '" data-i="' + i + '"></button>';
-    }).join('');
-    var dots = [].slice.call(dotsBox.children);
-
-    function sync() {
-      var x = row.scrollLeft, s = step() || 1;
-      var i = Math.min(Math.round(x / s), dots.length - 1);
-      dots.forEach(function (d, n) {
-        d.classList.toggle('on', n === i);
-        d.setAttribute('aria-selected', n === i ? 'true' : 'false');
-      });
-      prev.disabled = x <= 2;
-      next.disabled = x >= maxScroll() - 2;
-    }
-    function slide(dir) { row.scrollBy({ left: dir * step(), behavior: 'smooth' }); }
-
-    prev.addEventListener('click', function () { slide(-1); });
-    next.addEventListener('click', function () { slide(1); });
-    dotsBox.addEventListener('click', function (e) {
-      var d = e.target.closest('.nf-dot');
-      if (d) row.scrollTo({ left: (+d.getAttribute('data-i')) * step(), behavior: 'smooth' });
-    });
-    row.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); slide(1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); slide(-1); }
-    });
-    // колесо переводим в горизонталь только пока ряд не доехал до края,
-    // иначе страница перестанет листаться над этим блоком
-    row.addEventListener('wheel', function (e) {
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-      var x = row.scrollLeft;
-      if ((e.deltaY < 0 && x <= 0) || (e.deltaY > 0 && x >= maxScroll() - 1)) return;
-      e.preventDefault();
-      row.scrollLeft = x + e.deltaY;
-    }, { passive: false });
-    row.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync);
-    sync();
-  }
 })();
 </script>
 </body>
